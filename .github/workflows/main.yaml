@@ -3,7 +3,6 @@
 name:  Test, build and deploy Flutter app
 # Trigger the workflow on push or pull request
 on: [push,pull_request]
-branches: master
 #A workflow run is made up of one or more jobs. Jobs run in parallel by default.
 jobs:
   test:
