@@ -44,8 +44,8 @@ jobs:
           java-version: '12.x'
       #enable macos,windows   and  web
       - run: flutter  config --enable-web
-      - run: flutter  config --enable-macos-desktop
-      - run: flutter  config --enable-windows-desktop
+      #- run: flutter  config --enable-macos-desktop
+      #- run: flutter  config --enable-windows-desktop
       - run: flutter pub get
       # build Android version
       - run: flutter build apk --debug --split-per-abi
