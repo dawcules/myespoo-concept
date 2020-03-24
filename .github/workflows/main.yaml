@@ -5,7 +5,6 @@ name:  Test, build and deploy Flutter app
 on: [push,pull_request]
 #A workflow run is made up of one or more jobs. Jobs run in parallel by default.
 jobs:
-
   test:
     #The type of machine to run the job on. [windows,macos, ubuntu , self-hosted]
     runs-on: macos-latest
@@ -43,14 +42,11 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
-      #enable linux,macos,windows   and  web
+      #enable macos,windows   and  web
       - run: flutter  config --enable-web
-      - run: flutter  config --enable-linux-desktop
       - run: flutter  config --enable-macos-desktop
       - run: flutter  config --enable-windows-desktop
       - run: flutter pub get
-      # build macOS desktop version
-      - run: flutter build macos --release
       # build Android version
       - run: flutter build apk --debug --split-per-abi
       # This action will create a github release and optionally upload an artifact to it.
