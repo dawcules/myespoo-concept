@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1044301582240",
+    "firebase_url": "https://cityprog-24974.firebaseio.com",
+    "project_id": "cityprog-24974",
+    "storage_bucket": "cityprog-24974.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1044301582240:android:fdfd1f154df168a7e6dec5",
+        "android_client_info": {
+          "package_name": "com.example.cityprog"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1044301582240-p2bnohcqh4qjt8c7ums87h96dbk6vpl9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrYqY8optvP8lHc3D-iK24YNYo6mkgkZI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1044301582240-p2bnohcqh4qjt8c7ums87h96dbk6vpl9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
