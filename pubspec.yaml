@@ -31,6 +31,10 @@ dependencies:
 
   speech_recognition: ^0.3.0+1
 
+  permission_handler: ^5.0.0+hotfix.3
+
+  toast: ^0.1.5
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
