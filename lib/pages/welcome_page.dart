@@ -1,3 +1,4 @@
+import '../sensor_utils/speech_recog.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -7,7 +8,13 @@ class WelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
-        body: Center(child: generateNavigationButtons(context)),
+        body: Center(
+            child: Column(
+          children: <Widget>[
+            generateNavigationButtons(context),
+          ],
+          mainAxisAlignment: MainAxisAlignment.center,
+        )),
       ),
     );
   }
@@ -21,8 +28,9 @@ class WelcomePage extends StatelessWidget {
           heroTag: "nav_home",
           onPressed: () => Navigator.of(context).pushNamed(
             "/home",
-            arguments: "Pitäiskö poistaa app bar?", // argumentsiin voi laittaa mitä vaan, esim konstruktorin data. 
-          ),                                        // -- täs tapaukses arguments muuttuu AppBar titleks
+            arguments:
+                "Pitäiskö poistaa app bar?", // argumentsiin voi laittaa mitä vaan, esim konstruktorin data.
+          ), // -- täs tapaukses arguments muuttuu AppBar titleks
         ),
         Padding(padding: EdgeInsets.all(8)),
         FloatingActionButton(

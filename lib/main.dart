@@ -15,7 +15,6 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       onGenerateRoute: (settings) => Router.generateRoute(settings),
-      home: MyHomePage(title: 'Cityproggis'),
     );
   }
 }
