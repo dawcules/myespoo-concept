@@ -11,6 +11,7 @@ class WelcomePage extends StatelessWidget {
         body: Center(
             child: Column(
           children: <Widget>[
+            SpeechToRoute(),
             generateNavigationButtons(context),
           ],
           mainAxisAlignment: MainAxisAlignment.center,
