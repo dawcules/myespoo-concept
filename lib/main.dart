@@ -13,12 +13,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-<<<<<<< HEAD
       initialRoute: '/',
       onGenerateRoute: (settings) => Router.generateRoute(settings),
-=======
       home: MyHomePage(title: 'Cityproggis'),
->>>>>>> d62cfa4d1082c0b07d896a3673d56db156816965
     );
   }
 }
@@ -65,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           EdgeInsets.only(right: 40.0, left: 40.0, bottom: 5.0),
                       height: 50,
                       color: Colors.blue[colorCodes[index]],
-                      child: Center(child: Text('Entry ${entries[index]}')),
+                      child: Center(child: Text('${entries[index]}')),
                     );
                   }),
               new Row(
