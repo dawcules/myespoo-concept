@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './router.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -11,7 +13,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+<<<<<<< HEAD
+      initialRoute: '/',
+      onGenerateRoute: (settings) => Router.generateRoute(settings),
+=======
       home: MyHomePage(title: 'Cityproggis'),
+>>>>>>> d62cfa4d1082c0b07d896a3673d56db156816965
     );
   }
 }
