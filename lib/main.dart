@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:firebase/firebase.dart';
+// import 'package:firebase/firebase.dart';
 
 import './router.dart';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-
-  void main() {
-  initializeApp(
+void main() {
+  /* initializeApp(
     apiKey: " AIzaSyCrYqY8optvP8lHc3D-iK24YNYo6mkgkZI",
     authDomain: "localhost",
     databaseURL: "https://cityprog-24974.firebaseio.com/",
     projectId: "cityprog-24974",
-    storageBucket: "gs://cityprog-24974.appspot.com/");
-}
+    storageBucket: "gs://cityprog-24974.appspot.com/"); */
+
+    runApp(MyApp());
+    }
+
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+
 
   @override
   Widget build(BuildContext context) {
