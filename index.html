@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="cityprog">
+  <script src="main.dart.js" type="application/javascript"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-firestore.js"></script>
+
+  <script>
+   if ('serviceWorker' in navigator) {
+     window.addEventListener('load', function () {
+       navigator.serviceWorker.register('flutter_service_worker.js');
+     });
+   }
+ </script>
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/png" href="favicon.png"/>
+  <title>cityprog</title>
+  <link rel="manifest" href="manifest.json">
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyAtHq48TkTxtFgCO_OvyNCS10QFWr2rXBo",
+        authDomain: "cityprog-24974.firebaseapp.com",
+        databaseURL: "https://cityprog-24974.firebaseio.com",
+        projectId: "cityprog-24974",
+        storageBucket: "cityprog-24974.appspot.com",
+        messagingSenderId: "1044301582240",
+        appId: "1:1044301582240:web:d33b1fc254ef328de6dec5",
+        measurementId: "G-QXEVDNCDP8"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+</head>
+<body>
+</body>
+</html>
