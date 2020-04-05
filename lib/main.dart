@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               new Text(
                 'Cityproggis',
-                style: TextStyle(color: Colors.blue, fontSize: 50),
+                // style: TextStyle(color: Colors.blue, fontSize: 50),
               ),
               ListView.builder(
                   scrollDirection: Axis.vertical,
