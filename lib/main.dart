@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-// import 'package:firebase/firebase.dart';
-
+import 'package:fb_auth/fb_auth.dart';
 import './router.dart';
 
 void main() {
-  /* initializeApp(
+  FbApp(
     apiKey: " AIzaSyCrYqY8optvP8lHc3D-iK24YNYo6mkgkZI",
     authDomain: "localhost",
     databaseURL: "https://cityprog-24974.firebaseio.com/",
     projectId: "cityprog-24974",
-    storageBucket: "gs://cityprog-24974.appspot.com/"); */
+    storageBucket: "gs://cityprog-24974.appspot.com/");
 
     runApp(MyApp());
     }
