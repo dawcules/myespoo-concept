@@ -17,7 +17,7 @@ class _SpeechToRouteState extends State<SpeechToRoute>
     with TickerProviderStateMixin {
   AnimationController _controller;
 
-  bool _hasSpeech = false;
+  //bool _hasSpeech = false;
   bool _hasPermissions = false;
 
   double level = 0.0;
@@ -29,10 +29,25 @@ class _SpeechToRouteState extends State<SpeechToRoute>
 
   final SpeechToText speech = SpeechToText();
 
-  final List<String> communityMatchers = const ["community", "commune"];
-  final List<String> homeMatchers = const ["home", "ho"];
-  final List<String> personalMatchers = const ["personal", "personnel"];
-  final List<String> introductionMatchers = const ["introduction", "intro"];
+  final List<String> communityMatchers = const [
+    "community",
+    "commune",
+    "yhteisö"
+  ];
+  final List<String> homeMatchers = const ["home", "ho", "koti", "kotiin"];
+  final List<String> personalMatchers = const [
+    "personal",
+    "personnel",
+    "oma",
+    "omaan"
+  ];
+  final List<String> introductionMatchers = const [
+    "introduction",
+    "intro",
+    "apu",
+    "tutustu",
+    "apuun"
+  ];
 
   @override
   void initState() {
@@ -51,9 +66,9 @@ class _SpeechToRouteState extends State<SpeechToRoute>
 
     if (!mounted) return;
 
-    setState(() {
-      _hasSpeech = hasSpeech;
-    });
+    // setState(() {
+    //   _hasSpeech = hasSpeech;
+    // });
   }
 
   Future<bool> checkPermissionsGrantedAsync() async {
@@ -89,19 +104,24 @@ class _SpeechToRouteState extends State<SpeechToRoute>
   void _evaluateSpeech() {
     print(lastWords);
     List<String> wordsToList = lastWords.split(" ");
-    if (lastWords.startsWith("navigate")) {
+    if (lastWords.startsWith("navigate") || lastWords.startsWith("navigoi")) {
       for (var word in wordsToList) {
         switch (word[0]) {
+          case "y":
           case "c":
             _navigateIfMatch(word, Routes.COMMUNITY);
             break;
+          case "k":
           case "h":
             _navigateIfMatch(word, Routes.HOME);
             break;
+          case "o":
           case "p":
             _navigateIfMatch(word, Routes.PERSONAL);
             break;
+          case "a":
           case "i":
+          case "t":
             _navigateIfMatch(word, Routes.INTRO);
             break;
         }
@@ -168,25 +188,25 @@ class _SpeechToRouteState extends State<SpeechToRoute>
 
   Widget activateSpeechButtonNoText(double radius) {
     return GestureDetector(
-      child: Icon(Icons.mic, size: radius),
-      onLongPress: () {
-        if (_hasPermissions) {
+        child: Icon(Icons.mic, size: radius),
+        onLongPress: () {
+          if (_hasPermissions) {
+            setState(() {
+              _controller.forward();
+            });
+            startListening();
+          } else {
+            requestPermissionsAsync();
+          }
+        },
+        onLongPressUp: () {
           setState(() {
-            _controller.forward();
+            stopListening();
+            _controller.reset();
           });
-          startListening();
-        } else {
-          requestPermissionsAsync();
-        }
-      },
-      onLongPressUp: () {
-        setState(() {
-          stopListening();
-          _controller.reset();
-        });
-      },
-      onTap: () => Toast.show("Hold and speak", context, duration: Toast.LENGTH_LONG)
-    );
+        },
+        onTap: () =>
+            Toast.show("Hold and speak", context, duration: Toast.LENGTH_LONG));
   }
 
   void startListening() {
