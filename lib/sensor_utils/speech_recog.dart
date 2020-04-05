@@ -168,12 +168,12 @@ class _SpeechToRouteState extends State<SpeechToRoute>
     }
   }
 
-  void _clearState() {
-    setState(() {
-      lastWords = "";
-      // _matchFound = false;
-    });
-  }
+  // void _clearState() {
+  //   setState(() {
+  //     lastWords = "";
+  //     // _matchFound = false;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
