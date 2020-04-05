@@ -38,3 +38,27 @@ class Router {
     });
   }
 }
+
+enum Routes { HOME, PERSONAL, COMMUNITY, INTRO }
+
+extension RoutePaths on Routes {
+  String get name {
+    switch (this) {
+      case Routes.HOME:
+        return "/home";
+        break;
+      case Routes.PERSONAL:
+        return "/personal";
+        break;
+      case Routes.COMMUNITY:
+        return "/community";
+        break;
+      case Routes.INTRO:
+        return "/introduction";
+        break;
+      default:
+        return "lookslikea404";
+        break;
+    }
+  }
+}
