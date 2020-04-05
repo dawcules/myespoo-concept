@@ -1,62 +1,59 @@
 import 'package:flutter/material.dart';
-import 'package:speech_recognition/speech_recognition.dart';
 import 'package:permission_handler/permission_handler.dart';
-// import 'package:toast/toast.dart';
+import 'package:speech_to_text/speech_recognition_error.dart';
+import 'package:speech_to_text/speech_recognition_result.dart';
+import 'package:speech_to_text/speech_to_text.dart';
+import 'package:toast/toast.dart';
+import 'dart:async';
+
+import '../router.dart';
 
 class SpeechToRoute extends StatefulWidget {
   @override
   _SpeechToRouteState createState() => _SpeechToRouteState();
 }
 
-// iOS:lle dependencyt jossain vaiheessa, kun tulee vastaan!
+class _SpeechToRouteState extends State<SpeechToRoute>
+    with TickerProviderStateMixin {
+  AnimationController _controller;
 
-class _SpeechToRouteState extends State<SpeechToRoute> {
-  SpeechRecognition _speechRecognition;
-  bool _isAvailable = false;
-  bool _isListening = false;
-  bool _isEvaluating = false;
+  bool _hasSpeech = false;
   bool _hasPermissions = false;
+
+  double level = 0.0;
+
+  String lastWords = "";
+  String lastError = "";
+  String lastStatus = "";
+  String _currentLocaleId = "";
+
+  final SpeechToText speech = SpeechToText();
 
   final List<String> communityMatchers = const ["community", "commune"];
   final List<String> homeMatchers = const ["home", "ho"];
   final List<String> personalMatchers = const ["personal", "personnel"];
   final List<String> introductionMatchers = const ["introduction", "intro"];
 
-  String resultText = "";
-
   @override
   void initState() {
     super.initState();
-    initSpeechRecognizer();
+    initSpeechState();
+    _initAnimationController();
   }
 
-  void initSpeechRecognizer() {
-    _speechRecognition = SpeechRecognition();
+  Future<void> initSpeechState() async {
+    bool hasSpeech = await speech.initialize(
+        onError: errorListener, onStatus: (statusListener));
+    if (hasSpeech) {
+      var systemLocale = await speech.systemLocale();
+      _currentLocaleId = systemLocale.localeId;
+    }
 
-    _speechRecognition.setAvailabilityHandler(
-      (bool result) => setState(() => _isAvailable = result),
-    );
+    if (!mounted) return;
 
-    _speechRecognition.setRecognitionStartedHandler(
-      () => setState(() => _isListening = true),
-    );
-
-    _speechRecognition.setRecognitionResultHandler(
-      (String speech) => setState(() => resultText = speech),
-    );
-
-    _speechRecognition.setRecognitionCompleteHandler(
-      () => setState(() {
-        _isListening = false;
-        if (!_isEvaluating) {
-          _evaluateSpeech();
-        }
-      }),
-    );
-
-    _speechRecognition.activate().then(
-          (result) => setState(() => _isAvailable = result),
-        );
+    setState(() {
+      _hasSpeech = hasSpeech;
+    });
   }
 
   Future<bool> checkPermissionsGrantedAsync() async {
@@ -68,121 +65,178 @@ class _SpeechToRouteState extends State<SpeechToRoute> {
     PermissionStatus request = await Permission.microphone.request();
     if (request.isGranted) {
       setState(() => _hasPermissions = true);
-      _listen();
+      startListening();
+      _controller.forward();
     }
   }
 
-  void _navigateWithoutData(String route) {
+  void _initAnimationController() {
+    _controller = AnimationController(
+      vsync: this,
+      lowerBound: 0.25,
+      duration: Duration(milliseconds: 200),
+    );
+  }
+
+  void _navigateWithoutArgs(String route) {
     Navigator.of(context).pushNamed(route);
   }
 
+  void _navigateWithArgs(String route, dynamic args) {
+    Navigator.of(context).pushNamed(route, arguments: args);
+  }
+
   void _evaluateSpeech() {
-    setState(() {
-      _isEvaluating = true;
-    });
+    print(lastWords);
+    List<String> wordsToList = lastWords.split(" ");
+    if (lastWords.startsWith("navigate")) {
+      for (var word in wordsToList) {
+        switch (word[0]) {
+          case "c":
+            _navigateIfMatch(word, Routes.COMMUNITY);
+            break;
+          case "h":
+            _navigateIfMatch(word, Routes.HOME);
+            break;
+          case "p":
+            _navigateIfMatch(word, Routes.PERSONAL);
+            break;
+          case "i":
+            _navigateIfMatch(word, Routes.INTRO);
+            break;
+        }
+      }
+    } else {
+      Toast.show("Unknown command: $lastWords", context,
+          duration: Toast.LENGTH_LONG);
+      // showDialog(
+      //     context: context,
+      //     child: CommandErrorDialog(
+      //       lastWords,
+      //     ));
+    }
+  }
 
-    print("homeMatchers.contains(home): ${homeMatchers.contains("home")}");
+  void _navigateIfMatch(String word, Routes route) {
+    switch (route) {
+      case Routes.HOME:
+        if (homeMatchers.contains(word))
+          _navigate(true, route, "Poista appi baaaaaaari?");
+        break;
+      case Routes.PERSONAL:
+        if (personalMatchers.contains(word)) _navigate(false, route, null);
+        break;
+      case Routes.COMMUNITY:
+        if (communityMatchers.contains(word)) _navigate(false, route, null);
+        break;
+      case Routes.INTRO:
+        if (introductionMatchers.contains(word)) _navigate(false, route, null);
+        break;
+      default:
+        print("nope");
+    }
+  }
 
-    if (communityMatchers.contains(resultText))
-      _navigateWithoutData("/community");
-    else if (homeMatchers.contains(resultText))
-      Navigator.of(context).pushNamed('/home', arguments: "Poista app bar????");
-    else if (personalMatchers.contains(resultText))
-      _navigateWithoutData("/personal");
-    else if (introductionMatchers.contains(resultText))
-      _navigateWithoutData("/introduction");
-    else
-      print("nope");
-    _clearState();
+  void _navigate(bool withArgs, Routes route, dynamic args) {
+    // setState(() {
+    //   _matchFound = true;
+    // });
+    if (withArgs) {
+      _navigateWithArgs(route.name, args);
+    } else {
+      _navigateWithoutArgs(route.name);
+    }
   }
 
   void _clearState() {
     setState(() {
-      resultText = "";
-      _isEvaluating = false;
+      lastWords = "";
+      // _matchFound = false;
     });
-  }
-
-  void _listen() {
-    if (_isAvailable && !_isListening) {
-      _speechRecognition.listen(locale: "en_US");
-    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return speechFabNoText();
+    // return IconButton(
+    //   icon: Icon(Icons.mic),
+    //   onPressed: _hasPermissions
+    //       ? () => startListening()
+    //       : requestPermissionsAsync(),
+    // );
+    return activateSpeechButtonNoText(200 * _controller.value);
   }
 
-  Widget speechFabNoText() {
-    return FloatingActionButton(
-      child: Icon(Icons.mic),
-      onPressed: () {
-        if (_hasPermissions) {
-          if (_isAvailable && !_isListening) {
-            _speechRecognition
-                .listen(locale: "en_US")
-                .then((result) => print('$result'));
-          }
-        } else {
-          requestPermissionsAsync();
-        }
-      },
-      backgroundColor: Colors.pink,
-    );
-  }
-
-  Widget speechGDNoText() {
+  Widget activateSpeechButtonNoText(double radius) {
     return GestureDetector(
-      child: Icon(Icons.mic),
+      child: Icon(Icons.mic, size: radius),
       onLongPress: () {
         if (_hasPermissions) {
-          if (_isAvailable && !_isListening) {
-            _speechRecognition.listen(locale: "en_US");
-          }
+          setState(() {
+            _controller.forward();
+          });
+          startListening();
         } else {
           requestPermissionsAsync();
         }
       },
       onLongPressUp: () {
-        _speechRecognition.stop();
+        setState(() {
+          stopListening();
+          _controller.reset();
+        });
       },
+      onTap: () => Toast.show("Hold and speak", context, duration: Toast.LENGTH_LONG)
     );
   }
 
-  Widget speechFabWithText() {
-    return Dialog(
-      child: Container(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                FloatingActionButton(
-                  child: Icon(Icons.mic),
-                  onPressed: () {
-                    if (_hasPermissions) {
-                      _listen();
-                    } else {
-                      requestPermissionsAsync();
-                    }
-                  },
-                  backgroundColor: Colors.pink,
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                resultText,
-                style: TextStyle(fontSize: 24.0),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+  void startListening() {
+    lastWords = "";
+    lastError = "";
+    speech.listen(
+        onResult: resultListener,
+        listenFor: Duration(seconds: 10),
+        localeId: _currentLocaleId,
+        onSoundLevelChange: soundLevelListener,
+        cancelOnError: true,
+        partialResults: true);
+    setState(() {});
+  }
+
+  void stopListening() {
+    speech.stop();
+    setState(() {
+      level = 0.0;
+    });
+    _evaluateSpeech();
+  }
+
+  void cancelListening() {
+    speech.cancel();
+    setState(() {
+      level = 0.0;
+    });
+  }
+
+  void resultListener(SpeechRecognitionResult result) {
+    setState(() {
+      lastWords = "${result.recognizedWords}";
+    });
+  }
+
+  void soundLevelListener(double level) {
+    setState(() {
+      this.level = level;
+    });
+  }
+
+  void errorListener(SpeechRecognitionError error) {
+    setState(() {
+      lastError = "${error.errorMsg}";
+      print(lastError);
+    });
+  }
+
+  void statusListener(String status) {
+    print(status);
   }
 }

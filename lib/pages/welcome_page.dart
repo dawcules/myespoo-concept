@@ -8,14 +8,18 @@ class WelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
-        body: Center(
-            child: Column(
+        body: Stack(
           children: <Widget>[
-            SpeechToRoute(),
-            generateNavigationButtons(context),
+            Align(
+              alignment: Alignment.center,
+              child: generateNavigationButtons(context),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter * 0.5,
+              child: SpeechToRoute(),
+            ),
           ],
-          mainAxisAlignment: MainAxisAlignment.center,
-        )),
+        ),
       ),
     );
   }
