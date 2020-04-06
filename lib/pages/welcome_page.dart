@@ -1,3 +1,5 @@
+import 'package:cityprog/handlers/message_handler.dart';
+
 import '../sensor_utils/speech_recog.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +20,7 @@ class WelcomePage extends StatelessWidget {
               alignment: Alignment.bottomCenter * 0.5,
               child: SpeechToRoute(),
             ),
+            MessageHandler(),
           ],
         ),
       ),
