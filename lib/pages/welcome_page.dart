@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import '../sensor_utils/speech_recognition/speech_recog.dart';
-=======
 import 'package:cityprog/handlers/message_handler.dart';
-
-import '../sensor_utils/speech_recog.dart';
->>>>>>> 88c95d643caba8e413d151ff13fdfa7361421a76
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatelessWidget {
