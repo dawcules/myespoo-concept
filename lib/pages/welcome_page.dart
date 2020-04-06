@@ -1,4 +1,4 @@
-import '../sensor_utils/speech_recog.dart';
+import '../sensor_utils/speech_recognition/speech_recog.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -16,7 +16,7 @@ class WelcomePage extends StatelessWidget {
             ),
             Align(
               alignment: Alignment.bottomCenter * 0.5,
-              child: SpeechToRoute(),
+              child: SpeechToAction(),
             ),
           ],
         ),

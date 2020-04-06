@@ -39,7 +39,7 @@ class Router {
   }
 }
 
-enum Routes { HOME, PERSONAL, COMMUNITY, INTRO }
+enum Routes { HOME, PERSONAL, COMMUNITY, INTRODUCTION }
 
 extension RoutePaths on Routes {
   String get name {
@@ -53,7 +53,7 @@ extension RoutePaths on Routes {
       case Routes.COMMUNITY:
         return "/community";
         break;
-      case Routes.INTRO:
+      case Routes.INTRODUCTION:
         return "/introduction";
         break;
       default:
