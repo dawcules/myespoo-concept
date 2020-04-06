@@ -20,6 +20,8 @@ class _MessageHandlerState extends State<MessageHandler> {
   @override
   void initState() {
     super.initState();
+    flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin(); 
 
     //Waiting for iOS app to get a permission, otherwise saving the token asap.
     if (Platform.isIOS) {
@@ -37,14 +39,14 @@ class _MessageHandlerState extends State<MessageHandler> {
       onMessage: (Map<String, dynamic> message) async {
 
         //THIS IS CODE FOR SNACKBAR
-        final snackbar = SnackBar(
+        /* final snackbar = SnackBar(
           content: Text(message['notification']['title']),
           action: SnackBarAction(
             label: 'Go',
             onPressed: () => null,
           ),
         );
-        Scaffold.of(context).showSnackBar(snackbar);
+        Scaffold.of(context).showSnackBar(snackbar); */
         //THIS IS FOR ALERT
         /*
         showDialog(
@@ -64,10 +66,9 @@ class _MessageHandlerState extends State<MessageHandler> {
         );
         */
         _showNotificationWithoutSound(
-            message['notification']['id'],
             message['notification']['title'],
-            message['notification']['text'],
-            message['notification']['sound']);
+            message['notification']['body'],
+            );
       },
       onResume: (Map<String, dynamic> message) async {
         print("onResume: $message");
@@ -79,8 +80,7 @@ class _MessageHandlerState extends State<MessageHandler> {
   }
 
   //This shows soundless notification. Can be customized in alot of ways
-  Future _showNotificationWithoutSound(_id, _post, _description,
-      _payload) async {
+  Future _showNotificationWithoutSound(String _post, String _description) async {
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
         'your channel id', 'your channel name', 'your channel description',
         playSound: false, importance: Importance.Max, priority: Priority.High);
@@ -88,12 +88,17 @@ class _MessageHandlerState extends State<MessageHandler> {
     new IOSNotificationDetails(presentSound: false);
     var platformChannelSpecifics = new NotificationDetails(
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+
+    var android = new AndroidInitializationSettings('@mipmap/ic_launcher');
+    var iOS = new IOSInitializationSettings();
+    var initSettings = new InitializationSettings(android, iOS);
+    flutterLocalNotificationsPlugin.initialize(initSettings);
+
     await flutterLocalNotificationsPlugin.show(
-      _id,
+      0,
       _post,
       _description,
       platformChannelSpecifics,
-      payload: _payload,
     );
   }
 
