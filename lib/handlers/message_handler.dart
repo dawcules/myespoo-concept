@@ -20,8 +20,14 @@ class _MessageHandlerState extends State<MessageHandler> {
   @override
   void initState() {
     super.initState();
-
-    //Waiting for iOS app to get a permission, otherwise saving the token asap.
+     var initializationSettingsAndroid =
+        new AndroidInitializationSettings('@mipmap/ic_launcher'); 
+    var initializationSettingsIOS = new IOSInitializationSettings();
+    var initializationSettings = new InitializationSettings(
+        initializationSettingsAndroid, initializationSettingsIOS);
+    flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+    flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onSelectNotification: selectNotification);
     if (Platform.isIOS) {
       iosSubscription = _fcm.onIosSettingsRegistered.listen((data){
         _saveDeviceToken();
@@ -32,11 +38,11 @@ class _MessageHandlerState extends State<MessageHandler> {
     } else {
       _saveDeviceToken();
     }
-    // THIS CONFIGURES THE MESSAGE HANDLER TO USE ONE KIND OF NOTIFICATION WHEN ACTION OCCURS. 
+
     _fcm.configure(
       onMessage: (Map<String, dynamic> message) async {
-
-        //THIS IS CODE FOR SNACKBAR
+        print("onMessage: $message");
+        /*THIS IS CODE FOR SNACKBAR
         final snackbar = SnackBar(
           content: Text(message['notification']['title']),
           action: SnackBarAction(
@@ -45,8 +51,8 @@ class _MessageHandlerState extends State<MessageHandler> {
           ),
         );
         Scaffold.of(context).showSnackBar(snackbar);
-        //THIS IS FOR ALERT
-        /*
+
+        THIS IS FOR ALERT
         showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -62,11 +68,10 @@ class _MessageHandlerState extends State<MessageHandler> {
               ],
             ),
         );
-        */
+      */
         _showNotificationWithoutSound(
-            message['notification']['id'],
             message['notification']['title'],
-            message['notification']['text'],
+            message['notification']['body'],
             message['notification']['sound']);
       },
       onResume: (Map<String, dynamic> message) async {
@@ -78,18 +83,16 @@ class _MessageHandlerState extends State<MessageHandler> {
     );
   }
 
-  //This shows soundless notification. Can be customized in alot of ways
-  Future _showNotificationWithoutSound(_id, _post, _description,
+  Future _showNotificationWithoutSound(_post, _description,
       _payload) async {
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
         'your channel id', 'your channel name', 'your channel description',
-        playSound: false, importance: Importance.Max, priority: Priority.High);
-    var iOSPlatformChannelSpecifics =
-    new IOSNotificationDetails(presentSound: false);
+        playSound: false, importance: Importance.Max, priority: Priority.High, ticker: 'ticker');
+    var iOSPlatformChannelSpecifics = new IOSNotificationDetails(presentSound: false);
     var platformChannelSpecifics = new NotificationDetails(
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
     await flutterLocalNotificationsPlugin.show(
-      _id,
+      1,
       _post,
       _description,
       platformChannelSpecifics,
@@ -113,10 +116,20 @@ class _MessageHandlerState extends State<MessageHandler> {
       });
     }
   }
+   Future selectNotification(String payload) async {
+    showDialog(
+      context: context,
+      builder: (_) {
+        return new AlertDialog(
+          title: Text("PayLoad"),
+          content: Text("Payload : $payload"),
+        );
+      },
+    );
+    }
 
   @override
   Widget build(BuildContext context) {
-    //Basically you have to return something so this returns an empty container object
     return Container(width: 0,height: 0,);
   }
 }
