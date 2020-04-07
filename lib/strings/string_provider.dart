@@ -1,7 +1,8 @@
 import './navigation_strings.dart';
 import './localized_descriptions.dart';
 
-// provides localized string bundles
+// Provides a string bundle that contains all the commands,
+// keywords, descriptions and localized general words used in widgets.
 
 enum Language { FI, EN }
 
