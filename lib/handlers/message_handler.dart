@@ -20,8 +20,7 @@ class _MessageHandlerState extends State<MessageHandler> {
   @override
   void initState() {
     super.initState();
-     var initializationSettingsAndroid =
-        new AndroidInitializationSettings('@mipmap/ic_launcher'); 
+     var initializationSettingsAndroid = new AndroidInitializationSettings('@mipmap/ic_launcher'); 
     var initializationSettingsIOS = new IOSInitializationSettings();
     var initializationSettings = new InitializationSettings(
         initializationSettingsAndroid, initializationSettingsIOS);
@@ -91,12 +90,17 @@ class _MessageHandlerState extends State<MessageHandler> {
     var iOSPlatformChannelSpecifics = new IOSNotificationDetails(presentSound: false);
     var platformChannelSpecifics = new NotificationDetails(
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+
+    var android = new AndroidInitializationSettings('@mipmap/ic_launcher');
+    var iOS = new IOSInitializationSettings();
+    var initSettings = new InitializationSettings(android, iOS);
+    flutterLocalNotificationsPlugin.initialize(initSettings);
+
     await flutterLocalNotificationsPlugin.show(
       1,
       _post,
       _description,
       platformChannelSpecifics,
-      payload: _payload,
     );
   }
 
