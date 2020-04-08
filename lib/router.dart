@@ -5,7 +5,11 @@ import './pages/welcome_page.dart';
 import './pages/community_page.dart';
 import './pages/introduction_page.dart';
 import './pages/personal_page.dart';
+<<<<<<< HEAD
 import 'pages/community_help_page.dart';
+=======
+import './pages/login_page.dart';
+>>>>>>> fb206879112bab281284ef1d36b143494a64091e
 
 // https://www.youtube.com/watch?v=nyvwx7o277U
 
@@ -23,7 +27,7 @@ class Router {
       case '/communityHelp':
         return MaterialPageRoute(builder: (_) => CommunityHelpPage());
       case '/personal':
-        return MaterialPageRoute(builder: (_) => PersonalPage());
+        return MaterialPageRoute(builder: (_) => LoginPage());
       case '/introduction':
         return MaterialPageRoute(builder: (_) => IntroductionPage());
       default:
