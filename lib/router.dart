@@ -5,6 +5,7 @@ import './pages/welcome_page.dart';
 import './pages/community_page.dart';
 import './pages/introduction_page.dart';
 import './pages/personal_page.dart';
+import './pages/login_page.dart';
 
 // https://www.youtube.com/watch?v=nyvwx7o277U
 
@@ -20,7 +21,7 @@ class Router {
       case '/community':
         return MaterialPageRoute(builder: (_) => CommunityPage());
       case '/personal':
-        return MaterialPageRoute(builder: (_) => PersonalPage());
+        return MaterialPageRoute(builder: (_) => LoginPage());
       case '/introduction':
         return MaterialPageRoute(builder: (_) => IntroductionPage());
       default:
