@@ -5,6 +5,7 @@ import './pages/welcome_page.dart';
 import './pages/community_page.dart';
 import './pages/introduction_page.dart';
 import './pages/personal_page.dart';
+import 'pages/community_help_page.dart';
 
 // https://www.youtube.com/watch?v=nyvwx7o277U
 
@@ -19,6 +20,8 @@ class Router {
         return MaterialPageRoute(builder: (_) => MyHomePage(title: args));
       case '/community':
         return MaterialPageRoute(builder: (_) => CommunityPage());
+      case '/communityHelp':
+        return MaterialPageRoute(builder: (_) => CommunityHelpPage());
       case '/personal':
         return MaterialPageRoute(builder: (_) => PersonalPage());
       case '/introduction':
@@ -39,7 +42,7 @@ class Router {
   }
 }
 
-enum Routes { HOME, PERSONAL, COMMUNITY, INTRODUCTION }
+enum Routes { HOME, PERSONAL, COMMUNITY, COMMUNITYHELP, INTRODUCTION }
 
 extension RoutePaths on Routes {
   String get name {
@@ -53,6 +56,8 @@ extension RoutePaths on Routes {
       case Routes.COMMUNITY:
         return "/community";
         break;
+      case Routes.COMMUNITYHELP:
+        return "/communityHelp";
       case Routes.INTRODUCTION:
         return "/introduction";
         break;
