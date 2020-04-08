@@ -1,3 +1,4 @@
+import 'package:cityprog/styles/color_palette.dart';
 import 'package:cityprog/widgets/buttons/login_button.dart';
 import 'package:cityprog/widgets/containers/box_container.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ class _LoginState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 FadeAnimation(1.5,
-                HeaderText(text: "Login", fontsize: 30, color: Color.fromRGBO(21, 22, 255, 1))),
+                HeaderText(text: "Login", fontsize: 30, color: ColorPalette().getColor("primary"))),
                 SizedBox(
                   height: 30,
                 ),
@@ -48,7 +49,7 @@ class _LoginState extends State<LoginPage> {
                 SizedBox(
                   height: 20,
                 ),
-                FadeAnimation(1.7 , CenteredText(text: "Forgot password?", color: Color.fromRGBO(14, 80, 186, 1))),
+                FadeAnimation(1.7 , CenteredText(text: "Forgot password?", color: ColorPalette().getColor('secondary'))),
                 SizedBox(
                   height: 20,
                 ),
@@ -56,7 +57,7 @@ class _LoginState extends State<LoginPage> {
                 SizedBox(
                   height: 20,
                 ),
-                FadeAnimation(2, CenteredText(text: "Create Account", color: Color.fromRGBO(14, 80, 186, 1)),),
+                FadeAnimation(2, CenteredText(text: "Create Account", color: ColorPalette().getColor("secondary"))),
               ],
             ),
           ),
