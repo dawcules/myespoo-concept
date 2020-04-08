@@ -1,4 +1,5 @@
 import 'package:cityprog/widgets/buttons/login_button.dart';
+import 'package:cityprog/widgets/containers/box_container.dart';
 import 'package:flutter/material.dart';
 import '../animations/FadeAnimation.dart';
 import '../widgets/Inputs/boxedinput.dart';
@@ -42,26 +43,8 @@ class _LoginState extends State<LoginPage> {
                 SizedBox(
                   height: 30,
                 ),
-               FadeAnimation(1.5, Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color.fromRGBO(21, 22, 255, .3),
-                        blurRadius: 20,
-                        offset: Offset(0, 10),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    children: <Widget>[
-                      Boxedinput("Username"),
-                      Boxedinput("Password"),
-                    ],
-                  ),
-                )),
+               FadeAnimation(1.5, ShadowedBoxContainer(children: <Widget>[Boxedinput("Username"),
+                      Boxedinput("Password"),],)),
                 SizedBox(
                   height: 20,
                 ),
