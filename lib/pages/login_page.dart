@@ -30,7 +30,6 @@ class _LoginState extends State<LoginPage> {
             height: heigth/2,
             child: Stack(
               children: <Widget>[
-                //BackgroundWidget(top: -40, heigth: heigth/2, width: width+20, imageUrl: "assets/images/background-3.png",),
                 BackgroundWidget(heigth: heigth/2, width: width+30, imageUrl: "assets/images/backgroundtesting.png",),
                 BackgroundWidget(top: 40, heigth: heigth/10, width: width/3, imageUrl: "assets/images/smartespoo.png",)
               ],
@@ -42,7 +41,7 @@ class _LoginState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 FadeAnimation(1.5,
-                HeaderText(text: "Login", fontsize: 30, color: ColorPalette().getColor(color: "primary"))),
+                HeaderText(text: "Login", fontsize: 30, color:  AppColor.secondary.color())),
                 SizedBox(
                   height: 30,
                 ),
@@ -51,7 +50,7 @@ class _LoginState extends State<LoginPage> {
                 SizedBox(
                   height: 20,
                 ),
-                FadeAnimation(1.7 , CenteredText(text: "Forgot password?", color: ColorPalette().getColor(color: "secondary"))),
+                FadeAnimation(1.7 , CenteredText(text: "Forgot password?", color: AppColor.primary.color())),
                 SizedBox(
                   height: 20,
                 ),
@@ -59,7 +58,7 @@ class _LoginState extends State<LoginPage> {
                 SizedBox(
                   height: 20,
                 ),
-                FadeAnimation(2, CenteredText(text: "Create Account", color: ColorPalette().getColor(color: "secondary"))),
+                FadeAnimation(2, CenteredText(text: "Create Account", color:  AppColor.primary.color())),
               ],
             ),
           ),
