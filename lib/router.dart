@@ -5,12 +5,9 @@ import './pages/welcome_page.dart';
 import './pages/community_page.dart';
 import './pages/introduction_page.dart';
 import './pages/personal_page.dart';
-<<<<<<< HEAD
 import './pages/carpool.dart';
 import './strings/string_provider.dart' show Language;
-=======
 import './pages/login_page.dart';
->>>>>>> 08372902cc7d6131f2b188b1ffd766629e227fc1
 
 // https://www.youtube.com/watch?v=nyvwx7o277U
 

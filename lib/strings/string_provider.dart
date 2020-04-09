@@ -20,6 +20,7 @@ class StringProvider {
         "introduction": NavigationStrings.localizedIntroductionStrings(target),
         "community": NavigationStrings.localizedCommunityStrings(target),
         "personal": NavigationStrings.localizedPersonalStrings(target),
+        "carpool": NavigationStrings.localizedCarpoolStrings(target),
       },
       "commandDescriptions": localizedCommandDescriptions(target),
       "keywordDescriptions": localizedKeywordDescriptions(target),
@@ -162,6 +163,7 @@ class StringProvider {
       "personal": target == Language.FI
           ? NavigationStrings.personalFI[0][0].toLowerCase()
           : NavigationStrings.personalEN[0][0].toLowerCase(),
+      "carpool": target == Language.FI ? "k" : "c",
     };
   }
 

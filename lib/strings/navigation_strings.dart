@@ -45,6 +45,11 @@ class NavigationStrings {
     "Apuun",
     "Auta"
   ];
+  static const List<String> carpoolFI = const [
+    "kimppakyyti",
+    "Kimppakyyti",
+    "kyyti",
+  ];
 
   // English
   static const List<String> navigateEN = const [
@@ -86,6 +91,12 @@ class NavigationStrings {
     "Help",
     "HELP",
   ];
+  static const List<String> carpoolEN = const [
+    "carpool",
+    "Carpool",
+    "car pool",
+    "Car Pool",
+  ];
 
   // Methods that return a localized string
   // appropriate for given Language argument
@@ -111,5 +122,9 @@ class NavigationStrings {
 
   static List<String> localizedHelpStrings(Language target) {
     return target == Language.FI ? helpFI : helpEN;
+  }
+
+  static List<String> localizedCarpoolStrings(Language target) {
+    return target == Language.FI ? carpoolFI : carpoolEN;
   }
 }

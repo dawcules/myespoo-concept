@@ -44,6 +44,7 @@ class _SpeechToActionState extends State<SpeechToAction>
   String _communityInitialChar;
   String _introductionInitialChar;
   String _personalInitialChar;
+  String _carpoolInitialsChar;
 
   final SpeechToText speech = SpeechToText();
 
@@ -120,6 +121,8 @@ class _SpeechToActionState extends State<SpeechToAction>
         _navStringBundleLocalized["keywordInitialChars"]["introduction"];
     _personalInitialChar =
         _navStringBundleLocalized["keywordInitialChars"]["personal"];
+    _carpoolInitialsChar =
+        _navStringBundleLocalized["keywordInitialChars"]["carpool"];
   }
 
   void _evaluateSpeech() {
@@ -140,6 +143,8 @@ class _SpeechToActionState extends State<SpeechToAction>
           _navigateIfMatch(word, Routes.INTRODUCTION);
         else if (firstChar == _personalInitialChar)
           _navigateIfMatch(word, Routes.PERSONAL);
+        else if (firstChar == _carpoolInitialsChar)
+          _navigateIfMatch(word, Routes.CARPOOL);
       }
     } else if (_helpCommands.contains(userCommand)) {
       // The command was "help" -> open a help dialog with all commands
@@ -183,6 +188,11 @@ class _SpeechToActionState extends State<SpeechToAction>
       case Routes.INTRODUCTION:
         if (_checkIfContains(
             _navStringBundleLocalized["keywords"]["introduction"], keyword))
+          _navigate(false, route, null);
+        break;
+      case Routes.CARPOOL:
+        if (_checkIfContains(
+            _navStringBundleLocalized["keywords"]["carpool"], keyword))
           _navigate(false, route, null);
         break;
       default:

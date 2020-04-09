@@ -43,11 +43,8 @@ dependencies:
 
   auto_size_text: ^2.1.0
 
-<<<<<<< HEAD
-=======
   simple_animations: ^1.3.3
 
->>>>>>> 08372902cc7d6131f2b188b1ffd766629e227fc1
 dev_dependencies:
   flutter_test:
     sdk: flutter
