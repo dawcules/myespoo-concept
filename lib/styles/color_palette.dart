@@ -1,37 +1,27 @@
 import 'package:flutter/material.dart';
 
+enum AppColor { primary ,secondary ,background ,hint , lightText , darkText , whiteText }
 
-class ColorPalette{
-
-  ColorPalette._internal();  
-  static final ColorPalette _instance = ColorPalette._internal();
-
-
-  Color getColor({String color}){
-    switch (color) {
-      case "primary":
+extension GetAppColor on AppColor {
+  Color color(){
+    switch (this) {
+      case AppColor.primary:
         return Color.fromRGBO(21, 22, 255, 1);
-        break;
-      case "secondary":
+      case AppColor.secondary:
         return Color.fromRGBO(14, 80, 186, 1);
-        break;
-      case "background":
+      case AppColor.background:
         return Colors.white;
-        break;
-      case "hint":
+      case AppColor.hint:
         return Colors.grey;
-        break;
-      case "lightText":
+      case AppColor.whiteText:
         return Colors.white;
-        break;
-      case "darkText":
+      case AppColor.darkText:
         return Color.fromRGBO(21, 22, 255, 1);
-        break;
+      case AppColor.lightText:
+        return Color.fromRGBO(21, 22, 255, 1);
       default:
         return Colors.white;
     }
   }
-
-  factory ColorPalette() => _instance;
-  
 }
+
