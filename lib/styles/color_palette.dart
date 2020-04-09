@@ -7,7 +7,7 @@ class ColorPalette{
   static final ColorPalette _instance = ColorPalette._internal();
 
 
-  Color getColor(String s, {String color}){
+  Color getColor({String color}){
     switch (color) {
       case "primary":
         return Color.fromRGBO(21, 22, 255, 1);
