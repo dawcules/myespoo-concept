@@ -37,6 +37,15 @@ class _SpeechToActionState extends State<SpeechToAction>
   String lastStatus = "";
   String _currentLocaleId = "";
 
+  List<String> _keywordsCommands;
+  List<String> _navigateCommands;
+  List<String> _helpCommands;
+  String _homeInitialChar;
+  String _communityInitialChar;
+  String _introductionInitialChar;
+  String _personalInitialChar;
+  String _carpoolInitialsChar;
+
   final SpeechToText speech = SpeechToText();
 
   Map<String, Map<String, dynamic>> _navStringBundleLocalized;
@@ -55,6 +64,7 @@ class _SpeechToActionState extends State<SpeechToAction>
     print(language);
     _navStringBundleLocalized = StringProvider.localizedStringBundle(language);
     _language = language;
+    _initBundleReferences();
   }
 
   Future<void> initSpeechState() async {
@@ -100,48 +110,57 @@ class _SpeechToActionState extends State<SpeechToAction>
     Navigator.of(context).pushNamed(route, arguments: args);
   }
 
-  void _evaluateSpeech() {
-    // Pick up the pieces to compare to from the localized string bundle
-    List<String> keywordsCommands =
-        _navStringBundleLocalized["commands"]["keywords"];
-    List<String> navigateCommands =
-        _navStringBundleLocalized["commands"]["navigate"];
-    List<String> helpCommands = _navStringBundleLocalized["commands"]["help"];
-    String homeInitialChar =
-        _navStringBundleLocalized["keywordInitialChars"]["home"];
-    String communityInitialChar =
+  void _initBundleReferences() {
+    _keywordsCommands = _navStringBundleLocalized["commands"]["keywords"];
+    _navigateCommands = _navStringBundleLocalized["commands"]["navigate"];
+    _helpCommands = _navStringBundleLocalized["commands"]["help"];
+    _homeInitialChar = _navStringBundleLocalized["keywordInitialChars"]["home"];
+    _communityInitialChar =
         _navStringBundleLocalized["keywordInitialChars"]["community"];
-    String introductionInitialChar =
+    _introductionInitialChar =
         _navStringBundleLocalized["keywordInitialChars"]["introduction"];
-    String personalInitialChar =
+    _personalInitialChar =
         _navStringBundleLocalized["keywordInitialChars"]["personal"];
-    List<String> transcriptionToList = _transcription.split(" ");
+    _carpoolInitialsChar =
+        _navStringBundleLocalized["keywordInitialChars"]["carpool"];
+  }
 
-    // Compare them to user speech
-    if (navigateCommands.contains(transcriptionToList[0])) {
+  void _evaluateSpeech() {
+    // Recognized words from user speech input into a list
+    List<String> transcriptionToList = _transcription.split(" ");
+    // The first word in user speech input is assumed to be a command
+    String userCommand = transcriptionToList[0];
+
+    if (_navigateCommands.contains(userCommand)) {
+      // The command was "navigate" -> check if route is valid
       for (var word in transcriptionToList) {
         String firstChar = word[0].toLowerCase();
-        if (firstChar == homeInitialChar)
+        if (firstChar == _homeInitialChar)
           _navigateIfMatch(word, Routes.HOME);
-        else if (firstChar == communityInitialChar)
+        else if (firstChar == _communityInitialChar)
           _navigateIfMatch(word, Routes.COMMUNITY);
-        else if (firstChar == introductionInitialChar)
+        else if (firstChar == _introductionInitialChar)
           _navigateIfMatch(word, Routes.INTRODUCTION);
-        else if (firstChar == personalInitialChar)
+        else if (firstChar == _personalInitialChar)
           _navigateIfMatch(word, Routes.PERSONAL);
+        else if (firstChar == _carpoolInitialsChar)
+          _navigateIfMatch(word, Routes.CARPOOL);
       }
-    } else if (helpCommands.contains(transcriptionToList[0])) {
+    } else if (_helpCommands.contains(userCommand)) {
+      // The command was "help" -> open a help dialog with all commands
       showDialog(
           context: context,
           child: CommandsDialog(
               _navStringBundleLocalized["commandDescriptions"], _language));
-    } else if (keywordsCommands.contains(transcriptionToList[0])) {
+    } else if (_keywordsCommands.contains(userCommand)) {
+      // The command was "keywords" -> open a dialog with all the keywords
       showDialog(
         context: context,
         child: KeywordsDialog(
             _navStringBundleLocalized["keywordDescriptions"], _language),
       );
     } else {
+      // The command was unknown
       Toast.show(
           "${_navStringBundleLocalized["unknown"]["command"]}: $_transcription",
           context,
@@ -149,27 +168,35 @@ class _SpeechToActionState extends State<SpeechToAction>
     }
   }
 
-  void _navigateIfMatch(String word, Routes route) {
+  void _navigateIfMatch(String keyword, Routes route) {
     switch (route) {
       case Routes.HOME:
-        if (_navStringBundleLocalized["keywords"]["home"].contains(word))
+        if (_checkIfContains(
+            _navStringBundleLocalized["keywords"]["home"], keyword))
           _navigate(true, route, "Poista appi baaaaaaari?");
         break;
       case Routes.PERSONAL:
-        if (_navStringBundleLocalized["keywords"]["personal"].contains(word))
+        if (_checkIfContains(
+            _navStringBundleLocalized["keywords"]["personal"], keyword))
           _navigate(false, route, null);
         break;
       case Routes.COMMUNITY:
-        if (_navStringBundleLocalized["keywords"]["community"].contains(word))
+        if (_checkIfContains(
+            _navStringBundleLocalized["keywords"]["community"], keyword))
           _navigate(false, route, null);
         break;
       case Routes.INTRODUCTION:
-        if (_navStringBundleLocalized["keywords"]["introduction"]
-            .contains(word)) _navigate(false, route, null);
+        if (_checkIfContains(
+            _navStringBundleLocalized["keywords"]["introduction"], keyword))
+          _navigate(false, route, null);
+        break;
+      case Routes.CARPOOL:
+        if (_checkIfContains(
+            _navStringBundleLocalized["keywords"]["carpool"], keyword))
+          _navigate(false, route, null);
         break;
       default:
-        Toast.show("", context);
-        print("nope");
+        break;
     }
   }
 
@@ -178,6 +205,16 @@ class _SpeechToActionState extends State<SpeechToAction>
       _navigateWithArgs(route.name, args);
     } else {
       _navigateWithoutArgs(route.name);
+    }
+  }
+
+  bool _checkIfContains(List<String> keywords, String word) {
+    if (keywords.contains(word)) {
+      return true;
+    } else {
+      Toast.show(
+          "${_navStringBundleLocalized["unknown"]["keyword"]}: $word", context);
+      return false;
     }
   }
 

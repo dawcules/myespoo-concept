@@ -1,7 +1,8 @@
 import './navigation_strings.dart';
 import './localized_descriptions.dart';
 
-// provides localized string bundles
+// Provides a string bundle that contains all the commands,
+// keywords, descriptions and localized general words used in widgets.
 
 enum Language { FI, EN }
 
@@ -19,6 +20,7 @@ class StringProvider {
         "introduction": NavigationStrings.localizedIntroductionStrings(target),
         "community": NavigationStrings.localizedCommunityStrings(target),
         "personal": NavigationStrings.localizedPersonalStrings(target),
+        "carpool": NavigationStrings.localizedCarpoolStrings(target),
       },
       "commandDescriptions": localizedCommandDescriptions(target),
       "keywordDescriptions": localizedKeywordDescriptions(target),
@@ -161,6 +163,7 @@ class StringProvider {
       "personal": target == Language.FI
           ? NavigationStrings.personalFI[0][0].toLowerCase()
           : NavigationStrings.personalEN[0][0].toLowerCase(),
+      "carpool": target == Language.FI ? "k" : "c",
     };
   }
 
