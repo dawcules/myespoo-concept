@@ -6,6 +6,8 @@ import './pages/community_page.dart';
 import './pages/introduction_page.dart';
 //import './pages/personal_page.dart';
 import 'pages/community_help_page.dart';
+import './pages/carpool.dart';
+import './strings/string_provider.dart' show Language;
 import './pages/login_page.dart';
 
 // https://www.youtube.com/watch?v=nyvwx7o277U
@@ -27,6 +29,8 @@ class Router {
         return MaterialPageRoute(builder: (_) => LoginPage());
       case '/introduction':
         return MaterialPageRoute(builder: (_) => IntroductionPage());
+      case '/carpool':
+        return MaterialPageRoute(builder: (_) => CarpoolPage(Language.EN));
       default:
         return _errorRoute();
     }
@@ -43,7 +47,11 @@ class Router {
   }
 }
 
+<<<<<<< HEAD
 enum Routes { HOME, PERSONAL, COMMUNITY, COMMUNITYHELP, INTRODUCTION }
+=======
+enum Routes { HOME, PERSONAL, COMMUNITY, INTRODUCTION, CARPOOL }
+>>>>>>> 2f75f16593ebfe3d4e0e6b77f2b92c116f54f1d2
 
 extension RoutePaths on Routes {
   String get name {
@@ -61,6 +69,9 @@ extension RoutePaths on Routes {
         return "/communityHelp";
       case Routes.INTRODUCTION:
         return "/introduction";
+        break;
+      case Routes.CARPOOL:
+        return "/carpool";
         break;
       default:
         return "lookslikea404";
