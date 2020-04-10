@@ -1,9 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:cityprog/styles/color_palette.dart';
+import 'package:flutter/material.dart';
 
 class CommunityHelpPage extends StatelessWidget {
-
-  final colorP = ColorPalette();
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +30,15 @@ class CommunityHelpPage extends StatelessWidget {
                     ),
                     Container(
                       margin: EdgeInsets.all(20.0),
-                      child: Text('Ilmoittautumalla avuntarjoajaksi autat muita selviämään arjen askareissa ja edistät yleistä hyvinvointia'
-                      , style: TextStyle(fontSize: 20)),
+                      child: Text('Ilmoittautumalla avuntarjoajaksi autat muita selviämään arjen askareissa ja edistät yleistä hyvinvointia',
+                      style: TextStyle(fontSize: 20)),
                     ),
                     FlatButton(
-                      color: colorP.getColor(color: 'primary'),
-                      child: Text('Ilmoittaudu', style: TextStyle(color: colorP.getColor(color: 'lightText'))),
+                      color: AppColor.primary.color(),
+                      child: Text('Ilmoittaudu', 
+                      style: TextStyle(color: AppColor.lightText.color())),
                       onPressed: () => {null},
-                    )
+                    ),
                   ],
                 ),
               ),

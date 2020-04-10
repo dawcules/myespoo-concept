@@ -1,3 +1,4 @@
+import 'package:cityprog/pages/community_help_cat_page.dart';
 import 'package:flutter/material.dart';
 
 import './main.dart';
@@ -5,7 +6,8 @@ import './pages/welcome_page.dart';
 import './pages/community_page.dart';
 import './pages/introduction_page.dart';
 //import './pages/personal_page.dart';
-import 'pages/community_help_page.dart';
+import 'pages/community_help_sign_page.dart';
+import 'pages/community_help_main_page.dart';
 import './pages/carpool.dart';
 import './strings/string_provider.dart' show Language;
 import './pages/login_page.dart';
@@ -24,7 +26,11 @@ class Router {
       case '/community':
         return MaterialPageRoute(builder: (_) => CommunityPage());
       case '/communityHelp':
+        return MaterialPageRoute(builder: (_) => CommunityHelpMain());
+      case '/communityHelpSign':
         return MaterialPageRoute(builder: (_) => CommunityHelpPage());
+      case '/communityHelpCat':
+        return MaterialPageRoute(builder: (_) => CommunityHelpCat(args));
       case '/personal':
         return MaterialPageRoute(builder: (_) => LoginPage());
       case '/introduction':
@@ -47,11 +53,7 @@ class Router {
   }
 }
 
-<<<<<<< HEAD
-enum Routes { HOME, PERSONAL, COMMUNITY, COMMUNITYHELP, INTRODUCTION }
-=======
-enum Routes { HOME, PERSONAL, COMMUNITY, INTRODUCTION, CARPOOL }
->>>>>>> 2f75f16593ebfe3d4e0e6b77f2b92c116f54f1d2
+enum Routes { HOME, PERSONAL, COMMUNITY, INTRODUCTION, CARPOOL, COMMUNITYHELP }
 
 extension RoutePaths on Routes {
   String get name {
@@ -66,7 +68,7 @@ extension RoutePaths on Routes {
         return "/community";
         break;
       case Routes.COMMUNITYHELP:
-        return "/communityHelp";
+        return "/communityMain";
       case Routes.INTRODUCTION:
         return "/introduction";
         break;

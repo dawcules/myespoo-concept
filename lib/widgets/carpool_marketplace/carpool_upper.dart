@@ -1,4 +1,4 @@
-import 'package:cityprog/strings/community_strings.dart';
+//import 'package:cityprog/strings/community_strings.dart';
 import 'package:flutter/material.dart';
 
 import './upper_section.dart';
