@@ -1,3 +1,5 @@
+import 'package:cityprog/pages/community_help_sign_page.dart';
+import 'package:cityprog/widgets/routes/zoom_route.dart';
 import 'package:flutter/material.dart';
 import '../widgets/rows/dropdown_select.dart';
 
@@ -55,7 +57,8 @@ class _CommunityHelpMainState extends State<CommunityHelpMain> {
                       child: Text('Ilmoittaudu avuntarjojaksi'),
                       color: Colors.amber,
                       onPressed: (){
-                        Navigator.of(context).pushNamed('/communityHelpSign');
+                        //Navigator.of(context).pushNamed('/communityHelpSign');
+                        Navigator.push(context, ZoomRoute(page: CommunityHelpPage()));
                       },
                     ),
                   ],
