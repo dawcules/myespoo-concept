@@ -1,5 +1,84 @@
 import './string_provider.dart' show Language;
 
+enum Weekday { MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SUNDAY, SATURDAY }
+
+extension WeekdayString on Weekday {
+  String toLocalizedString(Language lang) {
+    switch (this) {
+      case Weekday.MONDAY:
+        switch (lang) {
+          case Language.FI:
+            return LocalizedCommunityStrings.mondayFI;
+          case Language.EN:
+            return LocalizedCommunityStrings.mondayEN;
+          default:
+            return LocalizedCommunityStrings.mondayEN;
+        }
+        break;
+      case Weekday.TUESDAY:
+        switch (lang) {
+          case Language.FI:
+            return LocalizedCommunityStrings.tuesdayFI;
+          case Language.EN:
+            return LocalizedCommunityStrings.tuesdayEN;
+          default:
+            return LocalizedCommunityStrings.tuesdayEN;
+        }
+        break;
+      case Weekday.WEDNESDAY:
+        switch (lang) {
+          case Language.FI:
+            return LocalizedCommunityStrings.wednesdayFI;
+          case Language.EN:
+            return LocalizedCommunityStrings.wednesdayEN;
+          default:
+            return LocalizedCommunityStrings.wednesdayEN;
+        }
+        break;
+      case Weekday.THURSDAY:
+        switch (lang) {
+          case Language.FI:
+            return LocalizedCommunityStrings.thursdayFI;
+          case Language.EN:
+            return LocalizedCommunityStrings.thursdayEN;
+          default:
+            return LocalizedCommunityStrings.thursdayEN;
+        }
+        break;
+      case Weekday.FRIDAY:
+        switch (lang) {
+          case Language.FI:
+            return LocalizedCommunityStrings.fridayFI;
+          case Language.EN:
+            return LocalizedCommunityStrings.fridayEN;
+          default:
+            return LocalizedCommunityStrings.fridayEN;
+        }
+        break;
+      case Weekday.SUNDAY:
+        switch (lang) {
+          case Language.FI:
+            return LocalizedCommunityStrings.fridayFI;
+          case Language.EN:
+            return LocalizedCommunityStrings.fridayEN;
+          default:
+            return LocalizedCommunityStrings.fridayEN;
+        }
+        break;
+      case Weekday.SATURDAY:
+        switch (lang) {
+          case Language.FI:
+            return LocalizedCommunityStrings.fridayFI;
+          case Language.EN:
+            return LocalizedCommunityStrings.fridayEN;
+          default:
+            return LocalizedCommunityStrings.fridayEN;
+        }
+        break;
+    }
+  }
+}
+
 // Community specific strings for widget texts etc
 
 class LocalizedCommunityStrings {
@@ -21,6 +100,13 @@ class LocalizedCommunityStrings {
   static const String yesterdayFI = "Eilen";
   static const String fromFI = "Mistä";
   static const String destinationFI = "Minne";
+  static const String mondayFI = "Maanantai";
+  static const String tuesdayFI = "Tiistai";
+  static const String wednesdayFI = "Keskiviikko";
+  static const String thursdayFI = "Torstai";
+  static const String fridayFI = "Perjantai";
+  static const String saturdayFI = "Lauantai";
+  static const String sundayFI = "Sunnuntai";
 
   // ENG
   static const String sellEN = "Sell";
@@ -40,6 +126,13 @@ class LocalizedCommunityStrings {
   static const String yesterdayEN = "Yesterday";
   static const String fromEN = "From";
   static const String destinationEN = "To";
+  static const String mondayEN = "Monday";
+  static const String tuesdayEN = "Tuesday";
+  static const String wednesdayEN = "Wednesday";
+  static const String thursdayEN = "Thursday";
+  static const String fridayEN = "Friday";
+  static const String saturdayEN = "Saturday";
+  static const String sundayEN = "Sunday";
 
   static String sellToLocalized(Language target) {
     switch (target) {
@@ -279,8 +372,9 @@ class LocalizedCommunityStrings {
     }
   }
 
-  static String dateTimeToLocaleString(DateTime date, Language target) {
-    String format = localizeDateFormat(date, target);
+  static String dateTimeToLocaleString(DateTime date, Language target,
+      {bool needsHrs = false}) {
+    String format = localizeDateFormat(date, target, needsHours: needsHrs);
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final yesterday = DateTime(now.year, now.month, now.day - 1);
@@ -302,17 +396,71 @@ class LocalizedCommunityStrings {
     }
   }
 
-  static String localizeDateFormat(DateTime date, Language target) {
+  static String localizeDateFormat(DateTime date, Language target,
+      {bool needsHours = false}) {
     switch (target) {
       case Language.FI:
-        return "${date.day}.${date.month}.${date.year}";
+        return needsHours ? _fullDateFormatFI(date) : _dateFormatFI(date);
         break;
       case Language.EN:
-        return "${date.month}/${date.day}/${date.year}";
+        return needsHours ? _fullDateFormatEN(date) : _dateFormatEN(date);
         break;
       default:
-        return "${date.month}/${date.day}/${date.year}";
+        return needsHours ? _fullDateFormatEN(date) : _dateFormatEN(date);
         break;
+    }
+  }
+
+  static String _fullDateFormatFI(DateTime date) {
+    return "${_dateFormatHoursMinutesFI(date)} " +
+        "${weekDayFromInt(date.weekday).toLocalizedString(Language.FI)} ${_dateFormatFI(date)}";
+  }
+
+  static String _fullDateFormatEN(DateTime date) {
+    return "${_dateFormatHoursMinutesEN(date)} " +
+        "${weekDayFromInt(date.weekday).toLocalizedString(Language.EN)} ${_dateFormatEN(date)}";
+  }
+
+  static String _dateFormatHoursMinutesFI(DateTime date) {
+    String minute = "${date.minute}";
+    if (date.minute < 10) minute = "0" + minute;
+    print(minute);
+    return "${date.hour}:$minute";
+  }
+
+  static String _dateFormatHoursMinutesEN(DateTime date) {
+    String minute = "${date.minute}";
+    if (date.minute < 10) minute = "0" + minute;
+    print(minute);
+    return "${date.hour}:$minute";
+  }
+
+  static String _dateFormatFI(DateTime date) {
+    return "${date.day}.${date.month}.${date.year}";
+  }
+
+  static String _dateFormatEN(DateTime date) {
+    return "${date.month}/${date.day}/${date.year}";
+  }
+
+  static Weekday weekDayFromInt(int day) {
+    switch (day) {
+      case 1:
+        return Weekday.MONDAY;
+      case 2:
+        return Weekday.TUESDAY;
+      case 3:
+        return Weekday.WEDNESDAY;
+      case 4:
+        return Weekday.THURSDAY;
+      case 5:
+        return Weekday.FRIDAY;
+      case 6:
+        return Weekday.SATURDAY;
+      case 7:
+        return Weekday.SUNDAY;
+      default:
+        return null;
     }
   }
 }

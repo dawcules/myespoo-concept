@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../rows/two_button_row.dart';
 import '../../strings/community_strings.dart';
+import '../../styles/color_palette.dart';
 import '../../strings/string_provider.dart' show Language;
 
 class UpperSection extends StatelessWidget {
@@ -63,6 +64,7 @@ class UpperSection extends StatelessWidget {
       children: <Widget>[
         Expanded(
           child: RaisedButton(
+            color: AppColor.button.color(),
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 28,
@@ -71,6 +73,7 @@ class UpperSection extends StatelessWidget {
               child: Text(
                 LocalizedCommunityStrings.browseToLocalized(language),
                 style: TextStyle(
+                  color: AppColor.buttonText.color(),
                   fontSize: 20,
                 ),
               ),

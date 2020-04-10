@@ -1,17 +1,17 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cityprog/model/market.dart';
 import 'package:flutter/material.dart';
 
-import '../../model/carpool.dart';
 import '../../strings/community_strings.dart';
 import '../../strings/string_provider.dart' show Language;
 import '../../model/trade_methods.dart';
 import '../../styles/color_palette.dart';
 
-class CarpoolPostWidget extends StatelessWidget {
-  final CarpoolPost postData;
+class MarketPostWidget extends StatelessWidget {
+  final MarketPost postData;
   final Language language;
   final Function _contactButtonPressed;
-  const CarpoolPostWidget(
+  const MarketPostWidget(
       this.postData, this.language, this._contactButtonPressed);
 
   @override
@@ -41,49 +41,24 @@ class CarpoolPostWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Text(
-                      postData.tradeMethod.toLocalizedString(language),
-                      style: TextStyle(
-                        color: AppColor.secondary.color(),
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 0),
-                      child: _originDestinationRow(
-                        LocalizedCommunityStrings.fromToLocalized(language),
-                        postData.from,
-                        context,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(4),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 0),
-                      child: _originDestinationRow(
-                        LocalizedCommunityStrings.destinationToLocalized(
-                            language),
-                        postData.to,
-                        context,
-                      ),
-                    ),
+                    _autoSizeTextTwoInputs(postData.title, "", context,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          
+                        )),
                     Padding(
                       padding: EdgeInsets.all(4),
                     ),
                     Align(
-                      alignment: Alignment.centerRight,
-                      child: _originDestinationRow(
-                        LocalizedCommunityStrings.dateTimeToLocaleString(
-                            postData.postDate, language,
-                            needsHrs: true),
+                      alignment: Alignment.center,
+                      child: _autoSizeTextTwoInputs(
+                        postData.body,
                         "",
                         context,
                       ),
                     ),
                     Align(
-                      alignment: Alignment.center,
                       child: FlatButton(
                         child: Text(
                           LocalizedCommunityStrings.contactToLocalized(
@@ -105,8 +80,8 @@ class CarpoolPostWidget extends StatelessWidget {
     )));
   }
 
-  Widget _originDestinationRow(
-      String left, String right, BuildContext context) {
+  Widget _autoSizeTextTwoInputs(String left, String right, BuildContext context,
+      {TextStyle style}) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.55,
       child: Row(
@@ -115,11 +90,13 @@ class CarpoolPostWidget extends StatelessWidget {
           Expanded(
             child: AutoSizeText(
               "$left $right",
-              maxLines: 1,
+              maxLines: 5,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontSize: 20,
-              ),
+              style: style == null
+                  ? TextStyle(
+                      fontSize: 20,
+                    )
+                  : style,
             ),
           ),
         ],

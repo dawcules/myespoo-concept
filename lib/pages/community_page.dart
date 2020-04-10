@@ -8,10 +8,19 @@ class CommunityPage extends StatelessWidget {
     return Container(
       child: Scaffold(
         body: Center(
-            child: RaisedButton(
-          child: Text("Carpool demo"),
-          onPressed: () => {Navigator.of(context).pushNamed("/carpool")},
-        )),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+            RaisedButton(
+            child: Text("Carpool demo"),
+            onPressed: () => {Navigator.of(context).pushNamed("/carpool")},
+          ),
+          RaisedButton(
+            child: Text("Marketplace demo"),
+            onPressed: () => {Navigator.of(context).pushNamed("/market")},
+          ),
+          ],)
+        ),
       ),
     );
   }

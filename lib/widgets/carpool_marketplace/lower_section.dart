@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../styles/color_palette.dart';
+
 class LowerSection extends StatelessWidget {
   final ListView listViewPosts;
   const LowerSection(this.listViewPosts);
@@ -7,7 +9,7 @@ class LowerSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.yellow,
+      color: AppColor.background.color(),
       child: Column(
         children: <Widget>[
           Expanded(child: listViewPosts),
