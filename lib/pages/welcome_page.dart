@@ -47,6 +47,12 @@ class WelcomePage extends StatelessWidget {
         ),
         Padding(padding: EdgeInsets.all(8)),
         FloatingActionButton(
+          child: Icon(Icons.transfer_within_a_station),
+          heroTag: "nav_communityHelp",
+          onPressed: () => Navigator.of(context).pushNamed("/communityHelp"),
+        ),
+        Padding(padding: EdgeInsets.all(8)),
+        FloatingActionButton(
           child: Icon(Icons.person),
           heroTag: "nav_personal",
           onPressed: () => Navigator.of(context).pushNamed("/personal"),
