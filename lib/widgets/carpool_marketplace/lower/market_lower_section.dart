@@ -3,7 +3,7 @@ import 'package:cityprog/widgets/posts/market_post.dart';
 import 'package:flutter/material.dart';
 
 import './lower_section.dart';
-import '../../model/trade_methods.dart';
+import '../../../model/trade_methods.dart';
 
 class MarketLower extends StatelessWidget {
   final Function _moreButtonPressed;
@@ -42,7 +42,7 @@ class MarketLower extends StatelessWidget {
 final List<MarketPost> posts = [post1, post2, post3, post4];
 
 final MarketPost post1 = MarketPost(
-    title: "Ostetaan wc paperia",
+    title: "Ostetaan wc paperia asd asd asd asd",
     body: "Ostetaan wc paperia 5€ rulla. Lambia kiitos",
     postedBy: "Metti Mäikäläinen",
     tradeMethod: Trading.BUYING,

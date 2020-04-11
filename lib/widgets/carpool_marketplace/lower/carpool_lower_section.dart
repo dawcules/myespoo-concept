@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../model/carpool.dart';
-import '../posts/carpool_post.dart';
+import '../../../model/carpool.dart';
+import '../../posts/carpool_post.dart';
 import './lower_section.dart';
-import '../../model/trade_methods.dart';
+import '../../../model/trade_methods.dart';
 
 class CarpoolLower extends StatelessWidget {
   final Function _moreButtonPressed;

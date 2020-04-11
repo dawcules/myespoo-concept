@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../styles/color_palette.dart';
+import '../../../styles/color_palette.dart';
 
 class LowerSection extends StatelessWidget {
   final ListView listViewPosts;

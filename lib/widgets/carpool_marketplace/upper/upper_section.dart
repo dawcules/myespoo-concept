@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../rows/two_button_row.dart';
-import '../../strings/community_strings.dart';
-import '../../styles/color_palette.dart';
+import '../../rows/two_button_row.dart';
+import '../../../strings/community_strings.dart';
+import '../../../styles/color_palette.dart';
 
 class UpperSection extends StatelessWidget {
   final Function onPressedOffer;

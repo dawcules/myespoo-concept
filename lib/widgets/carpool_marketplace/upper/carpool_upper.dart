@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import './upper_section.dart';
-import '../rows/text_date_with_calendar.dart';
-import '../../styles/color_palette.dart';
+import '../../rows/text_date_with_calendar.dart';
+import '../../../styles/color_palette.dart';
 
 class CarpoolUpper extends StatefulWidget {
   final Function onPressedOffer;

@@ -1,11 +1,12 @@
 import 'package:cityprog/model/carpool.dart';
 import 'package:cityprog/model/trade_methods.dart';
-import 'package:cityprog/widgets/carpool_marketplace/carpool_lower_section.dart';
-import 'package:cityprog/widgets/carpool_marketplace/community_post_form.dart';
-import 'package:cityprog/widgets/carpool_marketplace/upper_buttons_state.dart';
+import 'package:cityprog/widgets/carpool_marketplace/forms/community_post_form.dart';
+import 'package:cityprog/widgets/carpool_marketplace/lower/carpool_lower_section.dart';
+import 'package:cityprog/widgets/carpool_marketplace/upper/carpool_upper.dart';
+import 'package:cityprog/widgets/carpool_marketplace/upper/upper_buttons_state.dart';
+import 'package:cityprog/widgets/posts/carpool_post_modal.dart';
+import 'package:cityprog/widgets/posts/community_post_modal.dart';
 import 'package:flutter/material.dart';
-
-import '../widgets/carpool_marketplace/carpool_upper.dart';
 
 class CarpoolPage extends StatefulWidget {
   const CarpoolPage();
@@ -16,38 +17,37 @@ class CarpoolPage extends StatefulWidget {
 
 class _CarpoolPageState extends State<CarpoolPage> {
   UpperButtonsState state = UpperButtonsState.BROWSING;
-  bool toggler = false;
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
         resizeToAvoidBottomPadding: false,
-        body: SafeArea(
-            child: Column(
-          children: <Widget>[
-            CarpoolUpper(
-              onPressedOffer: () =>
-                  _buttonShouldBeEnabled(UpperButtonsState.PROVIDING)
-                      ? _onOfferPressed()
-                      : null,
-              onPressedAsk: () =>
-                  _buttonShouldBeEnabled(UpperButtonsState.ASKING)
-                      ? _onAskPressed()
-                      : null,
-              onPressedBrowse: () =>
-                  _buttonShouldBeEnabled(UpperButtonsState.BROWSING)
-                      ? _onBrowsePressed()
-                      : null,
-            ),
-            _buildLowerSection(),
-          ],
-        )),
+        body: Center(
+          child: SafeArea(
+              child: Column(
+            children: <Widget>[
+              CarpoolUpper(
+                onPressedOffer: () =>
+                    _buttonShouldBeEnabled(UpperButtonsState.PROVIDING)
+                        ? _onOfferPressed()
+                        : null,
+                onPressedAsk: () =>
+                    _buttonShouldBeEnabled(UpperButtonsState.ASKING)
+                        ? _onAskPressed()
+                        : null,
+                onPressedBrowse: () =>
+                    _buttonShouldBeEnabled(UpperButtonsState.BROWSING)
+                        ? _onBrowsePressed()
+                        : null,
+              ),
+              _buildLowerSection(),
+            ],
+          )),
+        ),
       ),
     );
   }
 
-  // If current state != the state that the button is describing
-  // -> return true (Meaning that you could navigate to that page if you aren't there already)
   bool _buttonShouldBeEnabled(UpperButtonsState buttonState) {
     return state != buttonState;
   }
@@ -70,6 +70,11 @@ class _CarpoolPageState extends State<CarpoolPage> {
 
   void _onMorePressed(CarpoolPost post) {
     print("more button pressed. Post by: ${post.postedBy}");
+    showDialog(
+        context: context,
+        child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 100, horizontal: 20),
+            child: CommunityPostModal(CarpoolPostModal(post))));
   }
 
   void _onOfferPressed() {

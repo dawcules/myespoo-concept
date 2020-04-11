@@ -2,7 +2,7 @@ import 'package:cityprog/model/trade_methods.dart';
 import 'package:cityprog/widgets/rows/trade_method_row.dart';
 import 'package:flutter/material.dart';
 
-import 'forms/community_form.dart';
+import './community_form.dart';
 
 class CommunityPostForm extends StatelessWidget {
   final Trading _tradeMethod;

@@ -38,7 +38,7 @@ class MarketPostWidget extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         _autoSizeTextTwoInputs(postData.title, "", context,
@@ -58,11 +58,13 @@ class MarketPostWidget extends StatelessWidget {
                           ),
                         ),
                         Align(
+                          alignment: Alignment.center,
                           child: FlatButton(
                             child: Text(
                               LocalizedCommunityStrings.moreToLocalized(),
                               style: TextStyle(
                                 color: AppColor.primary.color(),
+                                fontSize: 20
                               ),
                             ),
                             onPressed: () => _moreButtonPressed(),

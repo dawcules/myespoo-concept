@@ -76,6 +76,8 @@ extension WeekdayString on Weekday {
             return LocalizedCommunityStrings.fridayEN;
         }
         break;
+      default:
+        return null;
     }
   }
 }
