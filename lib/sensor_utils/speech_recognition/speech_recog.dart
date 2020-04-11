@@ -1,3 +1,4 @@
+import 'package:cityprog/current_language.dart';
 import 'package:cityprog/widgets/dialogs/keywords_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -51,7 +52,6 @@ class _SpeechToActionState extends State<SpeechToAction>
   final SpeechToText speech = SpeechToText();
 
   Map<String, Map<String, dynamic>> _navStringBundleLocalized;
-  Language _language;
 
   AnimationController _animationController;
 
@@ -65,7 +65,7 @@ class _SpeechToActionState extends State<SpeechToAction>
   void _initLocalizedStringsBundle(Language language) {
     print(language);
     _navStringBundleLocalized = StringProvider.localizedStringBundle(language);
-    _language = language;
+    CurrentLanguage.setNewFromString(_currentLocaleId);
     _initBundleReferences();
   }
 
