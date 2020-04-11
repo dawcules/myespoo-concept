@@ -1,20 +1,17 @@
+import 'package:cityprog/model/carpool.dart';
 import 'package:cityprog/widgets/carpool_marketplace/carpool_lower_section.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/carpool_marketplace/carpool_upper.dart';
-import '../strings/string_provider.dart' show Language;
 
 class CarpoolPage extends StatefulWidget {
-  final Language _language;
-  const CarpoolPage(this._language);
+  const CarpoolPage();
 
   @override
-  _CarpoolPageState createState() => _CarpoolPageState(_language);
+  _CarpoolPageState createState() => _CarpoolPageState();
 }
 
 class _CarpoolPageState extends State<CarpoolPage> {
-  final language;
-  _CarpoolPageState(this.language);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,35 +20,30 @@ class _CarpoolPageState extends State<CarpoolPage> {
             child: Column(
           children: <Widget>[
             CarpoolUpper(
-              language: _getLocale(),
-              onPressedOffer: () => _offerPressed(),
-              onPressedAsk: () => _askPressed(),
-              onPressedBrowse: () => _browsePressed(),
+              onPressedOffer: () => _onOfferPressed(),
+              onPressedAsk: () => _onAskPressed(),
+              onPressedBrowse: () => _onBrowsePressed(),
             ),
-            CarpoolLower(language, (int pos) => _contactPressed(pos)),
+            CarpoolLower((CarpoolPost post) => _onMorePressed(post)),
           ],
         )),
       ),
     );
   }
 
-  Language _getLocale() {
-    return Language.EN; // Need to implement this for every page
+  void _onMorePressed(CarpoolPost post) {
+    print("more button pressed. Post by: ${post.postedBy}");
   }
 
-  void _contactPressed(int position) {
-    print("contact button pressed. Position: $position");
-  }
-
-  void _offerPressed() {
+  void _onOfferPressed() {
     print("offer button pressed");
   }
 
-  void _askPressed() {
+  void _onAskPressed() {
     print("ask button pressed");
   }
 
-  void _browsePressed() {
+  void _onBrowsePressed() {
     print("browse button pressed");
   }
 }

@@ -1,108 +1,104 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cityprog/widgets/rows/trade_method_row.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/carpool.dart';
 import '../../strings/community_strings.dart';
-import '../../strings/string_provider.dart' show Language;
-import '../../model/trade_methods.dart';
 import '../../styles/color_palette.dart';
 
 class CarpoolPostWidget extends StatelessWidget {
   final CarpoolPost postData;
-  final Language language;
-  final Function _contactButtonPressed;
+  final Function _moreButtonPressed;
   const CarpoolPostWidget(
-      this.postData, this.language, this._contactButtonPressed);
+      this.postData, this._moreButtonPressed);
 
   @override
   Widget build(BuildContext context) {
     return Container(
         child: Card(
-            child: Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        Flexible(
-          flex: 1,
-          child: Align(
-            alignment: Alignment.topCenter,
-            child: Icon(
-              Icons.face,
-              size: 100,
-            ),
-          ),
-        ),
-        Flexible(
-          flex: 2,
-          child: Row(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
+            elevation: 10,
+            child: Column(
+              children: <Widget>[
+                TradeMethodRow(postData.tradeMethod),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    Text(
-                      postData.tradeMethod.toLocalizedString(language),
-                      style: TextStyle(
-                        color: AppColor.secondary.color(),
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 0),
-                      child: _originDestinationRow(
-                        LocalizedCommunityStrings.fromToLocalized(language),
-                        postData.from,
-                        context,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(4),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 0),
-                      child: _originDestinationRow(
-                        LocalizedCommunityStrings.destinationToLocalized(
-                            language),
-                        postData.to,
-                        context,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(4),
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: _originDestinationRow(
-                        LocalizedCommunityStrings.dateTimeToLocaleString(
-                            postData.postDate, language,
-                            needsHrs: true),
-                        "",
-                        context,
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: FlatButton(
-                        child: Text(
-                          LocalizedCommunityStrings.contactToLocalized(
-                              language),
-                          style: TextStyle(
-                            color: AppColor.primary.color(),
-                          ),
+                    Flexible(
+                      flex: 1,
+                      child: Align(
+                        alignment: Alignment.topCenter,
+                        child: Icon(
+                          Icons.face,
+                          size: 100,
                         ),
-                        onPressed: () => _contactButtonPressed(),
+                      ),
+                    ),
+                    Flexible(
+                      flex: 2,
+                      child: Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 0),
+                                  child: _originDestinationRow(
+                                    LocalizedCommunityStrings.fromToLocalized(),
+                                    postData.from,
+                                    context,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.all(4),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 0),
+                                  child: _originDestinationRow(
+                                    LocalizedCommunityStrings
+                                        .destinationToLocalized(),
+                                    postData.to,
+                                    context,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.all(4),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: _originDestinationRow(
+                                    LocalizedCommunityStrings
+                                        .dateTimeToLocaleString(
+                                            postData.postDate,
+                                            needsHrs: true),
+                                    "",
+                                    context,
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: FlatButton(
+                                    child: Text(
+                                      LocalizedCommunityStrings.moreToLocalized(),
+                                      style: TextStyle(
+                                        color: AppColor.primary.color(),
+                                      ),
+                                    ),
+                                    onPressed: () => _moreButtonPressed(),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     )
                   ],
-                ),
-              ),
-            ],
-          ),
-        )
-      ],
-    )));
+                )
+              ],
+            )));
   }
 
   Widget _originDestinationRow(

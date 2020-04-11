@@ -1,5 +1,4 @@
 import '../strings/community_strings.dart';
-import '../strings/string_provider.dart' show Language;
 
 enum Trading {
   BUYING,
@@ -10,22 +9,22 @@ enum Trading {
 }
 
 extension TrademethodToString on Trading {
-  String toLocalizedString(Language language) {
+  String toLocalizedString() {
     switch (this) {
       case Trading.BUYING:
-        return LocalizedCommunityStrings.buyingToLocalized(language);
+        return LocalizedCommunityStrings.buyingToLocalized();
         break;
       case Trading.SELLING:
-        return LocalizedCommunityStrings.sellingToLocalized(language);
+        return LocalizedCommunityStrings.sellingToLocalized();
         break;
       case Trading.FREE:
-        return LocalizedCommunityStrings.freeToLocalized(language);
+        return LocalizedCommunityStrings.freeToLocalized();
         break;
       case Trading.ASKING:
-        return LocalizedCommunityStrings.askingToLocalized(language);
+        return LocalizedCommunityStrings.askingToLocalized();
         break;
       case Trading.OFFERING:
-        return LocalizedCommunityStrings.offeringToLocalized(language);
+        return LocalizedCommunityStrings.offeringToLocalized();
         break;
       default:
         return "unknown trading meth.. wtf";

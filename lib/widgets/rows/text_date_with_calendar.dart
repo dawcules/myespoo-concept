@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../strings/string_provider.dart' show Language;
 import '../../strings/community_strings.dart';
 import '../../styles/color_palette.dart';
 
@@ -8,23 +7,21 @@ import '../../styles/color_palette.dart';
 // along with a IconButton with onPress for picking a date.
 
 class TextDateWithCalendarPicker extends StatefulWidget {
-  final Language _language;
-  TextDateWithCalendarPicker(this._language);
+  TextDateWithCalendarPicker();
 
   @override
   _TextDateWithCalendarPickerState createState() =>
-      _TextDateWithCalendarPickerState(_language);
+      _TextDateWithCalendarPickerState();
 }
 
 class _TextDateWithCalendarPickerState
     extends State<TextDateWithCalendarPicker> {
 
-  Language _language;
   DateTime _selectedDate = DateTime.now();
   DateTime _firstDate = DateTime(2020);
   DateTime _lastDate = DateTime(2021);
 
-  _TextDateWithCalendarPickerState(Language _language);
+  _TextDateWithCalendarPickerState();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,7 +36,7 @@ class _TextDateWithCalendarPickerState
       children: <Widget>[
         Text(
           LocalizedCommunityStrings.dateTimeToLocaleString(
-              _selectedDate, _language),
+              _selectedDate),
           style: TextStyle(
             fontSize: 20,
             color: AppColor.secondary.color(),

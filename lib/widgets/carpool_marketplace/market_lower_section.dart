@@ -2,14 +2,12 @@ import 'package:cityprog/model/market.dart';
 import 'package:cityprog/widgets/posts/market_post.dart';
 import 'package:flutter/material.dart';
 
-import '../../strings/string_provider.dart' show Language;
 import './lower_section.dart';
 import '../../model/trade_methods.dart';
 
 class MarketLower extends StatelessWidget {
-  final Language _language;
-  final Function _contactButtonPressed;
-  const MarketLower(this._language, this._contactButtonPressed);
+  final Function _moreButtonPressed;
+  const MarketLower(this._moreButtonPressed);
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +34,8 @@ class MarketLower extends StatelessWidget {
   }
 
   Widget _getRow(int position, BuildContext context) {
-    return MarketPostWidget(posts[position], _language,
-        () => _contactButtonPressed(position, posts[position]));
+    return MarketPostWidget(posts[position],
+        () => _moreButtonPressed(posts[position]));
   }
 }
 
@@ -64,7 +62,7 @@ final MarketPost post3 = MarketPost(
     tradeMethod: Trading.FREE,
     postDate: DateTime.now());
 final MarketPost post4 = MarketPost(
-    title: "Buying shit",
+    title: "Buying stuff",
     body: "Some body text",
     postedBy: "Mikael",
     tradeMethod: Trading.BUYING,

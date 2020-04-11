@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import '../rows/two_button_row.dart';
 import '../../strings/community_strings.dart';
 import '../../styles/color_palette.dart';
-import '../../strings/string_provider.dart' show Language;
 
 class UpperSection extends StatelessWidget {
-  final Language language;
   final Function onPressedOffer;
   final Function onPressedAsk;
   final Function onPressedBrowse;
@@ -14,7 +12,6 @@ class UpperSection extends StatelessWidget {
   // -> Offer, Ask for carpool -- Sell, Buy for marketplace
   final bool isCarpoolPage;
   const UpperSection({
-    @required this.language,
     @required this.onPressedOffer,
     @required this.onPressedAsk,
     @required this.onPressedBrowse,
@@ -45,11 +42,11 @@ class UpperSection extends StatelessWidget {
       children: <Widget>[
         TwoButtonRow(
           textLeft: isCarpoolPage
-              ? LocalizedCommunityStrings.offerToLocalized(language)
-              : LocalizedCommunityStrings.sellToLocalized(language),
+              ? LocalizedCommunityStrings.offerToLocalized()
+              : LocalizedCommunityStrings.sellToLocalized(),
           textRight: isCarpoolPage
-              ? LocalizedCommunityStrings.askToLocalized(language)
-              : LocalizedCommunityStrings.buyToLocalized(language),
+              ? LocalizedCommunityStrings.askToLocalized()
+              : LocalizedCommunityStrings.buyToLocalized(),
           onPressedLeft: () => onPressedOffer(),
           onPressedRight: () => onPressedAsk(),
         ),
@@ -71,7 +68,7 @@ class UpperSection extends StatelessWidget {
                 vertical: 16,
               ),
               child: Text(
-                LocalizedCommunityStrings.browseToLocalized(language),
+                LocalizedCommunityStrings.browseToLocalized(),
                 style: TextStyle(
                   color: AppColor.buttonText.color(),
                   fontSize: 20,

@@ -171,9 +171,19 @@ class StringProvider {
     switch (localeId) {
       case "en_GB":
         return Language.EN;
+      case "en-GB":
+        return Language.EN;
       case "en_US":
         return Language.EN;
+      case "en-US":
+        return Language.EN;
+      case "EN":
+        return Language.EN;
       case "fi_FI":
+        return Language.FI;
+      case "fi-FI":
+        return Language.FI;
+      case "FI":
         return Language.FI;
       default:
         return Language.EN;

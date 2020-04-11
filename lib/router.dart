@@ -9,7 +9,6 @@ import './pages/introduction_page.dart';
 import 'pages/community_help_sign_page.dart';
 import 'pages/community_help_main_page.dart';
 import './pages/carpool.dart';
-import './strings/string_provider.dart' show Language;
 import './pages/login_page.dart';
 import './pages/marketplace.dart';
 
@@ -37,9 +36,9 @@ class Router {
       case '/introduction':
         return MaterialPageRoute(builder: (_) => IntroductionPage());
       case '/carpool':
-        return MaterialPageRoute(builder: (_) => CarpoolPage(Language.EN));
+        return MaterialPageRoute(builder: (_) => CarpoolPage());
         case '/market':
-        return MaterialPageRoute(builder: (_) => MarketPlacePage(Language.EN));
+        return MaterialPageRoute(builder: (_) => MarketPlacePage());
       default:
         return _errorRoute();
     }

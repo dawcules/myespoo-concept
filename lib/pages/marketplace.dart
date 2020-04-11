@@ -1,20 +1,16 @@
 import 'package:cityprog/model/market.dart';
-import 'package:cityprog/strings/string_provider.dart' show Language;
 import 'package:cityprog/widgets/carpool_marketplace/market_lower_section.dart';
 import 'package:cityprog/widgets/carpool_marketplace/marketplace_upper.dart';
 import 'package:flutter/material.dart';
 
 class MarketPlacePage extends StatefulWidget {
-  final Language _language;
-  const MarketPlacePage(this._language);
 
   @override
-  _MarketPlacePageState createState() => _MarketPlacePageState(_language);
+  _MarketPlacePageState createState() => _MarketPlacePageState();
 }
 
 class _MarketPlacePageState extends State<MarketPlacePage> {
-  Language language;
-  _MarketPlacePageState(this.language);
+  _MarketPlacePageState();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,13 +18,12 @@ class _MarketPlacePageState extends State<MarketPlacePage> {
         body: Column(
           children: <Widget>[
             MarketplaceUpper(
-              language: language,
               onPressedBuy: () => _onBuyOnPress(),
               onPressedBrowse: () => _onBrowseOnPress(),
               onPressedSell: () => _onSellOnPress(),
             ),
-            MarketLower(language,
-                (int pos, MarketPost post) => _onContactButtonPress(pos, post)),
+            MarketLower(
+                (MarketPost post) => _onMoreButtonPress(post)),
           ],
         ),
       ),
@@ -47,8 +42,7 @@ class _MarketPlacePageState extends State<MarketPlacePage> {
     print("sell pressed");
   }
 
-  void _onContactButtonPress(int position, MarketPost post) {
-    print("contact pressed at position: $position" +
-        "\nPosted by: ${post.postedBy} on ${post.postDate}");
+  void _onMoreButtonPress(MarketPost post) {
+    print("Posted by: ${post.postedBy} on ${post.postDate}");
   }
 }
