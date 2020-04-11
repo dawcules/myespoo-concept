@@ -4,11 +4,11 @@ import 'package:cityprog/widgets/containers/box_container.dart';
 import 'package:flutter/material.dart';
 import '../animations/FadeAnimation.dart';
 import '../widgets/Inputs/boxedinput.dart';
-import '../widgets/buttons/login_button.dart';
+//import '../widgets/buttons/login_button.dart';
 import '../widgets/Backgrounds/background_widget.dart';
 import '../widgets/texts/centered_text.dart';
 import '../widgets/texts/header_text.dart';
-import '../styles/color_palette.dart';
+//import '../styles/color_palette.dart';
 
 class LoginPage extends StatefulWidget {
   @override
