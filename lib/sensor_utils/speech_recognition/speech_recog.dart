@@ -6,10 +6,12 @@ import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:toast/toast.dart';
 import 'dart:async';
+import 'package:cityprog/strings/string_provider.dart';
 
 import '../../widgets/dialogs/commands_dialog.dart';
 import '../../router.dart';
-import '../../strings/string_provider.dart';
+//import '../../strings/string_provider.dart';
+
 
 /*
  * Returns a microphone Widget with a scaling animation,
