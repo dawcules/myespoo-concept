@@ -153,13 +153,13 @@ class _SpeechToActionState extends State<SpeechToAction>
       showDialog(
           context: context,
           child: CommandsDialog(
-              _navStringBundleLocalized["commandDescriptions"], _language));
+              _navStringBundleLocalized["commandDescriptions"]));
     } else if (_keywordsCommands.contains(userCommand)) {
       // The command was "keywords" -> open a dialog with all the keywords
       showDialog(
         context: context,
         child: KeywordsDialog(
-            _navStringBundleLocalized["keywordDescriptions"], _language),
+            _navStringBundleLocalized["keywordDescriptions"]),
       );
     } else {
       // The command was unknown
@@ -246,8 +246,7 @@ class _SpeechToActionState extends State<SpeechToAction>
         },
         onTapCancel: () => {setState(() => _animationController.reset())},
         onTap: () => Toast.show(
-            StringProvider.holdToSpeakToLocalized(
-                StringProvider.localeToLanguage(_currentLocaleId)),
+            StringProvider.holdToSpeakToLocalized(),
             context,
             duration: Toast.LENGTH_LONG));
   }

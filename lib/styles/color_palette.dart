@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
 
-enum AppColor { primary ,secondary ,background ,hint , lightText , darkText , whiteText }
+enum AppColor {
+  primary,
+  secondary,
+  background,
+  hint,
+  lightText,
+  darkText,
+  whiteText,
+  button,
+  buttonText,
+}
 
 extension GetAppColor on AppColor {
-  Color color(){
+  Color color() {
     switch (this) {
       case AppColor.primary:
         return Color.fromRGBO(21, 22, 255, 1);
@@ -18,10 +28,13 @@ extension GetAppColor on AppColor {
       case AppColor.darkText:
         return Color.fromRGBO(21, 22, 255, 1);
       case AppColor.lightText:
+        return Color.fromRGBO(21, 22, 255, 1);
+      case AppColor.button:
+        return AppColor.secondary.color();
+      case AppColor.buttonText:
         return Colors.white;
       default:
         return Colors.white;
     }
   }
 }
-
