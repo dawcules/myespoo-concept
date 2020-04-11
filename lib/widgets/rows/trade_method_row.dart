@@ -5,21 +5,24 @@ import 'package:flutter/material.dart';
 
 class TradeMethodRow extends StatelessWidget {
   final Trading _method;
-  const TradeMethodRow(this._method);
+  final double fontSize;
+  final MainAxisAlignment mainAxisAlign;
+  const TradeMethodRow(this._method, {this.fontSize, this.mainAxisAlign});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: AppColor.secondary.color(),
       child: Row(
+        mainAxisAlignment: mainAxisAlign ?? MainAxisAlignment.start,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(16.0),
             child: Text(
               _method.toLocalizedString(),
               style: TextStyle(
                 color: AppColor.whiteText.color(),
-                fontSize: 20,
+                fontSize: fontSize ?? 20,
               ),
             ),
           )

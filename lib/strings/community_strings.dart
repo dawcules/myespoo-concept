@@ -109,6 +109,11 @@ class LocalizedCommunityStrings {
   static const String saturdayFI = "Lauantai";
   static const String sundayFI = "Sunnuntai";
   static const String moreFI = "Lisää";
+  static const String submitFI = "Lähetä";
+  static const String titleFI = "Otsikko";
+  static const String describeFI = "Kerro lisää";
+  static const String postFI = "Julkaise";
+  static const String detailsFI = "Yksityiskohdat";
 
   // ENG
   static const String sellEN = "Sell";
@@ -136,6 +141,11 @@ class LocalizedCommunityStrings {
   static const String saturdayEN = "Saturday";
   static const String sundayEN = "Sunday";
   static const String moreEN = "More";
+  static const String submitEN = "Submit";
+  static const String titleEN = "Title";
+  static const String describeEN = "Describe";
+  static const String postEN = "Post";
+  static const String detailsEN = "Details";
 
   static String sellToLocalized() {
     switch (CurrentLanguage.value) {
@@ -385,6 +395,76 @@ class LocalizedCommunityStrings {
         break;
       default:
         return moreEN;
+        break;
+    }
+  }
+
+  static String submitToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return submitFI;
+        break;
+      case Language.EN:
+        return submitEN;
+        break;
+      default:
+        return submitEN;
+        break;
+    }
+  }
+
+  static String titleToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return titleFI;
+        break;
+      case Language.EN:
+        return titleEN;
+        break;
+      default:
+        return titleEN;
+        break;
+    }
+  }
+
+  static String describeToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return describeFI;
+        break;
+      case Language.EN:
+        return describeEN;
+        break;
+      default:
+        return describeEN;
+        break;
+    }
+  }
+
+  static String postToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return postFI;
+        break;
+      case Language.EN:
+        return postEN;
+        break;
+      default:
+        return postEN;
+        break;
+    }
+  }
+
+  static String detailsToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return detailsFI;
+        break;
+      case Language.EN:
+        return detailsEN;
+        break;
+      default:
+        return detailsEN;
         break;
     }
   }
