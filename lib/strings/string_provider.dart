@@ -1,3 +1,4 @@
+import '../current_language.dart';
 import './navigation_strings.dart';
 import './localized_descriptions.dart';
 
@@ -11,35 +12,35 @@ class StringProvider {
       Language target) {
     return {
       "commands": {
-        "navigate": NavigationStrings.localizedNavigateStrings(target),
-        "help": NavigationStrings.localizedHelpStrings(target),
-        "keywords": keywordsToLocalized(target),
+        "navigate": NavigationStrings.localizedNavigateStrings(),
+        "help": NavigationStrings.localizedHelpStrings(),
+        "keywords": keywordsToLocalized(),
       },
       "keywords": {
-        "home": NavigationStrings.localizedHomeStrings(target),
-        "introduction": NavigationStrings.localizedIntroductionStrings(target),
-        "community": NavigationStrings.localizedCommunityStrings(target),
-        "personal": NavigationStrings.localizedPersonalStrings(target),
-        "carpool": NavigationStrings.localizedCarpoolStrings(target),
+        "home": NavigationStrings.localizedHomeStrings(),
+        "introduction": NavigationStrings.localizedIntroductionStrings(),
+        "community": NavigationStrings.localizedCommunityStrings(),
+        "personal": NavigationStrings.localizedPersonalStrings(),
+        "carpool": NavigationStrings.localizedCarpoolStrings(),
       },
-      "commandDescriptions": localizedCommandDescriptions(target),
-      "keywordDescriptions": localizedKeywordDescriptions(target),
-      "keywordInitialChars": localizedKeywordInitialChars(target),
+      "commandDescriptions": localizedCommandDescriptions(),
+      "keywordDescriptions": localizedKeywordDescriptions(),
+      "keywordInitialChars": localizedKeywordInitialChars(),
       "unknown": {
-        "command": unknownCommandToLocalized(target),
-        "keyword": unknownKeywordToLocalized(target),
+        "command": unknownCommandToLocalized(),
+        "keyword": unknownKeywordToLocalized(),
       },
     };
   }
 
-  static Map<String, String> localizedCommandDescriptions(Language target) {
-    return target == Language.FI
+  static Map<String, String> localizedCommandDescriptions() {
+    return CurrentLanguage.value == Language.FI
         ? LocalizedDescriptions.commandsFI
         : LocalizedDescriptions.commandsEN;
   }
 
-  static String unknownKeywordToLocalized(Language target) {
-    switch (target) {
+  static String unknownKeywordToLocalized() {
+    switch (CurrentLanguage.value) {
       case Language.FI:
         return "Tuntematon avainsana";
         break;
@@ -52,8 +53,8 @@ class StringProvider {
     }
   }
 
-  static String unknownCommandToLocalized(Language target) {
-    switch (target) {
+  static String unknownCommandToLocalized() {
+    switch (CurrentLanguage.value) {
       case Language.FI:
         return "Tuntematon komento";
         break;
@@ -66,8 +67,8 @@ class StringProvider {
     }
   }
 
-  static List<String> keywordsToLocalized(Language target) {
-    switch (target) {
+  static List<String> keywordsToLocalized() {
+    switch (CurrentLanguage.value) {
       case Language.FI:
         return [
           "Avainsanat",
@@ -103,8 +104,8 @@ class StringProvider {
     }
   }
 
-  static String continueToLocalized(Language target) {
-    switch (target) {
+  static String continueToLocalized() {
+    switch (CurrentLanguage.value) {
       case Language.FI:
         return "Jatka";
         break;
@@ -117,8 +118,8 @@ class StringProvider {
     }
   }
 
-  static String holdToSpeakToLocalized(Language target) {
-    switch (target) {
+  static String holdToSpeakToLocalized() {
+    switch (CurrentLanguage.value) {
       case Language.FI:
         return "Pidä pohjassa ja puhu";
         break;
@@ -131,8 +132,8 @@ class StringProvider {
     }
   }
 
-  static Map<String, String> localizedKeywordDescriptions(Language target) {
-    switch (target) {
+  static Map<String, String> localizedKeywordDescriptions() {
+    switch (CurrentLanguage.value) {
       case Language.FI:
         return LocalizedDescriptions.keywordsFI;
         break;
@@ -149,21 +150,21 @@ class StringProvider {
   // For example, keyword home when the locale is Finnish, returns "k" (from "koti").
   // This is for for performance optimization purposes ---
   // Not having to loop through every irrelevant keyword when evaluating the command.
-  static Map<String, String> localizedKeywordInitialChars(Language target) {
+  static Map<String, String> localizedKeywordInitialChars() {
     return {
-      "home": target == Language.FI
+      "home": CurrentLanguage.value == Language.FI
           ? NavigationStrings.homeFI[0][0].toLowerCase()
           : NavigationStrings.homeEN[0][0].toLowerCase(),
-      "introduction": target == Language.FI
+      "introduction": CurrentLanguage.value == Language.FI
           ? NavigationStrings.introductionFI[0][0].toLowerCase()
           : NavigationStrings.introductionEN[0][0].toLowerCase(),
-      "community": target == Language.FI
+      "community": CurrentLanguage.value == Language.FI
           ? NavigationStrings.communityFI[0][0].toLowerCase()
           : NavigationStrings.communityEN[0][0].toLowerCase(),
-      "personal": target == Language.FI
+      "personal": CurrentLanguage.value == Language.FI
           ? NavigationStrings.personalFI[0][0].toLowerCase()
           : NavigationStrings.personalEN[0][0].toLowerCase(),
-      "carpool": target == Language.FI ? "k" : "c",
+      "carpool": CurrentLanguage.value == Language.FI ? "k" : "c",
     };
   }
 

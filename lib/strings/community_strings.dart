@@ -389,8 +389,7 @@ class LocalizedCommunityStrings {
     }
   }
 
-  static String dateTimeToLocaleString(DateTime date,
-      {bool needsHrs = false}) {
+  static String dateTimeToLocaleString(DateTime date, {bool needsHrs = false}) {
     String format = localizeDateFormat(date, needsHours: needsHrs);
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
@@ -413,8 +412,7 @@ class LocalizedCommunityStrings {
     }
   }
 
-  static String localizeDateFormat(DateTime date, 
-      {bool needsHours = false}) {
+  static String localizeDateFormat(DateTime date, {bool needsHours = false}) {
     switch (CurrentLanguage.value) {
       case Language.FI:
         return needsHours ? _fullDateFormatFI(date) : _dateFormatFI(date);

@@ -1,3 +1,4 @@
+import '../current_language.dart';
 import './string_provider.dart' show Language;
 
 // Localized strings for speech navigation
@@ -100,31 +101,31 @@ class NavigationStrings {
 
   // Methods that return a localized string
   // appropriate for given Language argument
-  static List<String> localizedNavigateStrings(Language target) {
-    return target == Language.FI ? navigateFI : navigateEN;
+  static List<String> localizedNavigateStrings() {
+    return CurrentLanguage.value == Language.FI ? navigateFI : navigateEN;
   }
 
-  static List<String> localizedHomeStrings(Language target) {
-    return target == Language.FI ? homeFI : homeEN;
+  static List<String> localizedHomeStrings() {
+    return CurrentLanguage.value == Language.FI ? homeFI : homeEN;
   }
 
-  static List<String> localizedIntroductionStrings(Language target) {
-    return target == Language.FI ? introductionFI : introductionEN;
+  static List<String> localizedIntroductionStrings() {
+    return CurrentLanguage.value == Language.FI ? introductionFI : introductionEN;
   }
 
-  static List<String> localizedCommunityStrings(Language target) {
-    return target == Language.FI ? communityFI : communityEN;
+  static List<String> localizedCommunityStrings() {
+    return CurrentLanguage.value == Language.FI ? communityFI : communityEN;
   }
 
-  static List<String> localizedPersonalStrings(Language target) {
-    return target == Language.FI ? personalFI : personalEN;
+  static List<String> localizedPersonalStrings() {
+    return CurrentLanguage.value == Language.FI ? personalFI : personalEN;
   }
 
-  static List<String> localizedHelpStrings(Language target) {
-    return target == Language.FI ? helpFI : helpEN;
+  static List<String> localizedHelpStrings() {
+    return CurrentLanguage.value == Language.FI ? helpFI : helpEN;
   }
 
-  static List<String> localizedCarpoolStrings(Language target) {
-    return target == Language.FI ? carpoolFI : carpoolEN;
+  static List<String> localizedCarpoolStrings() {
+    return CurrentLanguage.value == Language.FI ? carpoolFI : carpoolEN;
   }
 }
