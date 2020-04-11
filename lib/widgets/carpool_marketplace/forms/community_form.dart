@@ -32,29 +32,6 @@ class CommunityForm extends StatelessWidget {
         break;
     }
   }
-
-  Widget _chooseForm() {
-    switch (tradeMethod) {
-      case Trading.BUYING:
-        return BuyingForm();
-        break;
-      case Trading.SELLING:
-        return SellingForm();
-        break;
-      case Trading.FREE:
-        return SellingForm();
-        break;
-      case Trading.ASKING:
-        return AskingForm();
-        break;
-      case Trading.OFFERING:
-        return OfferingForm();
-        break;
-      default:
-        return Text("404............");
-        break;
-    }
-  }
 }
 
 

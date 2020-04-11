@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: (settings) => Router.generateRoute(settings),
       localeResolutionCallback: (deviceLocale, _) {
         _initLanguage(deviceLocale.toLanguageTag());
+        return deviceLocale;
       }
     );
   }
