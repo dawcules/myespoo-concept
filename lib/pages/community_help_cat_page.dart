@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cityprog/widgets/lists/clickable_listview.dart';
 
 class CommunityHelpCat extends StatefulWidget {
   final String _category;
@@ -26,7 +27,7 @@ class _CommunityHelpCatState extends State<CommunityHelpCat> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Container(
-                height: 600,
+                height: 700,
                 width: 400,
                 decoration: BoxDecoration(border: Border.all(width: 1)),
                 child: Column(
@@ -41,17 +42,10 @@ class _CommunityHelpCatState extends State<CommunityHelpCat> {
                       ),
                     ),
                     Padding(padding: EdgeInsets.all(20.0)),
-                    Container(
-                      margin: EdgeInsets.all(20.0),
-                      child: Text(
-                          'LIST HERE',
-                          style: TextStyle(fontSize: 20)),
-                    ),
-                  
-                    FlatButton(
-                      child: Text('TODO'),
-                      color: Colors.amber,
-                      onPressed: (){print('TODO');},
+                    Expanded(
+                      child: ClickList(
+                        items: <String>[widget._category,widget._category,widget._category,widget._category]
+                        ),
                     ),
                   ],
                 ),
