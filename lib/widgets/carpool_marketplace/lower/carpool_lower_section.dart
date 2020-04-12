@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../model/carpool.dart';
-import '../posts/carpool_post.dart';
-import '../../strings/string_provider.dart' show Language;
+import '../../../model/carpool.dart';
+import '../../posts/carpool_post.dart';
 import './lower_section.dart';
-import '../../model/trade_methods.dart';
+import '../../../model/trade_methods.dart';
 
 class CarpoolLower extends StatelessWidget {
-  final Language _language;
-  final Function _contactButtonPressed;
-  const CarpoolLower(this._language, this._contactButtonPressed);
+  final Function _moreButtonPressed;
+  const CarpoolLower(this._moreButtonPressed);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +34,8 @@ class CarpoolLower extends StatelessWidget {
   }
 
   Widget _getRow(int position, BuildContext context) {
-    return CarpoolPostWidget(posts[position], _language, () => _contactButtonPressed(position));
+    return CarpoolPostWidget(posts[position],
+        () => _moreButtonPressed(posts[position]));
   }
 }
 

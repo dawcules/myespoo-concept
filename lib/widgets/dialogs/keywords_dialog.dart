@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 
-import '../../strings/string_provider.dart';
 import '../buttons/continue_button_localized.dart';
 import '../rows/key_value_text_row.dart';
 
 class KeywordsDialog extends StatelessWidget {
   final Map<String, String> keywords;
-  final Language _language;
-  const KeywordsDialog(this.keywords, this._language);
+  const KeywordsDialog(this.keywords);
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       content: buildCommandsList(context),
       actions: <Widget>[
-        ContinueButton(_language),
+        ContinueButton(),
       ],
     );
   }

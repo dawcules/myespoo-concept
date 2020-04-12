@@ -1,12 +1,23 @@
 import '../sensor_utils/speech_recognition/speech_recog.dart';
 import 'package:cityprog/handlers/message_handler.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
+      Widget bottomWidget;
+
+      if (kIsWeb) {
+        bottomWidget = Text ('Asenna sovellus käyttääksesi puhetoimintoja!');
+      } else {
+            bottomWidget = SpeechToAction();
+      }
+
     return Container(
       child: Scaffold(
         body: Stack(
@@ -17,7 +28,7 @@ class WelcomePage extends StatelessWidget {
             ),
             Align(
               alignment: Alignment.bottomCenter * 0.5,
-              child: SpeechToAction(),
+              child: bottomWidget,
             ),
             MessageHandler(),
           ],
@@ -44,6 +55,12 @@ class WelcomePage extends StatelessWidget {
           child: Icon(Icons.people),
           heroTag: "nav_community",
           onPressed: () => Navigator.of(context).pushNamed("/community"),
+        ),
+        Padding(padding: EdgeInsets.all(8)),
+        FloatingActionButton(
+          child: Icon(Icons.transfer_within_a_station),
+          heroTag: "nav_communityHelp",
+          onPressed: () => Navigator.of(context).pushNamed("/communityHelp"),
         ),
         Padding(padding: EdgeInsets.all(8)),
         FloatingActionButton(
