@@ -8,6 +8,7 @@ import './pages/personal_page.dart';
 import './pages/carpool.dart';
 import './strings/string_provider.dart' show Language;
 import './pages/login_page.dart';
+import './pages/profile_creation.dart';
 
 // https://www.youtube.com/watch?v=nyvwx7o277U
 
@@ -28,6 +29,8 @@ class Router {
         return MaterialPageRoute(builder: (_) => IntroductionPage());
       case '/carpool':
         return MaterialPageRoute(builder: (_) => CarpoolPage(Language.EN));
+      case '/profile':
+        return MaterialPageRoute(builder: (_) => ProfilePage());
       default:
         return _errorRoute();
     }
@@ -44,7 +47,7 @@ class Router {
   }
 }
 
-enum Routes { HOME, PERSONAL, COMMUNITY, INTRODUCTION, CARPOOL }
+enum Routes { HOME, PERSONAL, COMMUNITY, INTRODUCTION, CARPOOL, PROFILE }
 
 extension RoutePaths on Routes {
   String get name {
@@ -63,6 +66,9 @@ extension RoutePaths on Routes {
         break;
       case Routes.CARPOOL:
         return "/carpool";
+        break;
+      case Routes.PROFILE:
+        return "/profile";
         break;
       default:
         return "lookslikea404";

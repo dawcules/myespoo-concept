@@ -16,7 +16,10 @@ class LoginButton extends StatelessWidget {
                     color: Color.fromRGBO(14, 80, 186, 1),
                   ),
                   child: Center(
-                    child: Text(text, style: TextStyle(color: Colors.white),)
+                    child: FlatButton(
+                      onPressed: () => null,
+                      child: Text(text, style: TextStyle(color: Colors.white),)
+                    ,)
                   ),
                 );
   }
