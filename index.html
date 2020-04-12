@@ -17,6 +17,8 @@
   <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-firestore.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-functions.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-messaging.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-analytics.js"></script>
+
 
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
@@ -51,13 +53,7 @@
         .then(function(registration) {
       // Registration was successful
       console.log('ServiceWorker registration successful with scope: ', registration.scope);
-    }, function(err) {
-      // registration failed
-      console.log('ServiceWorker registration failed: ', err);;
-      });
-    });
-  }
-  const messaging = firebase.messaging();
+      const messaging = firebase.messaging();
 
   messaging.requestPermission().then(function() {
     const messaging = firebase.messaging();
@@ -72,7 +68,13 @@
    messaging.onMessage((payload) => {
     console.log('Message received. ', payload);
    });
-
+    }, function(err) {
+      // registration failed
+      console.log('ServiceWorker registration failed: ', err);;
+      });
+    });
+  }
+  
   </script>
   <script src="main.dart.js" type="application/javascript"></script>
 </body>
