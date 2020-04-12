@@ -29,23 +29,10 @@
 </head>
 <body>
   <script>
-  var firebaseConfig = {
-    apiKey: "AIzaSyAtHq48TkTxtFgCO_OvyNCS10QFWr2rXBo",
-    authDomain: "cityprog-24974.firebaseapp.com",
-    databaseURL: "https://cityprog-24974.firebaseio.com",
-    projectId: "cityprog-24974",
-    storageBucket: "cityprog-24974.appspot.com",
-    messagingSenderId: "1044301582240",
-    appId: "1:1044301582240:web:d33b1fc254ef328de6dec5",
-    measurementId: "G-QXEVDNCDP8"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-</script>
-  <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('firebase-messaging-sw.js').then(function(registration) {
+        navigator.serviceWorker.register('firebase-messaging-sw.js')
+        .then(function(registration) {
       // Registration was successful
       console.log('ServiceWorker registration successful with scope: ', registration.scope);
     }, function(err) {
@@ -54,6 +41,21 @@
       });
     });
   }
+  
+  messaging.requestPermission().then(function() {
+     //getToken(messaging);
+     return messaging.getToken();
+    }).then(function(token){
+    console.log(token);
+    })
+    .catch(function(err) {
+    console.log('Permission denied', err);
+    });
+
+        messaging.onMessage((payload) => {
+        console.log('Message received. ', payload);
+    // ...
+    });
     
   </script>
   <script src="main.dart.js" type="application/javascript"></script>
