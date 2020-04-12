@@ -1,4 +1,86 @@
+import '../current_language.dart';
 import './string_provider.dart' show Language;
+
+enum Weekday { MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SUNDAY, SATURDAY }
+
+extension WeekdayString on Weekday {
+  String toLocalizedString() {
+    switch (this) {
+      case Weekday.MONDAY:
+        switch (CurrentLanguage.value) {
+          case Language.FI:
+            return LocalizedCommunityStrings.mondayFI;
+          case Language.EN:
+            return LocalizedCommunityStrings.mondayEN;
+          default:
+            return LocalizedCommunityStrings.mondayEN;
+        }
+        break;
+      case Weekday.TUESDAY:
+        switch (CurrentLanguage.value) {
+          case Language.FI:
+            return LocalizedCommunityStrings.tuesdayFI;
+          case Language.EN:
+            return LocalizedCommunityStrings.tuesdayEN;
+          default:
+            return LocalizedCommunityStrings.tuesdayEN;
+        }
+        break;
+      case Weekday.WEDNESDAY:
+        switch (CurrentLanguage.value) {
+          case Language.FI:
+            return LocalizedCommunityStrings.wednesdayFI;
+          case Language.EN:
+            return LocalizedCommunityStrings.wednesdayEN;
+          default:
+            return LocalizedCommunityStrings.wednesdayEN;
+        }
+        break;
+      case Weekday.THURSDAY:
+        switch (CurrentLanguage.value) {
+          case Language.FI:
+            return LocalizedCommunityStrings.thursdayFI;
+          case Language.EN:
+            return LocalizedCommunityStrings.thursdayEN;
+          default:
+            return LocalizedCommunityStrings.thursdayEN;
+        }
+        break;
+      case Weekday.FRIDAY:
+        switch (CurrentLanguage.value) {
+          case Language.FI:
+            return LocalizedCommunityStrings.fridayFI;
+          case Language.EN:
+            return LocalizedCommunityStrings.fridayEN;
+          default:
+            return LocalizedCommunityStrings.fridayEN;
+        }
+        break;
+      case Weekday.SUNDAY:
+        switch (CurrentLanguage.value) {
+          case Language.FI:
+            return LocalizedCommunityStrings.fridayFI;
+          case Language.EN:
+            return LocalizedCommunityStrings.fridayEN;
+          default:
+            return LocalizedCommunityStrings.fridayEN;
+        }
+        break;
+      case Weekday.SATURDAY:
+        switch (CurrentLanguage.value) {
+          case Language.FI:
+            return LocalizedCommunityStrings.fridayFI;
+          case Language.EN:
+            return LocalizedCommunityStrings.fridayEN;
+          default:
+            return LocalizedCommunityStrings.fridayEN;
+        }
+        break;
+      default:
+        return null;
+    }
+  }
+}
 
 // Community specific strings for widget texts etc
 
@@ -21,6 +103,19 @@ class LocalizedCommunityStrings {
   static const String yesterdayFI = "Eilen";
   static const String fromFI = "Mistä";
   static const String destinationFI = "Minne";
+  static const String mondayFI = "Maanantai";
+  static const String tuesdayFI = "Tiistai";
+  static const String wednesdayFI = "Keskiviikko";
+  static const String thursdayFI = "Torstai";
+  static const String fridayFI = "Perjantai";
+  static const String saturdayFI = "Lauantai";
+  static const String sundayFI = "Sunnuntai";
+  static const String moreFI = "Lisää";
+  static const String submitFI = "Lähetä";
+  static const String titleFI = "Otsikko";
+  static const String describeFI = "Kerro lisää";
+  static const String postFI = "Julkaise";
+  static const String detailsFI = "Yksityiskohdat";
 
   // ENG
   static const String sellEN = "Sell";
@@ -40,9 +135,22 @@ class LocalizedCommunityStrings {
   static const String yesterdayEN = "Yesterday";
   static const String fromEN = "From";
   static const String destinationEN = "To";
+  static const String mondayEN = "Monday";
+  static const String tuesdayEN = "Tuesday";
+  static const String wednesdayEN = "Wednesday";
+  static const String thursdayEN = "Thursday";
+  static const String fridayEN = "Friday";
+  static const String saturdayEN = "Saturday";
+  static const String sundayEN = "Sunday";
+  static const String moreEN = "More";
+  static const String submitEN = "Submit";
+  static const String titleEN = "Title";
+  static const String describeEN = "Describe";
+  static const String postEN = "Post";
+  static const String detailsEN = "Details";
 
-  static String sellToLocalized(Language target) {
-    switch (target) {
+  static String sellToLocalized() {
+    switch (CurrentLanguage.value) {
       case Language.FI:
         return sellFI;
         break;
@@ -55,8 +163,8 @@ class LocalizedCommunityStrings {
     }
   }
 
-  static String buyToLocalized(Language target) {
-    switch (target) {
+  static String buyToLocalized() {
+    switch (CurrentLanguage.value) {
       case Language.FI:
         return buyFI;
         break;
@@ -69,8 +177,8 @@ class LocalizedCommunityStrings {
     }
   }
 
-  static String browseToLocalized(Language target) {
-    switch (target) {
+  static String browseToLocalized() {
+    switch (CurrentLanguage.value) {
       case Language.FI:
         return browseFI;
         break;
@@ -83,8 +191,8 @@ class LocalizedCommunityStrings {
     }
   }
 
-  static String allToLocalized(Language target) {
-    switch (target) {
+  static String allToLocalized() {
+    switch (CurrentLanguage.value) {
       case Language.FI:
         return allFI;
         break;
@@ -97,8 +205,8 @@ class LocalizedCommunityStrings {
     }
   }
 
-  static String contactToLocalized(Language target) {
-    switch (target) {
+  static String contactToLocalized() {
+    switch (CurrentLanguage.value) {
       case Language.FI:
         return contactFI;
         break;
@@ -111,8 +219,8 @@ class LocalizedCommunityStrings {
     }
   }
 
-  static String buyingToLocalized(Language target) {
-    switch (target) {
+  static String buyingToLocalized() {
+    switch (CurrentLanguage.value) {
       case Language.FI:
         return buyingFI;
         break;
@@ -125,8 +233,8 @@ class LocalizedCommunityStrings {
     }
   }
 
-  static String sellingToLocalized(Language target) {
-    switch (target) {
+  static String sellingToLocalized() {
+    switch (CurrentLanguage.value) {
       case Language.FI:
         return sellingFI;
         break;
@@ -139,8 +247,8 @@ class LocalizedCommunityStrings {
     }
   }
 
-  static String freeToLocalized(Language target) {
-    switch (target) {
+  static String freeToLocalized() {
+    switch (CurrentLanguage.value) {
       case Language.FI:
         return freeFI;
         break;
@@ -153,8 +261,8 @@ class LocalizedCommunityStrings {
     }
   }
 
-  static String offerToLocalized(Language target) {
-    switch (target) {
+  static String offerToLocalized() {
+    switch (CurrentLanguage.value) {
       case Language.FI:
         return offerFI;
         break;
@@ -167,8 +275,8 @@ class LocalizedCommunityStrings {
     }
   }
 
-  static String askToLocalized(Language target) {
-    switch (target) {
+  static String askToLocalized() {
+    switch (CurrentLanguage.value) {
       case Language.FI:
         return askFI;
         break;
@@ -181,8 +289,8 @@ class LocalizedCommunityStrings {
     }
   }
 
-  static String offeringToLocalized(Language target) {
-    switch (target) {
+  static String offeringToLocalized() {
+    switch (CurrentLanguage.value) {
       case Language.FI:
         return offeringFI;
         break;
@@ -195,8 +303,8 @@ class LocalizedCommunityStrings {
     }
   }
 
-  static String askingToLocalized(Language target) {
-    switch (target) {
+  static String askingToLocalized() {
+    switch (CurrentLanguage.value) {
       case Language.FI:
         return askingFI;
         break;
@@ -209,8 +317,8 @@ class LocalizedCommunityStrings {
     }
   }
 
-  static String todayToLocalized(Language target) {
-    switch (target) {
+  static String todayToLocalized() {
+    switch (CurrentLanguage.value) {
       case Language.FI:
         return todayFI;
         break;
@@ -223,8 +331,8 @@ class LocalizedCommunityStrings {
     }
   }
 
-  static String tomorrowToLocalized(Language target) {
-    switch (target) {
+  static String tomorrowToLocalized() {
+    switch (CurrentLanguage.value) {
       case Language.FI:
         return tomorrowFI;
         break;
@@ -237,8 +345,8 @@ class LocalizedCommunityStrings {
     }
   }
 
-  static String yesterdayToLocalized(Language target) {
-    switch (target) {
+  static String yesterdayToLocalized() {
+    switch (CurrentLanguage.value) {
       case Language.FI:
         return yesterdayFI;
         break;
@@ -251,8 +359,8 @@ class LocalizedCommunityStrings {
     }
   }
 
-  static String fromToLocalized(Language target) {
-    switch (target) {
+  static String fromToLocalized() {
+    switch (CurrentLanguage.value) {
       case Language.FI:
         return fromFI;
         break;
@@ -265,8 +373,8 @@ class LocalizedCommunityStrings {
     }
   }
 
-  static String destinationToLocalized(Language target) {
-    switch (target) {
+  static String destinationToLocalized() {
+    switch (CurrentLanguage.value) {
       case Language.FI:
         return destinationFI;
         break;
@@ -279,8 +387,92 @@ class LocalizedCommunityStrings {
     }
   }
 
-  static String dateTimeToLocaleString(DateTime date, Language target) {
-    String format = localizeDateFormat(date, target);
+  static String moreToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return moreFI;
+        break;
+      case Language.EN:
+        return moreEN;
+        break;
+      default:
+        return moreEN;
+        break;
+    }
+  }
+
+  static String submitToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return submitFI;
+        break;
+      case Language.EN:
+        return submitEN;
+        break;
+      default:
+        return submitEN;
+        break;
+    }
+  }
+
+  static String titleToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return titleFI;
+        break;
+      case Language.EN:
+        return titleEN;
+        break;
+      default:
+        return titleEN;
+        break;
+    }
+  }
+
+  static String describeToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return describeFI;
+        break;
+      case Language.EN:
+        return describeEN;
+        break;
+      default:
+        return describeEN;
+        break;
+    }
+  }
+
+  static String postToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return postFI;
+        break;
+      case Language.EN:
+        return postEN;
+        break;
+      default:
+        return postEN;
+        break;
+    }
+  }
+
+  static String detailsToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return detailsFI;
+        break;
+      case Language.EN:
+        return detailsEN;
+        break;
+      default:
+        return detailsEN;
+        break;
+    }
+  }
+
+  static String dateTimeToLocaleString(DateTime date, {bool needsHrs = false}) {
+    String format = localizeDateFormat(date, needsHours: needsHrs);
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final yesterday = DateTime(now.year, now.month, now.day - 1);
@@ -288,31 +480,84 @@ class LocalizedCommunityStrings {
     if (date.year == today.year &&
         date.month == today.month &&
         date.day == today.day) {
-      return format + " (${todayToLocalized(target)})";
+      return format + " (${todayToLocalized()})";
     } else if (date.year == tomorrow.year &&
         date.month == tomorrow.month &&
         date.day == tomorrow.day) {
-      return format + " (${tomorrowToLocalized(target)})";
+      return format + " (${tomorrowToLocalized()})";
     } else if (date.year == yesterday.year &&
         date.month == yesterday.month &&
         date.day == yesterday.day) {
-      return format + " (${yesterdayToLocalized(target)})";
+      return format + " (${yesterdayToLocalized()})";
     } else {
       return format;
     }
   }
 
-  static String localizeDateFormat(DateTime date, Language target) {
-    switch (target) {
+  static String localizeDateFormat(DateTime date, {bool needsHours = false}) {
+    switch (CurrentLanguage.value) {
       case Language.FI:
-        return "${date.day}.${date.month}.${date.year}";
+        return needsHours ? _fullDateFormatFI(date) : _dateFormatFI(date);
         break;
       case Language.EN:
-        return "${date.month}/${date.day}/${date.year}";
+        return needsHours ? _fullDateFormatEN(date) : _dateFormatEN(date);
         break;
       default:
-        return "${date.month}/${date.day}/${date.year}";
+        return needsHours ? _fullDateFormatEN(date) : _dateFormatEN(date);
         break;
+    }
+  }
+
+  static String _fullDateFormatFI(DateTime date) {
+    return "${_dateFormatHoursMinutesFI(date)} " +
+        "${weekDayFromInt(date.weekday).toLocalizedString()} ${_dateFormatFI(date)}";
+  }
+
+  static String _fullDateFormatEN(DateTime date) {
+    return "${_dateFormatHoursMinutesEN(date)} " +
+        "${weekDayFromInt(date.weekday).toLocalizedString()} ${_dateFormatEN(date)}";
+  }
+
+  static String _dateFormatHoursMinutesFI(DateTime date) {
+    String minute = "${date.minute}";
+    if (date.minute < 10) minute = "0" + minute;
+    print(minute);
+    return "${date.hour}:$minute";
+  }
+
+  static String _dateFormatHoursMinutesEN(DateTime date) {
+    String minute = "${date.minute}";
+    if (date.minute < 10) minute = "0" + minute;
+    print(minute);
+    return "${date.hour}:$minute";
+  }
+
+  static String _dateFormatFI(DateTime date) {
+    return "${date.day}.${date.month}.${date.year}";
+  }
+
+  static String _dateFormatEN(DateTime date) {
+    return "${date.month}/${date.day}/${date.year}";
+  }
+
+  static Weekday weekDayFromInt(int day) {
+    switch (day) {
+      case 1:
+        return Weekday.MONDAY;
+      case 2:
+        return Weekday.TUESDAY;
+      case 3:
+        return Weekday.WEDNESDAY;
+      case 4:
+        return Weekday.THURSDAY;
+      case 5:
+        return Weekday.FRIDAY;
+      case 6:
+        return Weekday.SATURDAY;
+      case 7:
+        return Weekday.SUNDAY;
+      default:
+        return null;
     }
   }
 }

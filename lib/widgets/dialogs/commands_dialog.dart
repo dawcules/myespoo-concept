@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 
 import '../buttons/continue_button_localized.dart';
-import '../../strings/string_provider.dart';
+
 // A custom error dialog -- specifically for speech recognition errors.
 
 class CommandsDialog extends StatelessWidget {
   final Map<String, String> _commands;
-  final Language _language;
-  const CommandsDialog(this._commands, this._language);
+  const CommandsDialog(this._commands);
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       content: buildCommandsList(context),
       actions: <Widget>[
-        ContinueButton(_language),
+        ContinueButton(),
       ],
     );
   }

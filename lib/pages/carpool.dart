@@ -1,57 +1,94 @@
-import 'package:cityprog/widgets/carpool_marketplace/carpool_lower_section.dart';
+import 'package:cityprog/model/carpool.dart';
+import 'package:cityprog/model/trade_methods.dart';
+import 'package:cityprog/widgets/carpool_marketplace/forms/community_post_form.dart';
+import 'package:cityprog/widgets/carpool_marketplace/lower/carpool_lower_section.dart';
+import 'package:cityprog/widgets/carpool_marketplace/upper/carpool_upper.dart';
+import 'package:cityprog/widgets/carpool_marketplace/upper/upper_buttons_state.dart';
+import 'package:cityprog/widgets/posts/carpool_post_modal.dart';
+import 'package:cityprog/widgets/posts/community_post_modal.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/carpool_marketplace/carpool_upper.dart';
-import '../strings/string_provider.dart' show Language;
-
 class CarpoolPage extends StatefulWidget {
-  final Language _language;
-  const CarpoolPage(this._language);
+  const CarpoolPage();
 
   @override
-  _CarpoolPageState createState() => _CarpoolPageState(_language);
+  _CarpoolPageState createState() => _CarpoolPageState();
 }
 
 class _CarpoolPageState extends State<CarpoolPage> {
-  final language;
-  _CarpoolPageState(this.language);
+  UpperButtonsState state = UpperButtonsState.BROWSING;
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
-        body: SafeArea(
-            child: Column(
-          children: <Widget>[
-            CarpoolUpper(
-              language: _getLocale(),
-              onPressedOffer: () => _offerPressed(),
-              onPressedAsk: () => _askPressed(),
-              onPressedBrowse: () => _browsePressed(),
-            ),
-            CarpoolLower(language, (int pos) => _contactPressed(pos)),
-          ],
-        )),
+        resizeToAvoidBottomPadding: false,
+        body: Center(
+          child: SafeArea(
+              child: Column(
+            children: <Widget>[
+              CarpoolUpper(
+                onPressedOffer: () =>
+                    _buttonShouldBeEnabled(UpperButtonsState.PROVIDING)
+                        ? _onOfferPressed()
+                        : null,
+                onPressedAsk: () =>
+                    _buttonShouldBeEnabled(UpperButtonsState.ASKING)
+                        ? _onAskPressed()
+                        : null,
+                onPressedBrowse: () =>
+                    _buttonShouldBeEnabled(UpperButtonsState.BROWSING)
+                        ? _onBrowsePressed()
+                        : null,
+              ),
+              _buildLowerSection(),
+            ],
+          )),
+        ),
       ),
     );
   }
 
-  Language _getLocale() {
-    return Language.EN; // Need to implement this for every page
+  bool _buttonShouldBeEnabled(UpperButtonsState buttonState) {
+    return state != buttonState;
   }
 
-  void _contactPressed(int position) {
-    print("contact button pressed. Position: $position");
+  Widget _buildLowerSection() {
+    switch (state) {
+      case UpperButtonsState.BROWSING:
+        return CarpoolLower((CarpoolPost post) => _onMorePressed(post));
+        break;
+      case UpperButtonsState.PROVIDING:
+        return CommunityPostForm(Trading.OFFERING);
+        break;
+      case UpperButtonsState.ASKING:
+        return CommunityPostForm(Trading.ASKING);
+        break;
+      default:
+        return Text("404 - not found");
+    }
   }
 
-  void _offerPressed() {
-    print("offer button pressed");
+  void _onMorePressed(CarpoolPost post) {
+    print("more button pressed. Post by: ${post.postedBy}");
+    showDialog(
+        context: context,
+        child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 100, horizontal: 20),
+            child: CommunityPostModal(CarpoolPostModal(post))));
   }
 
-  void _askPressed() {
-    print("ask button pressed");
+  void _onOfferPressed() {
+    print("offer pressed");
+    setState(() => state = UpperButtonsState.PROVIDING);
   }
 
-  void _browsePressed() {
-    print("browse button pressed");
+  void _onAskPressed() {
+    print("ask pressed");
+    setState(() => state = UpperButtonsState.ASKING);
+  }
+
+  void _onBrowsePressed() {
+    print("browse pressed");
+    setState(() => state = UpperButtonsState.BROWSING);
   }
 }

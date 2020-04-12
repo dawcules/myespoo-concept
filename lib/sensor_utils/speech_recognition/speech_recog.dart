@@ -1,3 +1,4 @@
+import 'package:cityprog/current_language.dart';
 import 'package:cityprog/widgets/dialogs/keywords_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -6,10 +7,12 @@ import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:toast/toast.dart';
 import 'dart:async';
+//import 'string_provider.dart';
 
 import '../../widgets/dialogs/commands_dialog.dart';
 import '../../router.dart';
 import '../../strings/string_provider.dart';
+
 
 /*
  * Returns a microphone Widget with a scaling animation,
@@ -49,7 +52,6 @@ class _SpeechToActionState extends State<SpeechToAction>
   final SpeechToText speech = SpeechToText();
 
   Map<String, Map<String, dynamic>> _navStringBundleLocalized;
-  Language _language;
 
   AnimationController _animationController;
 
@@ -63,7 +65,7 @@ class _SpeechToActionState extends State<SpeechToAction>
   void _initLocalizedStringsBundle(Language language) {
     print(language);
     _navStringBundleLocalized = StringProvider.localizedStringBundle(language);
-    _language = language;
+    CurrentLanguage.setNewFromString(_currentLocaleId);
     _initBundleReferences();
   }
 
@@ -151,13 +153,13 @@ class _SpeechToActionState extends State<SpeechToAction>
       showDialog(
           context: context,
           child: CommandsDialog(
-              _navStringBundleLocalized["commandDescriptions"], _language));
+              _navStringBundleLocalized["commandDescriptions"]));
     } else if (_keywordsCommands.contains(userCommand)) {
       // The command was "keywords" -> open a dialog with all the keywords
       showDialog(
         context: context,
         child: KeywordsDialog(
-            _navStringBundleLocalized["keywordDescriptions"], _language),
+            _navStringBundleLocalized["keywordDescriptions"]),
       );
     } else {
       // The command was unknown
@@ -244,8 +246,7 @@ class _SpeechToActionState extends State<SpeechToAction>
         },
         onTapCancel: () => {setState(() => _animationController.reset())},
         onTap: () => Toast.show(
-            StringProvider.holdToSpeakToLocalized(
-                StringProvider.localeToLanguage(_currentLocaleId)),
+            StringProvider.holdToSpeakToLocalized(),
             context,
             duration: Toast.LENGTH_LONG));
   }

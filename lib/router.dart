@@ -1,14 +1,17 @@
+import 'package:cityprog/pages/community_help_cat_page.dart';
 import 'package:flutter/material.dart';
 
 import './main.dart';
 import './pages/welcome_page.dart';
 import './pages/community_page.dart';
 import './pages/introduction_page.dart';
-import './pages/personal_page.dart';
+//import './pages/personal_page.dart';
+import 'pages/community_help_sign_page.dart';
+import 'pages/community_help_main_page.dart';
 import './pages/carpool.dart';
-import './strings/string_provider.dart' show Language;
 import './pages/login_page.dart';
 import './pages/profile_creation.dart';
+import './pages/marketplace.dart';
 
 // https://www.youtube.com/watch?v=nyvwx7o277U
 
@@ -23,14 +26,22 @@ class Router {
         return MaterialPageRoute(builder: (_) => MyHomePage(title: args));
       case '/community':
         return MaterialPageRoute(builder: (_) => CommunityPage());
+      case '/communityHelp':
+        return MaterialPageRoute(builder: (_) => CommunityHelpMain());
+      case '/communityHelpSign':
+        return MaterialPageRoute(builder: (_) => CommunityHelpPage());
+      case '/communityHelpCat':
+        return MaterialPageRoute(builder: (_) => CommunityHelpCat(args));
       case '/personal':
         return MaterialPageRoute(builder: (_) => LoginPage());
       case '/introduction':
         return MaterialPageRoute(builder: (_) => IntroductionPage());
       case '/carpool':
-        return MaterialPageRoute(builder: (_) => CarpoolPage(Language.EN));
+         return MaterialPageRoute(builder: (_) => CarpoolPage());
       case '/profile':
         return MaterialPageRoute(builder: (_) => ProfilePage());
+      case '/market':
+        return MaterialPageRoute(builder: (_) => MarketPlacePage());
       default:
         return _errorRoute();
     }
@@ -47,7 +58,7 @@ class Router {
   }
 }
 
-enum Routes { HOME, PERSONAL, COMMUNITY, INTRODUCTION, CARPOOL, PROFILE }
+enum Routes { HOME, PERSONAL, COMMUNITY, INTRODUCTION, CARPOOL, PROFILE, COMMUNITYHELP, MARKETPLACE }
 
 extension RoutePaths on Routes {
   String get name {
@@ -61,6 +72,8 @@ extension RoutePaths on Routes {
       case Routes.COMMUNITY:
         return "/community";
         break;
+      case Routes.COMMUNITYHELP:
+        return "/communityMain";
       case Routes.INTRODUCTION:
         return "/introduction";
         break;
@@ -70,6 +83,8 @@ extension RoutePaths on Routes {
       case Routes.PROFILE:
         return "/profile";
         break;
+      case Routes.MARKETPLACE:
+        return "/market";
       default:
         return "lookslikea404";
         break;

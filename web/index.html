@@ -15,8 +15,7 @@
   <!-- <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-storage.js"></script> -->
   <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-firestore.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-functions.js"></script>
-
-
+  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-messaging.js"></script>
 
 <!--   <script>
    if ('serviceWorker' in navigator) {
@@ -47,6 +46,21 @@
       };
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
+      const messaging = firebase.messaging();
+      messaging.requestPermission().then(function() {
+     //getToken(messaging);
+     return messaging.getToken();
+  }).then(function(token){
+  console.log(token);
+  })
+.catch(function(err) {
+  console.log('Permission denied', err);
+});
+
+      messaging.onMessage((payload) => {
+      console.log('Message received. ', payload);
+  // ...
+});
     </script>
 </head>
 <body>

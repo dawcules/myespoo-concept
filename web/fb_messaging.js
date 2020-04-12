@@ -1,0 +1,4 @@
+
+
+
+const messaging = firebase.messaging();

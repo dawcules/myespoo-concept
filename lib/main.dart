@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 //import 'package:fb_auth/fb_auth.dart';
 import './router.dart';
+import 'current_language.dart';
 
 void main() {
   /*FbApp(
@@ -10,13 +11,11 @@ void main() {
     projectId: "cityprog-24974",
     storageBucket: "gs://cityprog-24974.appspot.com/");*/
 
-    runApp(MyApp());
-    }
-
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,15 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       onGenerateRoute: (settings) => Router.generateRoute(settings),
+      localeResolutionCallback: (deviceLocale, _) {
+        _initLanguage(deviceLocale.toLanguageTag());
+        return deviceLocale;
+      }
     );
+  }
+
+  void _initLanguage(String localeId) {
+    CurrentLanguage.setNewFromString(localeId);
   }
 }
 
@@ -44,6 +51,12 @@ class _MyHomePageState extends State<MyHomePage> {
 // Some updating data source
 /* setState(() {
     }); */
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   final List<String> entries = <String>['Uutinen', 'Uutinen', 'Tapahtuma'];
   final List<int> colorCodes = <int>[600, 500, 100];
