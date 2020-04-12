@@ -6,15 +6,9 @@ import '../animations/FadeAnimation.dart';
 import '../widgets/Inputs/boxedinput.dart';
 //import '../widgets/buttons/login_button.dart';
 import '../widgets/Backgrounds/background_widget.dart';
-<<<<<<< HEAD
 import '../widgets/links/centered_text.dart';
 import '../widgets/links/header_text.dart';
 import '../styles/color_palette.dart';
-=======
-import '../widgets/texts/centered_text.dart';
-import '../widgets/texts/header_text.dart';
-//import '../styles/color_palette.dart';
->>>>>>> 793d94a29d7b3266606293bbd58ab6cc2f894c29
 
 class LoginPage extends StatefulWidget {
   @override
@@ -53,6 +47,7 @@ class _LoginState extends State<LoginPage> {
             padding: EdgeInsets.symmetric(horizontal: 40),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 FadeAnimation(1.5,
                 HeaderText(text: "Login", fontsize: 30, color:  AppColor.secondary.color())),

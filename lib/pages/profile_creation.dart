@@ -6,6 +6,7 @@ import 'package:cityprog/animations/FadeAnimation.dart';
 import '../widgets/Backgrounds/background_widget.dart';
 import '../widgets/Inputs/boxedinput.dart';
 import '../widgets/containers/box_container.dart';
+import '../widgets/database_widgets/stream_builder_example.dart';
 
 
 
@@ -47,11 +48,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
             page: 1,
             title: 'Basic Information',
             header: HeaderText(text: "Basic Information", fontsize: 30, color: AppColor.secondary.color()),
-            body: [CenteredText(text: "Body", color:  AppColor.primary.color()),
-            CenteredText(text: "Body", color:  AppColor.primary.color()),
-            CenteredText(text: "Body", color:  AppColor.primary.color()),
-            CenteredText(text: "Body", color:  AppColor.primary.color()),
-            CenteredText(text: "Body", color:  AppColor.primary.color())],
+            body: StreamBuilderExample(myQuery: 'Tapahtumat',),
             info: CenteredText(text: "More info", color:  AppColor.primary.color()),
           ),
           makePage(
@@ -97,11 +94,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
               children: <Widget>[
                 FadeAnimation(1.5,
                 header),
-                Column(children: <Widget>[
-                body[0],
-                ],
-                ),
-                
+                Expanded(child: FadeAnimation(1.6,body)),
               ],
             ),
           ),
