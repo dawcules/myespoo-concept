@@ -840,6 +840,7 @@ file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/.dart_tool/flutter_b
 file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/.packages
 file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/animations/FadeAnimation.dart
 file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/current_language.dart
+file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/database.dart
 file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/generated_plugin_registrant.dart
 file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/handlers/message_handler.dart
 file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/main.dart
@@ -854,6 +855,7 @@ file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/pages/community_
 file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/pages/introduction_page.dart
 file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/pages/login_page.dart
 file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/pages/marketplace.dart
+file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/pages/profile_creation.dart
 file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/pages/welcome_page.dart
 file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/router.dart
 file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/sensor_utils/speech_recognition/speech_recog.dart
@@ -883,8 +885,11 @@ file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/widgets/carpool_
 file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/widgets/carpool_marketplace/upper/upper_section.dart
 file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/widgets/columns/title_details_column.dart
 file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/widgets/containers/box_container.dart
+file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/widgets/database_widgets/stream_builder_example.dart
 file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/widgets/dialogs/commands_dialog.dart
 file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/widgets/dialogs/keywords_dialog.dart
+file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/widgets/links/centered_text.dart
+file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/widgets/links/header_text.dart
 file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/widgets/lists/clickable_listview.dart
 file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/widgets/posts/carpool_post.dart
 file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/widgets/posts/carpool_post_modal.dart
@@ -897,5 +902,3 @@ file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/widgets/rows/key
 file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/widgets/rows/text_date_with_calendar.dart
 file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/widgets/rows/trade_method_row.dart
 file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/widgets/rows/two_button_row.dart
-file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/widgets/texts/centered_text.dart
-file:///Users/runner/runners/2.168.0/work/cityprog/cityprog/lib/widgets/texts/header_text.dart
