@@ -16,7 +16,7 @@ firebase.initializeApp(firebaseConfig);
 
 const messaging = firebase.messaging();
 
-messaging.requestPermission().then(function() {
+/* messaging.requestPermission().then(function() {
     getToken(messaging);
     return messaging.getToken();
    }).then(function(token){
@@ -24,7 +24,7 @@ messaging.requestPermission().then(function() {
    })
    .catch(function(err) {
    console.log('Permission denied', err);
-   });
+   }); */
 
     messaging.onMessage((payload) => {
     console.log('Message received. ', payload);
