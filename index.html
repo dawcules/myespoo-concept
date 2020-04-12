@@ -41,22 +41,6 @@
       });
     });
   }
-  
-  messaging.requestPermission().then(function() {
-     //getToken(messaging);
-     return messaging.getToken();
-    }).then(function(token){
-    console.log(token);
-    })
-    .catch(function(err) {
-    console.log('Permission denied', err);
-    });
-
-        messaging.onMessage((payload) => {
-        console.log('Message received. ', payload);
-    // ...
-    });
-    
   </script>
   <script src="main.dart.js" type="application/javascript"></script>
 </body>
