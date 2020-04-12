@@ -43,6 +43,8 @@
       });
     });
   }
+  const messaging = firebase.messaging();
+
   messaging.requestPermission().then(function() {
     getToken(messaging);
     return messaging.getToken();
