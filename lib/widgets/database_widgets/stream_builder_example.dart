@@ -23,8 +23,9 @@ class StreamBuilderExample extends StatelessWidget {
   }
 }
 
+//SWagety. Pistin samaan selkeyden
 class ListViewBuilder extends StatelessWidget {
-  var queryData;
+  final queryData;
 
   ListViewBuilder(this.queryData);
 
@@ -45,24 +46,17 @@ class ListViewBuilder extends StatelessWidget {
         Expanded(
             child: Text(
               index['nimi'].toString(),
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .headline5,
             )),
         Container(
             decoration: const BoxDecoration(color: Colors.pink),
             padding: EdgeInsets.all(10),
-            child: Text(index['likes'].toString(),
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .headline4)),
+            child: Text(index['likes'].toString(),),),
         Divider(),
       ]),
       trailing: Icon(Icons.person_pin),
       onTap: () {
-          Database().updateValue('likes', 1, index.reference); //Katso Database singleton niin ymmärrät
+          Database().updateValue('likes', 1, index.reference); //Katso Database singleton, päivittää referenssin likeja
+          //Tähän voi pistää vaikka navigoinnin ja viedä index objektin mukana.
       },
     );
   }

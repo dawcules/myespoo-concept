@@ -4,8 +4,8 @@ import 'package:cityprog/widgets/links/header_text.dart';
 import 'package:flutter/material.dart';
 import 'package:cityprog/animations/FadeAnimation.dart';
 import '../widgets/Backgrounds/background_widget.dart';
-import '../widgets/Inputs/boxedinput.dart';
-import '../widgets/containers/box_container.dart';
+//import '../widgets/Inputs/boxedinput.dart';
+//import '../widgets/containers/box_container.dart';
 import '../widgets/database_widgets/stream_builder_example.dart';
 
 
