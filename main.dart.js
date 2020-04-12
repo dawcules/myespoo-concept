@@ -25494,7 +25494,7 @@ break
 case 3:s=2
 i=r
 H.W(i)
-n=P.rK("Nope")
+n=P.rK("Me no like!")
 throw H.f(n)
 u=5
 break
