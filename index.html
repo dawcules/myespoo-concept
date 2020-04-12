@@ -52,8 +52,12 @@
         navigator.serviceWorker.register('firebase-messaging-sw.js')
         .then(function(registration) {
       // Registration was successful
+    
       console.log('ServiceWorker registration successful with scope: ', registration.scope);
       const messaging = firebase.messaging();
+      navigator.serviceWorker.register('firebase-messaging-sw.js')
+.then((registration) => {
+  messaging.useServiceWorker(registration);
 
   messaging.requestPermission().then(function() {
     const messaging = firebase.messaging();
@@ -75,6 +79,7 @@
     });
   }
   
+
   </script>
   <script src="main.dart.js" type="application/javascript"></script>
 </body>
