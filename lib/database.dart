@@ -20,7 +20,12 @@ class Database {
   StreamSubscription<AuthUser> _userChanged;
 */
 
-  /* Jokainen event streamataan firestoresta
+  /*
+  Collection = Kokoelma documentteja
+  Document = yksittäinen Dokumentti(objekti) jolla voi olla omia Kokoelmia sekä Fieldejä(attribuutteja, key: value)
+  */
+
+  /* Jokainen event streamataan firestoresta, QuerySnapshot pitää sisällään koko collectionin.
   Käytä tätä StreamBuilder widgetin kanssa näyttääksesi dynaamisen listan (jonka voi sitten pistää listviewiin jne..)*/
   Stream<QuerySnapshot> getEvents(){
     return _db.collection('Events').snapshots();
@@ -35,7 +40,10 @@ class Database {
  Stream<QuerySnapshot> getCollection(String collection){
     return _db.collection(collection).snapshots();
   }
-
+  //Jos haluat yksittäisen dokumentin tiedot käytä DocumentSnapshottia.
+  Stream<DocumentSnapshot> getDocument(String document){
+    return _db.document(document).snapshots();
+  }
   /* Päivittää jonkun tietyn objektin numeraalista arvoa, ottaa tuoreimman arvon snapshottina ennen päivitystä (Varmasti tarkka)
   Jos päivität tekstikenttää tätä ei tietenkään tarvita, 
   lähinnä vaan tarpeellinen esim, Jonkun tapahtuman/postauksen tykkäysten määrän päivitykseen */
@@ -48,15 +56,48 @@ class Database {
             });
         }
           catch (_) {
-             throw Exception('Nope');
+             throw Exception('Me no like!');
         }
     });
   }
 
+  //Haluan luoda uuden Documentin tyhjästä. Teen sen näin.
+  Map<String,dynamic> buildDocument() {
+
+    //Initializing the Alicollection jos sellanen halutaan. 
+    Map<String, List<String>> innerCollection = new Map<String, List<String>>();
+    innerCollection['kirjasto'] = [];
+    innerCollection['terveydenhuolto'] = [];
+    innerCollection['kela'] = [];
+
+    //Pää Doc
+    Map<String, dynamic> mainDoc = Map<String, dynamic>();
+    mainDoc['nimi'] = '';
+    mainDoc['palvelut'] = innerCollection;
+    mainDoc['ikä'] = '';
+    mainDoc['muuta'] = '';
+
+    return mainDoc;
+  }
+  // Luodaan valitun collectionin alle uusi document.
+ Future<void> createDocument(String collection, Map<String, dynamic> newDoc) async {
+        await _db.collection(collection).document().setData(newDoc); 
+  }
+
+  //En mä löydä sitä dokkarii mitä mun pitäis. Mitä teen. Where auttaa
+  Stream<QuerySnapshot> getDeviceName(String nimi) {
+  return _db.collection('kaupunkilainen').where('nimi', isEqualTo: nimi).snapshots();
+  }
+
+  
 
 
-
-    
-    
   factory Database() => _instance;
+}
+
+class CreateDocument {
+
+   
+ 
+  
 }
