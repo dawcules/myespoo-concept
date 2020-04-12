@@ -8,7 +8,6 @@ import '../widgets/Inputs/boxedinput.dart';
 import '../widgets/Backgrounds/background_widget.dart';
 import '../widgets/links/centered_text.dart';
 import '../widgets/links/header_text.dart';
-import '../styles/color_palette.dart';
 
 class LoginPage extends StatefulWidget {
   @override

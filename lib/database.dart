@@ -1,8 +1,7 @@
-import 'package:fb_auth/fb_auth.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+//import 'package:fb_auth/fb_auth.dart';
+//import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
-import 'package:firebase_auth/firebase_auth.dart';
 
 
 class Database {
@@ -10,6 +9,7 @@ class Database {
   static final Database _instance = Database._internal();
   final Firestore _db = Firestore.instance;
 
+/*
   final _app = FbApp(
     apiKey: " AIzaSyCrYqY8optvP8lHc3D-iK24YNYo6mkgkZI",
     authDomain: "localhost",
@@ -18,7 +18,7 @@ class Database {
     storageBucket: "gs://cityprog-24974.appspot.com/");
   AuthBloc _auth;
   StreamSubscription<AuthUser> _userChanged;
-
+*/
 
   /* Jokainen event streamataan firestoresta
   Käytä tätä StreamBuilder widgetin kanssa näyttääksesi dynaamisen listan (jonka voi sitten pistää listviewiin jne..)*/
