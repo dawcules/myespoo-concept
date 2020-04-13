@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+//import './color_palette.dart';
 
 
 class CustomDecoration {
@@ -35,6 +36,5 @@ class CustomDecoration {
                           bottom: BorderSide(
                           color: Colors.grey[300],),),);
   }
-
   factory CustomDecoration() => _instance;
 }

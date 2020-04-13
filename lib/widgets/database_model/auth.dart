@@ -38,5 +38,8 @@ class Auth {
       _auth.add(UpdateUser(user));
     });
   }
+  AuthBloc getAuthBloc(){
+    return _auth;
+  }
   factory Auth() => _instance;
 }

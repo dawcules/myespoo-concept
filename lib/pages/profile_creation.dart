@@ -67,7 +67,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
           ),
           makePage(
             page: 4,
-            title: 'Special Needs',
+            title: 'Example',
             header: HeaderText(text: "Example", fontsize: 30, color: AppColor.secondary.color()),
             body: StreamBuilderExample(myQuery: 'Tapahtumat',),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
