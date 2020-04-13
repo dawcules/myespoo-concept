@@ -1,4 +1,8 @@
 import 'package:cityprog/styles/color_palette.dart';
+import 'package:cityprog/widgets/Inputs/boxed_form_confirmpw.dart';
+import 'package:cityprog/widgets/Inputs/boxed_form_email.dart';
+import 'package:cityprog/widgets/Inputs/boxed_form_password.dart';
+import 'package:cityprog/widgets/Inputs/icon_form_input.dart';
 import 'package:cityprog/widgets/links/centered_text.dart';
 import 'package:cityprog/widgets/links/header_text.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +21,9 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStateMixin {
   PageController _pageController;
+  final _formKey = new GlobalKey<FormState>();
+  final _passwordController = TextEditingController();
+
   int totalPage = 4;
 
   void _onScroll() {
@@ -46,16 +53,29 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
         children: <Widget>[
           makePage(
             page: 1,
-            title: 'Basic Information',
-            header: HeaderText(text: "Basic Information", fontsize: 30, color: AppColor.secondary.color()),
-            body: StreamBuilderExample(myQuery: 'Tapahtumat',),
+            title: 'Account Information',
+            header: HeaderText(text: "Account Information", fontsize: 30, color: AppColor.secondary.color()),
+            body: SingleChildScrollView(child: Form(key: _formKey, 
+                  child: Column(children: [
+                  BoxedFormEmail(hint: "Email", validationText: "Insert a proper email",),
+                  BoxedFormPassword(hint: "Password", validationText: "Password cannot be empty", passwordController: _passwordController),
+                  BoxedFormConfirmPw(hint: "Repeat Password", validationText: "Please make sure passwords match", passwordController: _passwordController),
+                  ],),),),
             info: CenteredText(text: "More info", color:  AppColor.primary.color()),
           ),
           makePage(
             page: 2,
             title: 'Personal Information',
             header: HeaderText(text: "Personal Information", fontsize: 30, color: AppColor.secondary.color()),
-            body: StreamBuilderExample(myQuery: 'Tapahtumat',),
+            body: SingleChildScrollView(child: Form(
+                  child: Column(children: [
+                  IconFormInput(hint: "First Name", validationText: "You failed", icon: Icon(Icons.person_pin)),
+                  IconFormInput(hint: "Surname", validationText: "Yes you did", icon: Icon(Icons.person_pin)),
+                  IconFormInput(hint: "Birthday", validationText: "Nono", icon: Icon(Icons.cake)),
+                  IconFormInput(hint: "Area", validationText: "Nono", icon: Icon(Icons.add_location)),
+                  IconFormInput(hint: "Address", validationText: "Nono", icon: Icon(Icons.email)),
+                  IconFormInput(hint: "Postal Code", validationText: "Nono", icon: Icon(Icons.local_post_office)),
+                  ],),),),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
           ),
           makePage(
@@ -92,6 +112,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
               ],
             ),
           ),
+          SizedBox(height:10),
           Expanded(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 40),
@@ -100,7 +121,9 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
               children: <Widget>[
                 FadeAnimation(1.5,
                 header),
+                SizedBox(height:20),
                 Expanded(child: FadeAnimation(1.6,body)),
+                SizedBox(height:20),
               ],
             ),
           ),
@@ -127,7 +150,6 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
           ]
           ),
         ],
-      
         ),
      );
   }

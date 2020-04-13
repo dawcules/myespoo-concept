@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-//import './color_palette.dart';
+import './color_palette.dart';
 
 
 class CustomDecoration {
@@ -8,20 +8,20 @@ class CustomDecoration {
   static final CustomDecoration _instance = CustomDecoration._internal();
 
   // WIP form input
-  InputDecoration formInputDecoration(String hint, String iconPath) {
+  InputDecoration formInputDecoration(String hint, Icon icon) {
     return InputDecoration(
       focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Color.fromRGBO(252, 252, 252, 1))),
+          borderSide: BorderSide(color: AppColor.primary.color())),
       hintText: hint,
       enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Color.fromRGBO(151, 151, 151, 1))),
-      hintStyle: TextStyle(color: Color.fromRGBO(252, 252, 252, 1)),
-      icon: iconPath != '' ? Image.asset(iconPath) : null,
-      errorStyle: TextStyle(color: Color.fromRGBO(248, 218, 87, 1)),
+      hintStyle: TextStyle(color: AppColor.hint.color()),
+      icon: icon != null ? icon : null,
+      errorStyle: TextStyle(color: AppColor.primary.color()),
       errorBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color:  Color.fromRGBO(248, 218, 87, 1))),
+          borderSide: BorderSide(color:  AppColor.secondary.color())),
       focusedErrorBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color:  Color.fromRGBO(248, 218, 87, 1))));
+          borderSide: BorderSide(color:  AppColor.secondary.color())));
   }
   // Current login input
   InputDecoration loginInputDecoration(String hint){
@@ -36,5 +36,6 @@ class CustomDecoration {
                           bottom: BorderSide(
                           color: Colors.grey[300],),),);
   }
+
   factory CustomDecoration() => _instance;
 }

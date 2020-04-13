@@ -5,7 +5,6 @@ import 'package:cityprog/widgets/containers/box_container.dart';
 import 'package:flutter/material.dart';
 import '../animations/FadeAnimation.dart';
 import '../widgets/Inputs/boxed_form_email.dart';
-import '../widgets/Inputs/boxed_form_input.dart';
 import '../widgets/Backgrounds/background_widget.dart';
 import '../widgets/links/centered_text.dart';
 import '../widgets/links/header_text.dart';
@@ -19,6 +18,14 @@ class _LoginState extends State<LoginPage> {
 
   final _formKey = new GlobalKey<FormState>();
   final _passwordController = TextEditingController();
+  
+  void _validateSubmit(){
+   if (_formKey.currentState.validate()) {
+      // If the form is valid, display a snackbar. In the real world,
+      // you'd often call a server or save the information in a database.
+      print("Doing good!");
+    }
+  }
 
   void _toProfile(){
     Navigator.of(context).pushNamed("/profile");
@@ -55,7 +62,7 @@ class _LoginState extends State<LoginPage> {
               children: <Widget>[
                 FadeAnimation(1.5,
                 HeaderText(text: "Login", fontsize: 30, color:  AppColor.secondary.color())),
-                SizedBox(height: 30),
+                SizedBox(height: 20),
                 FadeAnimation(1.5, ShadowedBoxContainer(childWidgets: <Widget>[
                 BoxedFormEmail(hint: "Email", validationText: "Insert a proper email",),
                 BoxedFormPassword(hint: "Password", validationText: "Password cannot be empty", passwordController: _passwordController),
@@ -63,7 +70,7 @@ class _LoginState extends State<LoginPage> {
                 SizedBox(height: 10),
                 FadeAnimation(1.7 , CenteredText(text: "Forgot password?", color: AppColor.primary.color(), navigateToPage: _toProfile)),
                 SizedBox(height: 10),
-                FadeAnimation(1.9 ,LoginButton("LOGIN")),
+                FadeAnimation(1.9 ,LoginButton(text: "LOGIN", validateSubmit: _validateSubmit)),
                 SizedBox(height: 10),
                 FadeAnimation(2, CenteredText(text: "Create Account", color:  AppColor.primary.color(), navigateToPage: _toProfile,)),
               ],
