@@ -2,6 +2,7 @@ import 'package:cityprog/pages/community_help_sign_page.dart';
 import 'package:cityprog/widgets/routes/zoom_route.dart';
 import 'package:flutter/material.dart';
 import '../widgets/rows/dropdown_select.dart';
+import 'package:cityprog/strings/community_help_strings.dart';
 
 class CommunityHelpMain extends StatefulWidget {
   @override
@@ -18,7 +19,7 @@ class _CommunityHelpMainState extends State<CommunityHelpMain> {
       child: Scaffold(
         key: key,
         appBar: AppBar(
-          title: new Text('Smart Espoo   -   Apupalvelut'),
+          title: new Text(LocalizedCommunityHelpStrings.titleToLocalized()),
         ),
         body: Center(
           child: Column(
