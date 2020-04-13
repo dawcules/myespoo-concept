@@ -1,5 +1,5 @@
 import '../current_language.dart';
-import './string_provider.dart' show Language;
+import 'package:cityprog/strings/string_provider.dart' show Language;
 
 // Localized strings for speech navigation
 
