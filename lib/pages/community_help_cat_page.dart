@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cityprog/widgets/lists/clickable_listview.dart';
+import 'package:cityprog/strings/community_help_strings.dart';
+
 
 class CommunityHelpCat extends StatefulWidget {
   final String _category;
@@ -20,7 +22,7 @@ class _CommunityHelpCatState extends State<CommunityHelpCat> {
       child: Scaffold(
         key: key,
         appBar: AppBar(
-          title: new Text('Smart Espoo   -   Apupalvelut'),
+          title: new Text(LocalizedCommunityHelpStrings.titleToLocalized()),
         ),
         body: Center(
           child: Column(

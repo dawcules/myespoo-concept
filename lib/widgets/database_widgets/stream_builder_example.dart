@@ -1,5 +1,5 @@
-import 'package:cityprog/database.dart';
 import 'package:flutter/material.dart';
+import '../database_model/database.dart';
 
 
 
@@ -56,7 +56,7 @@ class ListViewBuilder extends StatelessWidget {
       trailing: Icon(Icons.person_pin),
       onTap: () {
           Database().updateValue('likes', 1, index.reference); //Katso Database singleton, päivittää referenssin likeja
-          //Tähän voi pistää vaikka navigoinnin ja viedä index objektin mukana.
+          //Tähän voi pistää vaikka navigoinnin ja viedä index dokkarin mukana.
       },
     );
   }
