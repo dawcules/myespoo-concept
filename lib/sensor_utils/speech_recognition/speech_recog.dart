@@ -1,4 +1,5 @@
 import 'package:cityprog/sensor_utils/speech_recognition/speech_to_route.dart';
+import 'package:cityprog/strings/string_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:speech_to_text/speech_recognition_error.dart';
@@ -6,8 +7,6 @@ import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:toast/toast.dart';
 import 'dart:async';
-
-import '../../strings/string_provider.dart';
 
 /*
  * Returns a microphone Widget with a scaling animation,
@@ -155,7 +154,9 @@ class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
 
   void resultListener(SpeechRecognitionResult result) {
     setState(() {
-      _transcription = "${result.recognizedWords.toLowerCase()}";
+      String resultToLower = result.recognizedWords.toLowerCase();
+      if (resultToLower == "newmarket") resultToLower = "new market";
+      _transcription = "$resultToLower";
     });
   }
 

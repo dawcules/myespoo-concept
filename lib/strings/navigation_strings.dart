@@ -105,6 +105,7 @@ class NavigationStrings {
     "carpools",
     "Carpool",
     "car",
+    "carpal",
   ];
   static const List<String> marketEN = const [
     "market",
