@@ -1,6 +1,7 @@
 import '../current_language.dart';
 import './navigation_strings.dart';
 import './localized_descriptions.dart';
+import 'action_command_strings.dart';
 
 // Provides a string bundle that contains all the commands,
 // keywords, descriptions and localized general words used in widgets.
@@ -15,6 +16,7 @@ class StringProvider {
         "navigate": NavigationStrings.localizedNavigateStrings(),
         "help": NavigationStrings.localizedHelpStrings(),
         "keywords": keywordsToLocalized(),
+        "new": ActionCommands.newCommandToLocalized(),
       },
       "keywords": {
         "home": NavigationStrings.localizedHomeStrings(),
@@ -22,6 +24,7 @@ class StringProvider {
         "community": NavigationStrings.localizedCommunityStrings(),
         "personal": NavigationStrings.localizedPersonalStrings(),
         "carpool": NavigationStrings.localizedCarpoolStrings(),
+        "market": NavigationStrings.localizedMarketStrings(),
       },
       "commandDescriptions": localizedCommandDescriptions(),
       "keywordDescriptions": localizedKeywordDescriptions(),
@@ -164,7 +167,18 @@ class StringProvider {
       "personal": CurrentLanguage.value == Language.FI
           ? NavigationStrings.personalFI[0][0].toLowerCase()
           : NavigationStrings.personalEN[0][0].toLowerCase(),
-      "carpool": CurrentLanguage.value == Language.FI ? "k" : "c",
+      "carpool": CurrentLanguage.value == Language.FI
+          ? NavigationStrings.carpoolFI[0][0].toLowerCase()
+          : NavigationStrings.carpoolEN[0][0].toLowerCase(),
+      "market": CurrentLanguage.value == Language.FI
+          ? NavigationStrings.marketFI[0][0].toLowerCase()
+          : NavigationStrings.marketEN[0][0].toLowerCase(),
+      "carpool_second": CurrentLanguage.value == Language.FI
+          ? NavigationStrings.carpoolFI[0][1].toLowerCase()
+          : NavigationStrings.carpoolEN[0][1].toLowerCase(),
+      "community_second": CurrentLanguage.value == Language.FI
+          ? NavigationStrings.communityFI[0][1].toLowerCase()
+          : NavigationStrings.communityEN[0][1].toLowerCase(),
     };
   }
 

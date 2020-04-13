@@ -13,12 +13,16 @@ class SpeechToRoute {
   List<String> _keywordsCommands;
   List<String> _navigateCommands;
   List<String> _helpCommands;
+  List<String> _newCommands;
 
   String _homeInitialChar;
   String _communityInitialChar;
+  String _communitySecondChar;
   String _introductionInitialChar;
   String _personalInitialChar;
   String _carpoolInitialsChar;
+  String _carpoolSecondChar;
+  String _marketInitialsChar;
   String _currentLocaleId = "";
 
   Map<String, Map<String, dynamic>> _navStringBundleLocalized;
@@ -43,6 +47,7 @@ class SpeechToRoute {
     _keywordsCommands = _navStringBundleLocalized["commands"]["keywords"];
     _navigateCommands = _navStringBundleLocalized["commands"]["navigate"];
     _helpCommands = _navStringBundleLocalized["commands"]["help"];
+    _newCommands = _navStringBundleLocalized["commands"]["new"];
     _homeInitialChar = _navStringBundleLocalized["keywordInitialChars"]["home"];
     _communityInitialChar =
         _navStringBundleLocalized["keywordInitialChars"]["community"];
@@ -52,6 +57,12 @@ class SpeechToRoute {
         _navStringBundleLocalized["keywordInitialChars"]["personal"];
     _carpoolInitialsChar =
         _navStringBundleLocalized["keywordInitialChars"]["carpool"];
+    _marketInitialsChar =
+        _navStringBundleLocalized["keywordInitialChars"]["market"];
+    _communitySecondChar =
+        _navStringBundleLocalized["keywordInitialChars"]["community_second"];
+    _carpoolSecondChar =
+        _navStringBundleLocalized["keywordInitialChars"]["carpool_second"];
   }
 
   void evaluateSpeech(String transcription) {
@@ -64,16 +75,22 @@ class SpeechToRoute {
       // The command was "navigate" -> check if route is valid
       for (var word in transcriptionToList) {
         String firstChar = word[0].toLowerCase();
+        String secondChar = word[1].toLowerCase();
         if (firstChar == _homeInitialChar)
           _navigateIfMatch(word, Routes.HOME);
-        else if (firstChar == _communityInitialChar)
+        else if (firstChar == _communityInitialChar &&
+            secondChar == _communitySecondChar)
           _navigateIfMatch(word, Routes.COMMUNITY);
         else if (firstChar == _introductionInitialChar)
           _navigateIfMatch(word, Routes.INTRODUCTION);
         else if (firstChar == _personalInitialChar)
           _navigateIfMatch(word, Routes.PERSONAL);
-        else if (firstChar == _carpoolInitialsChar)
+        else if (firstChar == _carpoolInitialsChar &&
+            secondChar == _carpoolSecondChar)
           _navigateIfMatch(word, Routes.CARPOOL);
+        else if (firstChar == _marketInitialsChar) {
+          _navigateIfMatch(word, Routes.MARKETPLACE);
+        }
       }
     } else if (_helpCommands.contains(userCommand)) {
       // The command was "help" -> open a help dialog with all commands
@@ -87,6 +104,16 @@ class SpeechToRoute {
         context: _context,
         child: KeywordsDialog(_navStringBundleLocalized["keywordDescriptions"]),
       );
+    } else if (_newCommands.contains(userCommand)) {
+      // THe command was "new" -> attempt to navigate to an appropriate route
+      for (var word in transcriptionToList) {
+        String firstChar = word[0].toLowerCase();
+        if (firstChar == _carpoolInitialsChar)
+          _navigateIfMatch(word, Routes.CARPOOL_NEW);
+        else if (firstChar == _marketInitialsChar) {
+          _navigateIfMatch(word, Routes.MARKET_NEW);
+        }
+      }
     } else {
       // The command was unknown
       Toast.show(
@@ -97,6 +124,7 @@ class SpeechToRoute {
   }
 
   void _navigateIfMatch(String keyword, Routes route) {
+    print("attempting to navigate with $keyword to route: ${route.name}");
     switch (route) {
       case Routes.HOME:
         if (_checkIfContains(
@@ -123,13 +151,28 @@ class SpeechToRoute {
             _navStringBundleLocalized["keywords"]["carpool"], keyword))
           _navigate(false, route, null);
         break;
+      case Routes.MARKETPLACE:
+        if (_checkIfContains(
+            _navStringBundleLocalized["keywords"]["market"], keyword))
+          _navigate(false, route, null);
+        break;
+      case Routes.MARKET_NEW:
+        if (_checkIfContains(
+            _navStringBundleLocalized["keywords"]["market"], keyword))
+          _navigate(false, route, null);
+        break;
+      case Routes.CARPOOL_NEW:
+        if (_checkIfContains(
+            _navStringBundleLocalized["keywords"]["carpool"], keyword))
+          _navigate(false, route, null);
+        break;
       default:
         break;
     }
   }
 
   bool _checkIfContains(List<String> keywords, String word) {
-    if (keywords.contains(word)) {
+    if (keywords.contains(word.toLowerCase())) {
       return true;
     } else {
       Toast.show("${_navStringBundleLocalized["unknown"]["keyword"]}: $word",

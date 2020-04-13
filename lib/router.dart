@@ -37,11 +37,24 @@ class Router {
       case '/introduction':
         return MaterialPageRoute(builder: (_) => IntroductionPage());
       case '/carpool':
-         return MaterialPageRoute(builder: (_) => CarpoolPage());
+        return MaterialPageRoute(builder: (_) => CarpoolPage());
       case '/profile':
         return MaterialPageRoute(builder: (_) => ProfilePage());
       case '/market':
         return MaterialPageRoute(builder: (_) => MarketPlacePage());
+      case '/market_new':
+        return MaterialPageRoute(
+          builder: (_) => MarketPlacePage(
+            navigatedWithNewCommand: true,
+          ),
+        );
+      case '/carpool_new':
+        return MaterialPageRoute(
+          builder: (_) => CarpoolPage(
+            navigatedWithNewCommand: true,
+          ),
+        );
+
       default:
         return _errorRoute();
     }
@@ -58,7 +71,18 @@ class Router {
   }
 }
 
-enum Routes { HOME, PERSONAL, COMMUNITY, INTRODUCTION, CARPOOL, PROFILE, COMMUNITYHELP, MARKETPLACE }
+enum Routes {
+  HOME,
+  PERSONAL,
+  COMMUNITY,
+  INTRODUCTION,
+  CARPOOL,
+  PROFILE,
+  COMMUNITYHELP,
+  MARKETPLACE,
+  MARKET_NEW,
+  CARPOOL_NEW,
+}
 
 extension RoutePaths on Routes {
   String get name {
@@ -85,8 +109,12 @@ extension RoutePaths on Routes {
         break;
       case Routes.MARKETPLACE:
         return "/market";
+      case Routes.MARKET_NEW:
+        return "/market_new";
+      case Routes.CARPOOL_NEW:
+        return "/carpool_new";
       default:
-        return "lookslikea404";
+        return "/lookslikea404";
         break;
     }
   }
