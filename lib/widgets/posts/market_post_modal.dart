@@ -1,6 +1,5 @@
 import 'package:cityprog/model/market.dart';
 import 'package:cityprog/strings/community_strings.dart';
-import 'package:cityprog/styles/color_palette.dart';
 import 'package:cityprog/widgets/carpool_marketplace/textviews/localized_price.dart';
 import 'package:flutter/material.dart';
 
