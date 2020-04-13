@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ShadowedBoxContainer extends StatelessWidget {
-  final List<Widget> children;
-  const ShadowedBoxContainer({this.children});
+  final List<Widget> childWidgets;
+  const ShadowedBoxContainer({this.childWidgets});
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +20,7 @@ class ShadowedBoxContainer extends StatelessWidget {
                     ],
                   ),
                   child: Column(
-                    children: <Widget>[
-                      children[0],
-                      children[1],
-                    ],
+                    children: childWidgets
                   ),
                 );
   }

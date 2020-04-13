@@ -1,3 +1,4 @@
+import 'package:cityprog/styles/custom_decoration.dart';
 import 'package:flutter/material.dart';
 
 
@@ -11,16 +12,9 @@ class Boxedinput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
                         padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            border: Border(
-                                bottom: BorderSide(
-                          color: Colors.grey[300],
-                        ))),
+                        decoration: CustomDecoration().formBoxDecoration(),
                         child: TextField(
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: hint,
-                              hintStyle: TextStyle(color: Colors.grey)),
+                          decoration: CustomDecoration().loginInputDecoration(hint),
                         ),
                       );
   }

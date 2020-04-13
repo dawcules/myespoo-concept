@@ -4,7 +4,6 @@ import 'package:cityprog/widgets/containers/box_container.dart';
 import 'package:flutter/material.dart';
 import '../animations/FadeAnimation.dart';
 import '../widgets/Inputs/boxedinput.dart';
-//import '../widgets/buttons/login_button.dart';
 import '../widgets/Backgrounds/background_widget.dart';
 import '../widgets/links/centered_text.dart';
 import '../widgets/links/header_text.dart';
@@ -15,6 +14,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginState extends State<LoginPage> {
+  
+  final _formKey = new GlobalKey<FormState>();
 
   void _toProfile(){
     Navigator.of(context).pushNamed("/profile");
@@ -29,7 +30,8 @@ class _LoginState extends State<LoginPage> {
       resizeToAvoidBottomInset: true,
       body: 
       SingleChildScrollView(
-        child:Expanded( 
+        child:Form(
+        key: _formKey, 
         child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -50,10 +52,16 @@ class _LoginState extends State<LoginPage> {
               children: <Widget>[
                 FadeAnimation(1.5,
                 HeaderText(text: "Login", fontsize: 30, color:  AppColor.secondary.color())),
-                FadeAnimation(1.5, ShadowedBoxContainer(children: <Widget>[Boxedinput("Username"),
-                Boxedinput("Password"),],)),
+                SizedBox(height: 30),
+                FadeAnimation(1.5, ShadowedBoxContainer(childWidgets: <Widget>[
+                Boxedinput("Username"),
+                Boxedinput("Password"),
+                ],)),
+                SizedBox(height: 10),
                 FadeAnimation(1.7 , CenteredText(text: "Forgot password?", color: AppColor.primary.color(), navigateToPage: _toProfile)),
+                SizedBox(height: 10),
                 FadeAnimation(1.9 ,LoginButton("LOGIN")),
+                SizedBox(height: 10),
                 FadeAnimation(2, CenteredText(text: "Create Account", color:  AppColor.primary.color(), navigateToPage: _toProfile,)),
               ],
             ),
