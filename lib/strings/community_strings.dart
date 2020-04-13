@@ -1,5 +1,5 @@
 import '../current_language.dart';
-import './string_provider.dart' show Language;
+import 'package:cityprog/strings/string_provider.dart' show Language;
 
 enum Weekday { MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SUNDAY, SATURDAY }
 
