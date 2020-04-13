@@ -10,7 +10,6 @@ import '../../router.dart';
 // Speech to route module
 
 class SpeechToRoute {
-
   List<String> _keywordsCommands;
   List<String> _navigateCommands;
   List<String> _helpCommands;
@@ -55,14 +54,6 @@ class SpeechToRoute {
         _navStringBundleLocalized["keywordInitialChars"]["carpool"];
   }
 
-  void _navigateWithoutArgs(String route) {
-    Navigator.of(_context).pushNamed(route);
-  }
-
-  void _navigateWithArgs(String route, dynamic args) {
-    Navigator.of(_context).pushNamed(route, arguments: args);
-  }
-
   void evaluateSpeech(String transcription) {
     // Recognized words from user speech input into a list
     List<String> transcriptionToList = transcription.split(" ");
@@ -88,14 +79,13 @@ class SpeechToRoute {
       // The command was "help" -> open a help dialog with all commands
       showDialog(
           context: _context,
-          child: CommandsDialog(
-              _navStringBundleLocalized["commandDescriptions"]));
+          child:
+              CommandsDialog(_navStringBundleLocalized["commandDescriptions"]));
     } else if (_keywordsCommands.contains(userCommand)) {
       // The command was "keywords" -> open a dialog with all the keywords
       showDialog(
         context: _context,
-        child: KeywordsDialog(
-            _navStringBundleLocalized["keywordDescriptions"]),
+        child: KeywordsDialog(_navStringBundleLocalized["keywordDescriptions"]),
       );
     } else {
       // The command was unknown
@@ -138,6 +128,16 @@ class SpeechToRoute {
     }
   }
 
+  bool _checkIfContains(List<String> keywords, String word) {
+    if (keywords.contains(word)) {
+      return true;
+    } else {
+      Toast.show("${_navStringBundleLocalized["unknown"]["keyword"]}: $word",
+          _context);
+      return false;
+    }
+  }
+
   void _navigate(bool withArgs, Routes route, dynamic args) {
     if (withArgs) {
       _navigateWithArgs(route.name, args);
@@ -146,14 +146,11 @@ class SpeechToRoute {
     }
   }
 
-  bool _checkIfContains(List<String> keywords, String word) {
-    if (keywords.contains(word)) {
-      return true;
-    } else {
-      Toast.show(
-          "${_navStringBundleLocalized["unknown"]["keyword"]}: $word", _context);
-      return false;
-    }
+  void _navigateWithoutArgs(String route) {
+    Navigator.of(_context).pushNamed(route);
   }
 
+  void _navigateWithArgs(String route, dynamic args) {
+    Navigator.of(_context).pushNamed(route, arguments: args);
+  }
 }

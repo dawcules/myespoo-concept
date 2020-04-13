@@ -116,6 +116,10 @@ class LocalizedCommunityStrings {
   static const String describeFI = "Kerro lisää";
   static const String postFI = "Julkaise";
   static const String detailsFI = "Yksityiskohdat";
+  static const String priceFI = "Hinta";
+  static const String noPriceFI = "Ei hintaa";
+  static const String publisherFI = "Julkaisija";
+  static const String postDateFI = "Julkaisupäivämäärä";
 
   // ENG
   static const String sellEN = "Sell";
@@ -148,6 +152,66 @@ class LocalizedCommunityStrings {
   static const String describeEN = "Describe";
   static const String postEN = "Post";
   static const String detailsEN = "Details";
+  static const String priceEN = "Price";
+  static const String noPriceEN = "No price";
+  static const String publisherEN = "Posted by";
+  static const String postDateEN = "Post date";
+
+  static String priceToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return priceFI;
+        break;
+      case Language.EN:
+        return priceEN;
+        break;
+      default:
+        return priceEN;
+        break;
+    }
+  }
+
+  static String noPriceToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return noPriceFI;
+        break;
+      case Language.EN:
+        return noPriceEN;
+        break;
+      default:
+        return noPriceEN;
+        break;
+    }
+  }
+
+  static String publisherToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return publisherFI;
+        break;
+      case Language.EN:
+        return publisherEN;
+        break;
+      default:
+        return publisherEN;
+        break;
+    }
+  }
+
+  static String postDateToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return postDateFI;
+        break;
+      case Language.EN:
+        return postDateEN;
+        break;
+      default:
+        return postDateEN;
+        break;
+    }
+  }
 
   static String sellToLocalized() {
     switch (CurrentLanguage.value) {
@@ -558,6 +622,28 @@ class LocalizedCommunityStrings {
         return Weekday.SUNDAY;
       default:
         return null;
+    }
+  }
+
+  static _removeRedundantDecimal(double value) {
+    String valueStr = value.toString();
+    if (valueStr[2] == "0")
+      return value.toInt();
+    else
+      return value;
+  }
+
+  static localizePriceFromValue(double value, {bool justValue = false}) {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return justValue ? "${_removeRedundantDecimal(value)}€" : "$priceFI: ${_removeRedundantDecimal(value)}€";
+        break;
+      case Language.EN:
+        return justValue ? "${_removeRedundantDecimal(value)}€" : "$priceEN: ${_removeRedundantDecimal(value)}€";
+        break;
+      default:
+        return justValue ? "${_removeRedundantDecimal(value)}€" : "$priceEN: ${_removeRedundantDecimal(value)}€";
+        break;
     }
   }
 }

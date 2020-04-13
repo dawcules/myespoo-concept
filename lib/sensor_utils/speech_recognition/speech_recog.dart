@@ -38,8 +38,6 @@ class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
   final SpeechToText speech = SpeechToText();
   final SpeechToRoute routeModule = SpeechToRoute();
 
-  Map<String, Map<String, dynamic>> _navStringBundleLocalized;
-
   AnimationController _animationController;
 
   @override

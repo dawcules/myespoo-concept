@@ -7,98 +7,93 @@ import '../../strings/community_strings.dart';
 import '../../styles/color_palette.dart';
 
 class CarpoolPostWidget extends StatelessWidget {
-  final CarpoolPost postData;
+  final CarpoolPostData postData;
   final Function _moreButtonPressed;
-  const CarpoolPostWidget(
-      this.postData, this._moreButtonPressed);
+  const CarpoolPostWidget(this.postData, this._moreButtonPressed);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: Card(
-            elevation: 10,
-            child: Column(
+      child: Card(
+        elevation: 10,
+        child: Column(
+          children: <Widget>[
+            TradeMethodRow(postData.tradeMethod),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                TradeMethodRow(postData.tradeMethod),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Flexible(
-                      flex: 1,
-                      child: Align(
-                        alignment: Alignment.topCenter,
-                        child: Icon(
-                          Icons.face,
-                          size: 100,
+                Flexible(
+                  flex: 1,
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Icon(
+                      Icons.face,
+                      size: 100,
+                    ),
+                  ),
+                ),
+                Flexible(
+                  flex: 2,
+                  child: Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            _originDestinationRow(
+                              LocalizedCommunityStrings.fromToLocalized(),
+                              postData.from,
+                              context,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(4),
+                            ),
+                            _originDestinationRow(
+                              LocalizedCommunityStrings
+                                  .destinationToLocalized(),
+                              postData.to,
+                              context,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(4),
+                            ),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: _originDestinationRow(
+                                LocalizedCommunityStrings
+                                    .dateTimeToLocaleString(postData.postDate,
+                                        needsHrs: true),
+                                "",
+                                context,
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.center,
+                              child: FlatButton(
+                                child: Text(
+                                  LocalizedCommunityStrings.moreToLocalized(),
+                                  style: TextStyle(
+                                    color: AppColor.primary.color(),
+                                    fontSize: 24,
+                                  ),
+                                ),
+                                onPressed: () => _moreButtonPressed(),
+                              ),
+                            )
+                          ],
                         ),
                       ),
-                    ),
-                    Flexible(
-                      flex: 2,
-                      child: Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 0),
-                                  child: _originDestinationRow(
-                                    LocalizedCommunityStrings.fromToLocalized(),
-                                    postData.from,
-                                    context,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.all(4),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 0),
-                                  child: _originDestinationRow(
-                                    LocalizedCommunityStrings
-                                        .destinationToLocalized(),
-                                    postData.to,
-                                    context,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.all(4),
-                                ),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: _originDestinationRow(
-                                    LocalizedCommunityStrings
-                                        .dateTimeToLocaleString(
-                                            postData.postDate,
-                                            needsHrs: true),
-                                    "",
-                                    context,
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: FlatButton(
-                                    child: Text(
-                                      LocalizedCommunityStrings.moreToLocalized(),
-                                      style: TextStyle(
-                                        color: AppColor.primary.color(),
-                                      ),
-                                    ),
-                                    onPressed: () => _moreButtonPressed(),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+                    ],
+                  ),
                 )
               ],
-            )));
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _originDestinationRow(

@@ -13,9 +13,7 @@ class MarketLower extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Expanded(
-        child: SizedBox(
-          child: LowerSection(_buildList(context)),
-        ),
+        child: LowerSection(_buildList(context)),
       ),
     );
   }
@@ -39,31 +37,31 @@ class MarketLower extends StatelessWidget {
   }
 }
 
-final List<MarketPost> posts = [post1, post2, post3, post4];
+final List<MarketPostData> posts = [post1, post2, post3, post4];
 
-final MarketPost post1 = MarketPost(
+final MarketPostData post1 = MarketPostData(
     title: "Ostetaan wc paperia asd asd asd asd",
     body: "Ostetaan wc paperia 5€ rulla. Lambia kiitos",
     postedBy: "Metti Mäikäläinen",
+    price: 5,
     tradeMethod: Trading.BUYING,
     postDate: DateTime.now());
-final MarketPost post2 = MarketPost(
+final MarketPostData post2 = MarketPostData(
     title: "Blue stuff",
     body: "You know what I'm talking about",
     postedBy: "Heisenberg",
+    price: 51.99,
     tradeMethod: Trading.SELLING,
     postDate: DateTime.now());
-final MarketPost post3 = MarketPost(
-    title: "YOU WON!!!",
-    body:
-        "CONGRALUTAITON SIR!! YOU WIN METROPOLIA ANNUAL"+
-        " MONY GRANT 2000,00.0000 DOLLARS!!! CONTACT AT dremcometrue@macsaton.com",
-    postedBy: "Metorpolia Admin",
+final MarketPostData post3 = MarketPostData(
+    title: "Giving away stuff",
+    body: "",
+    postedBy: "Free Stuff Giver",
     tradeMethod: Trading.FREE,
     postDate: DateTime.now());
-final MarketPost post4 = MarketPost(
+final MarketPostData post4 = MarketPostData(
     title: "Buying stuff",
-    body: "Some body text",
+    body: "Buying all the stuff. Testing a longer body text here to see how it would look...",
     postedBy: "Mikael",
     tradeMethod: Trading.BUYING,
     postDate: DateTime.now());
