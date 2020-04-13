@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cityprog/styles/color_palette.dart';
+import 'package:cityprog/strings/community_help_strings.dart';
+
 class DropdownSelect extends StatefulWidget {
   final List<String> _optionList;
   final GlobalKey<ScaffoldState> _key;
@@ -57,8 +59,8 @@ class _DropdownSelectState extends State<DropdownSelect> {
               ),
               FlatButton(
                 child: Text(
-                  'Aloita',
-                  style: TextStyle(color: AppColor.lightText.color()),
+                  LocalizedCommunityHelpStrings.catBtnToLocalized(),
+                  style: TextStyle(color: AppColor.whiteText.color()),
                 ),
                 color: AppColor.primary.color(),
                 onPressed: () => {
@@ -67,7 +69,7 @@ class _DropdownSelectState extends State<DropdownSelect> {
                   else
                     {
                       key.currentState.showSnackBar(SnackBar(
-                        content: Text("Valitse jokin kategoria"),
+                        content: Text(LocalizedCommunityHelpStrings.snackToLocalized()),
                       ))
                     }
                 },
