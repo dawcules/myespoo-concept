@@ -2,7 +2,7 @@
 
 import './trade_methods.dart';
 
-class CarpoolPost {
+class CarpoolPostData {
   final String title;
   final String body;
   final String from;
@@ -12,7 +12,7 @@ class CarpoolPost {
   final Trading tradeMethod;
   final Uri imageUri;
 
-  const CarpoolPost(
+  const CarpoolPostData(
       {this.title,
       this.body,
       this.from,

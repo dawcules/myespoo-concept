@@ -3,7 +3,7 @@ import 'package:cityprog/strings/community_strings.dart';
 import 'package:flutter/material.dart';
 
 class CarpoolPostModal extends StatelessWidget {
-  final CarpoolPost post;
+  final CarpoolPostData post;
   const CarpoolPostModal(this.post);
   static const TextStyle _style = TextStyle(
     fontSize: 28,
