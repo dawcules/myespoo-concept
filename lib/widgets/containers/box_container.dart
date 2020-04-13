@@ -1,8 +1,9 @@
+import 'package:cityprog/styles/color_palette.dart';
 import 'package:flutter/material.dart';
 
 class ShadowedBoxContainer extends StatelessWidget {
-  final List<Widget> children;
-  const ShadowedBoxContainer({this.children});
+  final List<Widget> childWidgets;
+  const ShadowedBoxContainer({this.childWidgets});
 
   @override
   Widget build(BuildContext context) {
@@ -13,17 +14,14 @@ class ShadowedBoxContainer extends StatelessWidget {
                     color: Colors.white,
                     boxShadow: [
                       BoxShadow(
-                        color: Color.fromRGBO(21, 22, 255, .3),
+                        color: AppColor.primary.color(),
                         blurRadius: 20,
                         offset: Offset(0, 10),
                       ),
                     ],
                   ),
                   child: Column(
-                    children: <Widget>[
-                      children[0],
-                      children[1],
-                    ],
+                    children: childWidgets
                   ),
                 );
   }

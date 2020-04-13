@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class LoginButton extends StatelessWidget {
 
   final String text;
+  final Function validateSubmit;
 
-  LoginButton(this.text);
+  LoginButton({this.text, this.validateSubmit});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class LoginButton extends StatelessWidget {
                   ),
                   child: Center(
                     child: FlatButton(
-                      onPressed: () => null,
+                      onPressed: () => validateSubmit(),
                       child: Text(text, style: TextStyle(color: Colors.white),)
                     ,)
                   ),

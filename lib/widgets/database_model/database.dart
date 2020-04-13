@@ -1,5 +1,3 @@
-//import 'package:fb_auth/fb_auth.dart';
-//import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 
@@ -8,17 +6,6 @@ class Database {
   Database._internal();  
   static final Database _instance = Database._internal();
   final Firestore _db = Firestore.instance;
-
-/*
-  final _app = FbApp(
-    apiKey: " AIzaSyCrYqY8optvP8lHc3D-iK24YNYo6mkgkZI",
-    authDomain: "localhost",
-    databaseURL: "https://cityprog-24974.firebaseio.com/",
-    projectId: "cityprog-24974",
-    storageBucket: "gs://cityprog-24974.appspot.com/");
-  AuthBloc _auth;
-  StreamSubscription<AuthUser> _userChanged;
-*/
 
   /*
   Collection = Kokoelma documentteja
