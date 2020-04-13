@@ -1,5 +1,7 @@
 import 'package:cityprog/styles/color_palette.dart';
 import 'package:flutter/material.dart';
+import 'package:cityprog/strings/community_help_strings.dart';
+
 
 class CommunityHelpPage extends StatelessWidget {
 
@@ -8,7 +10,7 @@ class CommunityHelpPage extends StatelessWidget {
     return Container(
       child: Scaffold(
         appBar: AppBar(
-          title: new Text('Smart Espoo   -   Apupalvelu'),
+          title: new Text(LocalizedCommunityHelpStrings.titleToLocalized()),
         ),
         body: Center(
           child: Column(
@@ -23,20 +25,20 @@ class CommunityHelpPage extends StatelessWidget {
                   children: <Widget>[
                     Container(
                       margin: EdgeInsets.all(10.0),
-                      child: Text('Ilmoittaudu avuntarjoajaksi', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
+                      child: Text(LocalizedCommunityHelpStrings.volunteerBtnToLocalized(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
                       ),
                     ),
                     Padding(padding: EdgeInsets.all(20.0)
                     ),
                     Container(
                       margin: EdgeInsets.all(20.0),
-                      child: Text('Ilmoittautumalla avuntarjoajaksi autat muita selviämään arjen askareissa ja edistät yleistä hyvinvointia',
+                      child: Text(LocalizedCommunityHelpStrings.signDescLocalized(),
                       style: TextStyle(fontSize: 20)),
                     ),
                     FlatButton(
                       color: AppColor.primary.color(),
-                      child: Text('Ilmoittaudu', 
-                      style: TextStyle(color: AppColor.lightText.color())),
+                      child: Text(LocalizedCommunityHelpStrings.signUpToLocalized(), 
+                      style: TextStyle(color: AppColor.whiteText.color())),
                       onPressed: () => {null},
                     ),
                   ],

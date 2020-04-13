@@ -10,7 +10,7 @@ class CommunityHelpMain extends StatefulWidget {
 }
 
 class _CommunityHelpMainState extends State<CommunityHelpMain> {
-  String dropdownValue = 'Valitse kategoria';
+  String dropdownValue;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class _CommunityHelpMainState extends State<CommunityHelpMain> {
                     Container(
                       margin: EdgeInsets.all(10.0),
                       child: Text(
-                        'Apupalvelu',
+                        LocalizedCommunityHelpStrings.mainTitleToLocalized(),
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 26),
                       ),
@@ -44,18 +44,12 @@ class _CommunityHelpMainState extends State<CommunityHelpMain> {
                     Container(
                       margin: EdgeInsets.all(20.0),
                       child: Text(
-                          'Pyydä apua kanssakaupunkilaisilta tai ilmoittaudu avuntarjoajaksi muille',
+                          LocalizedCommunityHelpStrings.descToLocalized(),
                           style: TextStyle(fontSize: 20)),
                     ),
-                    DropdownSelect( <String>[
-                  'Valitse kategoria',
-                  'Kauppa-asiointi',
-                  'Huonekalut',
-                  'Pihatyöt',
-                  'Muu tarve'
-                ], key, '/communityHelpCat'),
+                    DropdownSelect(LocalizedCommunityHelpStrings.listToLocalized(), key, '/communityHelpCat'),
                     FlatButton(
-                      child: Text('Ilmoittaudu avuntarjojaksi'),
+                      child: Text(LocalizedCommunityHelpStrings.volunteerBtnToLocalized()),
                       color: Colors.amber,
                       onPressed: (){
                         //Navigator.of(context).pushNamed('/communityHelpSign');
