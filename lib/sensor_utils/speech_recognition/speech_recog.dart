@@ -155,7 +155,7 @@ class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
 
   void resultListener(SpeechRecognitionResult result) {
     setState(() {
-      _transcription = "${result.recognizedWords}";
+      _transcription = "${result.recognizedWords.toLowerCase()}";
     });
   }
 

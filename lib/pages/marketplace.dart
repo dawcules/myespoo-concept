@@ -9,13 +9,23 @@ import 'package:cityprog/widgets/posts/market_post_modal.dart';
 import 'package:flutter/material.dart';
 
 class MarketPlacePage extends StatefulWidget {
+  final bool navigatedWithNewCommand;
+  const MarketPlacePage({this.navigatedWithNewCommand});
+
   @override
   _MarketPlacePageState createState() => _MarketPlacePageState();
 }
 
 class _MarketPlacePageState extends State<MarketPlacePage> {
-  UpperButtonsState state = UpperButtonsState.BROWSING;
+  UpperButtonsState state;
   _MarketPlacePageState();
+
+  @override
+  void initState() {
+    super.initState();
+    state = widget.navigatedWithNewCommand != null ? UpperButtonsState.PROVIDING : UpperButtonsState.BROWSING;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
