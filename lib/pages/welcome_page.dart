@@ -15,7 +15,7 @@ class WelcomePage extends StatelessWidget {
       if (kIsWeb) {
         bottomWidget = Text ('Asenna sovellus käyttääksesi puhetoimintoja!');
       } else {
-            bottomWidget = SpeechToAction();
+            bottomWidget = SpeechNavigationButton();
       }
 
     return Container(

@@ -39,9 +39,9 @@ class CarpoolLower extends StatelessWidget {
   }
 }
 
-final List<CarpoolPost> posts = [post1, post2, post3, post4];
+final List<CarpoolPostData> posts = [post1, post2, post3, post4];
 
-final CarpoolPost post1 = CarpoolPost(
+final CarpoolPostData post1 = CarpoolPostData(
     title: "Tarjotaan kyytiä",
     body: "Ei flat earthereita kiitos",
     postedBy: "Mikael",
@@ -49,7 +49,7 @@ final CarpoolPost post1 = CarpoolPost(
     to: "Metropolian osote",
     tradeMethod: Trading.OFFERING,
     postDate: DateTime.now());
-final CarpoolPost post2 = CarpoolPost(
+final CarpoolPostData post2 = CarpoolPostData(
     title: "I can show you the world",
     body: "Some body text",
     postedBy: "Mikael",
@@ -57,7 +57,7 @@ final CarpoolPost post2 = CarpoolPost(
     to: "Metropolian osote",
     tradeMethod: Trading.OFFERING,
     postDate: DateTime.now());
-final CarpoolPost post3 = CarpoolPost(
+final CarpoolPostData post3 = CarpoolPostData(
     title: "Shining",
     body: "Some body text",
     postedBy: "Mikael",
@@ -65,7 +65,7 @@ final CarpoolPost post3 = CarpoolPost(
     to: "Metropolian osote",
     tradeMethod: Trading.ASKING,
     postDate: DateTime.now());
-final CarpoolPost post4 = CarpoolPost(
+final CarpoolPostData post4 = CarpoolPostData(
     title: "Shimmering",
     body: "Some body text",
     postedBy: "Mikael",

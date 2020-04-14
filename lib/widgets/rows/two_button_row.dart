@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 
 import '../../styles/color_palette.dart';
 
-// Two buttons in a row with padding of 20 in between.
+// Two buttons in a row with padding of 16 in between.
 // Onpress events and text contents defined
 // as constructor arguments.
 
 class TwoButtonRow extends StatelessWidget {
   final Function onPressedLeft;
   final Function onPressedRight;
+  final bool leftIsNull;
+  final bool rightIsNull;
   final String textLeft;
   final String textRight;
 
@@ -17,6 +19,8 @@ class TwoButtonRow extends StatelessWidget {
     @required this.textRight,
     this.onPressedLeft,
     this.onPressedRight,
+    this.leftIsNull = false,
+    this.rightIsNull = false,
   });
 
   @override
@@ -29,7 +33,7 @@ class TwoButtonRow extends StatelessWidget {
             Expanded(
               flex: 1,
               child: Padding(
-                padding: const EdgeInsets.only(right: 10),
+                padding: const EdgeInsets.only(right: 8),
                 child: RaisedButton(
                   color: AppColor.button.color(),
                   child: Padding(
@@ -45,14 +49,14 @@ class TwoButtonRow extends StatelessWidget {
                       ),
                     ),
                   ),
-                  onPressed: () => onPressedLeft(),
+                  onPressed: leftIsNull ? null : () => onPressedLeft(),
                 ),
               ),
             ),
             Expanded(
               flex: 1,
               child: Padding(
-                padding: const EdgeInsets.only(left: 10),
+                padding: const EdgeInsets.only(left: 8),
                 child: RaisedButton(
                   color: AppColor.button.color(),
                   child: Padding(
@@ -68,7 +72,7 @@ class TwoButtonRow extends StatelessWidget {
                       ),
                     ),
                   ),
-                  onPressed: () => onPressedRight(),
+                  onPressed: rightIsNull ? null : () => onPressedRight(),
                 ),
               ),
             )

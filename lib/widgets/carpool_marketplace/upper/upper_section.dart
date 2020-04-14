@@ -4,7 +4,7 @@ import '../../rows/two_button_row.dart';
 import '../../../strings/community_strings.dart';
 import '../../../styles/color_palette.dart';
 
-class UpperSection extends StatelessWidget {
+class UpperSection extends StatefulWidget {
   final Function onPressedOffer;
   final Function onPressedAsk;
   final Function onPressedBrowse;
@@ -16,22 +16,53 @@ class UpperSection extends StatelessWidget {
     @required this.onPressedAsk,
     @required this.onPressedBrowse,
     @required this.isCarpoolPage,
+    
   });
 
   @override
+  _UpperSectionState createState() => _UpperSectionState();
+}
+
+class _UpperSectionState extends State<UpperSection> {
+  bool isExpanded = true;
+  @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: _body(),
-    ));
+    return SafeArea(
+      child: Container(
+          child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: _body(),
+      )),
+    );
   }
 
   Widget _body() {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        _buttonColumn(),
+        isExpanded
+            ? _buttonColumn()
+            : Padding(
+                padding: EdgeInsets.all(0),
+              ),
+        Padding(
+          padding: EdgeInsets.only(top: 8),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            RotatedBox(
+              quarterTurns: isExpanded ? 0 : 2,
+              child: IconButton(
+                icon: Icon(
+                  Icons.arrow_drop_up,
+                  size: 35,
+                ),
+                onPressed: () => setState(() => isExpanded = !isExpanded),
+              ),
+            ),
+          ],
+        )
       ],
     );
   }
@@ -41,14 +72,16 @@ class UpperSection extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         TwoButtonRow(
-          textLeft: isCarpoolPage
+          textLeft: widget.isCarpoolPage
               ? LocalizedCommunityStrings.offerToLocalized()
               : LocalizedCommunityStrings.sellToLocalized(),
-          textRight: isCarpoolPage
+          textRight: widget.isCarpoolPage
               ? LocalizedCommunityStrings.askToLocalized()
               : LocalizedCommunityStrings.buyToLocalized(),
-          onPressedLeft: () => onPressedOffer(),
-          onPressedRight: () => onPressedAsk(),
+          onPressedLeft: () => widget.onPressedOffer(),
+          onPressedRight: () => widget.onPressedAsk(),
+          rightIsNull: widget.onPressedAsk == null ? true : false,
+          leftIsNull: widget.onPressedOffer == null ? true : false,
         ),
         Padding(padding: EdgeInsets.only(top: 10)),
         _browseButtoN(),
@@ -75,7 +108,7 @@ class UpperSection extends StatelessWidget {
                 ),
               ),
             ),
-            onPressed: () => onPressedBrowse(),
+            onPressed: widget.onPressedBrowse != null ? () => widget.onPressedBrowse() : null,
           ),
         )
       ],

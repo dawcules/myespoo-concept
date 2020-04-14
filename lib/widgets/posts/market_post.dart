@@ -7,7 +7,7 @@ import '../../strings/community_strings.dart';
 import '../../styles/color_palette.dart';
 
 class MarketPostWidget extends StatelessWidget {
-  final MarketPost postData;
+  final MarketPostData postData;
   final Function _moreButtonPressed;
   const MarketPostWidget(this.postData, this._moreButtonPressed);
 

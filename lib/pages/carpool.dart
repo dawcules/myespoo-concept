@@ -9,14 +9,20 @@ import 'package:cityprog/widgets/posts/community_post_modal.dart';
 import 'package:flutter/material.dart';
 
 class CarpoolPage extends StatefulWidget {
-  const CarpoolPage();
+  final bool navigatedWithNewCommand;
+  const CarpoolPage({this.navigatedWithNewCommand});
 
   @override
   _CarpoolPageState createState() => _CarpoolPageState();
 }
 
 class _CarpoolPageState extends State<CarpoolPage> {
-  UpperButtonsState state = UpperButtonsState.BROWSING;
+  UpperButtonsState state;
+  @override
+  void initState() {
+    super.initState();
+    state = widget.navigatedWithNewCommand != null ? UpperButtonsState.PROVIDING : UpperButtonsState.BROWSING;
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,17 +33,16 @@ class _CarpoolPageState extends State<CarpoolPage> {
               child: Column(
             children: <Widget>[
               CarpoolUpper(
-                onPressedOffer: () =>
+                onPressedOffer:
                     _buttonShouldBeEnabled(UpperButtonsState.PROVIDING)
-                        ? _onOfferPressed()
+                        ? () => _onOfferPressed()
                         : null,
-                onPressedAsk: () =>
-                    _buttonShouldBeEnabled(UpperButtonsState.ASKING)
-                        ? _onAskPressed()
-                        : null,
-                onPressedBrowse: () =>
+                onPressedAsk: _buttonShouldBeEnabled(UpperButtonsState.ASKING)
+                    ? () => _onAskPressed()
+                    : null,
+                onPressedBrowse:
                     _buttonShouldBeEnabled(UpperButtonsState.BROWSING)
-                        ? _onBrowsePressed()
+                        ? () => _onBrowsePressed()
                         : null,
               ),
               _buildLowerSection(),
@@ -55,7 +60,7 @@ class _CarpoolPageState extends State<CarpoolPage> {
   Widget _buildLowerSection() {
     switch (state) {
       case UpperButtonsState.BROWSING:
-        return CarpoolLower((CarpoolPost post) => _onMorePressed(post));
+        return CarpoolLower((CarpoolPostData post) => _onMorePressed(post));
         break;
       case UpperButtonsState.PROVIDING:
         return CommunityPostForm(Trading.OFFERING);
@@ -68,7 +73,7 @@ class _CarpoolPageState extends State<CarpoolPage> {
     }
   }
 
-  void _onMorePressed(CarpoolPost post) {
+  void _onMorePressed(CarpoolPostData post) {
     print("more button pressed. Post by: ${post.postedBy}");
     showDialog(
         context: context,

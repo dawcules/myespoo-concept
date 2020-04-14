@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// An empty dialog with an "x" button to close it with.
+// Content widget set in constructor.
+
 class CommunityPostModal extends StatelessWidget {
   final Widget childModalContent;
   const CommunityPostModal(this.childModalContent);
@@ -19,7 +22,7 @@ class CommunityPostModal extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
+              padding: const EdgeInsets.only(top: 16, left: 40, right: 40),
               child: childModalContent,
             ),
           ],

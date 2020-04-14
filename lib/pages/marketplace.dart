@@ -9,32 +9,42 @@ import 'package:cityprog/widgets/posts/market_post_modal.dart';
 import 'package:flutter/material.dart';
 
 class MarketPlacePage extends StatefulWidget {
+  final bool navigatedWithNewCommand;
+  const MarketPlacePage({this.navigatedWithNewCommand});
+
   @override
   _MarketPlacePageState createState() => _MarketPlacePageState();
 }
 
 class _MarketPlacePageState extends State<MarketPlacePage> {
-  UpperButtonsState state = UpperButtonsState.BROWSING;
+  UpperButtonsState state;
   _MarketPlacePageState();
+
+  @override
+  void initState() {
+    super.initState();
+    state = widget.navigatedWithNewCommand != null ? UpperButtonsState.PROVIDING : UpperButtonsState.BROWSING;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
+        resizeToAvoidBottomPadding: false,
         body: Center(
           child: Column(
             children: <Widget>[
               MarketplaceUpper(
-                onPressedBuy: () =>
-                    _buttonShouldBeEnabled(UpperButtonsState.ASKING)
-                        ? _buyOnPress()
-                        : null,
-                onPressedBrowse: () =>
+                onPressedBuy: _buttonShouldBeEnabled(UpperButtonsState.ASKING)
+                    ? () => _buyOnPress()
+                    : null,
+                onPressedBrowse:
                     _buttonShouldBeEnabled(UpperButtonsState.BROWSING)
-                        ? _browseOnPress()
+                        ? () => _browseOnPress()
                         : null,
-                onPressedSell: () =>
+                onPressedSell:
                     _buttonShouldBeEnabled(UpperButtonsState.PROVIDING)
-                        ? _sellOnPress()
+                        ? () => _sellOnPress()
                         : null,
               ),
               _buildLowerSection()
@@ -52,7 +62,7 @@ class _MarketPlacePageState extends State<MarketPlacePage> {
   Widget _buildLowerSection() {
     switch (state) {
       case UpperButtonsState.BROWSING:
-        return MarketLower((MarketPost post) => _moreOnPress(post));
+        return MarketLower((MarketPostData post) => _moreOnPress(post));
         break;
       case UpperButtonsState.PROVIDING:
         return CommunityPostForm(Trading.SELLING);
@@ -80,7 +90,7 @@ class _MarketPlacePageState extends State<MarketPlacePage> {
     setState(() => state = UpperButtonsState.PROVIDING);
   }
 
-  void _moreOnPress(MarketPost post) {
+  void _moreOnPress(MarketPostData post) {
     print("Posted by: ${post.postedBy} on ${post.postDate}");
     showDialog(
         context: context,

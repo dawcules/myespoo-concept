@@ -1,5 +1,5 @@
 import '../current_language.dart';
-import './string_provider.dart' show Language;
+import 'package:cityprog/strings/string_provider.dart' show Language;
 
 // Localized strings for speech navigation
 
@@ -51,6 +51,14 @@ class NavigationStrings {
     "Kimppakyyti",
     "kyyti",
   ];
+  static const List<String> marketFI = const [
+    "tori",
+    "tori-ilmoitus",
+    "tori ilmoitus",
+    "Tori",
+    "Tori-ilmoitus",
+    "Tori ilmoitus",
+  ];
 
   // English
   static const List<String> navigateEN = const [
@@ -94,9 +102,17 @@ class NavigationStrings {
   ];
   static const List<String> carpoolEN = const [
     "carpool",
+    "carpools",
     "Carpool",
-    "car pool",
-    "Car Pool",
+    "car",
+    "carpal",
+  ];
+  static const List<String> marketEN = const [
+    "market",
+    "markets",
+    "marketplace",
+    "Market",
+    "Marketplace",
   ];
 
   // Methods that return a localized string
@@ -127,5 +143,9 @@ class NavigationStrings {
 
   static List<String> localizedCarpoolStrings() {
     return CurrentLanguage.value == Language.FI ? carpoolFI : carpoolEN;
+  }
+
+  static List<String> localizedMarketStrings() {
+    return CurrentLanguage.value == Language.FI ? marketFI : marketEN;
   }
 }

@@ -8,29 +8,27 @@ class SubmitFormButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              child: RaisedButton(
-                color: AppColor.button.color(),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    LocalizedCommunityStrings.postToLocalized(),
-                    style: TextStyle(
-                      fontSize: 24,
-                      color: AppColor.buttonText.color(),
-                    ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: RaisedButton(
+              color: AppColor.button.color(),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  LocalizedCommunityStrings.postToLocalized(),
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: AppColor.buttonText.color(),
                   ),
                 ),
-                onPressed: () => onPress(),
               ),
-            )
-          ],
-        ),
+              onPressed: () => onPress(),
+            ),
+          )
+        ],
       ),
     );
   }
