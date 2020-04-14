@@ -10,6 +10,7 @@ enum AppColor {
   whiteText,
   button,
   buttonText,
+  espooLogoText,
 }
 
 extension GetAppColor on AppColor {
@@ -33,6 +34,8 @@ extension GetAppColor on AppColor {
         return AppColor.secondary.color();
       case AppColor.buttonText:
         return Colors.white;
+        case AppColor.espooLogoText:
+        return Color.fromRGBO(9, 81, 182, 1);
       default:
         return Colors.white;
     }

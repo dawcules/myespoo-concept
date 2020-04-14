@@ -1,5 +1,6 @@
 import 'package:cityprog/sensor_utils/speech_recognition/speech_to_route.dart';
 import 'package:cityprog/strings/string_provider.dart';
+import 'package:cityprog/widgets/dialogs/speech_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:speech_to_text/speech_recognition_error.dart';
@@ -19,6 +20,14 @@ import 'dart:async';
  */
 
 class SpeechNavigationButton extends StatefulWidget {
+  final Function onSpeechActivate;
+  final Function onSpeehDeActivate;
+
+  const SpeechNavigationButton({
+    @required this.onSpeechActivate,
+    @required this.onSpeehDeActivate,
+  });
+
   @override
   _SpeechNavigationButtonState createState() => _SpeechNavigationButtonState();
 }
@@ -78,6 +87,7 @@ class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
       setState(() => _hasPermissions = true);
       startListening();
       _animationController.forward();
+      widget.onSpeechActivate();
     }
   }
 
@@ -97,29 +107,26 @@ class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
   Widget activateSpeechButtonNoText(double radius) {
     return GestureDetector(
         child: Icon(Icons.mic, size: radius),
-        onLongPress: () {
+        onTapDown: (details) {
           if (_hasPermissions) {
             setState(() {
-              _animationController.forward();
+              startListening();
             });
-            startListening();
           } else {
             requestPermissionsAsync();
           }
         },
-        onLongPressUp: () {
-          setState(() {
-            stopListening();
-            _animationController.reset();
-          });
-        },
-        onTapCancel: () => {setState(() => _animationController.reset())},
-        onTap: () => Toast.show(
-            StringProvider.holdToSpeakToLocalized(), context,
-            duration: Toast.LENGTH_LONG));
+        onTapCancel: () => stopListening(),
+        onTapUp: (_) => {
+              setState(() {
+                stopListening();
+              }),
+            });
   }
 
   void startListening() {
+    _animationController.forward();
+    widget.onSpeechActivate();
     _transcription = "";
     lastError = "";
     speech.listen(
@@ -133,6 +140,8 @@ class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
   }
 
   void stopListening() {
+    widget.onSpeehDeActivate();
+    _animationController.reset();
     speech.stop();
     setState(() {
       level = 0.0;
