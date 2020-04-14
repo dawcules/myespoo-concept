@@ -4,7 +4,9 @@ import 'package:cityprog/widgets/Inputs/boxed_form_email.dart';
 import 'package:cityprog/widgets/Inputs/boxed_form_password.dart';
 import 'package:cityprog/widgets/Inputs/icon_form_input.dart';
 import 'package:cityprog/widgets/links/centered_text.dart';
-import 'package:cityprog/widgets/links/header_text.dart';
+import 'package:cityprog/widgets/texts/body_text.dart';
+import 'package:cityprog/widgets/texts/header_text.dart';
+import 'package:cityprog/widgets/switches/profile_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:cityprog/animations/FadeAnimation.dart';
 import '../widgets/Backgrounds/background_widget.dart';
@@ -23,11 +25,13 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
   PageController _pageController;
   final _formKey = new GlobalKey<FormState>();
   final _passwordController = TextEditingController();
+  bool _isSelected = false;
 
   int totalPage = 4;
 
   void _onScroll() {
   }
+
 
   @override
   void initState() {
@@ -81,8 +85,21 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
           makePage(
             page: 3,
             title: 'Special Needs',
-            header: HeaderText(text: "Personal Information", fontsize: 30, color: AppColor.secondary.color()),
-            body: StreamBuilderExample(myQuery: 'Tapahtumat',),
+            header: HeaderText(text: "Special Needs", fontsize: 30, color: AppColor.secondary.color()),
+            body: SingleChildScrollView(child: Form(
+                  child: Column(children: [
+                    BodyText(text: "Feel the need to get educated? Please mark this as a yes.", fontsize: 15, color: AppColor.darkText.color() ),
+                    ProfileSwitch(
+                    label: BodyText(text: "Serious need of education", fontsize: 15, color: AppColor.darkText.color() ),
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    value: _isSelected,
+                    icon: Icon(Icons.add_alert),
+                    onChanged: (bool newValue) {
+                    setState(() {
+                      _isSelected = newValue;
+                    });
+                   },),
+                  ],),),),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
           ),
           makePage(

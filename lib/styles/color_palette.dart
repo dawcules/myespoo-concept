@@ -26,7 +26,7 @@ extension GetAppColor on AppColor {
       case AppColor.whiteText:
         return Colors.white;
       case AppColor.darkText:
-        return Color.fromRGBO(21, 22, 255, 1);
+        return Color.fromRGBO(0, 0, 55, 1);
       case AppColor.lightText:
         return Color.fromRGBO(21, 22, 255, 1);
       case AppColor.button:
