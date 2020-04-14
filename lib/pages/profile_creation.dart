@@ -89,6 +89,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
             body: SingleChildScrollView(child: Form(
                   child: Column(children: [
                     BodyText(text: "Feel the need to get educated? Please mark this as a yes.", fontsize: 15, color: AppColor.darkText.color() ),
+                    SizedBox(height: 10,),
                     ProfileSwitch(
                     label: BodyText(text: "Serious need of education", fontsize: 15, color: AppColor.darkText.color() ),
                     padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -99,6 +100,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                       _isSelected = newValue;
                     });
                    },),
+                   SizedBox(height: 10,)
                   ],),),),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
           ),
