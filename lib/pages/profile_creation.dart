@@ -69,12 +69,12 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
             header: HeaderText(text: "Personal Information", fontsize: 30, color: AppColor.secondary.color()),
             body: SingleChildScrollView(child: Form(
                   child: Column(children: [
-                  IconFormInput(hint: "First Name", validationText: "You failed", icon: Icon(Icons.person_pin)),
+                  IconFormInput(hint: "First Name", validationText: "You failed", icon: Icon(Icons.face)),
                   IconFormInput(hint: "Surname", validationText: "Yes you did", icon: Icon(Icons.person_pin)),
                   IconFormInput(hint: "Birthday", validationText: "Nono", icon: Icon(Icons.cake)),
                   IconFormInput(hint: "Area", validationText: "Nono", icon: Icon(Icons.add_location)),
                   IconFormInput(hint: "Address", validationText: "Nono", icon: Icon(Icons.email)),
-                  IconFormInput(hint: "Postal Code", validationText: "Nono", icon: Icon(Icons.local_post_office)),
+                  IconFormInput(hint: "Postal Code", validationText: "Nono", icon: Icon(Icons.code)),
                   ],),),),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
           ),

@@ -1,3 +1,4 @@
+import 'package:cityprog/styles/color_palette.dart';
 import 'package:flutter/material.dart';
 import '../database_model/database.dart';
 
@@ -13,7 +14,7 @@ class StreamBuilderExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StreamBuilder(
+      body:StreamBuilder(
           stream: Database().getCollection(myQuery),
           builder: (context, snapshot) {
             if (!snapshot.hasData) return const Text('Loading..');
@@ -31,28 +32,33 @@ class ListViewBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return Ink(
+      color: AppColor.background.color(),
+      child:ListView.builder(
         padding: EdgeInsets.all(16),
         itemExtent: 80,
         itemCount: queryData.length,
         itemBuilder: (BuildContext _context, index) {
           return _buildListItem(context, queryData[index]);
-        });
+        }));
   }
 
   Widget _buildListItem(BuildContext context, index) {
     return ListTile(
-      title: Row(children: [
+      title: Ink(
+        color: AppColor.background.color(),
+        child: Row(
+        children: [
         Expanded(
             child: Text(
-              index['nimi'].toString(),
+              index['nimi'].toString(), style: TextStyle(color: AppColor.secondary.color()),
             )),
         Container(
-            decoration: const BoxDecoration(color: Colors.pink),
+            decoration: BoxDecoration(color: AppColor.primary.color()),
             padding: EdgeInsets.all(10),
-            child: Text(index['likes'].toString(),),),
+            child: Text(index['likes'].toString(),style: TextStyle(color: AppColor.whiteText.color()),),),
         Divider(),
-      ]),
+      ]),),
       trailing: Icon(Icons.person_pin),
       onTap: () {
           Database().updateValue('likes', 1, index.reference); //Katso Database singleton, päivittää referenssin likeja
