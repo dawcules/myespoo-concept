@@ -17,7 +17,7 @@ class ChipFilter extends StatelessWidget {
              return  FilterChip(
                 label: Text(data[index]),
                 onSelected: (bool value) {
-                  onSelected(data[index]);
+                  onSelected(data[index],selected);
                 },
                 selected: selected.contains(data[index]),
                 selectedColor: Colors.blue,

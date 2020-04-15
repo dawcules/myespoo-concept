@@ -9,6 +9,7 @@ class ProfileSwitch extends StatelessWidget {
     this.value,
     this.onChanged,
     this.icon,
+    this.category,
   });
 
   final Widget label;
@@ -17,12 +18,13 @@ class ProfileSwitch extends StatelessWidget {
   final bool value;
   final Function onChanged;
   final Icon icon;
+  final String category;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        onChanged(!value);
+        onChanged(!value, category);
       },
       child: Padding(
         padding: padding,
@@ -34,7 +36,7 @@ class ProfileSwitch extends StatelessWidget {
             Switch(
               value: value,
               onChanged: (bool newValue) {
-                onChanged(newValue);
+                onChanged(newValue, category);
               },
             ),
           ],
@@ -43,30 +45,3 @@ class ProfileSwitch extends StatelessWidget {
     );
   }
 }
-
-/*
-class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
-
-  @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
-}
-
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  bool _isSelected = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return ProfileSwitch(
-      label: 'This is the label text',
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      value: _isSelected,
-      onChanged: (bool newValue) {
-        setState(() {
-          _isSelected = newValue;
-        });
-      },
-    );
-  }
-}
-*/
