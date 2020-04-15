@@ -126,7 +126,9 @@ class NavigationStrings {
   }
 
   static List<String> localizedIntroductionStrings() {
-    return CurrentLanguage.value == Language.FI ? introductionFI : introductionEN;
+    return CurrentLanguage.value == Language.FI
+        ? introductionFI
+        : introductionEN;
   }
 
   static List<String> localizedCommunityStrings() {
@@ -147,5 +149,33 @@ class NavigationStrings {
 
   static List<String> localizedMarketStrings() {
     return CurrentLanguage.value == Language.FI ? marketFI : marketEN;
+  }
+
+  static String homeToLocalized() {
+    return CurrentLanguage.value == Language.FI ? "Koti" : "Home";
+  }
+
+  static String communityToLocalized() {
+    return CurrentLanguage.value == Language.FI ? "Yhteisö" : "Community";
+  }
+
+  static String helpServicesToLocalized() {
+    return CurrentLanguage.value == Language.FI
+        ? "Apupalvelut"
+        : "Help services";
+  }
+
+  static String introductionToLocalized() {
+    return CurrentLanguage.value == Language.FI ? "Tutustu" : "Introduction";
+  }
+
+  static String personalToLocalized() {
+    return CurrentLanguage.value == Language.FI ? "Oma" : "Personal";
+  }
+
+  static String speechDialogHelpString() {
+    return CurrentLanguage.value == Language.FI
+        ? "Apua -komento avaa näkyviin valikon joka pitää sisällään kaikki komennot!"
+        : "\"Help\" command will open up a dialog that contains all usable commands!";
   }
 }

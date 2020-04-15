@@ -125,11 +125,20 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                     padding: EdgeInsets.symmetric(horizontal: 20.0),
                     value: _isSelected,
                     icon: Icon(Icons.add_alert),
+<<<<<<< HEAD
                     onChanged: switchState,),
                     SizedBox(height: 20,),
                     _isSelected != true ? SizedBox(height: 20,) : ChipFilter(onSelected: selectPicker, data: data, selected: selected,),
                      SizedBox(height: 20,),
                     otherCondition("OTHER") && _isSelected == true ? IconFormInput(hint: "Other Condition", validationText: "Please insert something", icon: Icon(Icons.local_hospital),)  : SizedBox(height: 20,),
+=======
+                    onChanged: (bool newValue) {
+                    setState(() {
+                      _isSelected = newValue;
+                    });
+                   },),
+                   SizedBox(height: 10,)
+>>>>>>> 766aa2b54d7698f971787d9d66667d25f461ff06
                   ],),),),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
           ),
