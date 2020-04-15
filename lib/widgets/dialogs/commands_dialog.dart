@@ -1,4 +1,3 @@
-import 'package:cityprog/styles/color_palette.dart';
 import 'package:flutter/material.dart';
 
 import '../buttons/continue_button_localized.dart';
