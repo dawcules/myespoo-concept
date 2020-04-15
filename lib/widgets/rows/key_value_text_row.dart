@@ -9,14 +9,15 @@ class KeyValueTextRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Flexible(
           flex: 1,
           child: AutoSizeText(
             _key,
+            style: TextStyle(fontWeight: FontWeight.bold),
             maxFontSize: 30,
-            minFontSize: 20,
+            minFontSize: 16,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.left,
           ),

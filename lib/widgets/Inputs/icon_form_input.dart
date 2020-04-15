@@ -14,12 +14,11 @@ class IconFormInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-                      TextFormField(
-                            autovalidate: true,
-                            validator: (value) => validation(value) ? validationText : null,
-                            style: TextStyle(color: AppColor.secondary.color(), fontFamily: 'RadikalLight'),
-                            decoration: CustomDecoration().formInputDecoration(hint, icon),
+    return TextFormField(
+                          autovalidate: true,
+                          validator: (value) => validation(value) ? validationText : null,
+                          style: TextStyle(color: AppColor.secondary.color(), fontFamily: 'RadikalLight'),
+                          decoration: CustomDecoration().formInputDecoration(hint, icon),
                       );
   }
 }

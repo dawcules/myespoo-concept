@@ -40,7 +40,7 @@ class MarketLower extends StatelessWidget {
 final List<MarketPostData> posts = [post1, post2, post3, post4];
 
 final MarketPostData post1 = MarketPostData(
-    title: "Ostetaan wc paperia asd asd asd asd",
+    title: "Ostetaan wc paperia",
     body: "Ostetaan wc paperia 5€ rulla. Lambia kiitos",
     postedBy: "Metti Mäikäläinen",
     price: 5,

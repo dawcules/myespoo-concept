@@ -28,6 +28,10 @@ class Validation {
     return !(value.isNotEmpty && regExp.hasMatch(value));
     }
 
+    bool validateText(String value){
+      return value.isEmpty;
+    }
+
     bool validatePw(String value){
       return value.length <= 6;
     }

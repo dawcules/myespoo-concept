@@ -1,8 +1,5 @@
 import 'package:cityprog/styles/color_palette.dart';
 import 'package:cityprog/validation/validation.dart';
-import 'package:cityprog/widgets/Inputs/boxed_form_confirmpw.dart';
-import 'package:cityprog/widgets/Inputs/boxed_form_email.dart';
-import 'package:cityprog/widgets/Inputs/boxed_form_password.dart';
 import 'package:cityprog/widgets/Inputs/icon_form_confirmpw.dart';
 import 'package:cityprog/widgets/Inputs/icon_form_input.dart';
 import 'package:cityprog/widgets/Inputs/icon_form_password.dart';
@@ -34,10 +31,14 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
 
   bool _beaconIsSelected = false;
   bool _healthcareSelected = false;
+  bool _communitySelected = false;
 
 
-  var data = ['Wheelchair', 'Nervous problems', 'Depression', 'HABALAA', 'HALAA', 'HANGALAA', 'OTHER'];
-  var selected = [];
+  var healthcare = ["Wheelchair", "Physical Disability", "Depression", "Mental Disability", "Illness", "Vision impaired", "Other"];
+  var selectedHealthcare = [];
+
+  var community = ["Carpool", "Marketplace", "Sport communities", "Birdspotting",];
+  var selectedCommunity = [];
 
  
 
@@ -46,15 +47,15 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
   void _onScroll() {
   }
 
-  bool otherCondition(index) {
+  bool otherCondition(index, selected) {
      if (selected.contains(index)) {
                     return true;
-                  } else {
+                  } else {      
                     return false;
                   }
   }
 
-  void selectPicker(index){
+  void selectPicker(index,selected){
      if (selected.contains(index)) {
                     selected.remove(index);
                   } else {
@@ -68,6 +69,8 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
       case "emergency":  setState(() {_beaconIsSelected = newValue;});
       break;
       case "healthcare": setState(() {_healthcareSelected = newValue;});
+      break;
+      case "community": setState(() {_communitySelected = newValue;});
       break;
       default: print("no switch selected");
     }
@@ -119,34 +122,34 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                   child: Column(children: [
                   BodyText(text: "All of the following is normally done with TUPAS indentification", fontsize: 15, color: AppColor.darkText.color() ),
                   SizedBox(height: 10,),
-                  IconFormInput(hint: "First Name", validationText: "You failed", icon: Icon(Icons.face)),
-                  IconFormInput(hint: "Surname", validationText: "Yes you did", icon: Icon(Icons.person_pin)),
-                  IconFormInput(hint: "Birthday", validationText: "Nono", icon: Icon(Icons.cake)),
-                  IconFormInput(hint: "Area", validationText: "Nono", icon: Icon(Icons.add_location)),
-                  IconFormInput(hint: "Address", validationText: "Nono", icon: Icon(Icons.email)),
-                  IconFormInput(hint: "Postal Code", validationText: "Nono", icon: Icon(Icons.code)),
+                  IconFormInput(hint: "First Name", validationText: "You failed", validation: formValidation.validateText, icon: Icon(Icons.face)),
+                  IconFormInput(hint: "Surname", validationText: "Yes you did",validation: formValidation.validateText, icon: Icon(Icons.person_pin)),
+                  IconFormInput(hint: "Birthday", validationText: "Nono",validation: formValidation.validateText, icon: Icon(Icons.cake)),
+                  IconFormInput(hint: "Area", validationText: "Nono",validation: formValidation.validateText, icon: Icon(Icons.add_location)),
+                  IconFormInput(hint: "Address", validationText: "Nono",validation: formValidation.validateText, icon: Icon(Icons.email)),
+                  IconFormInput(hint: "Postal Code", validationText: "Nono",validation: formValidation.validateText, icon: Icon(Icons.code)),
                   ],),),),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
           ),
           makePage(
             page: 3,
-            title: 'Special Needs',
-            header: HeaderText(text: "Special Needs", fontsize: 30, color: AppColor.secondary.color()),
+            title: 'Healthcare',
+            header: HeaderText(text: "Healthcare", fontsize: 30, color: AppColor.secondary.color()),
             body: SingleChildScrollView(child: Form(
                   child: Column(children: [
-                    BodyText(text: "Feel the need to get educated? Please mark this as a yes.", fontsize: 15, color: AppColor.darkText.color() ),
+                    BodyText(text: "We can offer you customized medical services on your approval, also greatly enhance your ability to move around inside a smart city", fontsize: 15, color: AppColor.darkText.color() ),
                     SizedBox(height: 10,),
                     ProfileSwitch(
-                    label: BodyText(text: "Serious need of education", fontsize: 15, color: AppColor.darkText.color() ),
+                    label: BodyText(text: "Enhanced medical services", fontsize: 15, color: AppColor.darkText.color() ),
                     padding: EdgeInsets.symmetric(horizontal: 20.0),
                     value: _healthcareSelected,
                     category: "healthcare",
                     icon: Icon(Icons.add_alert),
                     onChanged: switchStateTracker,),
                     SizedBox(height: 20,),
-                    _healthcareSelected != true ? SizedBox(height: 20,) : ChipFilter(onSelected: selectPicker, data: data, selected: selected,),
+                    _healthcareSelected != true ? SizedBox(height: 20,) : ChipFilter(onSelected: selectPicker, data: healthcare, selected: selectedHealthcare,),
                      SizedBox(height: 20,),
-                    otherCondition("OTHER") && _healthcareSelected == true ? IconMultiInput(hint: "Other Condition", validationText: "Please insert something", icon: Icon(Icons.local_hospital),)  : SizedBox(height: 20,),
+                    otherCondition("Other", selectedHealthcare) && _healthcareSelected == true ? IconMultiInput(hint: "Describe your condition", validationText: "Please insert something", icon: Icon(Icons.local_hospital),)  : SizedBox(height: 20,),
                   ],),),),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
           ),
@@ -155,7 +158,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
             title: 'Emergency Detection',
             header: HeaderText(text: "Emergency Beacon", fontsize: 30, color: AppColor.secondary.color()),
             body: Column(children: [
-                 BodyText(text: "Do you need to go to bathroom often?", fontsize: 15, color: AppColor.darkText.color() ),
+                    BodyText(text: "Do you need to go to bathroom often?", fontsize: 15, color: AppColor.darkText.color() ),
                     SizedBox(height: 10,),
                     ProfileSwitch(
                     label: BodyText(text: "Apply Emergency Beacon", fontsize: 15, color: AppColor.darkText.color() ),
@@ -169,13 +172,35 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
           ),
           makePage(
             page: 5,
+            title: 'Community',
+            header: HeaderText(text: "Community", fontsize: 30, color: AppColor.secondary.color()),
+            body: SingleChildScrollView(child: Form(
+                  child: Column(children: [
+                    BodyText(text: "Would you like to be part of the espoo area community? This includes all kinds of services related to users interacting with each other.", fontsize: 15, color: AppColor.darkText.color() ),
+                    SizedBox(height: 10,),
+                    ProfileSwitch(
+                    label: BodyText(text: "Partake in community activity", fontsize: 15, color: AppColor.darkText.color() ),
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    value: _communitySelected,
+                    category: "community",
+                    icon: Icon(Icons.terrain),
+                    onChanged: switchStateTracker,),
+                    SizedBox(height: 20,),
+                    _communitySelected != true ? SizedBox(height: 20,) : ChipFilter(onSelected: selectPicker, data: community, selected: selectedCommunity,),
+                     SizedBox(height: 20,),
+                    otherCondition("OTHER", selectedCommunity) && _communitySelected == true ? IconMultiInput(hint: "Describe your condition", validationText: "Please insert something", icon: Icon(Icons.present_to_all),)  : SizedBox(height: 20,),
+                  ],),),),
+            info: CenteredText(text: "More information", color:  AppColor.primary.color()),
+          ),
+          makePage(
+            page: 6,
             title: 'Practice Zone',
             header: HeaderText(text: "Practice Zone", fontsize: 30, color: AppColor.secondary.color()),
             body: Text("Still sucking"),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
           ),
            makePage(
-            page: 6,
+            page: 7,
             title: 'Example Database fetch list',
             header: HeaderText(text: "Database Steambuilder example", fontsize: 30, color: AppColor.secondary.color()),
             body: StreamBuilderExample(myQuery: 'Tapahtumat',),
