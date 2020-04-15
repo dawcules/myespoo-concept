@@ -1,5 +1,4 @@
 import 'package:cityprog/sensor_utils/speech_recognition/speech_recog.dart';
-import 'package:cityprog/styles/color_palette.dart';
 import 'package:cityprog/widgets/dialogs/speech_dialog.dart';
 import 'package:flutter/material.dart';
 
