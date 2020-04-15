@@ -4,7 +4,6 @@ import 'package:cityprog/widgets/columns/title_details_column.dart';
 import 'package:cityprog/widgets/posts/community_post_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:sliding_button/sliding_button.dart';
-import 'package:toast/toast.dart';
 
 class ReportForm extends StatefulWidget {
   @override

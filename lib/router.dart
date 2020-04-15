@@ -1,4 +1,5 @@
 import 'package:cityprog/pages/community_help_cat_page.dart';
+import 'package:cityprog/widgets/navigation/speech_nav_overlay.dart';
 import 'package:flutter/material.dart';
 
 import './main.dart';
@@ -21,38 +22,53 @@ class Router {
 
     switch (settings.name) {
       case '/': // The absolute first page
-        return MaterialPageRoute(builder: (_) => WelcomePage());
+        return MaterialPageRoute(
+            builder: (_) => SpeechNavigationOverlay(child: WelcomePage()));
       case '/home':
-        return MaterialPageRoute(builder: (_) => MyHomePage(title: args));
+        return MaterialPageRoute(
+            builder: (_) =>
+                SpeechNavigationOverlay(child: MyHomePage(title: args)));
       case '/community':
-        return MaterialPageRoute(builder: (_) => CommunityPage());
+        return MaterialPageRoute(
+            builder: (_) => SpeechNavigationOverlay(child: CommunityPage()));
       case '/communityHelp':
-        return MaterialPageRoute(builder: (_) => CommunityHelpMain());
+        return MaterialPageRoute(
+            builder: (_) =>
+                SpeechNavigationOverlay(child: CommunityHelpMain()));
       case '/communityHelpSign':
-        return MaterialPageRoute(builder: (_) => CommunityHelpPage());
+        return MaterialPageRoute(
+            builder: (_) =>
+                SpeechNavigationOverlay(child: CommunityHelpPage()));
       case '/communityHelpCat':
-        return MaterialPageRoute(builder: (_) => CommunityHelpCat(args));
+        return MaterialPageRoute(
+            builder: (_) =>
+                SpeechNavigationOverlay(child: CommunityHelpCat(args)));
       case '/personal':
         return MaterialPageRoute(builder: (_) => LoginPage());
       case '/introduction':
         return MaterialPageRoute(builder: (_) => IntroductionPage());
       case '/carpool':
-        return MaterialPageRoute(builder: (_) => CarpoolPage());
+        return MaterialPageRoute(
+            builder: (_) => SpeechNavigationOverlay(child: CarpoolPage()));
       case '/profile':
-        return MaterialPageRoute(builder: (_) => ProfilePage());
+        return MaterialPageRoute(
+            builder: (_) => SpeechNavigationOverlay(child: ProfilePage()));
       case '/market':
-        return MaterialPageRoute(builder: (_) => MarketPlacePage());
+        return MaterialPageRoute(
+            builder: (_) => SpeechNavigationOverlay(child: MarketPlacePage()));
       case '/market_new':
         return MaterialPageRoute(
-          builder: (_) => MarketPlacePage(
+          builder: (_) => SpeechNavigationOverlay(
+              child: MarketPlacePage(
             navigatedWithNewCommand: true,
-          ),
+          )),
         );
       case '/carpool_new':
         return MaterialPageRoute(
-          builder: (_) => CarpoolPage(
+          builder: (_) => SpeechNavigationOverlay(
+              child: CarpoolPage(
             navigatedWithNewCommand: true,
-          ),
+          )),
         );
 
       default:

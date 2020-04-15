@@ -92,19 +92,23 @@ class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
   void _initAnimationController() {
     _animationController = AnimationController(
       vsync: this,
-      lowerBound: 0.25,
+      lowerBound: 0.4,
       duration: Duration(milliseconds: 200),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return activateSpeechButtonNoText(200 * _animationController.value);
+    return activateSpeechButtonNoText(175 * _animationController.value);
   }
 
   Widget activateSpeechButtonNoText(double radius) {
     return GestureDetector(
-        child: Icon(Icons.mic, size: radius),
+        child: Icon(
+          Icons.mic,
+          size: radius,
+          color: Colors.black87,
+        ),
         onTapDown: (details) {
           if (_hasPermissions) {
             setState(() {
