@@ -1,6 +1,7 @@
 import 'package:cityprog/strings/string_provider.dart';
 import 'package:cityprog/widgets/dialogs/commands_dialog.dart';
 import 'package:cityprog/widgets/dialogs/keywords_dialog.dart';
+import 'package:cityprog/widgets/posts/report_broken_form.dart';
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
 
@@ -14,6 +15,8 @@ class SpeechToRoute {
   List<String> _navigateCommands;
   List<String> _helpCommands;
   List<String> _newCommands;
+  List<String> _commandsCommands;
+  List<String> _reportStrings;
 
   String _homeInitialChar;
   String _communityInitialChar;
@@ -23,6 +26,7 @@ class SpeechToRoute {
   String _carpoolInitialsChar;
   String _carpoolSecondChar;
   String _marketInitialsChar;
+  String _reportInitialsChar;
   String _currentLocaleId = "";
 
   Map<String, Map<String, dynamic>> _navStringBundleLocalized;
@@ -44,9 +48,11 @@ class SpeechToRoute {
   }
 
   void _initBundleReferences() {
+    _reportStrings = _navStringBundleLocalized["keywords"]["report"];
     _keywordsCommands = _navStringBundleLocalized["commands"]["keywords"];
     _navigateCommands = _navStringBundleLocalized["commands"]["navigate"];
     _helpCommands = _navStringBundleLocalized["commands"]["help"];
+    _commandsCommands = _navStringBundleLocalized["commands"]["commands"];
     _newCommands = _navStringBundleLocalized["commands"]["new"];
     _homeInitialChar = _navStringBundleLocalized["keywordInitialChars"]["home"];
     _communityInitialChar =
@@ -59,6 +65,8 @@ class SpeechToRoute {
         _navStringBundleLocalized["keywordInitialChars"]["carpool"];
     _marketInitialsChar =
         _navStringBundleLocalized["keywordInitialChars"]["market"];
+    _reportInitialsChar =
+        _navStringBundleLocalized["keywordInitialChars"]["report"];
     _communitySecondChar =
         _navStringBundleLocalized["keywordInitialChars"]["community_second"];
     _carpoolSecondChar =
@@ -94,6 +102,9 @@ class SpeechToRoute {
       }
     } else if (_helpCommands.contains(userCommand)) {
       // The command was "help" -> open a help dialog with all commands
+      _navigateWithoutArgs(Routes.COMMUNITYHELP.name);
+    } else if (_commandsCommands.contains(userCommand)) {
+      // The command was "commands" -> open a commands dialog with all commands
       showDialog(
           context: _context,
           child:
@@ -112,6 +123,10 @@ class SpeechToRoute {
           _navigateIfMatch(word, Routes.CARPOOL_NEW);
         else if (firstChar == _marketInitialsChar) {
           _navigateIfMatch(word, Routes.MARKET_NEW);
+        } else if (firstChar == _reportInitialsChar) {
+          if (_reportStrings.contains(word)) {
+            showDialog(context: _context, child: ReportCityPropertyForm());
+          }
         }
       }
     } else {

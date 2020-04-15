@@ -11,33 +11,55 @@ class CommandsDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: buildCommandsList(context),
-      actions: <Widget>[
-        ContinueButton(),
-      ],
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          buildCommandsList(context),
+          Padding(
+            padding: EdgeInsets.only(top: 16),
+            child: Row(
+              children: <Widget>[
+                Flexible(
+                  flex: 1,
+                  child: Image.asset("assets/images/smartespoo.png"),
+                ),
+                Flexible(
+                  flex: 1,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: ContinueButton(),
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 
   Widget buildCommandsList(BuildContext context) {
     print(_commands.length);
     return Container(
-      height: MediaQuery.of(context).size.height * 0.33,
+      height: MediaQuery.of(context).size.height * 0.66,
       width: MediaQuery.of(context).size.width * 0.85,
-      child: ListView.builder(
-          itemCount: _commands.length,
-          itemBuilder: (BuildContext context, int position) {
-            return Padding(
-              padding: EdgeInsets.all(8),
-              child: getRow(position, context),
-            );
-          }),
+      child: Scrollbar(
+        child: ListView.builder(
+            itemCount: _commands.length,
+            itemBuilder: (BuildContext context, int position) {
+              return Padding(
+                padding: EdgeInsets.all(8),
+                child: getRow(position, context),
+              );
+            }),
+      ),
     );
   }
 
   Widget getRow(int position, BuildContext context) {
     String key = _commands.keys.toList()[position];
-    String value =
-        _commands.values.toList()[position];
+    String value = _commands.values.toList()[position];
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
