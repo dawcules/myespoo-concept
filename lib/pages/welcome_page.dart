@@ -1,12 +1,8 @@
 import 'package:cityprog/strings/navigation_strings.dart';
 import 'package:cityprog/widgets/Backgrounds/background_widget.dart';
-//import 'package:cityprog/widgets/dialogs/speech_dialog.dart';
 import 'package:cityprog/widgets/rows/icon_and_route_name.dart';
-
-//import '../sensor_utils/speech_recognition/speech_recog.dart';
 import 'package:cityprog/handlers/message_handler.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({Key key}) : super(key: key);
@@ -16,33 +12,9 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
-  bool speechIsActivated = false;
-
-  // void _onSpeechActivate() {
-  //   setState(() {
-  //     speechIsActivated = true;
-  //   });
-  // }
-
-  // void _onSpeechDeActivate() {
-  //   setState(() {
-  //     speechIsActivated = false;
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
-    Widget bottomWidget;
-
-    if (kIsWeb) {
-      bottomWidget = Text('Asenna sovellus käyttääksesi puhetoimintoja!');
-    } else {
-      bottomWidget = Padding(padding: EdgeInsets.all(0),);
-      // SpeechNavigationButton(
-      //   onSpeechActivate: () =>_onSpeechActivate(),
-      //   onSpeehDeActivate: () => _onSpeechDeActivate(),
-      //);
-    }
 
     return Container(
       child: Scaffold(
@@ -60,16 +32,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 child: generateNavigationButtons(context),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter * 0.9,
-              child: bottomWidget,
-            ),
             MessageHandler(),
-            // speechIsActivated
-            //     ? Center(
-            //         child: SpeechActiveDialog(),
-            //       )
-            //     : Padding(padding: EdgeInsets.all(0)),
           ],
         ),
       ),
