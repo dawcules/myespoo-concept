@@ -3,6 +3,7 @@ import 'package:cityprog/widgets/Inputs/boxed_form_confirmpw.dart';
 import 'package:cityprog/widgets/Inputs/boxed_form_email.dart';
 import 'package:cityprog/widgets/Inputs/boxed_form_password.dart';
 import 'package:cityprog/widgets/Inputs/icon_form_input.dart';
+import 'package:cityprog/widgets/filters/chip_filter.dart';
 import 'package:cityprog/widgets/links/centered_text.dart';
 import 'package:cityprog/widgets/texts/body_text.dart';
 import 'package:cityprog/widgets/texts/header_text.dart';
@@ -25,13 +26,40 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
   PageController _pageController;
   final _formKey = new GlobalKey<FormState>();
   final _passwordController = TextEditingController();
+
   bool _isSelected = false;
 
-  int totalPage = 4;
+  var data = ['Wheelchair', 'Nervous problems', 'Depression', 'HABALAA', 'HALAA', 'HANGALAA', 'OTHER'];
+  var selected = [];
+
+
+  int totalPage = 5;
 
   void _onScroll() {
   }
 
+  bool otherCondition(index) {
+     if (selected.contains(index)) {
+                    return true;
+                  } else {
+                    return false;
+                  }
+  }
+
+  void selectPicker(index){
+     if (selected.contains(index)) {
+                    selected.remove(index);
+                  } else {
+                    selected.add(index);
+                  }
+                  setState(() {});
+  }
+  void switchState(bool newValue) {
+                    setState(() {
+                      _isSelected = newValue;
+                    });
+                   }
+ 
 
   @override
   void initState() {
@@ -70,9 +98,11 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
           makePage(
             page: 2,
             title: 'Personal Information',
-            header: HeaderText(text: "Personal Information", fontsize: 30, color: AppColor.secondary.color()),
+            header: HeaderText(text: "Personal Information (DEMO)", fontsize: 30, color: AppColor.secondary.color()),
             body: SingleChildScrollView(child: Form(
                   child: Column(children: [
+                  BodyText(text: "All of the following is normally done with TUPAS indentification", fontsize: 15, color: AppColor.darkText.color() ),
+                  SizedBox(height: 10,),
                   IconFormInput(hint: "First Name", validationText: "You failed", icon: Icon(Icons.face)),
                   IconFormInput(hint: "Surname", validationText: "Yes you did", icon: Icon(Icons.person_pin)),
                   IconFormInput(hint: "Birthday", validationText: "Nono", icon: Icon(Icons.cake)),
@@ -89,21 +119,30 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
             body: SingleChildScrollView(child: Form(
                   child: Column(children: [
                     BodyText(text: "Feel the need to get educated? Please mark this as a yes.", fontsize: 15, color: AppColor.darkText.color() ),
+                    SizedBox(height: 10,),
                     ProfileSwitch(
                     label: BodyText(text: "Serious need of education", fontsize: 15, color: AppColor.darkText.color() ),
                     padding: EdgeInsets.symmetric(horizontal: 20.0),
                     value: _isSelected,
                     icon: Icon(Icons.add_alert),
-                    onChanged: (bool newValue) {
-                    setState(() {
-                      _isSelected = newValue;
-                    });
-                   },),
+                    onChanged: switchState,),
+                    SizedBox(height: 20,),
+                    _isSelected != true ? SizedBox(height: 20,) : ChipFilter(onSelected: selectPicker, data: data, selected: selected,),
+                     SizedBox(height: 20,),
+                    otherCondition("OTHER") && _isSelected == true ? IconFormInput(hint: "Other Condition", validationText: "Please insert something", icon: Icon(Icons.local_hospital),)  : SizedBox(height: 20,),
                   ],),),),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
           ),
           makePage(
             page: 4,
+            title: 'Example',
+            header: HeaderText(text: "Example", fontsize: 30, color: AppColor.secondary.color()),
+            body: ChipFilter(onSelected: selectPicker
+            , data: data, selected: selected,),
+            info: CenteredText(text: "More information", color:  AppColor.primary.color()),
+          ),
+           makePage(
+            page: 5,
             title: 'Example',
             header: HeaderText(text: "Example", fontsize: 30, color: AppColor.secondary.color()),
             body: StreamBuilderExample(myQuery: 'Tapahtumat',),

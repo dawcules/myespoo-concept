@@ -20,7 +20,7 @@ class _ClickListState extends State<ClickList> {
     return Container(
       child: ListView.builder(
         scrollDirection: Axis.vertical,
-    shrinkWrap: true,
+        shrinkWrap: true,
           itemCount: widget.items == null ? 0 : widget.items.length,
           itemBuilder: (BuildContext context, int index) {
             return new Card(

@@ -7,7 +7,7 @@ import '../animations/FadeAnimation.dart';
 import '../widgets/Inputs/boxed_form_email.dart';
 import '../widgets/Backgrounds/background_widget.dart';
 import '../widgets/links/centered_text.dart';
-import '../widgets/links/header_text.dart';
+import '../widgets/texts/header_text.dart';
 
 class LoginPage extends StatefulWidget {
   @override
