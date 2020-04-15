@@ -1,3 +1,4 @@
+import 'package:cityprog/styles/color_palette.dart';
 import 'package:flutter/material.dart';
 
 import '../buttons/continue_button_localized.dart';
@@ -11,30 +12,34 @@ class CommandsDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          buildCommandsList(context),
-          Padding(
-            padding: EdgeInsets.only(top: 16),
-            child: Row(
-              children: <Widget>[
-                Flexible(
-                  flex: 1,
-                  child: Image.asset("assets/images/smartespoo.png"),
-                ),
-                Flexible(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 16),
-                    child: ContinueButton(),
+      contentPadding: EdgeInsets.all(0),
+      content: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            buildCommandsList(context),
+            Padding(
+              padding: EdgeInsets.only(top: 16),
+              child: Row(
+                children: <Widget>[
+                  Flexible(
+                    flex: 1,
+                    child: Image.asset("assets/images/smartespoo.png"),
                   ),
-                ),
-              ],
-            ),
-          )
-        ],
+                  Flexible(
+                    flex: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: ContinueButton(),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

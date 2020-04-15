@@ -1,7 +1,7 @@
 import 'package:cityprog/strings/string_provider.dart';
 import 'package:cityprog/widgets/dialogs/commands_dialog.dart';
 import 'package:cityprog/widgets/dialogs/keywords_dialog.dart';
-import 'package:cityprog/widgets/posts/report_broken_form.dart';
+import 'package:cityprog/widgets/posts/report_form.dart';
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
 
@@ -125,7 +125,7 @@ class SpeechToRoute {
           _navigateIfMatch(word, Routes.MARKET_NEW);
         } else if (firstChar == _reportInitialsChar) {
           if (_reportStrings.contains(word)) {
-            showDialog(context: _context, child: ReportCityPropertyForm());
+            showDialog(context: _context, child: ReportForm());
           }
         }
       }

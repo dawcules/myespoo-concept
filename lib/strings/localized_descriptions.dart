@@ -22,6 +22,7 @@ class LocalizedDescriptions {
     "Kimppakyydit": "Uusi kimppakyyti",
     "Tori": "Navigoi tori",
     "Tori": "Uusi tori",
+    "Ilmoitus": "Uusi ilmoitus",
   };
 
   // English
@@ -46,5 +47,6 @@ class LocalizedDescriptions {
     "Carpool": "New carpool",
     "Marketplace": "Navigate marketplace",
     "Marketplace": "New marketplace",
+    "Report": "New report",
   };
 }
