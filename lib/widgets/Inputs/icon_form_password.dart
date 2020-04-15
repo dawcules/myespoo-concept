@@ -3,27 +3,26 @@ import 'package:cityprog/styles/custom_decoration.dart';
 import 'package:flutter/material.dart';
 
 
-class BoxedFormPassword extends StatelessWidget {
+class IconFormPassword extends StatelessWidget {
 
   final String hint;
   final String validationText;
   final Function validation;
+  final Icon icon;
   final TextEditingController passwordController;
 
-  BoxedFormPassword({this.hint, this.validationText, this.passwordController, this.validation});
+  IconFormPassword({this.hint, this.validationText, this.icon, this.validation, this.passwordController});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: CustomDecoration().formBoxDecoration(),
-                        child: TextFormField(
+    return 
+                      TextFormField(
                             obscureText: true,
-                            controller:  passwordController,
+                            autovalidate: true,
+                            controller: passwordController, 
                             validator: (value) => validation(value) ? validationText : null,
                             style: TextStyle(color: AppColor.secondary.color(), fontFamily: 'RadikalLight'),
-                            decoration: CustomDecoration().loginInputDecoration(hint),
-                        ),
+                            decoration: CustomDecoration().formInputDecoration(hint, icon),
                       );
   }
 }

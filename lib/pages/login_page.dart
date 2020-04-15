@@ -1,4 +1,5 @@
 import 'package:cityprog/styles/color_palette.dart';
+import 'package:cityprog/validation/validation.dart';
 import 'package:cityprog/widgets/Inputs/boxed_form_password.dart';
 import 'package:cityprog/widgets/buttons/login_button.dart';
 import 'package:cityprog/widgets/containers/box_container.dart';
@@ -16,8 +17,10 @@ class LoginPage extends StatefulWidget {
 
 class _LoginState extends State<LoginPage> {
 
+  Validation formValidation = new Validation();
   final _formKey = new GlobalKey<FormState>();
   final _passwordController = TextEditingController();
+
   
   void _validateSubmit(){
    if (_formKey.currentState.validate()) {
@@ -64,8 +67,8 @@ class _LoginState extends State<LoginPage> {
                 HeaderText(text: "Login", fontsize: 30, color:  AppColor.secondary.color())),
                 SizedBox(height: 20),
                 FadeAnimation(1.5, ShadowedBoxContainer(childWidgets: <Widget>[
-                BoxedFormEmail(hint: "Email", validationText: "Insert a proper email",),
-                BoxedFormPassword(hint: "Password", validationText: "Password cannot be empty", passwordController: _passwordController),
+                BoxedFormEmail(hint: "Email", validationText: "Insert a proper email",validation: formValidation.validateEmail,),
+                BoxedFormPassword(hint: "Password", validationText: "Password must be at least 6 characters", passwordController: _passwordController, validation: formValidation.validatePw,),
                 ],)),
                 SizedBox(height: 10),
                 FadeAnimation(1.7 , CenteredText(text: "Forgot password?", color: AppColor.primary.color(), navigateToPage: _toProfile)),

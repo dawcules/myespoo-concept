@@ -1,8 +1,12 @@
 import 'package:cityprog/styles/color_palette.dart';
+import 'package:cityprog/validation/validation.dart';
 import 'package:cityprog/widgets/Inputs/boxed_form_confirmpw.dart';
 import 'package:cityprog/widgets/Inputs/boxed_form_email.dart';
 import 'package:cityprog/widgets/Inputs/boxed_form_password.dart';
+import 'package:cityprog/widgets/Inputs/icon_form_confirmpw.dart';
 import 'package:cityprog/widgets/Inputs/icon_form_input.dart';
+import 'package:cityprog/widgets/Inputs/icon_form_password.dart';
+import 'package:cityprog/widgets/Inputs/icon_multiline_input.dart';
 import 'package:cityprog/widgets/filters/chip_filter.dart';
 import 'package:cityprog/widgets/links/centered_text.dart';
 import 'package:cityprog/widgets/texts/body_text.dart';
@@ -26,14 +30,18 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
   PageController _pageController;
   final _formKey = new GlobalKey<FormState>();
   final _passwordController = TextEditingController();
+  Validation formValidation = new Validation();
 
-  bool _isSelected = false;
+  bool _beaconIsSelected = false;
+  bool _healthcareSelected = false;
+
 
   var data = ['Wheelchair', 'Nervous problems', 'Depression', 'HABALAA', 'HALAA', 'HANGALAA', 'OTHER'];
   var selected = [];
 
+ 
 
-  int totalPage = 5;
+  int totalPage = 6;
 
   void _onScroll() {
   }
@@ -54,11 +62,19 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                   }
                   setState(() {});
   }
-  void switchState(bool newValue) {
-                    setState(() {
-                      _isSelected = newValue;
-                    });
-                   }
+
+  void switchStateTracker(bool newValue, String switchCategory) {
+    switch(switchCategory){
+      case "emergency":  setState(() {_beaconIsSelected = newValue;});
+      break;
+      case "healthcare": setState(() {_healthcareSelected = newValue;});
+      break;
+      default: print("no switch selected");
+    }
+  }
+  void switchState(bool newValue, bool selectedSwitch){
+  }
+   
  
 
   @override
@@ -89,9 +105,9 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
             header: HeaderText(text: "Account Information", fontsize: 30, color: AppColor.secondary.color()),
             body: SingleChildScrollView(child: Form(key: _formKey, 
                   child: Column(children: [
-                  BoxedFormEmail(hint: "Email", validationText: "Insert a proper email",),
-                  BoxedFormPassword(hint: "Password", validationText: "Password cannot be empty", passwordController: _passwordController),
-                  BoxedFormConfirmPw(hint: "Repeat Password", validationText: "Please make sure passwords match", passwordController: _passwordController),
+                  IconFormInput(hint: "Email", validationText: "Insert a proper email",validation: formValidation.validateEmail, icon: Icon(Icons.alternate_email),),
+                  IconFormPassword(hint: "Password", validationText: "Password cannot be empty", validation: formValidation.validatePw ,passwordController: _passwordController, icon: Icon(Icons.security)),
+                  IconFormConfirm(hint: "Repeat Password", validationText: "Please make sure passwords match", validation: formValidation.confirmPw, passwordController: _passwordController,icon: Icon(Icons.security)),
                   ],),),),
             info: CenteredText(text: "More info", color:  AppColor.primary.color()),
           ),
@@ -123,37 +139,45 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                     ProfileSwitch(
                     label: BodyText(text: "Serious need of education", fontsize: 15, color: AppColor.darkText.color() ),
                     padding: EdgeInsets.symmetric(horizontal: 20.0),
-                    value: _isSelected,
+                    value: _healthcareSelected,
+                    category: "healthcare",
                     icon: Icon(Icons.add_alert),
-<<<<<<< HEAD
-                    onChanged: switchState,),
+                    onChanged: switchStateTracker,),
                     SizedBox(height: 20,),
-                    _isSelected != true ? SizedBox(height: 20,) : ChipFilter(onSelected: selectPicker, data: data, selected: selected,),
+                    _healthcareSelected != true ? SizedBox(height: 20,) : ChipFilter(onSelected: selectPicker, data: data, selected: selected,),
                      SizedBox(height: 20,),
-                    otherCondition("OTHER") && _isSelected == true ? IconFormInput(hint: "Other Condition", validationText: "Please insert something", icon: Icon(Icons.local_hospital),)  : SizedBox(height: 20,),
-=======
-                    onChanged: (bool newValue) {
-                    setState(() {
-                      _isSelected = newValue;
-                    });
-                   },),
-                   SizedBox(height: 10,)
->>>>>>> 766aa2b54d7698f971787d9d66667d25f461ff06
+                    otherCondition("OTHER") && _healthcareSelected == true ? IconMultiInput(hint: "Other Condition", validationText: "Please insert something", icon: Icon(Icons.local_hospital),)  : SizedBox(height: 20,),
                   ],),),),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
           ),
-          makePage(
+            makePage(
             page: 4,
-            title: 'Example',
-            header: HeaderText(text: "Example", fontsize: 30, color: AppColor.secondary.color()),
-            body: ChipFilter(onSelected: selectPicker
-            , data: data, selected: selected,),
+            title: 'Emergency Detection',
+            header: HeaderText(text: "Emergency Beacon", fontsize: 30, color: AppColor.secondary.color()),
+            body: Column(children: [
+                 BodyText(text: "Do you need to go to bathroom often?", fontsize: 15, color: AppColor.darkText.color() ),
+                    SizedBox(height: 10,),
+                    ProfileSwitch(
+                    label: BodyText(text: "Apply Emergency Beacon", fontsize: 15, color: AppColor.darkText.color() ),
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    value: _beaconIsSelected ,
+                    category: "emergency",
+                    icon: Icon(Icons.add_alert),
+                    onChanged: switchStateTracker,),
+            ],),
+            info: CenteredText(text: "More information", color:  AppColor.primary.color()),
+          ),
+          makePage(
+            page: 5,
+            title: 'Practice Zone',
+            header: HeaderText(text: "Practice Zone", fontsize: 30, color: AppColor.secondary.color()),
+            body: Text("Still sucking"),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
           ),
            makePage(
-            page: 5,
-            title: 'Example',
-            header: HeaderText(text: "Example", fontsize: 30, color: AppColor.secondary.color()),
+            page: 6,
+            title: 'Example Database fetch list',
+            header: HeaderText(text: "Database Steambuilder example", fontsize: 30, color: AppColor.secondary.color()),
             body: StreamBuilderExample(myQuery: 'Tapahtumat',),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
           ),
