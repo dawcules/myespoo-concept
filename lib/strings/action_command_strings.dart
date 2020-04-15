@@ -25,4 +25,62 @@ class ActionCommands {
         break;
     }
   }
+
+  static List<String> reportCommandsToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return [
+          "ilmoita",
+          "Ilmoita",
+          "ilmoitus",
+          "Ilmoitus",
+        ];
+        break;
+      case Language.EN:
+        return [
+          "report",
+          "raport",
+          "Report",
+          "Raport",
+        ];
+        break;
+      default:
+        return [
+          "report",
+          "raport",
+          "Report",
+          "Raport",
+        ];
+        break;
+    }
+  }
+
+  static List<String> commandsStringsToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return [
+          "komennot",
+          "Komennot",
+          "komento"
+          "Komento"
+        ];
+        break;
+      case Language.EN:
+        return [
+          "commands",
+          "command",
+          "Commands",
+          "Command",
+        ];
+        break;
+      default:
+        return [
+          "commands",
+          "command",
+          "Commands",
+          "Command",
+        ];
+        break;
+    }
+  }
 }

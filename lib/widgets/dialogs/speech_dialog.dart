@@ -8,7 +8,7 @@ class SpeechDialog extends StatelessWidget {
     return GestureDetector(
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(15),
           border: Border.all(width: 1.0),
           color: AppColor.background.color(),
         ),

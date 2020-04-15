@@ -175,7 +175,7 @@ class NavigationStrings {
 
   static String speechDialogHelpString() {
     return CurrentLanguage.value == Language.FI
-        ? "Apua -komento avaa näkyviin valikon joka pitää sisällään kaikki komennot!"
-        : "\"Help\" command will open up a dialog that contains all usable commands!";
+        ? "\"Komennot\" -komento avaa näkyviin valikon joka pitää sisällään kaikki komennot!"
+        : "\"Commands\" -command will open up a dialog that contains all usable commands!";
   }
 }

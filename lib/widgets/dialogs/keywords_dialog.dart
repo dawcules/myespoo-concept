@@ -10,16 +10,36 @@ class KeywordsDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: buildCommandsList(context),
-      actions: <Widget>[
-        ContinueButton(),
-      ],
-    );
+        contentPadding: EdgeInsets.all(0),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: buildCommandsList(context),
+            ),
+            Row(
+              children: <Widget>[
+                Flexible(
+                  flex: 1,
+                  child: Image.asset("assets/images/smartespoo.png"),
+                ),
+                Flexible(
+                  flex: 1,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: ContinueButton(),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ));
   }
 
   Widget buildCommandsList(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.33,
+      height: MediaQuery.of(context).size.height * 0.4,
       width: MediaQuery.of(context).size.width * 0.85,
       child: ListView.builder(
           itemCount: keywords.length,

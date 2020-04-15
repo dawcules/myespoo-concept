@@ -97,7 +97,7 @@ extension RoutePaths on Routes {
         return "/community";
         break;
       case Routes.COMMUNITYHELP:
-        return "/communityMain";
+        return "/communityHelp";
       case Routes.INTRODUCTION:
         return "/introduction";
         break;

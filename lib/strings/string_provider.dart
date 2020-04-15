@@ -17,6 +17,7 @@ class StringProvider {
         "help": NavigationStrings.localizedHelpStrings(),
         "keywords": keywordsToLocalized(),
         "new": ActionCommands.newCommandToLocalized(),
+        "commands": ActionCommands.commandsStringsToLocalized(),
       },
       "keywords": {
         "home": NavigationStrings.localizedHomeStrings(),
@@ -25,6 +26,7 @@ class StringProvider {
         "personal": NavigationStrings.localizedPersonalStrings(),
         "carpool": NavigationStrings.localizedCarpoolStrings(),
         "market": NavigationStrings.localizedMarketStrings(),
+        "report": ActionCommands.reportCommandsToLocalized(),
       },
       "commandDescriptions": localizedCommandDescriptions(),
       "keywordDescriptions": localizedKeywordDescriptions(),
@@ -179,6 +181,7 @@ class StringProvider {
       "community_second": CurrentLanguage.value == Language.FI
           ? NavigationStrings.communityFI[0][1].toLowerCase()
           : NavigationStrings.communityEN[0][1].toLowerCase(),
+      "report": ActionCommands.reportCommandsToLocalized()[0][0],
     };
   }
 
