@@ -1,6 +1,7 @@
 import 'package:cityprog/sensor_utils/speech_recognition/speech_recog.dart';
 import 'package:cityprog/widgets/dialogs/speech_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class SpeechNavigationOverlay extends StatefulWidget {
   final Widget child;
@@ -21,10 +22,12 @@ class _SpeechNavigationOverlayState extends State<SpeechNavigationOverlay> {
         Align(
           alignment: Alignment.bottomCenter * 0.9,
           child: Container(
-            child: SpeechNavigationButton(
-              onSpeechActivate: () => _onSpeechActivate(),
-              onSpeehDeActivate: () => _onSpeechDeActivate(),
-            ),
+            child: kIsWeb
+                ? Text('Asenna sovellus käyttääksesi puhetoimintoja!')
+                : SpeechNavigationButton(
+                    onSpeechActivate: () => _onSpeechActivate(),
+                    onSpeehDeActivate: () => _onSpeechDeActivate(),
+                  ),
           ),
         ),
         _buildSpeechActivatedDialog(),
