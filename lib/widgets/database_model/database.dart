@@ -23,6 +23,11 @@ class Database {
     return _db.collection('Citizen').document('Larry').collection('personalEvents').snapshots();
   }
 
+  // Haetaan kaikki apupalveluilmoitukset
+  Stream<QuerySnapshot> getHelps(){
+    return _db.collection('Events').snapshots();
+  }
+
   // Palauttaa spesifin collectionin
  Stream<QuerySnapshot> getCollection(String collection){
     return _db.collection(collection).snapshots();

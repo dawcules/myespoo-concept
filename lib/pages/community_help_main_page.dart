@@ -3,6 +3,7 @@ import 'package:cityprog/widgets/routes/zoom_route.dart';
 import 'package:flutter/material.dart';
 import '../widgets/rows/dropdown_select.dart';
 import 'package:cityprog/strings/community_help_strings.dart';
+import 'package:cityprog/styles/color_palette.dart';
 
 class CommunityHelpMain extends StatefulWidget {
   @override
@@ -28,7 +29,6 @@ class _CommunityHelpMainState extends State<CommunityHelpMain> {
               Container(
                 height: 600,
                 width: 400,
-                decoration: BoxDecoration(border: Border.all(width: 1)),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
@@ -47,14 +47,31 @@ class _CommunityHelpMainState extends State<CommunityHelpMain> {
                           LocalizedCommunityHelpStrings.descToLocalized(),
                           style: TextStyle(fontSize: 20)),
                     ),
-                    DropdownSelect(LocalizedCommunityHelpStrings.listToLocalized(), key, '/communityHelpCat'),
-                    FlatButton(
-                      child: Text(LocalizedCommunityHelpStrings.volunteerBtnToLocalized()),
-                      color: Colors.amber,
-                      onPressed: (){
+                    DropdownSelect(
+                        LocalizedCommunityHelpStrings.listToLocalized(),
+                        key,
+                        '/communityHelpCat'),
+                    RaisedButton(
+                      color: AppColor.button.color(),
+                      onPressed: () {
                         //Navigator.of(context).pushNamed('/communityHelpSign');
-                        Navigator.push(context, ZoomRoute(page: CommunityHelpPage()));
+                        Navigator.push(
+                            context, ZoomRoute(page: CommunityHelpPage()));
                       },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 18,
+                          vertical: 16,
+                        ),
+                        child: Text(
+                          LocalizedCommunityHelpStrings
+                          .volunteerBtnToLocalized(),
+                          style: TextStyle(
+                            color: AppColor.buttonText.color(),
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),

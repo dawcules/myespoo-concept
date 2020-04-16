@@ -14,7 +14,6 @@ class DropdownSelect extends StatefulWidget {
 }
 
 class _DropdownSelectState extends State<DropdownSelect> {
-
   String dropdownValue;
 
   @override
@@ -50,30 +49,42 @@ class _DropdownSelectState extends State<DropdownSelect> {
                     dropdownValue = newValue;
                   });
                 },
-                items: widget._optionList.map<DropdownMenuItem<String>>((String value) {
+                items: widget._optionList
+                    .map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Text(value),
                   );
                 }).toList(),
               ),
-              FlatButton(
-                child: Text(
-                  LocalizedCommunityHelpStrings.catBtnToLocalized(),
-                  style: TextStyle(color: AppColor.whiteText.color()),
-                ),
-                color: AppColor.primary.color(),
+              RaisedButton(
+                color: AppColor.button.color(),
                 onPressed: () => {
                   if (dropdownValue != widget._optionList.first)
-                    Navigator.of(context).pushNamed(widget._route, arguments: dropdownValue)
+                    Navigator.of(context)
+                        .pushNamed(widget._route, arguments: dropdownValue)
                   else
                     {
                       key.currentState.showSnackBar(SnackBar(
-                        content: Text(LocalizedCommunityHelpStrings.snackToLocalized()),
+                        content: Text(
+                            LocalizedCommunityHelpStrings.snackToLocalized()),
                       ))
                     }
                 },
-              )
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 18,
+                    vertical: 10,
+                  ),
+                  child: Text(
+                    LocalizedCommunityHelpStrings.catBtnToLocalized(),
+                    style: TextStyle(
+                      color: AppColor.buttonText.color(),
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
           Divider(),
