@@ -32,17 +32,26 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
   bool _beaconIsSelected = false;
   bool _healthcareSelected = false;
   bool _communitySelected = false;
+  bool _helpSelected = false; 
 
 
   var healthcare = ["Wheelchair", "Physical Disability", "Depression", "Mental Disability", "Illness", "Vision impaired", "Other"];
   var selectedHealthcare = [];
 
-  var community = ["Carpool", "Marketplace", "Sport communities", "Birdspotting",];
+  var community = ["Carpool", "Marketplace","Birdspotting", "Local Activities", ];
   var selectedCommunity = [];
+  var communityAreas = ["Leppävaara", "Tapiola","Vanha-Espoo", "Matinkylä", "Espoonlahti", "Pohjois Espoo" ];
+  var selectedCommunityAreas= [];
+
+
+  var help = ["Helping Elderly", "Shoplifting","Being a good guy", "Gardening", ];
+  var selectedHelp = [];
+  var helpAreas = ["Leppävaara", "Tapiola","Vanha-Espoo", "Matinkylä", "Espoonlahti", "Pohjois Espoo" ];
+  var selectedHelpAreas= [];
 
  
 
-  int totalPage = 6;
+  int totalPage = 8;
 
   void _onScroll() {
   }
@@ -72,10 +81,10 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
       break;
       case "community": setState(() {_communitySelected = newValue;});
       break;
+      case "help": setState(() {_helpSelected = newValue;});
+      break;
       default: print("no switch selected");
     }
-  }
-  void switchState(bool newValue, bool selectedSwitch){
   }
    
  
@@ -107,7 +116,10 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
             title: 'Account Information',
             header: HeaderText(text: "Account Information", fontsize: 30, color: AppColor.secondary.color()),
             body: SingleChildScrollView(child: Form(key: _formKey, 
-                  child: Column(children: [
+                  child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
                   IconFormInput(hint: "Email", validationText: "Insert a proper email",validation: formValidation.validateEmail, icon: Icon(Icons.alternate_email),),
                   IconFormPassword(hint: "Password", validationText: "Password cannot be empty", validation: formValidation.validatePw ,passwordController: _passwordController, icon: Icon(Icons.security)),
                   IconFormConfirm(hint: "Repeat Password", validationText: "Please make sure passwords match", validation: formValidation.confirmPw, passwordController: _passwordController,icon: Icon(Icons.security)),
@@ -119,12 +131,15 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
             title: 'Personal Information',
             header: HeaderText(text: "Personal Information (DEMO)", fontsize: 30, color: AppColor.secondary.color()),
             body: SingleChildScrollView(child: Form(
-                  child: Column(children: [
+                  child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround, 
+                  children: [
                   BodyText(text: "All of the following is normally done with TUPAS indentification", fontsize: 15, color: AppColor.darkText.color() ),
                   SizedBox(height: 10,),
-                  IconFormInput(hint: "First Name", validationText: "You failed", validation: formValidation.validateText, icon: Icon(Icons.face)),
-                  IconFormInput(hint: "Surname", validationText: "Yes you did",validation: formValidation.validateText, icon: Icon(Icons.person_pin)),
-                  IconFormInput(hint: "Birthday", validationText: "Nono",validation: formValidation.validateText, icon: Icon(Icons.cake)),
+                  IconFormInput(hint: "First Name", validationText: "Please insert a proper first name", validation: formValidation.validateText, icon: Icon(Icons.face)),
+                  IconFormInput(hint: "Surname", validationText: "Please insert a proper surname",validation: formValidation.validateText, icon: Icon(Icons.person_pin)),
+                  IconFormInput(hint: "Birthday", validationText: "Please insert a proper birthday",validation: formValidation.validateText, icon: Icon(Icons.cake)),
                   IconFormInput(hint: "Area", validationText: "Nono",validation: formValidation.validateText, icon: Icon(Icons.add_location)),
                   IconFormInput(hint: "Address", validationText: "Nono",validation: formValidation.validateText, icon: Icon(Icons.email)),
                   IconFormInput(hint: "Postal Code", validationText: "Nono",validation: formValidation.validateText, icon: Icon(Icons.code)),
@@ -136,7 +151,10 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
             title: 'Healthcare',
             header: HeaderText(text: "Healthcare", fontsize: 30, color: AppColor.secondary.color()),
             body: SingleChildScrollView(child: Form(
-                  child: Column(children: [
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
                     BodyText(text: "We can offer you customized medical services on your approval, also greatly enhance your ability to move around inside a smart city", fontsize: 15, color: AppColor.darkText.color() ),
                     SizedBox(height: 10,),
                     ProfileSwitch(
@@ -157,7 +175,9 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
             page: 4,
             title: 'Emergency Detection',
             header: HeaderText(text: "Emergency Beacon", fontsize: 30, color: AppColor.secondary.color()),
-            body: Column(children: [
+            body: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                     BodyText(text: "Do you need to go to bathroom often?", fontsize: 15, color: AppColor.darkText.color() ),
                     SizedBox(height: 10,),
                     ProfileSwitch(
@@ -175,7 +195,9 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
             title: 'Community',
             header: HeaderText(text: "Community", fontsize: 30, color: AppColor.secondary.color()),
             body: SingleChildScrollView(child: Form(
-                  child: Column(children: [
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
                     BodyText(text: "Would you like to be part of the espoo area community? This includes all kinds of services related to users interacting with each other.", fontsize: 15, color: AppColor.darkText.color() ),
                     SizedBox(height: 10,),
                     ProfileSwitch(
@@ -188,19 +210,58 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                     SizedBox(height: 20,),
                     _communitySelected != true ? SizedBox(height: 20,) : ChipFilter(onSelected: selectPicker, data: community, selected: selectedCommunity,),
                      SizedBox(height: 20,),
-                    otherCondition("OTHER", selectedCommunity) && _communitySelected == true ? IconMultiInput(hint: "Describe your condition", validationText: "Please insert something", icon: Icon(Icons.present_to_all),)  : SizedBox(height: 20,),
+                    otherCondition("Local Activities", selectedCommunity) && _communitySelected == true ?
+                    Column(  
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                    BodyText(text: "Select areas you're fine travelling to.", fontsize: 15, color: AppColor.darkText.color()),
+                    SizedBox(height: 20,), 
+                    ChipFilter(onSelected: selectPicker, data: communityAreas, selected: selectedCommunityAreas)]
+                    ): SizedBox(height: 20,),
+                  ],),),),
+            info: CenteredText(text: "More information", color:  AppColor.primary.color()),
+          ),
+           makePage(
+            page: 6,
+            title: 'Help Services',
+            header: HeaderText(text: "Project Helping Hand", fontsize: 30, color: AppColor.secondary.color()),
+            body: SingleChildScrollView(child: Form(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                    BodyText(text: "Interested in volunteer work?", fontsize: 15, color: AppColor.darkText.color() ),
+                    SizedBox(height: 10,),
+                    ProfileSwitch(
+                    label: BodyText(text: "What kind?", fontsize: 15, color: AppColor.darkText.color() ),
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    value: _helpSelected,
+                    category: "help",
+                    icon: Icon(Icons.healing),
+                    onChanged: switchStateTracker,),
+                    SizedBox(height: 20,),
+                    _helpSelected != true ? SizedBox(height: 20,) : ChipFilter(onSelected: selectPicker, data: help, selected: selectedHelp,),
+                     SizedBox(height: 20,),
+                    _helpSelected == true ?
+                    Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,  
+                    children: [BodyText(text: "Areas", fontsize: 15, color: AppColor.darkText.color()),
+                    SizedBox(height: 20,), 
+                    ChipFilter(onSelected: selectPicker, data: helpAreas, selected: selectedHelpAreas)]
+                    ): SizedBox(height: 20,),
                   ],),),),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
           ),
           makePage(
-            page: 6,
+            page: 7,
             title: 'Practice Zone',
             header: HeaderText(text: "Practice Zone", fontsize: 30, color: AppColor.secondary.color()),
             body: Text("Still sucking"),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
           ),
            makePage(
-            page: 7,
+            page: 8,
             title: 'Example Database fetch list',
             header: HeaderText(text: "Database Steambuilder example", fontsize: 30, color: AppColor.secondary.color()),
             body: StreamBuilderExample(myQuery: 'Tapahtumat',),
