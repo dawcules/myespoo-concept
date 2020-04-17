@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:cityprog/widgets/lists/clickable_listview.dart';
+//import 'package:cityprog/widgets/lists/clickable_listview.dart';
 import 'package:cityprog/strings/community_help_strings.dart';
-
+import 'package:cityprog/widgets/database_widgets/stream_builder_comhelp.dart';
 
 class CommunityHelpCat extends StatefulWidget {
   final String _category;
@@ -45,9 +45,7 @@ class _CommunityHelpCatState extends State<CommunityHelpCat> {
                     ),
                     Padding(padding: EdgeInsets.all(20.0)),
                     Expanded(
-                      child: ClickList(
-                        items: <String>[widget._category,widget._category,widget._category,widget._category]
-                        ),
+                      child: StreamBuilderHelp(myQuery: 'Apupalvelu'),
                     ),
                   ],
                 ),
