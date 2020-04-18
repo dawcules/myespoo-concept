@@ -9,6 +9,7 @@ import './pages/introduction_page.dart';
 //import './pages/personal_page.dart';
 import 'pages/community_help_sign_page.dart';
 import 'pages/community_help_main_page.dart';
+import 'pages/community_help_request.dart';
 import './pages/carpool.dart';
 import './pages/login_page.dart';
 import './pages/profile_creation.dart';
@@ -39,6 +40,10 @@ class Router {
         return MaterialPageRoute(
             builder: (_) =>
                 SpeechNavigationOverlay(child: CommunityHelpPage()));
+      case '/communityHelpRequest':
+        return MaterialPageRoute(
+            builder: (_) =>
+                SpeechNavigationOverlay(child: CommunityHelpRequest()));
       case '/communityHelpCat':
         return MaterialPageRoute(
             builder: (_) =>
