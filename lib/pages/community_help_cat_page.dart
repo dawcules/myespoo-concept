@@ -45,7 +45,7 @@ class _CommunityHelpCatState extends State<CommunityHelpCat> {
                     ),
                     Padding(padding: EdgeInsets.all(20.0)),
                     Expanded(
-                      child: StreamBuilderHelp(myQuery: 'Apupalvelu'),
+                      child: StreamBuilderHelp(myQuery: widget._category,),
                     ),
                   ],
                 ),

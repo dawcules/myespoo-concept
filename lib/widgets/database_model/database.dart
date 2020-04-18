@@ -42,6 +42,9 @@ class Database {
   Stream<QuerySnapshot> getCitizenByName(String nimi) {
   return _db.collection('kaupunkilainen').where('nimi', isEqualTo: nimi).snapshots();
   }
+   Stream<QuerySnapshot> getHelpByCategory(String category) {
+  return _db.collection('Apupalvelu').where('type', isEqualTo: category).snapshots();
+  }
 
   // Päivitetään dokkaria ID:n perusteella.
   Future<void> updateData(String collection , String documentId, String nimi, String ika, Timestamp date) async {
