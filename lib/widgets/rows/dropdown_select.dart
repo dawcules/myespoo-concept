@@ -38,7 +38,7 @@ class _DropdownSelectState extends State<DropdownSelect> {
                 iconSize: 24,
                 elevation: 16,
                 style:
-                    TextStyle(fontSize: 16, color: AppColor.secondary.color()),
+                    TextStyle(fontSize: 20, color: AppColor.secondary.color()),
                 underline: Container(
                   height: 2,
                   color: AppColor.secondary.color(),

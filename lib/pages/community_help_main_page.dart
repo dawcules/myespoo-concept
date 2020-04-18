@@ -5,6 +5,8 @@ import '../widgets/rows/dropdown_select.dart';
 import 'package:cityprog/strings/community_help_strings.dart';
 import 'package:cityprog/styles/color_palette.dart';
 
+import 'community_help_request.dart';
+
 class CommunityHelpMain extends StatefulWidget {
   @override
   _CommunityHelpMainState createState() => _CommunityHelpMainState();
@@ -19,9 +21,6 @@ class _CommunityHelpMainState extends State<CommunityHelpMain> {
     return Container(
       child: Scaffold(
         key: key,
-        appBar: AppBar(
-          title: new Text(LocalizedCommunityHelpStrings.titleToLocalized()),
-        ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -51,6 +50,31 @@ class _CommunityHelpMainState extends State<CommunityHelpMain> {
                         LocalizedCommunityHelpStrings.listToLocalized(),
                         key,
                         '/communityHelpCat'),
+                    Padding(padding: EdgeInsets.all(20.0)),
+                    RaisedButton(
+                      color: AppColor.button.color(),
+                      onPressed: () {
+                        //Navigator.of(context).pushNamed('/communityHelpSign');
+                        Navigator.push(
+                            context, ZoomRoute(page: CommunityHelpRequest()));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 18,
+                          vertical: 16,
+                        ),
+                        child: Text(
+                          LocalizedCommunityHelpStrings.askHelpToLocalized(),
+                          style: TextStyle(
+                            color: AppColor.buttonText.color(),
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(20),
+                    ),
                     RaisedButton(
                       color: AppColor.button.color(),
                       onPressed: () {
@@ -65,7 +89,7 @@ class _CommunityHelpMainState extends State<CommunityHelpMain> {
                         ),
                         child: Text(
                           LocalizedCommunityHelpStrings
-                          .volunteerBtnToLocalized(),
+                              .volunteerBtnToLocalized(),
                           style: TextStyle(
                             color: AppColor.buttonText.color(),
                             fontSize: 20,
