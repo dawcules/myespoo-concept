@@ -1,6 +1,6 @@
 import 'package:cityprog/styles/color_palette.dart';
 import 'package:flutter/material.dart';
-import 'package:cityprog/strings/community_help_strings.dart';
+//import 'package:cityprog/strings/community_help_strings.dart';
 import 'package:cityprog/widgets/Inputs/icon_form_input.dart';
 import 'package:cityprog/validation/validation.dart';
 

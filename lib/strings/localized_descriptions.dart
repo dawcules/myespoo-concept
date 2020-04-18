@@ -19,9 +19,9 @@ class LocalizedDescriptions {
     "Oma": "Navigoi omaan",
     "Tutustu": "Navigoi tutustuminen",
     "Kimppakyydit": "Navigoi kimppakyydit",
-    "Kimppakyydit": "Uusi kimppakyyti",
+    //"Kimppakyydit": "Uusi kimppakyyti",
     "Tori": "Navigoi tori",
-    "Tori": "Uusi tori",
+    //"Tori": "Uusi tori",
     "Ilmoitus": "Uusi ilmoitus",
   };
 
@@ -44,9 +44,9 @@ class LocalizedDescriptions {
     "Personal": "Navigate personal",
     "Introduction": "Navigate introduction",
     "Carpool": "Navigate carpool",
-    "Carpool": "New carpool",
+    //"Carpool": "New carpool",
     "Marketplace": "Navigate marketplace",
-    "Marketplace": "New marketplace",
+    //"Marketplace": "New marketplace",
     "Report": "New report",
   };
 }

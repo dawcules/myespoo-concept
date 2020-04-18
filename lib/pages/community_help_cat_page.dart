@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 //import 'package:cityprog/widgets/lists/clickable_listview.dart';
-import 'package:cityprog/strings/community_help_strings.dart';
+//import 'package:cityprog/strings/community_help_strings.dart';
 import 'package:cityprog/widgets/database_widgets/stream_builder_comhelp.dart';
 
 class CommunityHelpCat extends StatefulWidget {
