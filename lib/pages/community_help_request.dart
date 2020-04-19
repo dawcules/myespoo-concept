@@ -6,8 +6,6 @@ import 'package:cityprog/validation/validation.dart';
 
 Validation formValidation = new Validation();
 
-
-
 class CommunityHelpRequest extends StatefulWidget {
   @override
   _CommunityHelpRequestState createState() => _CommunityHelpRequestState();
@@ -39,35 +37,41 @@ class _CommunityHelpRequestState extends State<CommunityHelpRequest> {
                       ),
                     ),
                     Padding(padding: EdgeInsets.all(20.0)),
-                    IconFormInput(hint: "Title", validationText: "Insert a title", validation: formValidation.validateText, icon: Icon(Icons.title)),
-                    IconFormInput(hint: "Description", validationText: "Insert a description", validation: formValidation.validateText, icon: Icon(Icons.description)),
+                    IconFormInput(
+                        hint: "Title",
+                        validationText: "Insert a title",
+                        validation: formValidation.validateText,
+                        icon: Icon(Icons.title)),
+                    IconFormInput(
+                        hint: "Description",
+                        validationText: "Insert a description",
+                        validation: formValidation.validateText,
+                        icon: Icon(Icons.description)),
                     DropdownButton<String>(
-                value: dropdownValue,
-                icon: Icon(Icons.arrow_downward),
-                iconSize: 24,
-                elevation: 16,
-                style:
-                    TextStyle(fontSize: 20, color: AppColor.secondary.color()),
-                underline: Container(
-                  height: 2,
-                  color: AppColor.secondary.color(),
-                ),
-                onChanged: (String newValue) {
-                  setState(() {
-                    print('VALUE' + newValue);
-                    dropdownValue = newValue;
-                  });
-                },
-                items: ['Select category', 'Furniture', 'Store visits']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-              ),
-
-
+                      value: dropdownValue,
+                      icon: Icon(Icons.arrow_downward),
+                      iconSize: 24,
+                      elevation: 16,
+                      style: TextStyle(
+                          fontSize: 20, color: AppColor.secondary.color()),
+                      underline: Container(
+                        height: 2,
+                        color: AppColor.secondary.color(),
+                      ),
+                      onChanged: (String newValue) {
+                        setState(() {
+                          print('VALUE' + newValue);
+                          dropdownValue = newValue;
+                        });
+                      },
+                      items: ['Select category', 'Furniture', 'Store visits']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
                     Container(
                       margin: EdgeInsets.all(20.0),
                       child: Text(

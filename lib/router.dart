@@ -14,6 +14,7 @@ import './pages/carpool.dart';
 import './pages/login_page.dart';
 import './pages/profile_creation.dart';
 import './pages/marketplace.dart';
+import './pages/general_feed.dart';
 
 // https://www.youtube.com/watch?v=nyvwx7o277U
 
@@ -28,7 +29,7 @@ class Router {
       case '/home':
         return MaterialPageRoute(
             builder: (_) =>
-                SpeechNavigationOverlay(child: MyHomePage(title: args)));
+                SpeechNavigationOverlay(child: GeneralFeed()));
       case '/community':
         return MaterialPageRoute(
             builder: (_) => SpeechNavigationOverlay(child: CommunityPage()));
