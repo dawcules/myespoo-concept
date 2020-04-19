@@ -17,6 +17,7 @@ class Auth {
   
   AuthBloc _auth;
   StreamSubscription<AuthUser> _userChanged;
+  AuthUser _user;
 
   void setupForDesktop(){
      WidgetsFlutterBinding.ensureInitialized();
@@ -32,22 +33,21 @@ class Auth {
   }
   void initAuth(){
     _auth = AuthBloc(saveUser: _saveUser, deleteUser: _deleteUser, app: _app);
-    _auth.add(CheckUser());
     final _fbAuth = FBAuth(_app);
     _userChanged = _fbAuth.onAuthChanged().listen((user) {
+      _user = user;
       _auth.add(UpdateUser(user));
     });
   }
 
 
-  void createAccount({email, password, name}){
+  String createAccount({email, password, name}){
     initAuth();
-    var user;
-    _auth.add(user = CheckUser());
-    print(user.toString());
     _auth.add(CreateAccount(email, password, displayName: name));
-    print("Logged in");
-    return user;
+    _auth.add(LoginEvent(email, password));
+    _auth.add(CheckUser());
+    print(_user.toString());
+    return _user.uid;
   }
 
 

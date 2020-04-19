@@ -1,8 +1,7 @@
 import 'package:cityprog/widgets/database_model/auth.dart';
 import 'package:cityprog/widgets/database_model/database.dart';
-import 'package:fb_auth/fb_auth.dart';
 
-class ProfileCreate{
+class ProfileCreate {
 
   final _db = Database();
   final _auth = Auth();
@@ -46,15 +45,9 @@ class ProfileCreate{
   var selectedEvents = [];
   var selectedEventAreas= [];
 
-  void createProfile(){
-
-    FirebaseUser user = _auth.createAccount(email: email, password: password, name: "$fName $lName");
-    _db.buildProfile(beaconIsSelected, healthcareSelected, communitySelected, helpSelected, eventSelected, uiSelected, notificationsSelected, email, address, fName, lName, postalAddress, area, birthday, selectedHealthcare, selectedCommunity, selectedCommunityAreas, selectedHelp, selectedHelpAreas, selectedEvents, selectedEventAreas)
-    _db.createProfile(user, profile)
+  void createProfile() {
+    var user = _auth.createAccount(email: email, password: password, name: "$fName $lName");
+    var profile = _db.buildProfile(beaconIsSelected, healthcareSelected, communitySelected, helpSelected, eventSelected, uiSelected, notificationsSelected, email, address, fName, lName, postalAddress, area, birthday, selectedHealthcare, selectedCommunity, selectedCommunityAreas, selectedHelp, selectedHelpAreas, selectedEvents, selectedEventAreas);
+    _db.createProfile(user, profile);
   }
-  
-
-
-
-
 }
