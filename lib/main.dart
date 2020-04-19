@@ -20,12 +20,13 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: (settings) => Router.generateRoute(settings),
       localeResolutionCallback: (deviceLocale, _) {
         _initLanguage(deviceLocale.toLanguageTag());
-        return deviceLocale;
+        return Locale("en");
       }
     );
   }
 
   void _initLanguage(String localeId) {
+    print(localeId);
     CurrentLanguage.setNewFromString(localeId);
   }
 }
