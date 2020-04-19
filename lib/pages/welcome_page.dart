@@ -50,24 +50,28 @@ class _WelcomePageState extends State<WelcomePage> {
           routeName: NavigationStrings.homeToLocalized(),
           args: "Should I be removed or kept..?",
         ),
+        Padding(padding: EdgeInsets.all(8),),
         IconRouteNameRow(
           heroTag: "nav_community",
           icon: Icon(Icons.people),
           route: "/community",
           routeName: NavigationStrings.communityToLocalized(),
         ),
+        Padding(padding: EdgeInsets.all(8),),
         IconRouteNameRow(
           heroTag: "nav_communityHelp",
           icon: Icon(Icons.transfer_within_a_station),
           route: "/communityHelp",
           routeName: NavigationStrings.helpServicesToLocalized(),
         ),
+        Padding(padding: EdgeInsets.all(8),),
         IconRouteNameRow(
           heroTag: "nav_personal",
           icon: Icon(Icons.person),
           route: "/personal",
           routeName: NavigationStrings.personalToLocalized(),
         ),
+        Padding(padding: EdgeInsets.all(8),),
         IconRouteNameRow(
           heroTag: "nav_introduction",
           icon: Icon(Icons.help),

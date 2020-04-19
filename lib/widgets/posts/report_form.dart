@@ -74,7 +74,7 @@ class _ReportFormState extends State<ReportForm> {
                   LocalizedReportStrings.reportFormDescriptionToLocalized(),
                   style: textStyle,
                 ),
-                AdressPicker(),
+                AddressPicker(),
                 Padding(padding: EdgeInsets.all(8)),
                 _didSend
                     ? Row(
