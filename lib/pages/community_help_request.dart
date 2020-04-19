@@ -14,6 +14,9 @@ class CommunityHelpRequest extends StatefulWidget {
 class _CommunityHelpRequestState extends State<CommunityHelpRequest> {
   var dropdownValue = 'Select category';
 
+        // TODO: Create localized strings, send form data to FS
+
+
   @override
   Widget build(BuildContext context) {
     return Container(

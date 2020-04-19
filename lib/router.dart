@@ -25,7 +25,7 @@ class Router {
     switch (settings.name) {
       case '/': // The absolute first page
         return MaterialPageRoute(
-            builder: (_) => SpeechNavigationOverlay(child: IntroductionPage()));
+            builder: (_) => SpeechNavigationOverlay(child: GeneralFeed()));
       case '/home':
         return MaterialPageRoute(
             builder: (_) => SpeechNavigationOverlay(child: GeneralFeed()));
