@@ -8,6 +8,7 @@ class LocalizedReportStrings {
       "Anna otsikko ja kerro tilanteesta — tai ota kuva.";
   static String _sentFI = "Lähetetty";
   static String _sendFI = "Liu'uta oikealle lähettääksesi";
+  static String _selectAddressFI = "Valitse osoite";
 
   static String _showInputFieldsEN = "Show input fields";
   static String _hideInputFieldsEN = "Hide input fields";
@@ -15,6 +16,7 @@ class LocalizedReportStrings {
       "Give a title and description of the situation — or take a picture.";
   static String _sentEN = "Sent";
   static String _sendEN = "Slide right to send";
+  static String _selectAddressEN = "Valitse osoite";
 
   static String showInputFieldsToLocalized() {
     switch (CurrentLanguage.value) {
@@ -68,6 +70,17 @@ class LocalizedReportStrings {
         return _sendEN;
       default:
         return _sendEN;
+    }
+  }
+
+  static String selectAddressToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return _selectAddressFI;
+      case Language.EN:
+        return _selectAddressEN;
+      default:
+        return _selectAddressEN;
     }
   }
 }

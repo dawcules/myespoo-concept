@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cityprog/strings/localized_report_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:cityprog/strings/dummy_address.dart';
 
@@ -17,7 +18,7 @@ class _AddressPickerState extends State<AddressPicker> {
   void initState() {
     super.initState();
     _selectedAddress =
-        widget.hintText == null ? "select address" : widget.hintText;
+        widget.hintText == null ? LocalizedReportStrings.selectAddressToLocalized() : widget.hintText;
   }
 
   @override

@@ -104,10 +104,16 @@ class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
 
   Widget activateSpeechButtonNoText(double radius) {
     return GestureDetector(
-        child: Icon(
-          Icons.mic,
-          size: radius,
-          color: Colors.black87,
+        child: Container(
+          // decoration: BoxDecoration(
+          //     shape: BoxShape.circle,
+          //     border: Border.all(color: Colors.black),
+          //   ),
+          child: Icon(
+            Icons.mic,
+            size: radius,
+            color: Colors.black87,
+          ),
         ),
         onTapDown: (details) {
           if (_hasPermissions) {

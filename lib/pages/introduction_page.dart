@@ -6,11 +6,7 @@ class IntroductionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Scaffold(
-        body: Center(
-          child: Text("This is the greatest introduction in the world!")
-        ),
-      ),
+      child: Scaffold(body: Center(child: Text("nothing here yet"))),
     );
   }
 }
