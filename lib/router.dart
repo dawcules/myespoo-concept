@@ -2,7 +2,7 @@ import 'package:cityprog/pages/community_help_cat_page.dart';
 import 'package:cityprog/widgets/navigation/speech_nav_overlay.dart';
 import 'package:flutter/material.dart';
 
-import './main.dart';
+//import './main.dart';
 import './pages/welcome_page.dart';
 import './pages/community_page.dart';
 import './pages/introduction_page.dart';
