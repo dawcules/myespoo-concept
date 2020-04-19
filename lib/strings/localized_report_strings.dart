@@ -7,14 +7,14 @@ class LocalizedReportStrings {
   static String _reportFormDescriptionFI =
       "Anna otsikko ja kerro tilanteesta — tai ota kuva.";
   static String _sentFI = "Lähetetty";
-  static String _sendFI = "Lähetetä";
+  static String _sendFI = "Liu'uta oikealle lähettääksesi";
 
   static String _showInputFieldsEN = "Show input fields";
   static String _hideInputFieldsEN = "Hide input fields";
   static String _reportFormDescriptionEN =
       "Give a title and description of the situation — or take a picture.";
   static String _sentEN = "Sent";
-  static String _sendEN = "Send";
+  static String _sendEN = "Slide right to send";
 
   static String showInputFieldsToLocalized() {
     switch (CurrentLanguage.value) {

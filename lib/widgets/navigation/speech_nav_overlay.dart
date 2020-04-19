@@ -23,7 +23,8 @@ class _SpeechNavigationOverlayState extends State<SpeechNavigationOverlay> {
           alignment: Alignment.bottomCenter * 0.9,
           child: Container(
             child: kIsWeb
-                ? Text('Asenna sovellus käyttääksesi puhetoimintoja!')
+                ? Material(
+                    child: Text('Asenna sovellus käyttääksesi puhetoimintoja!'))
                 : SpeechNavigationButton(
                     onSpeechActivate: () => _onSpeechActivate(),
                     onSpeehDeActivate: () => _onSpeechDeActivate(),

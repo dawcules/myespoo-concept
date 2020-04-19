@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:cityprog/strings/localized_report_strings.dart';
 import 'package:cityprog/styles/color_palette.dart';
+import 'package:cityprog/widgets/Inputs/address_picker.dart';
 import 'package:cityprog/widgets/columns/title_details_column.dart';
 import 'package:cityprog/widgets/posts/community_post_modal.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sliding_button/sliding_button.dart';
 
 class ReportForm extends StatefulWidget {
@@ -11,6 +15,7 @@ class ReportForm extends StatefulWidget {
 }
 
 class _ReportFormState extends State<ReportForm> {
+  File _selectedFile;
   final GlobalKey<SlidingButtonState> _slideButtonKey =
       GlobalKey<SlidingButtonState>();
   final TextStyle textStyle = TextStyle(
@@ -40,13 +45,13 @@ class _ReportFormState extends State<ReportForm> {
           child: Scrollbar(
             child: Column(
               children: <Widget>[
-                IconButton(
+                _selectedFile == null ? IconButton(
                   iconSize: 100,
                   icon: Icon(
                     Icons.camera_alt,
                   ),
-                  onPressed: () => print("pic taken!"),
-                ),
+                  onPressed: () => getImage(ImageSource.camera),
+                ) : Image.file(_selectedFile),
                 _isExpanded
                     ? TitleDetailsColumn()
                     : Padding(
@@ -69,6 +74,7 @@ class _ReportFormState extends State<ReportForm> {
                   LocalizedReportStrings.reportFormDescriptionToLocalized(),
                   style: textStyle,
                 ),
+                AdressPicker(),
                 Padding(padding: EdgeInsets.all(8)),
                 _didSend
                     ? Row(
@@ -88,6 +94,7 @@ class _ReportFormState extends State<ReportForm> {
                         key: _slideButtonKey,
                         buttonText: LocalizedReportStrings.sendToLocalized(),
                         buttonColor: AppColor.button.color(),
+                        radius: 50,
                         slideButtonIcon: Icons.mail_outline,
                         slideButtonIconColor: AppColor.button.color(),
                         onSlideSuccessCallback: () => _onSucces(context),
@@ -112,5 +119,14 @@ class _ReportFormState extends State<ReportForm> {
 
   void _toggleInputsExpanded() {
     setState(() => _isExpanded = !_isExpanded);
+  }
+
+  getImage(ImageSource source) async {
+    File image = await ImagePicker.pickImage(source: source);
+    if (image != null) {
+      setState(() {
+        _selectedFile = image;
+      });
+    }
   }
 }

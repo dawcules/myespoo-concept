@@ -134,7 +134,7 @@ class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
     speech.listen(
         onResult: resultListener,
         listenFor: Duration(seconds: 10),
-        localeId: _currentLocaleId,
+        localeId: _currentLocaleId, // fi-FI <--- lokalisaatio demo
         onSoundLevelChange: soundLevelListener,
         cancelOnError: true,
         partialResults: true);
