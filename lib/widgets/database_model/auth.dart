@@ -38,6 +38,19 @@ class Auth {
       _auth.add(UpdateUser(user));
     });
   }
+
+
+  void createAccount({email, password, name}){
+    initAuth();
+    var user;
+    _auth.add(user = CheckUser());
+    print(user.toString());
+    _auth.add(CreateAccount(email, password, displayName: name));
+    print("Logged in");
+    return user;
+  }
+
+
   AuthBloc getAuthBloc(){
     return _auth;
   }

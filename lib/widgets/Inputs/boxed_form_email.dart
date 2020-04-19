@@ -17,7 +17,7 @@ class BoxedFormEmail extends StatelessWidget {
                         padding: EdgeInsets.all(10),
                         decoration: CustomDecoration().formBoxDecoration(),
                         child: TextFormField(
-                            validator: (value) => !validation(value) ? validationText : null,
+                            validator: (value) => validation(value) ? validationText : null,
                             style: TextStyle(color: AppColor.secondary.color(), fontFamily: 'RadikalLight'),
                             decoration: CustomDecoration().loginInputDecoration(hint),
                         ),

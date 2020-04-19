@@ -101,5 +101,69 @@ Future<void> createDocument(String collection, Map<String, dynamic> newDoc) asyn
         await _db.collection(collection).document().setData(newDoc); 
 }
 
+// Building profile
+Map<String,dynamic> buildProfile(
+  bool beaconIsSelected,
+  bool healthcareSelected,
+  bool communitySelected, 
+  bool helpSelected, 
+  bool eventSelected, 
+  bool uiSelected, 
+  bool notificationsSelected,
+
+  String email,
+  String address,
+  String fName,
+  String lName,
+  String postalAddress,
+  String area,
+  DateTime birthday,
+
+  List<String> selectedHealthcare,
+
+  List<String> selectedCommunity,
+  List<String> selectedCommunityAreas,
+
+  List<String> selectedHelp,
+  List<String> selectedHelpAreas,
+
+  List<String> selectedEvents,
+  List<String> selectedEventAreas,
+) {
+
+    //Listed services
+    Map<String, List<String>> profileCollection = new Map<String, List<String>>();
+    profileCollection['healthcare'] = selectedHealthcare;
+    profileCollection['community'] = selectedCommunity;
+    profileCollection['community areas'] = selectedCommunityAreas;
+    profileCollection['help'] = selectedHelp;
+    profileCollection['help areas'] = selectedHelpAreas;
+    profileCollection['events'] = selectedEvents;
+    profileCollection['event areas'] = selectedEventAreas;
+
+    //Profile
+    Map<String, dynamic> profDoc = Map<String, dynamic>();
+    profDoc['fname'] = fName;
+    profDoc['lname'] = lName;
+    profDoc['services'] = profileCollection;
+    profDoc['birthday'] = birthday;
+    profDoc['address'] = address;
+    profDoc['postal code'] = postalAddress;
+    profDoc['area'] = area;
+    profDoc['email'] = email;
+    profDoc['beacon activated'] = beaconIsSelected;
+    profDoc['special health condition'] = healthcareSelected;
+    profDoc['community services'] = communitySelected;
+    profDoc['help services'] = helpSelected;
+    profDoc['events selected'] = eventSelected;
+    profDoc['UI'] = uiSelected;
+    profDoc['notifications'] = notificationsSelected;
+    return profDoc;
+  }
+  // Luodaan valitun collectionin alle uusi document.
+Future<void> createProfile(String user, Map<String, dynamic> profile) async {
+        await _db.collection(user).document().setData(profile); 
+}
+
   factory Database() => _instance;
 }

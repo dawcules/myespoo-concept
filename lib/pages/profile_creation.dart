@@ -4,6 +4,7 @@ import 'package:cityprog/widgets/Inputs/icon_form_confirmpw.dart';
 import 'package:cityprog/widgets/Inputs/icon_form_input.dart';
 import 'package:cityprog/widgets/Inputs/icon_form_password.dart';
 import 'package:cityprog/widgets/Inputs/icon_multiline_input.dart';
+import 'package:cityprog/widgets/buttons/login_button.dart';
 import 'package:cityprog/widgets/filters/chip_filter.dart';
 import 'package:cityprog/widgets/links/centered_text.dart';
 import 'package:cityprog/widgets/texts/body_text.dart';
@@ -32,26 +33,30 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
   bool _beaconIsSelected = false;
   bool _healthcareSelected = false;
   bool _communitySelected = false;
-  bool _helpSelected = false; 
+  bool _helpSelected = false;
+  bool _eventSelected = false;
+  bool _uiSelected = false;
+  bool _notificationsSelected = false;
 
 
   var healthcare = ["Wheelchair", "Physical Disability", "Depression", "Mental Disability", "Illness", "Vision impaired", "Other"];
   var selectedHealthcare = [];
+  var areas = ["Leppävaara", "Tapiola","Vanha-Espoo", "Matinkylä", "Espoonlahti", "Pohjois Espoo" ];
 
-  var community = ["Carpool", "Marketplace","Birdspotting", "Local Activities", ];
+  var community = ["Carpool", "Marketplace","Recycling", "Local Activities", ];
   var selectedCommunity = [];
-  var communityAreas = ["Leppävaara", "Tapiola","Vanha-Espoo", "Matinkylä", "Espoonlahti", "Pohjois Espoo" ];
   var selectedCommunityAreas= [];
 
 
   var help = ["Helping Elderly", "Shoplifting","Being a good guy", "Gardening", ];
   var selectedHelp = [];
-  var helpAreas = ["Leppävaara", "Tapiola","Vanha-Espoo", "Matinkylä", "Espoonlahti", "Pohjois Espoo" ];
   var selectedHelpAreas= [];
 
- 
+  var events = ["Sports", "Culture","Culinary", "Educational", "ETC" ];
+  var selectedEvents = [];
+  var selectedEventAreas= [];
 
-  int totalPage = 8;
+  int totalPage = 10;
 
   void _onScroll() {
   }
@@ -83,10 +88,24 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
       break;
       case "help": setState(() {_helpSelected = newValue;});
       break;
+      case "events": setState(() {_eventSelected = newValue;});
+      break;
+      case "UI": setState(() {_uiSelected = newValue;});
+      break;
+      case "notifications": setState(() {_notificationsSelected = newValue;});
+      break;
       default: print("no switch selected");
     }
   }
-   
+  
+  void _validateSubmit(){
+   if (_formKey.currentState.validate()) {
+      // If the form is valid, display a snackbar. In the real world,
+      // you'd often call a server or save the information in a database.
+      print("Doing good!");
+    }
+  }
+
  
 
   @override
@@ -216,7 +235,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                     children: [
                     BodyText(text: "Select areas you're fine travelling to.", fontsize: 15, color: AppColor.darkText.color()),
                     SizedBox(height: 20,), 
-                    ChipFilter(onSelected: selectPicker, data: communityAreas, selected: selectedCommunityAreas)]
+                    ChipFilter(onSelected: selectPicker, data: areas, selected: selectedCommunityAreas)]
                     ): SizedBox(height: 20,),
                   ],),),),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
@@ -248,20 +267,95 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                     mainAxisAlignment: MainAxisAlignment.spaceAround,  
                     children: [BodyText(text: "Areas", fontsize: 15, color: AppColor.darkText.color()),
                     SizedBox(height: 20,), 
-                    ChipFilter(onSelected: selectPicker, data: helpAreas, selected: selectedHelpAreas)]
+                    ChipFilter(onSelected: selectPicker, data: areas, selected: selectedHelpAreas)]
+                    ): SizedBox(height: 20,),
+                  ],),),),
+            info: CenteredText(text: "More information", color:  AppColor.primary.color()),
+          ),
+           makePage(
+            page: 7,
+            title: 'Events',
+            header: HeaderText(text: "Events", fontsize: 30, color: AppColor.secondary.color()),
+            body: SingleChildScrollView(child: Form(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                    BodyText(text: "Are you interested in being informed about events happening near you?", fontsize: 15, color: AppColor.darkText.color() ),
+                    SizedBox(height: 10,),
+                    ProfileSwitch(
+                    label: BodyText(text: "What kind of events would you be interested in?", fontsize: 15, color: AppColor.darkText.color() ),
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    value: _eventSelected,
+                    category: "events",
+                    icon: Icon(Icons.event),
+                    onChanged: switchStateTracker,),
+                    SizedBox(height: 20,),
+                    _eventSelected != true ? SizedBox(height: 20,) : ChipFilter(onSelected: selectPicker, data: events, selected: selectedEvents,),
+                     SizedBox(height: 20,),
+                    _eventSelected == true ?
+                    Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,  
+                    children: [BodyText(text: "Areas", fontsize: 15, color: AppColor.darkText.color()),
+                    SizedBox(height: 20,), 
+                    ChipFilter(onSelected: selectPicker, data: areas, selected: selectedEventAreas)]
                     ): SizedBox(height: 20,),
                   ],),),),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
           ),
           makePage(
-            page: 7,
-            title: 'Practice Zone',
-            header: HeaderText(text: "Practice Zone", fontsize: 30, color: AppColor.secondary.color()),
-            body: Text("Still sucking"),
+            page: 8,
+            title: "General Settings",
+            header: HeaderText(text: "General Settings", fontsize: 30, color: AppColor.secondary.color()),
+            body: SingleChildScrollView(child: Form(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                    BodyText(text: "Which style of UI would you prefer?", fontsize: 15, color: AppColor.darkText.color() ),
+                    SizedBox(height: 20,),
+                    ProfileSwitch(
+                    label: !_uiSelected  ? BodyText(text: "Traditional", fontsize: 15, color: AppColor.darkText.color())
+                    : BodyText(text: "Modern", fontsize: 15, color: AppColor.darkText.color()),
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    value: _uiSelected,
+                    category: "UI",
+                    icon: Icon(Icons.event),
+                    onChanged: switchStateTracker,),
+                    SizedBox(height: 20,),
+                    Center(child: Image(height: 350,
+                    image: !_uiSelected  ? AssetImage("assets/images/smartespoowelcome.png") : AssetImage("assets/images/profile.png"))),
+                  ],),),),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
           ),
            makePage(
-            page: 8,
+            page: 9,
+            title: "Finalizing",
+            header: HeaderText(text: "Finalizing", fontsize: 30, color: AppColor.secondary.color()),
+            body: SingleChildScrollView(child: Form(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                    BodyText(text: "Do you wish to receive notifications?", fontsize: 15, color: AppColor.darkText.color() ),
+                    SizedBox(height: 10,),
+                    ProfileSwitch(
+                    label: BodyText(text: "Notifications", fontsize: 15, color: AppColor.darkText.color() ),
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    value: _notificationsSelected,
+                    category: "notifications",
+                    icon: Icon(Icons.event),
+                    onChanged: switchStateTracker,),
+                    SizedBox(height: 40,),
+                    BodyText(text: "Thank you for filling out the profile! This will greatly enhance our ability to provide right services for you and should make using the app much more pleasant and useful for you.", fontsize: 15, color: AppColor.darkText.color() ),
+                    SizedBox(height: 40,),
+                    LoginButton(text: "SUBMIT PROFILE", validateSubmit:_validateSubmit,)
+                  ],),),),
+            info: CenteredText(text: "More information", color:  AppColor.primary.color()),
+          ),
+          makePage(
+            page: 10,
             title: 'Example Database fetch list',
             header: HeaderText(text: "Database Steambuilder example", fontsize: 30, color: AppColor.secondary.color()),
             body: StreamBuilderExample(myQuery: 'Tapahtumat',),
@@ -294,10 +388,10 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                FadeAnimation(1.5,
+                FadeAnimation(0.8,
                 header),
                 SizedBox(height:20),
-                Expanded(child: FadeAnimation(1.6,body)),
+                Expanded(child: FadeAnimation(1,body)),
                 SizedBox(height:20),
               ],
             ),

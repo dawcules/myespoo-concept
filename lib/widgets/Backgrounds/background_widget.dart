@@ -15,7 +15,7 @@ class BackgroundWidget extends StatelessWidget {
                   top: top,
                   height: heigth,
                   width: width,
-                  child: FadeAnimation(1.3,Container(
+                  child: FadeAnimation(0.7,Container(
                     decoration: BoxDecoration(
                         image: DecorationImage(
                       image: AssetImage(imageUrl),
