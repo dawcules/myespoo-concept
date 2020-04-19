@@ -23,7 +23,9 @@ class _MarketPlacePageState extends State<MarketPlacePage> {
   @override
   void initState() {
     super.initState();
-    state = widget.navigatedWithNewCommand != null ? UpperButtonsState.PROVIDING : UpperButtonsState.BROWSING;
+    state = widget.navigatedWithNewCommand != null
+        ? UpperButtonsState.PROVIDING
+        : UpperButtonsState.BROWSING;
   }
 
   @override
@@ -32,27 +34,33 @@ class _MarketPlacePageState extends State<MarketPlacePage> {
       child: Scaffold(
         resizeToAvoidBottomPadding: false,
         body: Center(
-          child: Column(
-            children: <Widget>[
-              MarketplaceUpper(
-                onPressedBuy: _buttonShouldBeEnabled(UpperButtonsState.ASKING)
-                    ? () => _buyOnPress()
-                    : null,
-                onPressedBrowse:
-                    _buttonShouldBeEnabled(UpperButtonsState.BROWSING)
-                        ? () => _browseOnPress()
-                        : null,
-                onPressedSell:
-                    _buttonShouldBeEnabled(UpperButtonsState.PROVIDING)
-                        ? () => _sellOnPress()
-                        : null,
-              ),
-              _buildLowerSection()
-            ],
-          ),
-        ),
+            child: state == UpperButtonsState.BROWSING
+                ? Column(
+                    children: _content(),
+                    mainAxisSize: MainAxisSize.min,
+                  )
+                : ListView(
+                    children: _content(),
+                  )),
       ),
     );
+  }
+
+  List<Widget> _content() {
+    return <Widget>[
+      MarketplaceUpper(
+        onPressedBuy: _buttonShouldBeEnabled(UpperButtonsState.ASKING)
+            ? () => _buyOnPress()
+            : null,
+        onPressedBrowse: _buttonShouldBeEnabled(UpperButtonsState.BROWSING)
+            ? () => _browseOnPress()
+            : null,
+        onPressedSell: _buttonShouldBeEnabled(UpperButtonsState.PROVIDING)
+            ? () => _sellOnPress()
+            : null,
+      ),
+      _buildLowerSection()
+    ];
   }
 
   bool _buttonShouldBeEnabled(UpperButtonsState buttonState) {

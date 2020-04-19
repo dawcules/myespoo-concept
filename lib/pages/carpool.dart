@@ -21,36 +21,41 @@ class _CarpoolPageState extends State<CarpoolPage> {
   @override
   void initState() {
     super.initState();
-    state = widget.navigatedWithNewCommand != null ? UpperButtonsState.PROVIDING : UpperButtonsState.BROWSING;
+    state = widget.navigatedWithNewCommand != null
+        ? UpperButtonsState.PROVIDING
+        : UpperButtonsState.BROWSING;
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
-        resizeToAvoidBottomPadding: false,
         body: Center(
-          child: SafeArea(
-              child: Column(
-            children: <Widget>[
-              CarpoolUpper(
-                onPressedOffer:
-                    _buttonShouldBeEnabled(UpperButtonsState.PROVIDING)
-                        ? () => _onOfferPressed()
-                        : null,
-                onPressedAsk: _buttonShouldBeEnabled(UpperButtonsState.ASKING)
-                    ? () => _onAskPressed()
-                    : null,
-                onPressedBrowse:
-                    _buttonShouldBeEnabled(UpperButtonsState.BROWSING)
-                        ? () => _onBrowsePressed()
-                        : null,
-              ),
-              _buildLowerSection(),
-            ],
-          )),
+          child: state == UpperButtonsState.BROWSING
+              ? Column(children: _content())
+              : ListView(
+                  children: _content(),
+                ),
         ),
       ),
     );
+  }
+
+  List<Widget> _content() {
+    return [
+      CarpoolUpper(
+        onPressedOffer: _buttonShouldBeEnabled(UpperButtonsState.PROVIDING)
+            ? () => _onOfferPressed()
+            : null,
+        onPressedAsk: _buttonShouldBeEnabled(UpperButtonsState.ASKING)
+            ? () => _onAskPressed()
+            : null,
+        onPressedBrowse: _buttonShouldBeEnabled(UpperButtonsState.BROWSING)
+            ? () => _onBrowsePressed()
+            : null,
+      ),
+      _buildLowerSection(),
+    ];
   }
 
   bool _buttonShouldBeEnabled(UpperButtonsState buttonState) {

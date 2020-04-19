@@ -15,53 +15,59 @@ class SpeechNavigationOverlay extends StatefulWidget {
 }
 
 class _SpeechNavigationOverlayState extends State<SpeechNavigationOverlay> {
-  final _scaffoldKey = GlobalKey<ScaffoldState>(); 
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   bool _speechIsActivated = false;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-        key: _scaffoldKey,
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: SpeechNavigationButton(
-          onSpeechActivate: () => _onSpeechActivate(),
-          onSpeehDeActivate: () => _onSpeechDeActivate(),
-        ),
-        bottomNavigationBar: BottomAppBar(
-          color: AppColor.secondary.color(),
-          notchMargin: 4,
-          shape: CircularNotchedRectangle(),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+    return SafeArea(
+      child: Container(
+        color: Colors.white,
+        child: Scaffold(
+          extendBody: true,
+          backgroundColor: Colors.transparent,
+          extendBodyBehindAppBar: true,
+          key: _scaffoldKey,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: SpeechNavigationButton(
+            onSpeechActivate: () => _onSpeechActivate(),
+            onSpeehDeActivate: () => _onSpeechDeActivate(),
+          ),
+          bottomNavigationBar: BottomAppBar(
+            color: AppColor.secondary.color(),
+            notchMargin: 4,
+            shape: CircularNotchedRectangle(),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.menu),
+                  color: AppColor.whiteText.color(),
+                  iconSize: 40,
+                  onPressed: () => _openDrawer(context),
+                )
+              ],
+            ),
+          ),
+          drawer: NavigationDrawer(),
+          body: Stack(
             children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.home),
-                color: AppColor.whiteText.color(),
-                iconSize: 50,
-                onPressed: () => _openDrawer(context),
-              )
+              widget.child,
+              Align(
+                alignment: Alignment.bottomCenter * 0.9,
+                child: Container(
+                  child: kIsWeb
+                      ? Material(
+                          child: Text(
+                              'Asenna sovellus käyttääksesi puhetoimintoja!'))
+                      : Padding(
+                          padding: EdgeInsets.all(0),
+                        ),
+                ),
+              ),
+              _buildSpeechActivatedDialog(),
             ],
           ),
-        ),
-        drawer: NavigationDrawer(),
-        body: Stack(
-          children: <Widget>[
-            widget.child,
-            Align(
-              alignment: Alignment.bottomCenter *
-                  0.9,
-              child: Container(
-                child: kIsWeb
-                    ? Material(
-                        child: Text(
-                            'Asenna sovellus käyttääksesi puhetoimintoja!'))
-                    : Padding(
-                        padding: EdgeInsets.all(0),
-                      ),
-              ),
-            ),
-            _buildSpeechActivatedDialog(),
-          ],
         ),
       ),
     );
