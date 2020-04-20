@@ -109,5 +109,69 @@ Future<void> createDocument(String collection, Map<String, dynamic> newDoc) asyn
         await _db.collection(collection).document().setData(newDoc); 
 }
 
+// Building profile
+Map<String,dynamic> buildProfile(
+  bool beaconIsSelected,
+  bool healthcareSelected,
+  bool communitySelected, 
+  bool helpSelected, 
+  bool eventSelected, 
+  bool uiSelected, 
+  bool notificationsSelected,
+
+  String email,
+  String address,
+  String fName,
+  String lName,
+  String postalAddress,
+  String area,
+  String birthday,
+
+  List<String> selectedHealthcare,
+
+  List<String> selectedCommunity,
+  List<String> selectedCommunityAreas,
+
+  List<String> selectedHelp,
+  List<String> selectedHelpAreas,
+
+  List<String> selectedEvents,
+  List<String> selectedEventAreas,
+) {
+
+    //Listed services
+    Map<String, List<String>> profileCollection = new Map<String, List<String>>();
+    profileCollection['healthcare'] = selectedHealthcare;
+    profileCollection['community'] = selectedCommunity;
+    profileCollection['community areas'] = selectedCommunityAreas;
+    profileCollection['help'] = selectedHelp;
+    profileCollection['help areas'] = selectedHelpAreas;
+    profileCollection['events'] = selectedEvents;
+    profileCollection['event areas'] = selectedEventAreas;
+
+    //Profile
+    Map<String, dynamic> profDoc = Map<String, dynamic>();
+    profDoc['fname'] = fName;
+    profDoc['lname'] = lName;
+    profDoc['services'] = profileCollection;
+    profDoc['birthday'] = birthday;
+    profDoc['address'] = address;
+    profDoc['postal code'] = postalAddress;
+    profDoc['area'] = area;
+    profDoc['email'] = email;
+    profDoc['beacon activated'] = beaconIsSelected.toString();
+    profDoc['special health condition'] = healthcareSelected.toString();
+    profDoc['community services'] = communitySelected.toString();
+    profDoc['help services'] = helpSelected.toString();
+    profDoc['events selected'] = eventSelected.toString();
+    profDoc['UI'] = uiSelected.toString();
+    profDoc['notifications'] = notificationsSelected.toString();
+    return profDoc;
+  }
+  // Luodaan valitun collectionin alle uusi document. 
+Future<void> createProfile(String user, Map<String, dynamic> profile) async {
+        await _db.collection(user).document().setData(profile); 
+}
+
   factory Database() => _instance;
 }
