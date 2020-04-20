@@ -48,6 +48,7 @@ class _CurrentWeatherCardState extends State<CurrentWeatherCard> {
     super.initState();
     futureWeather = fetchWeather();
   }
+      // TODO: Create localized strings
 
   @override
   Widget build(BuildContext context) {

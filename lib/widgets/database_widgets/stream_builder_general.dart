@@ -16,6 +16,7 @@ class StreamBuilderGeneral extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         //Nest StreamBuilders for each collection. Then pass the snapshots individually to ListViewBuilder
+        // Must be replaced with profile specific calls
         child: StreamBuilder(
             stream: Database().getCollection('Apupalvelu'),
             builder: (context, snapshot1) {
@@ -25,9 +26,9 @@ class StreamBuilderGeneral extends StatelessWidget {
                   if (!snapshot1.hasData && !snapshot2.hasData)
                     return const Text('Loading..');
                   return ListViewBuilder(
-                      snapshot1.data.documents,
+                      snapshot1.data.documents, // Pass 'Apupalvelu' document results
                       snapshot1.data.documents.length,
-                      snapshot2.data.documents,
+                      snapshot2.data.documents, // Pass 'Tapahtuma' document results
                       snapshot2.data.documents.length);
                 },
               );

@@ -46,6 +46,8 @@ dependencies:
 
   sliding_button: ^0.0.2
 
+  image_picker: ^0.6.5
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -6,6 +6,9 @@ class HelpListTile extends StatelessWidget {
 
   HelpListTile(this.index);
 
+        // TODO: Create localized strings
+
+
   @override
  Widget build(BuildContext context) {
 
