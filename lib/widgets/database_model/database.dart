@@ -159,16 +159,16 @@ Map<String,dynamic> buildProfile(
     profDoc['postal code'] = postalAddress;
     profDoc['area'] = area;
     profDoc['email'] = email;
-    profDoc['beacon activated'] = beaconIsSelected;
-    profDoc['special health condition'] = healthcareSelected;
-    profDoc['community services'] = communitySelected;
-    profDoc['help services'] = helpSelected;
-    profDoc['events selected'] = eventSelected;
-    profDoc['UI'] = uiSelected;
-    profDoc['notifications'] = notificationsSelected;
+    profDoc['beacon activated'] = beaconIsSelected.toString();
+    profDoc['special health condition'] = healthcareSelected.toString();
+    profDoc['community services'] = communitySelected.toString();
+    profDoc['help services'] = helpSelected.toString();
+    profDoc['events selected'] = eventSelected.toString();
+    profDoc['UI'] = uiSelected.toString();
+    profDoc['notifications'] = notificationsSelected.toString();
     return profDoc;
   }
-  // Luodaan valitun collectionin alle uusi document.
+  // Luodaan valitun collectionin alle uusi document. 
 Future<void> createProfile(String user, Map<String, dynamic> profile) async {
         await _db.collection(user).document().setData(profile); 
 }

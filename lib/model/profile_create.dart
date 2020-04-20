@@ -56,8 +56,6 @@ class ProfileCreate {
   var selectedEventAreas= [];
 
   void takeValues(){
-
-
   email = emailController.text;
   password = passwordController.text;
   cfpassword = passwordController.text;
