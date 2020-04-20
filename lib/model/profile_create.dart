@@ -1,5 +1,6 @@
 import 'package:cityprog/widgets/database_model/auth.dart';
 import 'package:cityprog/widgets/database_model/database.dart';
+import 'package:flutter/material.dart';
 
 class ProfileCreate {
 
@@ -16,6 +17,16 @@ class ProfileCreate {
   bool uiSelected = false;
   bool notificationsSelected = false;
 
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final fNameController = TextEditingController();
+  final lNameController = TextEditingController();
+  final postalController = TextEditingController();
+  final bdayController = TextEditingController();
+  final healthcareController = TextEditingController();
+  final areaController = TextEditingController();
+  final addressController = TextEditingController();
+
   String email;
   String password;
   String cfpassword;
@@ -24,9 +35,8 @@ class ProfileCreate {
   String lName;
   String postalAddress;
   String area;
-  DateTime birthday;
-  
-
+  //TODO. DATEPICKER
+  String birthday;
 
   var healthcare = ["Wheelchair", "Physical Disability", "Depression", "Mental Disability", "Illness", "Vision impaired", "Other"];
   var selectedHealthcare = [];
@@ -45,9 +55,25 @@ class ProfileCreate {
   var selectedEvents = [];
   var selectedEventAreas= [];
 
+  void takeValues(){
+
+
+  email = emailController.text;
+  password = passwordController.text;
+  cfpassword = passwordController.text;
+  address = addressController.text;
+  fName = fNameController.text;
+  lName = lNameController.text;
+  postalAddress = postalController.text;
+  area = areaController.text;
+  //DATEPICKER
+  //birthday = bdayController.text;
+  }
+
   void createProfile() {
-    var user = _auth.createAccount(email: email, password: password, name: "$fName $lName");
-    var profile = _db.buildProfile(beaconIsSelected, healthcareSelected, communitySelected, helpSelected, eventSelected, uiSelected, notificationsSelected, email, address, fName, lName, postalAddress, area, birthday, selectedHealthcare, selectedCommunity, selectedCommunityAreas, selectedHelp, selectedHelpAreas, selectedEvents, selectedEventAreas);
-    _db.createProfile(user, profile);
+    _auth.initAuth();
+    _auth.createAccount(email: email, password: password, name: "$fName $lName");
+    _auth.login(email: email, password: password);
+    _db.createProfile("LAJDALKSHFLIHFIOALHFh3r342534634634h63ljk46lh34l6h34", _db.buildProfile(beaconIsSelected, healthcareSelected, communitySelected, helpSelected, eventSelected, uiSelected, notificationsSelected, email, address, fName, lName, postalAddress, area, birthday, selectedHealthcare, selectedCommunity, selectedCommunityAreas, selectedHelp, selectedHelpAreas, selectedEvents, selectedEventAreas));
   }
 }

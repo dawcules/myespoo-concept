@@ -23,6 +23,11 @@ class Database {
     return _db.collection('Citizen').document('Larry').collection('personalEvents').snapshots();
   }
 
+  // Haetaan kaikki apupalveluilmoitukset
+  Stream<QuerySnapshot> getHelps(){
+    return _db.collection('Events').snapshots();
+  }
+
   // Palauttaa spesifin collectionin
  Stream<QuerySnapshot> getCollection(String collection){
     return _db.collection(collection).snapshots();
@@ -36,6 +41,9 @@ class Database {
   //En mä löydä sitä dokkarii mitä mun pitäis. Mitä teen. Where auttaa
   Stream<QuerySnapshot> getCitizenByName(String nimi) {
   return _db.collection('kaupunkilainen').where('nimi', isEqualTo: nimi).snapshots();
+  }
+   Stream<QuerySnapshot> getHelpByCategory(String category) {
+  return _db.collection('Apupalvelu').where('type', isEqualTo: category).snapshots();
   }
 
   // Päivitetään dokkaria ID:n perusteella.
@@ -117,7 +125,7 @@ Map<String,dynamic> buildProfile(
   String lName,
   String postalAddress,
   String area,
-  DateTime birthday,
+  String birthday,
 
   List<String> selectedHealthcare,
 

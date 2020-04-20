@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:cityprog/widgets/lists/clickable_listview.dart';
-import 'package:cityprog/strings/community_help_strings.dart';
-
+//import 'package:cityprog/widgets/lists/clickable_listview.dart';
+//import 'package:cityprog/strings/community_help_strings.dart';
+import 'package:cityprog/widgets/database_widgets/stream_builder_comhelp.dart';
 
 class CommunityHelpCat extends StatefulWidget {
   final String _category;
@@ -13,7 +13,7 @@ class CommunityHelpCat extends StatefulWidget {
 }
 
 class _CommunityHelpCatState extends State<CommunityHelpCat> {
-  String dropdownValue = 'Valitse kategoria';
+  //String dropdownValue = 'Valitse kategoria';
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +21,6 @@ class _CommunityHelpCatState extends State<CommunityHelpCat> {
     return Container(
       child: Scaffold(
         key: key,
-        appBar: AppBar(
-          title: new Text(LocalizedCommunityHelpStrings.titleToLocalized()),
-        ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -31,7 +28,6 @@ class _CommunityHelpCatState extends State<CommunityHelpCat> {
               Container(
                 height: 700,
                 width: 400,
-                decoration: BoxDecoration(border: Border.all(width: 1)),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
@@ -45,9 +41,7 @@ class _CommunityHelpCatState extends State<CommunityHelpCat> {
                     ),
                     Padding(padding: EdgeInsets.all(20.0)),
                     Expanded(
-                      child: ClickList(
-                        items: <String>[widget._category,widget._category,widget._category,widget._category]
-                        ),
+                      child: StreamBuilderHelp(myQuery: widget._category,),
                     ),
                   ],
                 ),

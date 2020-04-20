@@ -1,3 +1,4 @@
+import 'package:cityprog/model/profile_create.dart';
 import 'package:cityprog/styles/color_palette.dart';
 import 'package:cityprog/validation/validation.dart';
 import 'package:cityprog/widgets/Inputs/icon_form_confirmpw.dart';
@@ -13,8 +14,6 @@ import 'package:cityprog/widgets/switches/profile_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:cityprog/animations/FadeAnimation.dart';
 import '../widgets/Backgrounds/background_widget.dart';
-//import '../widgets/Inputs/boxedinput.dart';
-//import '../widgets/containers/box_container.dart';
 import '../widgets/database_widgets/stream_builder_example.dart';
 
 
@@ -27,34 +26,9 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStateMixin {
   PageController _pageController;
   final _formKey = new GlobalKey<FormState>();
-  final _passwordController = TextEditingController();
+ 
   Validation formValidation = new Validation();
-
-  bool _beaconIsSelected = false;
-  bool _healthcareSelected = false;
-  bool _communitySelected = false;
-  bool _helpSelected = false;
-  bool _eventSelected = false;
-  bool _uiSelected = false;
-  bool _notificationsSelected = false;
-
-
-  var healthcare = ["Wheelchair", "Physical Disability", "Depression", "Mental Disability", "Illness", "Vision impaired", "Other"];
-  var selectedHealthcare = [];
-  var areas = ["Leppävaara", "Tapiola","Vanha-Espoo", "Matinkylä", "Espoonlahti", "Pohjois Espoo" ];
-
-  var community = ["Carpool", "Marketplace","Recycling", "Local Activities", ];
-  var selectedCommunity = [];
-  var selectedCommunityAreas= [];
-
-
-  var help = ["Helping Elderly", "Shoplifting","Being a good guy", "Gardening", ];
-  var selectedHelp = [];
-  var selectedHelpAreas= [];
-
-  var events = ["Sports", "Culture","Culinary", "Educational", "ETC" ];
-  var selectedEvents = [];
-  var selectedEventAreas= [];
+  ProfileCreate profileCreate = new ProfileCreate();
 
   int totalPage = 10;
 
@@ -80,30 +54,33 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
 
   void switchStateTracker(bool newValue, String switchCategory) {
     switch(switchCategory){
-      case "emergency":  setState(() {_beaconIsSelected = newValue;});
+      case "emergency":  setState(() {profileCreate.beaconIsSelected = newValue;});
       break;
-      case "healthcare": setState(() {_healthcareSelected = newValue;});
+      case "healthcare": setState(() {profileCreate.healthcareSelected = newValue;});
       break;
-      case "community": setState(() {_communitySelected = newValue;});
+      case "community": setState(() {profileCreate.communitySelected = newValue;});
       break;
-      case "help": setState(() {_helpSelected = newValue;});
+      case "help": setState(() {profileCreate.helpSelected = newValue;});
       break;
-      case "events": setState(() {_eventSelected = newValue;});
+      case "events": setState(() {profileCreate.eventSelected = newValue;});
       break;
-      case "UI": setState(() {_uiSelected = newValue;});
+      case "UI": setState(() {profileCreate.uiSelected = newValue;});
       break;
-      case "notifications": setState(() {_notificationsSelected = newValue;});
+      case "notifications": setState(() {profileCreate.notificationsSelected = newValue;});
       break;
       default: print("no switch selected");
     }
   }
   
   void _validateSubmit(){
+    profileCreate.takeValues();
+    profileCreate.createProfile();
+    /*
    if (_formKey.currentState.validate()) {
-      // If the form is valid, display a snackbar. In the real world,
-      // you'd often call a server or save the information in a database.
-      print("Doing good!");
+      print("Creating!!");
+      
     }
+    */
   }
 
  
@@ -139,9 +116,9 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                  IconFormInput(hint: "Email", validationText: "Insert a proper email",validation: formValidation.validateEmail, icon: Icon(Icons.alternate_email),),
-                  IconFormPassword(hint: "Password", validationText: "Password cannot be empty", validation: formValidation.validatePw ,passwordController: _passwordController, icon: Icon(Icons.security)),
-                  IconFormConfirm(hint: "Repeat Password", validationText: "Please make sure passwords match", validation: formValidation.confirmPw, passwordController: _passwordController,icon: Icon(Icons.security)),
+                  IconFormInput(hint: "Email", validationText: "Insert a proper email",validation: formValidation.validateEmail, icon: Icon(Icons.alternate_email),controller: profileCreate.emailController,),
+                  IconFormPassword(hint: "Password", validationText: "Password cannot be empty", validation: formValidation.validatePw ,passwordController: profileCreate.passwordController, icon: Icon(Icons.security)),
+                  IconFormConfirm(hint: "Repeat Password", validationText: "Please make sure passwords match", validation: formValidation.confirmPw, passwordController: profileCreate.passwordController,icon: Icon(Icons.security)),
                   ],),),),
             info: CenteredText(text: "More info", color:  AppColor.primary.color()),
           ),
@@ -156,12 +133,12 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                   children: [
                   BodyText(text: "All of the following is normally done with TUPAS indentification", fontsize: 15, color: AppColor.darkText.color() ),
                   SizedBox(height: 10,),
-                  IconFormInput(hint: "First Name", validationText: "Please insert a proper first name", validation: formValidation.validateText, icon: Icon(Icons.face)),
-                  IconFormInput(hint: "Surname", validationText: "Please insert a proper surname",validation: formValidation.validateText, icon: Icon(Icons.person_pin)),
-                  IconFormInput(hint: "Birthday", validationText: "Please insert a proper birthday",validation: formValidation.validateText, icon: Icon(Icons.cake)),
-                  IconFormInput(hint: "Area", validationText: "Nono",validation: formValidation.validateText, icon: Icon(Icons.add_location)),
-                  IconFormInput(hint: "Address", validationText: "Nono",validation: formValidation.validateText, icon: Icon(Icons.email)),
-                  IconFormInput(hint: "Postal Code", validationText: "Nono",validation: formValidation.validateText, icon: Icon(Icons.code)),
+                  IconFormInput(hint: "First Name", validationText: "Please insert a proper first name", validation: formValidation.validateText, icon: Icon(Icons.face), controller: profileCreate.fNameController,),
+                  IconFormInput(hint: "Surname", validationText: "Please insert a proper surname",validation: formValidation.validateText, icon: Icon(Icons.person_pin),controller: profileCreate.lNameController,),
+                  IconFormInput(hint: "Birthday", validationText: "Please insert a proper birthday",validation: formValidation.validateText, icon: Icon(Icons.cake),controller: profileCreate.bdayController,),
+                  IconFormInput(hint: "Area", validationText: "Nono",validation: formValidation.validateText, icon: Icon(Icons.add_location),controller: profileCreate.areaController),
+                  IconFormInput(hint: "Address", validationText: "Nono",validation: formValidation.validateText, icon: Icon(Icons.email), controller: profileCreate.addressController,),
+                  IconFormInput(hint: "Postal Code", validationText: "Nono",validation: formValidation.validateText, icon: Icon(Icons.code),controller: profileCreate.postalController,),
                   ],),),),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
           ),
@@ -179,14 +156,14 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                     ProfileSwitch(
                     label: BodyText(text: "Enhanced medical services", fontsize: 15, color: AppColor.darkText.color() ),
                     padding: EdgeInsets.symmetric(horizontal: 20.0),
-                    value: _healthcareSelected,
+                    value: profileCreate.healthcareSelected,
                     category: "healthcare",
                     icon: Icon(Icons.add_alert),
                     onChanged: switchStateTracker,),
                     SizedBox(height: 20,),
-                    _healthcareSelected != true ? SizedBox(height: 20,) : ChipFilter(onSelected: selectPicker, data: healthcare, selected: selectedHealthcare,),
-                     SizedBox(height: 20,),
-                    otherCondition("Other", selectedHealthcare) && _healthcareSelected == true ? IconMultiInput(hint: "Describe your condition", validationText: "Please insert something", icon: Icon(Icons.local_hospital),)  : SizedBox(height: 20,),
+                    profileCreate.healthcareSelected != true ? SizedBox(height: 20,) : ChipFilter(onSelected: selectPicker, data: profileCreate.healthcare, selected: profileCreate.selectedHealthcare,),
+                    SizedBox(height: 20,),
+                    otherCondition("Other", profileCreate.selectedHealthcare) && profileCreate.healthcareSelected == true ? IconMultiInput(hint: "Describe your condition", validationText: "Please insert something", icon: Icon(Icons.local_hospital),)  : SizedBox(height: 20,),
                   ],),),),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
           ),
@@ -197,12 +174,12 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
             body: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    BodyText(text: "Do you need to go to bathroom often?", fontsize: 15, color: AppColor.darkText.color() ),
+                    BodyText(text: "Need hjelp this should probably not be a selectable attribute?", fontsize: 15, color: AppColor.darkText.color() ),
                     SizedBox(height: 10,),
                     ProfileSwitch(
                     label: BodyText(text: "Apply Emergency Beacon", fontsize: 15, color: AppColor.darkText.color() ),
                     padding: EdgeInsets.symmetric(horizontal: 20.0),
-                    value: _beaconIsSelected ,
+                    value: profileCreate.beaconIsSelected ,
                     category: "emergency",
                     icon: Icon(Icons.add_alert),
                     onChanged: switchStateTracker,),
@@ -222,20 +199,20 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                     ProfileSwitch(
                     label: BodyText(text: "Partake in community activity", fontsize: 15, color: AppColor.darkText.color() ),
                     padding: EdgeInsets.symmetric(horizontal: 20.0),
-                    value: _communitySelected,
+                    value: profileCreate.communitySelected,
                     category: "community",
                     icon: Icon(Icons.terrain),
                     onChanged: switchStateTracker,),
                     SizedBox(height: 20,),
-                    _communitySelected != true ? SizedBox(height: 20,) : ChipFilter(onSelected: selectPicker, data: community, selected: selectedCommunity,),
+                    profileCreate.communitySelected != true ? SizedBox(height: 20,) : ChipFilter(onSelected: selectPicker, data: profileCreate.community, selected: profileCreate.selectedCommunity,),
                      SizedBox(height: 20,),
-                    otherCondition("Local Activities", selectedCommunity) && _communitySelected == true ?
+                    otherCondition("Local Activities", profileCreate.selectedCommunity) && profileCreate.communitySelected == true ?
                     Column(  
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                     BodyText(text: "Select areas you're fine travelling to.", fontsize: 15, color: AppColor.darkText.color()),
                     SizedBox(height: 20,), 
-                    ChipFilter(onSelected: selectPicker, data: areas, selected: selectedCommunityAreas)]
+                    ChipFilter(onSelected: selectPicker, data: profileCreate.areas, selected: profileCreate.selectedCommunityAreas)]
                     ): SizedBox(height: 20,),
                   ],),),),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
@@ -254,20 +231,20 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                     ProfileSwitch(
                     label: BodyText(text: "What kind?", fontsize: 15, color: AppColor.darkText.color() ),
                     padding: EdgeInsets.symmetric(horizontal: 20.0),
-                    value: _helpSelected,
+                    value: profileCreate.helpSelected,
                     category: "help",
                     icon: Icon(Icons.healing),
                     onChanged: switchStateTracker,),
                     SizedBox(height: 20,),
-                    _helpSelected != true ? SizedBox(height: 20,) : ChipFilter(onSelected: selectPicker, data: help, selected: selectedHelp,),
+                    profileCreate.helpSelected != true ? SizedBox(height: 20,) : ChipFilter(onSelected: selectPicker, data: profileCreate.help, selected: profileCreate.selectedHelp,),
                      SizedBox(height: 20,),
-                    _helpSelected == true ?
+                    profileCreate.helpSelected == true ?
                     Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,  
                     children: [BodyText(text: "Areas", fontsize: 15, color: AppColor.darkText.color()),
                     SizedBox(height: 20,), 
-                    ChipFilter(onSelected: selectPicker, data: areas, selected: selectedHelpAreas)]
+                    ChipFilter(onSelected: selectPicker, data: profileCreate.areas, selected: profileCreate.selectedHelpAreas)]
                     ): SizedBox(height: 20,),
                   ],),),),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
@@ -286,20 +263,20 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                     ProfileSwitch(
                     label: BodyText(text: "What kind of events would you be interested in?", fontsize: 15, color: AppColor.darkText.color() ),
                     padding: EdgeInsets.symmetric(horizontal: 20.0),
-                    value: _eventSelected,
+                    value: profileCreate.eventSelected,
                     category: "events",
                     icon: Icon(Icons.event),
                     onChanged: switchStateTracker,),
                     SizedBox(height: 20,),
-                    _eventSelected != true ? SizedBox(height: 20,) : ChipFilter(onSelected: selectPicker, data: events, selected: selectedEvents,),
+                    profileCreate.eventSelected != true ? SizedBox(height: 20,) : ChipFilter(onSelected: selectPicker, data: profileCreate.events, selected: profileCreate.selectedEvents,),
                      SizedBox(height: 20,),
-                    _eventSelected == true ?
+                    profileCreate.eventSelected == true ?
                     Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,  
                     children: [BodyText(text: "Areas", fontsize: 15, color: AppColor.darkText.color()),
                     SizedBox(height: 20,), 
-                    ChipFilter(onSelected: selectPicker, data: areas, selected: selectedEventAreas)]
+                    ChipFilter(onSelected: selectPicker, data: profileCreate.areas, selected: profileCreate.selectedEventAreas)]
                     ): SizedBox(height: 20,),
                   ],),),),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
@@ -316,16 +293,16 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                     BodyText(text: "Which style of UI would you prefer?", fontsize: 15, color: AppColor.darkText.color() ),
                     SizedBox(height: 20,),
                     ProfileSwitch(
-                    label: !_uiSelected  ? BodyText(text: "Traditional", fontsize: 15, color: AppColor.darkText.color())
+                    label: !profileCreate.uiSelected  ? BodyText(text: "Traditional", fontsize: 15, color: AppColor.darkText.color())
                     : BodyText(text: "Modern", fontsize: 15, color: AppColor.darkText.color()),
                     padding: EdgeInsets.symmetric(horizontal: 20.0),
-                    value: _uiSelected,
+                    value: profileCreate.uiSelected,
                     category: "UI",
                     icon: Icon(Icons.event),
                     onChanged: switchStateTracker,),
                     SizedBox(height: 20,),
                     Center(child: Image(height: 350,
-                    image: !_uiSelected  ? AssetImage("assets/images/smartespoowelcome.png") : AssetImage("assets/images/profile.png"))),
+                    image: !profileCreate.uiSelected  ? AssetImage("assets/images/smartespoowelcome.png") : AssetImage("assets/images/profile.png"))),
                   ],),),),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
           ),
@@ -343,7 +320,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                     ProfileSwitch(
                     label: BodyText(text: "Notifications", fontsize: 15, color: AppColor.darkText.color() ),
                     padding: EdgeInsets.symmetric(horizontal: 20.0),
-                    value: _notificationsSelected,
+                    value: profileCreate.notificationsSelected,
                     category: "notifications",
                     icon: Icon(Icons.event),
                     onChanged: switchStateTracker,),

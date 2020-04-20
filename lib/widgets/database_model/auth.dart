@@ -39,13 +39,18 @@ class Auth {
       _auth.add(UpdateUser(user));
     });
   }
+  void login({email,password}){
+      print("Logging in");
+        _auth.add(LoginEvent(email, password));
+  }
 
-
-  String createAccount({email, password, name}){
-    initAuth();
+  void createAccount({email, password, name}){
+    print("Creating account");
     _auth.add(CreateAccount(email, password, displayName: name));
-    _auth.add(LoginEvent(email, password));
-    _auth.add(CheckUser());
+   
+  }
+
+  String getUID(){
     print(_user.toString());
     return _user.uid;
   }

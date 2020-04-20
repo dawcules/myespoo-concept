@@ -7,9 +7,11 @@ class IconMultiInput extends StatelessWidget {
 
   final String hint;
   final String validationText;
+  final Function validation;
   final Icon icon;
+  final TextEditingController controller;
 
-  IconMultiInput({this.hint, this.validationText, this.icon});
+  IconMultiInput({this.hint, this.validationText, this.icon, this.controller, this.validation});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,8 @@ class IconMultiInput extends StatelessWidget {
                       TextFormField(
                             keyboardType: TextInputType.multiline,
                             maxLines: null,
-                            validator: (value) => value.isEmpty ? validationText : null,
+                            controller: controller,
+                            validator: (value) => validation(value) ? validationText : null,
                             style: TextStyle(color: AppColor.secondary.color(), fontFamily: 'RadikalLight'),
                             decoration: CustomDecoration().formInputDecoration(hint, icon),
                       );
