@@ -1,4 +1,6 @@
+import 'package:fb_auth/fb_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginButton extends StatelessWidget {
 
@@ -9,7 +11,8 @@ class LoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return BlocBuilder<AuthBloc, AuthState>(
+      builder: (context, state) => Container(
                   height: 50,
                   margin: EdgeInsets.symmetric(horizontal: 50),
                   decoration: BoxDecoration(
@@ -18,10 +21,11 @@ class LoginButton extends StatelessWidget {
                   ),
                   child: Center(
                     child: FlatButton(
-                      onPressed: () => validateSubmit(),
+                      onPressed: () => validateSubmit(context: context, state: state),
                       child: Text(text, style: TextStyle(color: Colors.white),)
                     ,)
                   ),
-                );
+                ),
+    );
   }
 }

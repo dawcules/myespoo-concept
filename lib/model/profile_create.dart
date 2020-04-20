@@ -3,11 +3,14 @@ import 'package:cityprog/widgets/database_model/database.dart';
 import 'package:flutter/material.dart';
 
 class ProfileCreate {
-
+  
   final _db = Database();
   final _auth = Auth();
 
-  ProfileCreate();
+  ProfileCreate._internal();  
+  static final ProfileCreate _instance = ProfileCreate._internal();
+  bool _creatingProfile = false;
+
 
   bool beaconIsSelected = false;
   bool healthcareSelected = false;
@@ -38,22 +41,22 @@ class ProfileCreate {
   //TODO. DATEPICKER
   String birthday;
 
-  var healthcare = ["Wheelchair", "Physical Disability", "Depression", "Mental Disability", "Illness", "Vision impaired", "Other"];
-  var selectedHealthcare = [];
-  var areas = ["Leppävaara", "Tapiola","Vanha-Espoo", "Matinkylä", "Espoonlahti", "Pohjois Espoo" ];
+  List<String> healthcare = ["Wheelchair", "Physical Disability", "Depression", "Mental Disability", "Illness", "Vision impaired", "Other"];
+  List<String> selectedHealthcare = [];
+  List<String> areas = ["Leppävaara", "Tapiola","Vanha-Espoo", "Matinkylä", "Espoonlahti", "Pohjois Espoo" ];
 
-  var community = ["Carpool", "Marketplace","Recycling", "Local Activities", ];
-  var selectedCommunity = [];
-  var selectedCommunityAreas= [];
+  List<String> community = ["Carpool", "Marketplace","Recycling", "Local Activities", ];
+  List<String> selectedCommunity = [];
+  List<String> selectedCommunityAreas= [];
 
 
-  var help = ["Helping Elderly", "Shoplifting","Being a good guy", "Gardening", ];
-  var selectedHelp = [];
-  var selectedHelpAreas= [];
+  List<String> help = ["Helping Elderly", "Shoplifting","Being a good guy", "Gardening", ];
+  List<String> selectedHelp = [];
+  List<String> selectedHelpAreas= [];
 
-  var events = ["Sports", "Culture","Culinary", "Educational", "ETC" ];
-  var selectedEvents = [];
-  var selectedEventAreas= [];
+  List<String> events = ["Sports", "Culture","Culinary", "Educational", "ETC" ];
+  List<String> selectedEvents = [];
+  List<String> selectedEventAreas= [];
 
   void takeValues(){
   email = emailController.text;
@@ -68,10 +71,26 @@ class ProfileCreate {
   //birthday = bdayController.text;
   }
 
-  void createProfile() {
-    _auth.initAuth();
+  bool isAccountCreating(){
+    return _creatingProfile;
+  }
+
+  void creatingAccount(){
+    _creatingProfile = !_creatingProfile;
+  }
+
+  void clearProfile(){
+    
+  }
+
+  void createAccount(){
+    creatingAccount();
     _auth.createAccount(email: email, password: password, name: "$fName $lName");
     _auth.login(email: email, password: password);
-    _db.createProfile("LAJDALKSHFLIHFIOALHFh3r342534634634h63ljk46lh34l6h34", _db.buildProfile(beaconIsSelected, healthcareSelected, communitySelected, helpSelected, eventSelected, uiSelected, notificationsSelected, email, address, fName, lName, postalAddress, area, birthday, selectedHealthcare, selectedCommunity, selectedCommunityAreas, selectedHelp, selectedHelpAreas, selectedEvents, selectedEventAreas));
   }
+
+  void createProfile({user}) {
+    _db.createProfile(user, _db.buildProfile(beaconIsSelected, healthcareSelected, communitySelected, helpSelected, eventSelected, uiSelected, notificationsSelected, email, address, fName, lName, postalAddress, area, birthday, selectedHealthcare, selectedCommunity, selectedCommunityAreas, selectedHelp, selectedHelpAreas, selectedEvents, selectedEventAreas));
+  }
+  factory ProfileCreate() => _instance;
 }

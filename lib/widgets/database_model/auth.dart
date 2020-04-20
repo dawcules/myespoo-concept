@@ -1,8 +1,6 @@
   
 import 'dart:async';
-import 'package:cityprog/platform/desktop.dart';
 import 'package:fb_auth/fb_auth.dart';
-import 'package:flutter/material.dart';
 
 class Auth {
   Auth._internal();  
@@ -42,7 +40,6 @@ class Auth {
   void createAccount({email, password, name}){
     print("Creating account");
     _auth.add(CreateAccount(email, password, displayName: name));
-   
   }
 
   String getUID(){

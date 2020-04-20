@@ -1,4 +1,5 @@
 import 'package:cityprog/pages/community_help_cat_page.dart';
+import 'package:cityprog/widgets/database_widgets/auth_check.dart';
 import 'package:cityprog/widgets/navigation/navigation_drawer.dart';
 import 'package:cityprog/widgets/navigation/speech_nav_overlay.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,9 @@ class Router {
     switch (settings.name) {
       case '/': // The absolute first page
         return MaterialPageRoute(
+            builder: (_) => AuthCheck());
+      case '/feed':
+          return MaterialPageRoute(
             builder: (_) => SpeechNavigationOverlay(child: GeneralFeed()));
       case '/home':
         return MaterialPageRoute(
@@ -60,7 +64,7 @@ class Router {
             builder: (_) => SpeechNavigationOverlay(child: CarpoolPage()));
       case '/profile':
         return MaterialPageRoute(
-            builder: (_) => SpeechNavigationOverlay(child: ProfilePage()));
+            builder: (_) =>  ProfilePage());
       case '/market':
         return MaterialPageRoute(
             builder: (_) => SpeechNavigationOverlay(child: MarketPlacePage()));
@@ -102,6 +106,7 @@ class Router {
 }
 
 enum Routes {
+  AUTH,
   HOME,
   PERSONAL,
   COMMUNITY,
@@ -118,6 +123,9 @@ enum Routes {
 extension RoutePaths on Routes {
   String get name {
     switch (this) {
+      case Routes.AUTH:
+        return "/auth";
+        break;
       case Routes.HOME:
         return "/home";
         break;
