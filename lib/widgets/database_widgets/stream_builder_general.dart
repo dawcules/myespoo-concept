@@ -64,10 +64,10 @@ class ListViewBuilder extends StatelessWidget {
                     Divider(),
                   if (index <= helpDataLength - 1)
                     _buildHelpItem(context, helpData[index]),
-                  Divider(),
+                  //Divider(),
                   if (index <= eventDataLength - 1)
                     _buildListItem(context, eventData[index]),
-                  Divider(),
+                  //Divider(),
                 ],
               );
             }));
