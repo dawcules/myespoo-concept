@@ -60,15 +60,28 @@ class ListViewBuilder extends StatelessWidget {
                 children: <Widget>[
                   //Apply logic for individual data sources. Return individual list items.
                   if (index == 0)
-                    CurrentWeatherCard(),
-                  if (index == 0)
-                    Divider(),
+                    Column(
+                      children: <Widget>[
+                        CurrentWeatherCard(),
+                                            Divider(),
+                      ],
+                    ),
                   if (index <= helpDataLength - 1)
-                    _buildHelpItem(context, helpData[index]),
-                  Divider(),
+                    Column(
+                      children: <Widget>[
+                        _buildHelpItem(context, helpData[index]),
+                        Divider(),
+                      ],
+                    ),
+                  //Divider(),
                   if (index <= eventDataLength - 1)
-                    _buildListItem(context, eventData[index]),
-                  Divider(),
+                    Column(
+                      children: <Widget>[
+                        _buildListItem(context, eventData[index]),
+                        Divider(),
+                      ],
+                    ),
+                  //Divider(),
                 ],
               );
             }));
