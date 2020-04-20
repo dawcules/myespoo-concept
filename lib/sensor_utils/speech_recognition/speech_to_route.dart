@@ -5,7 +5,6 @@ import 'package:cityprog/widgets/posts/report_form.dart';
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
 
-import '../../current_language.dart';
 import '../../router.dart';
 
 // Speech to route module
@@ -27,7 +26,6 @@ class SpeechToRoute {
   String _carpoolSecondChar;
   String _marketInitialsChar;
   String _reportInitialsChar;
-  String _currentLocaleId = "";
 
   Map<String, Map<String, dynamic>> _navStringBundleLocalized;
 
@@ -43,7 +41,6 @@ class SpeechToRoute {
   void _initLocalizedStringsBundle() {
     print(_language);
     _navStringBundleLocalized = StringProvider.localizedStringBundle(_language);
-    CurrentLanguage.setNewFromString(_currentLocaleId);
     _initBundleReferences();
   }
 

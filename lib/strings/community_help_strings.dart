@@ -5,43 +5,57 @@ class LocalizedCommunityHelpStrings {
   // FIN
   static const String titleFI = 'Smart Espoo   -   Apupalvelut';
   static const String mainTitleFI = 'Apupalvelut';
-  static const String descFI = 'Pyydä apua kanssakaupunkilaisilta tai ilmoittaudu avuntarjoajaksi muille';
+  static const String descFI =
+      'Pyydä apua kanssakaupunkilaisilta tai ilmoittaudu avuntarjoajaksi muille';
   static const List<String> listFI = [
-                  'Valitse kategoria',
-                  'Kauppa-asiointi',
-                  'Huonekalut',
-                  'Pihatyöt',
-                  'Muu tarve'
-                ];
+    'Valitse kategoria',
+    'Kauppa-asiointi',
+    'Huonekalut',
+    'Pihatyöt',
+    'Muu tarve'
+  ];
   static const String volunteerBtnFI = 'Ilmoittaudu avuntarjoajaksi';
   static const String catBtnFI = 'Aloita';
   static const String snackFI = 'Valitse jokin kategoria';
   static const String signUpFI = 'Ilmoittaudu';
-  static const String signDescFI = 'Ilmoittautumalla avuntarjoajaksi autat muita selviämään arjen askareissa ja edistät yleistä hyvinvointia';
-
-
-
-  
-
+  static const String signDescFI =
+      'Ilmoittautumalla avuntarjoajaksi autat muita selviämään arjen askareissa ja edistät yleistä hyvinvointia';
+  static const String askHelpBtnFI = "Luo uusi pyyntö";
 
   // ENG
   static const String titleEN = 'Smart Espoo   -   Help Services';
   static const String mainTitleEN = 'Help Services';
   static const String descEN = 'Ask citizens for help or volunteer yourself';
   static const List<String> listEN = [
-                'Choose a category',
-                'Store visits',
-                'Furniture',
-                'Yardwork',
-                'Other'
-              ];
+    'Choose a category',
+    'Store visits',
+    'Furniture',
+    'Yardwork',
+    'Other'
+  ];
   static const String volunteerBtnEN = 'Sign up as a helper';
   static const String catBtnEN = 'Start';
   static const String snackEN = 'Pick a category';
   static const String signUpEN = 'Sign up';
-  static const String signDescEN = 'Sign up as a helper to help others manage their everyday lives better and to uphold general wellbeing';
+  static const String signDescEN =
+      'Sign up as a helper to help others manage their everyday lives better and to uphold general wellbeing';
+  static const String askHelpBtnEN = "Create a new request";
 
-          static String signDescLocalized() {
+  static String askHelpToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return askHelpBtnFI;
+        break;
+      case Language.EN:
+        return askHelpBtnEN;
+        break;
+      default:
+        return askHelpBtnEN;
+        break;
+    }
+  }
+
+  static String signDescLocalized() {
     switch (CurrentLanguage.value) {
       case Language.FI:
         return signDescFI;
@@ -55,9 +69,7 @@ class LocalizedCommunityHelpStrings {
     }
   }
 
-
-
-        static String signUpToLocalized() {
+  static String signUpToLocalized() {
     switch (CurrentLanguage.value) {
       case Language.FI:
         return signUpFI;
@@ -71,8 +83,7 @@ class LocalizedCommunityHelpStrings {
     }
   }
 
-
-      static String snackToLocalized() {
+  static String snackToLocalized() {
     switch (CurrentLanguage.value) {
       case Language.FI:
         return snackFI;
@@ -86,7 +97,7 @@ class LocalizedCommunityHelpStrings {
     }
   }
 
-    static String catBtnToLocalized() {
+  static String catBtnToLocalized() {
     switch (CurrentLanguage.value) {
       case Language.FI:
         return catBtnFI;
@@ -100,8 +111,7 @@ class LocalizedCommunityHelpStrings {
     }
   }
 
-
-    static String volunteerBtnToLocalized() {
+  static String volunteerBtnToLocalized() {
     switch (CurrentLanguage.value) {
       case Language.FI:
         return volunteerBtnFI;
@@ -114,7 +124,6 @@ class LocalizedCommunityHelpStrings {
         break;
     }
   }
-
 
   static List<String> listToLocalized() {
     switch (CurrentLanguage.value) {
@@ -158,7 +167,7 @@ class LocalizedCommunityHelpStrings {
     }
   }
 
-    static String mainTitleToLocalized() {
+  static String mainTitleToLocalized() {
     switch (CurrentLanguage.value) {
       case Language.FI:
         return mainTitleFI;
@@ -171,5 +180,4 @@ class LocalizedCommunityHelpStrings {
         break;
     }
   }
-
 }

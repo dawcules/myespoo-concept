@@ -1,5 +1,7 @@
 import 'package:cityprog/sensor_utils/speech_recognition/speech_recog.dart';
+import 'package:cityprog/styles/color_palette.dart';
 import 'package:cityprog/widgets/dialogs/speech_dialog.dart';
+import 'package:cityprog/widgets/navigation/navigation_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
@@ -13,26 +15,60 @@ class SpeechNavigationOverlay extends StatefulWidget {
 }
 
 class _SpeechNavigationOverlayState extends State<SpeechNavigationOverlay> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>(); 
   bool _speechIsActivated = false;
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        widget.child,
-        Align(
-          alignment: Alignment.bottomCenter * 0.9,
-          child: Container(
-            child: kIsWeb
-                ? Text('Asenna sovellus käyttääksesi puhetoimintoja!')
-                : SpeechNavigationButton(
-                    onSpeechActivate: () => _onSpeechActivate(),
-                    onSpeehDeActivate: () => _onSpeechDeActivate(),
-                  ),
+    return Container(
+      child: Scaffold(
+        key: _scaffoldKey,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: SpeechNavigationButton(
+          onSpeechActivate: () => _onSpeechActivate(),
+          onSpeehDeActivate: () => _onSpeechDeActivate(),
+        ),
+        bottomNavigationBar: BottomAppBar(
+          color: AppColor.secondary.color(),
+          notchMargin: 4,
+          shape: CircularNotchedRectangle(),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(Icons.home),
+                color: AppColor.whiteText.color(),
+                iconSize: 50,
+                onPressed: () => _openDrawer(context),
+              )
+            ],
           ),
         ),
-        _buildSpeechActivatedDialog(),
-      ],
+        drawer: NavigationDrawer(),
+        body: Stack(
+          children: <Widget>[
+            widget.child,
+            Align(
+              alignment: Alignment.bottomCenter *
+                  0.9,
+              child: Container(
+                child: kIsWeb
+                    ? Material(
+                        child: Text(
+                            'Asenna sovellus käyttääksesi puhetoimintoja!'))
+                    : Padding(
+                        padding: EdgeInsets.all(0),
+                      ),
+              ),
+            ),
+            _buildSpeechActivatedDialog(),
+          ],
+        ),
+      ),
     );
+  }
+
+  void _openDrawer(BuildContext context) {
+    _scaffoldKey.currentState.openDrawer();
   }
 
   void _onSpeechActivate() {

@@ -1,18 +1,20 @@
 import 'package:cityprog/pages/community_help_cat_page.dart';
+import 'package:cityprog/widgets/navigation/navigation_drawer.dart';
 import 'package:cityprog/widgets/navigation/speech_nav_overlay.dart';
 import 'package:flutter/material.dart';
 
-import './main.dart';
-import './pages/welcome_page.dart';
+//import './pages/navigation_page.dart';
 import './pages/community_page.dart';
 import './pages/introduction_page.dart';
 //import './pages/personal_page.dart';
 import 'pages/community_help_sign_page.dart';
 import 'pages/community_help_main_page.dart';
+import 'pages/community_help_request.dart';
 import './pages/carpool.dart';
 import './pages/login_page.dart';
 import './pages/profile_creation.dart';
 import './pages/marketplace.dart';
+import './pages/general_feed.dart';
 
 // https://www.youtube.com/watch?v=nyvwx7o277U
 
@@ -23,11 +25,10 @@ class Router {
     switch (settings.name) {
       case '/': // The absolute first page
         return MaterialPageRoute(
-            builder: (_) => SpeechNavigationOverlay(child: WelcomePage()));
+            builder: (_) => SpeechNavigationOverlay(child: GeneralFeed()));
       case '/home':
         return MaterialPageRoute(
-            builder: (_) =>
-                SpeechNavigationOverlay(child: MyHomePage(title: args)));
+            builder: (_) => SpeechNavigationOverlay(child: GeneralFeed()));
       case '/community':
         return MaterialPageRoute(
             builder: (_) => SpeechNavigationOverlay(child: CommunityPage()));
@@ -39,6 +40,10 @@ class Router {
         return MaterialPageRoute(
             builder: (_) =>
                 SpeechNavigationOverlay(child: CommunityHelpPage()));
+      case '/communityHelpRequest':
+        return MaterialPageRoute(
+            builder: (_) =>
+                SpeechNavigationOverlay(child: CommunityHelpRequest()));
       case '/communityHelpCat':
         return MaterialPageRoute(
             builder: (_) =>
@@ -46,7 +51,10 @@ class Router {
       case '/personal':
         return MaterialPageRoute(builder: (_) => LoginPage());
       case '/introduction':
-        return MaterialPageRoute(builder: (_) => IntroductionPage());
+        return MaterialPageRoute(
+            builder: (_) => SpeechNavigationOverlay(
+                  child: IntroductionPage(),
+                ));
       case '/carpool':
         return MaterialPageRoute(
             builder: (_) => SpeechNavigationOverlay(child: CarpoolPage()));
@@ -70,6 +78,12 @@ class Router {
             navigatedWithNewCommand: true,
           )),
         );
+      case "/navigation_drawer":
+        return PageRouteBuilder(
+            opaque: false,
+            pageBuilder: (BuildContext context, _, __) {
+              return NavigationDrawer();
+            });
 
       default:
         return _errorRoute();
@@ -98,6 +112,7 @@ enum Routes {
   MARKETPLACE,
   MARKET_NEW,
   CARPOOL_NEW,
+  NAVIGATION_DRAWER,
 }
 
 extension RoutePaths on Routes {
@@ -129,6 +144,8 @@ extension RoutePaths on Routes {
         return "/market_new";
       case Routes.CARPOOL_NEW:
         return "/carpool_new";
+      case Routes.NAVIGATION_DRAWER:
+        return "/navigation_drawer";
       default:
         return "/lookslikea404";
         break;
