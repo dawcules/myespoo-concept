@@ -38,7 +38,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<AuthBloc>(builder: (_) => _auth.getAuthBloc()),
+        BlocProvider<AuthBloc>(create: (_) => _auth.getAuthBloc()),
       ],
       child: MaterialApp(
       title: 'Flutter Demo',

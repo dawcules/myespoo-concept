@@ -19,11 +19,6 @@ class Auth {
   StreamSubscription<AuthUser> _userChanged;
   AuthUser _user;
 
-  void setupForDesktop(){
-     WidgetsFlutterBinding.ensureInitialized();
-      setTargetPlatformForDesktop();
-  }
-
   static _deleteUser() async {}
   static _saveUser(user) async {}
 
