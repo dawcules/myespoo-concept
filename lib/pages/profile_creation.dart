@@ -11,8 +11,10 @@ import 'package:cityprog/widgets/links/centered_text.dart';
 import 'package:cityprog/widgets/texts/body_text.dart';
 import 'package:cityprog/widgets/texts/header_text.dart';
 import 'package:cityprog/widgets/switches/profile_switch.dart';
+import 'package:fb_auth/fb_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cityprog/animations/FadeAnimation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widgets/Backgrounds/background_widget.dart';
 import '../widgets/database_widgets/stream_builder_example.dart';
 
@@ -72,15 +74,20 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
     }
   }
   
-  void _validateSubmit(){
+  void _validateSubmit({context, state}){
     profileCreate.takeValues();
-    profileCreate.createProfile();
+    profileCreate.createAccount();
+    _navigate();
     /*
    if (_formKey.currentState.validate()) {
       print("Creating!!");
       
     }
     */
+  }
+
+  void _navigate(){
+    Navigator.of(context).pushNamed("/home");
   }
 
  
@@ -102,7 +109,9 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BlocBuilder<AuthBloc, AuthState>(
+      builder: (context, state) =>
+      Scaffold(
       backgroundColor: AppColor.background.color(),
       body: PageView(
         controller: _pageController,
@@ -339,6 +348,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
           ),
         ],
+      ),
       ),
     );
   }
