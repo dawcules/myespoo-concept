@@ -26,9 +26,11 @@ class StreamBuilderGeneral extends StatelessWidget {
                   if (!snapshot1.hasData && !snapshot2.hasData)
                     return const Text('Loading..');
                   return ListViewBuilder(
-                      snapshot1.data.documents, // Pass 'Apupalvelu' document results
+                      snapshot1
+                          .data.documents, // Pass 'Apupalvelu' document results
                       snapshot1.data.documents.length,
-                      snapshot2.data.documents, // Pass 'Tapahtuma' document results
+                      snapshot2
+                          .data.documents, // Pass 'Tapahtuma' document results
                       snapshot2.data.documents.length);
                 },
               );
@@ -38,7 +40,6 @@ class StreamBuilderGeneral extends StatelessWidget {
   }
 }
 
-//SWagety. Pistin samaan selkeyden
 class ListViewBuilder extends StatelessWidget {
   final helpData;
   final helpDataLength;
@@ -63,7 +64,7 @@ class ListViewBuilder extends StatelessWidget {
                     Column(
                       children: <Widget>[
                         CurrentWeatherCard(),
-                                            Divider(),
+                        Divider(),
                       ],
                     ),
                   if (index <= helpDataLength - 1)
@@ -73,7 +74,6 @@ class ListViewBuilder extends StatelessWidget {
                         Divider(),
                       ],
                     ),
-                  //Divider(),
                   if (index <= eventDataLength - 1)
                     Column(
                       children: <Widget>[
@@ -81,7 +81,6 @@ class ListViewBuilder extends StatelessWidget {
                         Divider(),
                       ],
                     ),
-                  //Divider(),
                 ],
               );
             }));

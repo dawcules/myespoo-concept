@@ -6,13 +6,11 @@ class HelpListTile extends StatelessWidget {
 
   HelpListTile(this.index);
 
-        // TODO: Create localized strings
-
+  // TODO: Create localized strings
 
   @override
- Widget build(BuildContext context) {
-
- return Container(
+  Widget build(BuildContext context) {
+    return Container(
       height: 130,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -49,7 +47,7 @@ class HelpListTile extends StatelessWidget {
   }
 }
 
-    /* onTap: () {
+/* onTap: () {
         Database().updateValue(
             'likes',
             1,

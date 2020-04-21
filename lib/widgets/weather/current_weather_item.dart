@@ -6,7 +6,8 @@ import 'dart:convert';
 
 Future<Weather> fetchWeather() async {
   final response =
-    await http.get('https://api.openweathermap.org/data/2.5/weather?q=Espoo&lang=fi&units=metric&appid=47b4f964d6c11c890337f2f5abe51d31');
+    await http.get(
+      'https://api.openweathermap.org/data/2.5/weather?q=Espoo&lang=fi&units=metric&appid=47b4f964d6c11c890337f2f5abe51d31');
 
     if (response.statusCode == 200) {
       return Weather.fromJson(json.decode(response.body));
@@ -61,8 +62,9 @@ class _CurrentWeatherCardState extends State<CurrentWeatherCard> {
                   children: <Widget>[
                     Image.network('https://openweathermap.org/img/wn/${snapshot.data.icon}@2x.png'),
                     Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Text('Sää Espoossa nyt'),
+                        Text('Sää Espoossa nyt', style: TextStyle(fontWeight: FontWeight.bold),),
                         Text(snapshot.data.weather[0].toUpperCase() + snapshot.data.weather.substring(1) + ', ' + snapshot.data.temp.toInt().toString() +' astetta'),
                       ],
                     ),
