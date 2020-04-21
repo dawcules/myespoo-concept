@@ -71,7 +71,7 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: macos-latest
     #Identifies any jobs that must complete successfully before this job will run. 
-    needs: [test, ios]
+    needs: [test]
     name: Build for Android and Web
     steps:
       - uses: actions/checkout@v1
