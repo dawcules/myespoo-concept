@@ -1,3 +1,4 @@
+import 'package:cityprog/validation/validation.dart';
 import 'package:cityprog/widgets/database_model/auth.dart';
 import 'package:cityprog/widgets/database_model/database.dart';
 import 'package:flutter/material.dart';
@@ -6,9 +7,11 @@ class ProfileCreate {
   
   final _db = Database();
   final _auth = Auth();
+  final _validation = Validation();
 
   ProfileCreate._internal();  
   static final ProfileCreate _instance = ProfileCreate._internal();
+
   bool _creatingProfile = false;
 
 
@@ -22,6 +25,7 @@ class ProfileCreate {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final cfpasswordController = TextEditingController();
   final fNameController = TextEditingController();
   final lNameController = TextEditingController();
   final postalController = TextEditingController();
@@ -61,7 +65,7 @@ class ProfileCreate {
   void takeValues(){
   email = emailController.text;
   password = passwordController.text;
-  cfpassword = passwordController.text;
+  cfpassword = cfpasswordController.text;
   address = addressController.text;
   fName = fNameController.text;
   lName = lNameController.text;
@@ -69,6 +73,24 @@ class ProfileCreate {
   area = areaController.text;
   //DATEPICKER
   //birthday = bdayController.text;
+  }
+
+  bool profileValidation(){
+    print(email);
+    print(password);
+    print(postalAddress);
+    if(
+      !_validation.validateEmail(email)
+      && password == cfpassword
+      && !_validation.validatePw(password)
+      && !_validation.validateText(postalAddress)
+    ){
+      return true;
+    }
+    else{
+      return false;
+      }
+      
   }
 
   bool isAccountCreating(){

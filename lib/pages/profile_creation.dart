@@ -27,8 +27,8 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStateMixin {
   PageController _pageController;
-  final _formKey = new GlobalKey<FormState>();
- 
+  int index;
+
   Validation formValidation = new Validation();
   ProfileCreate profileCreate = new ProfileCreate();
 
@@ -73,17 +73,17 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
       default: print("no switch selected");
     }
   }
+
   
   void _validateSubmit({context, state}){
     profileCreate.takeValues();
-    profileCreate.createAccount();
-    _navigate();
-    /*
-   if (_formKey.currentState.validate()) {
-      print("Creating!!");
-      
-    }
-    */
+    if(ProfileCreate().profileValidation()){
+      print("creating!!");
+      profileCreate.createAccount();
+      _navigate();}
+    else{
+        print("Horrifyingly bad profilemaking");
+      } 
   }
 
   void _navigate(){
@@ -120,22 +120,22 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
             page: 1,
             title: 'Account Information',
             header: HeaderText(text: "Account Information", fontsize: 30, color: AppColor.secondary.color()),
-            body: SingleChildScrollView(child: Form(key: _formKey, 
+            body: SingleChildScrollView(
                   child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                   IconFormInput(hint: "Email", validationText: "Insert a proper email",validation: formValidation.validateEmail, icon: Icon(Icons.alternate_email),controller: profileCreate.emailController,),
                   IconFormPassword(hint: "Password", validationText: "Password cannot be empty", validation: formValidation.validatePw ,passwordController: profileCreate.passwordController, icon: Icon(Icons.security)),
-                  IconFormConfirm(hint: "Repeat Password", validationText: "Please make sure passwords match", validation: formValidation.confirmPw, passwordController: profileCreate.passwordController,icon: Icon(Icons.security)),
-                  ],),),),
+                  IconFormConfirm(hint: "Repeat Password", validationText: "Please make sure passwords match", validation: formValidation.confirmPw, passwordController: profileCreate.passwordController,icon: Icon(Icons.security), controller: ProfileCreate().cfpasswordController,),
+                  ],),),
             info: CenteredText(text: "More info", color:  AppColor.primary.color()),
           ),
           makePage(
             page: 2,
             title: 'Personal Information',
             header: HeaderText(text: "Personal Information (DEMO)", fontsize: 30, color: AppColor.secondary.color()),
-            body: SingleChildScrollView(child: Form(
+            body: SingleChildScrollView(
                   child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround, 
@@ -148,14 +148,14 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                   IconFormInput(hint: "Area", validationText: "Nono",validation: formValidation.validateText, icon: Icon(Icons.add_location),controller: profileCreate.areaController),
                   IconFormInput(hint: "Address", validationText: "Nono",validation: formValidation.validateText, icon: Icon(Icons.email), controller: profileCreate.addressController,),
                   IconFormInput(hint: "Postal Code", validationText: "Nono",validation: formValidation.validateText, icon: Icon(Icons.code),controller: profileCreate.postalController,),
-                  ],),),),
+                  ],),),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
           ),
           makePage(
             page: 3,
             title: 'Healthcare',
             header: HeaderText(text: "Healthcare", fontsize: 30, color: AppColor.secondary.color()),
-            body: SingleChildScrollView(child: Form(
+            body: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -173,7 +173,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                     profileCreate.healthcareSelected != true ? SizedBox(height: 20,) : ChipFilter(onSelected: selectPicker, data: profileCreate.healthcare, selected: profileCreate.selectedHealthcare,),
                     SizedBox(height: 20,),
                     otherCondition("Other", profileCreate.selectedHealthcare) && profileCreate.healthcareSelected == true ? IconMultiInput(hint: "Describe your condition", validationText: "Please insert something", icon: Icon(Icons.local_hospital),)  : SizedBox(height: 20,),
-                  ],),),),
+                  ],),),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
           ),
             makePage(
@@ -199,7 +199,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
             page: 5,
             title: 'Community',
             header: HeaderText(text: "Community", fontsize: 30, color: AppColor.secondary.color()),
-            body: SingleChildScrollView(child: Form(
+            body: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -223,14 +223,14 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                     SizedBox(height: 20,), 
                     ChipFilter(onSelected: selectPicker, data: profileCreate.areas, selected: profileCreate.selectedCommunityAreas)]
                     ): SizedBox(height: 20,),
-                  ],),),),
+                  ],),),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
           ),
            makePage(
             page: 6,
             title: 'Help Services',
             header: HeaderText(text: "Project Helping Hand", fontsize: 30, color: AppColor.secondary.color()),
-            body: SingleChildScrollView(child: Form(
+            body: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -255,14 +255,14 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                     SizedBox(height: 20,), 
                     ChipFilter(onSelected: selectPicker, data: profileCreate.areas, selected: profileCreate.selectedHelpAreas)]
                     ): SizedBox(height: 20,),
-                  ],),),),
+                  ],),),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
           ),
            makePage(
             page: 7,
             title: 'Events',
             header: HeaderText(text: "Events", fontsize: 30, color: AppColor.secondary.color()),
-            body: SingleChildScrollView(child: Form(
+            body: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -287,14 +287,14 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                     SizedBox(height: 20,), 
                     ChipFilter(onSelected: selectPicker, data: profileCreate.areas, selected: profileCreate.selectedEventAreas)]
                     ): SizedBox(height: 20,),
-                  ],),),),
+                  ],),),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
           ),
           makePage(
             page: 8,
             title: "General Settings",
             header: HeaderText(text: "General Settings", fontsize: 30, color: AppColor.secondary.color()),
-            body: SingleChildScrollView(child: Form(
+            body: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -312,14 +312,14 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                     SizedBox(height: 20,),
                     Center(child: Image(height: 350,
                     image: !profileCreate.uiSelected  ? AssetImage("assets/images/smartespoowelcome.png") : AssetImage("assets/images/profile.png"))),
-                  ],),),),
+                  ],),),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
           ),
            makePage(
             page: 9,
             title: "Finalizing",
             header: HeaderText(text: "Finalizing", fontsize: 30, color: AppColor.secondary.color()),
-            body: SingleChildScrollView(child: Form(
+            body: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -337,7 +337,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                     BodyText(text: "Thank you for filling out the profile! This will greatly enhance our ability to provide right services for you and should make using the app much more pleasant and useful for you.", fontsize: 15, color: AppColor.darkText.color() ),
                     SizedBox(height: 40,),
                     LoginButton(text: "SUBMIT PROFILE", validateSubmit:_validateSubmit,)
-                  ],),),),
+                  ],),),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
           ),
           makePage(
@@ -354,6 +354,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
   }
 
   Widget makePage({ title, image, header, body, info, page}) {
+    index = page-1;
     final width = MediaQuery.of(context).size.width;
     final heigth = MediaQuery.of(context).size.height;
     return Container(
