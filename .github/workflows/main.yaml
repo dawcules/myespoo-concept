@@ -1,6 +1,5 @@
-
 #The name of your workflow.
-name:  Test, build and deploy Flutter app
+name:  Test, build and deploy a Flutter app
 # Trigger the workflow on push or pull request
 on: [push,pull_request]
 #A workflow run is made up of one or more jobs. Jobs run in parallel by default.
@@ -8,13 +7,10 @@ jobs:
   test:
     #The type of machine to run the job on. [windows,macos, ubuntu , self-hosted]
     runs-on: macos-latest
-    #sequence of tasks called
     steps:
       # The branch or tag ref that triggered the workflow will be checked out.
-      # https://github.com/actions/checkout
       - uses: actions/checkout@v1
       # Setup a flutter environment.
-      # https://github.com/marketplace/actions/flutter-action
       - uses: subosito/flutter-action@v1
         with:
           flutter-version: '1.12.14'
@@ -22,15 +18,57 @@ jobs:
       - run: flutter pub get
       # run static analys code
       - run: flutter  analyze
-      # run  flutter widgets tests  and unit tests
+      # run  flutter widgets tests and unit tests
       - run: flutter test --coverage
-  build_deploy:
-    #if conditional to prevent a job from running
+
+  ios:
+    #if conditional to prevent a job from running unnecessarily
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: macos-latest
     #Identifies any jobs that must complete successfully before this job will run. 
     needs: [test]
-    name: Build  apk  and web
+    name: Build iOS
+    runs-on: macOS-latest
+    strategy:
+      matrix:
+        destination: ['platform=iOS Simulator,OS=13.1,name=iPad Air 2']
+        xcode: ['/Applications/Xcode_11.1.app/Contents/Developer']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Bundle Install
+        run: bundle install
+        env:
+          BUNDLE_GITHUB__COM: x-access-token:${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}
+      - name: Dependencies
+        run: |
+          carthage bootstrap --no-use-binaries --platform iOS --cache-builds
+          bundle exec pod install
+        env:
+          DEVELOPER_DIR: ${{ matrix.xcode }}
+      - name: Build and test
+        run: bundle exec fastlane scan --destination "${destination}" --scheme "YOUR_APP_SCHEME"
+        env:
+          destination: ${{ matrix.destination }}
+          DEVELOPER_DIR: ${{ matrix.xcode }}
+      - name: Archive Failed Tests artifacts
+        if: failure()
+        uses: actions/upload-artifact@v1
+        with:
+          name: FailureDiff
+          path: YouAppTests/FailureDiffs
+      - name: Releasing
+        run: bundle exec fastlane release
+        env:
+          DEVELOPER_DIR: ${{ matrix.xcode }}
+          YOUR_ENVIRONMENT_VARIABLES_HERE: ${{ secret.XXX }}
+
+  android_web:
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: macos-latest
+    #Identifies any jobs that must complete successfully before this job will run. 
+    needs: [test, ios]
+    name: Build for Android and Web
     steps:
       - uses: actions/checkout@v1
       - uses: subosito/flutter-action@v1
@@ -42,10 +80,8 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
-      #enable macos,windows   and  web
+      #enable macos,windows and  web
       - run: flutter  config --enable-web
-      #- run: flutter  config --enable-macos-desktop
-      #- run: flutter  config --enable-windows-desktop
       - run: flutter pub get
       # build Android version
       - run: flutter build apk --debug --split-per-abi
