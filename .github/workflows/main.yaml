@@ -21,47 +21,51 @@ jobs:
       # run  flutter widgets tests and unit tests
       - run: flutter test --coverage
 
-  ios:
+ # ios:
     #if conditional to prevent a job from running unnecessarily
-    if: startsWith(github.ref, 'refs/tags/v')
-    runs-on: macos-latest
+  #  if: startsWith(github.ref, 'refs/tags/v')
+   # runs-on: macos-latest
     #Identifies any jobs that must complete successfully before this job will run. 
-    needs: [test]
-    name: Build iOS
-    runs-on: macOS-latest
-    strategy:
-      matrix:
-        destination: ['platform=iOS Simulator,OS=13.1,name=iPad Air 2']
-        xcode: ['/Applications/Xcode_11.1.app/Contents/Developer']
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Bundle Install
-        run: bundle install
-        env:
-          BUNDLE_GITHUB__COM: x-access-token:${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}
-      - name: Dependencies
-        run: |
-          carthage bootstrap --no-use-binaries --platform iOS --cache-builds
-          bundle exec pod install
-        env:
-          DEVELOPER_DIR: ${{ matrix.xcode }}
-      - name: Build and test
-        run: bundle exec fastlane scan --destination "${destination}" --scheme "YOUR_APP_SCHEME"
-        env:
-          destination: ${{ matrix.destination }}
-          DEVELOPER_DIR: ${{ matrix.xcode }}
-      - name: Archive Failed Tests artifacts
-        if: failure()
-        uses: actions/upload-artifact@v1
-        with:
-          name: FailureDiff
-          path: YouAppTests/FailureDiffs
-      - name: Releasing
-        run: bundle exec fastlane release
-        env:
-          DEVELOPER_DIR: ${{ matrix.xcode }}
-          YOUR_ENVIRONMENT_VARIABLES_HERE: ${{ secret.XXX }}
+    #needs: [test]
+    #name: Build iOS
+    #runs-on: macOS-latest
+    #strategy:
+    #  matrix:
+    #    destination: ['platform=iOS Simulator,OS=13.1,name=iPad Air 2']
+    #    xcode: ['/Applications/Xcode_11.1.app/Contents/Developer']
+    #steps:
+    #  - name: Checkout
+    #    uses: actions/checkout@v1
+    #    name: Install gpg
+    #   run: brew install gnupg
+     # - name: Setup provisioning profile
+     #   env:
+     #     IOS_KEYS: ${{ secrets.IOS_KEYS }}
+     #   run: ./.github/secrets/decrypt_secrets.sh
+     #   env:
+     #     BUNDLE_GITHUB__COM: x-access-token:${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}
+     # - name: Dependencies
+     #   run: |
+     #     carthage bootstrap --no-use-binaries --platform iOS --cache-builds
+     #     bundle exec pod install
+     #   env:
+     #     DEVELOPER_DIR: ${{ matrix.xcode }}
+     # - name: Build and test
+     #   run: bundle exec fastlane scan --destination "${destination}" --scheme "YOUR_APP_SCHEME"
+     #   env:
+     #     destination: ${{ matrix.destination }}
+     #     DEVELOPER_DIR: ${{ matrix.xcode }}
+     #- name: Archive Failed Tests artifacts
+     #   if: failure()
+     #   uses: actions/upload-artifact@v1
+     #   with:
+     #     name: FailureDiff
+     #     path: YouAppTests/FailureDiffs
+     # - name: Releasing
+     #   run: bundle exec fastlane release
+     #   env:
+     #     DEVELOPER_DIR: ${{ matrix.xcode }}
+     #     YOUR_ENVIRONMENT_VARIABLES_HERE: ${{ secret.XXX }}#
 
   android_web:
     if: startsWith(github.ref, 'refs/tags/v')
@@ -83,6 +87,7 @@ jobs:
       #enable macos,windows and  web
       - run: flutter  config --enable-web
       - run: flutter pub get
+      - run: flutter build ios --release --no-codesign
       # build Android version
       - run: flutter build apk --debug --split-per-abi
       # This action will create a github release and optionally upload an artifact to it.
