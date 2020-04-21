@@ -109,7 +109,6 @@ Future<void> createDocument(String collection, Map<String, dynamic> newDoc) asyn
         await _db.collection(collection).document().setData(newDoc); 
 }
 
-// Building profile
 Map<String,dynamic> buildProfile(
   bool beaconIsSelected,
   bool healthcareSelected,
@@ -170,8 +169,9 @@ Map<String,dynamic> buildProfile(
   }
   // Luodaan valitun collectionin alle uusi document. 
 Future<void> createProfile(String user, Map<String, dynamic> profile) async {
-        await _db.collection(user).document().setData(profile); 
+        await _db.collection("users").document(user).setData(profile); 
 }
+
 
   factory Database() => _instance;
 }
