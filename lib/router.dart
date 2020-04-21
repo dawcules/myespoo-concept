@@ -27,9 +27,6 @@ class Router {
       case '/': // The absolute first page
         return MaterialPageRoute(
             builder: (_) => AuthCheck());
-      case '/feed':
-          return MaterialPageRoute(
-            builder: (_) => SpeechNavigationOverlay(child: GeneralFeed()));
       case '/home':
         return MaterialPageRoute(
             builder: (_) => SpeechNavigationOverlay(child: GeneralFeed()));

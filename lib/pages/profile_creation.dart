@@ -77,12 +77,17 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
   void _validateSubmit({context, state}){
     profileCreate.takeValues();
     profileCreate.createAccount();
+    _navigate();
     /*
    if (_formKey.currentState.validate()) {
       print("Creating!!");
       
     }
     */
+  }
+
+  void _navigate(){
+    Navigator.of(context).pushNamed("/home");
   }
 
  
