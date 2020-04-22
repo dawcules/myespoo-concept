@@ -3,7 +3,9 @@ import 'package:cityprog/widgets/Inputs/address_picker.dart';
 import 'package:flutter/material.dart';
 
 class OriginDestinationColumn extends StatelessWidget {
-  const OriginDestinationColumn({Key key}) : super(key: key);
+  final Function onOriginPicked;
+  final Function onDestinationPicked;
+  const OriginDestinationColumn({this.onOriginPicked, this.onDestinationPicked});
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +14,11 @@ class OriginDestinationColumn extends StatelessWidget {
       children: <Widget>[
         AddressPicker(
           hintText: LocalizedCommunityStrings.fromToLocalized(),
+          onAddressPicked: onOriginPicked,
         ),
         AddressPicker(
           hintText: LocalizedCommunityStrings.destinationToLocalized(),
+          onAddressPicked: onDestinationPicked,
         ),
       ],
     );

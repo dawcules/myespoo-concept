@@ -8,10 +8,12 @@ class CarpoolUpper extends StatefulWidget {
   final Function onPressedOffer;
   final Function onPressedAsk;
   final Function onPressedBrowse;
+  final bool isBrowing;
   const CarpoolUpper({
     @required this.onPressedOffer,
     @required this.onPressedAsk,
     @required this.onPressedBrowse,
+    @required this.isBrowing,
   });
 
   @override
@@ -34,8 +36,17 @@ class _CarpoolUpperState extends State<CarpoolUpper> {
               onPressedBrowse: widget.onPressedBrowse,
               isCarpoolPage: true,
             ),
-            TextDateWithCalendarPicker(),
+            widget.isBrowing != null && widget.isBrowing
+                ? TextDateWithCalendarPicker(onDatePicked: (DateTime date) => _onDatePicked(date),)
+                : Padding(
+                    padding: EdgeInsets.all(0),
+                  ),
           ],
         ));
+  }
+
+  void _onDatePicked(DateTime date) {
+    print("Sorting by date not implemented in carpool_upper.dart");
+    print("Picked Date: $date");
   }
 }

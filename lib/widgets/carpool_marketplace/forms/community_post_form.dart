@@ -1,5 +1,4 @@
 import 'package:cityprog/model/trade_methods.dart';
-import 'package:cityprog/widgets/buttons/submit_form_button.dart';
 import 'package:cityprog/widgets/rows/trade_method_row.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +22,6 @@ class CommunityPostForm extends StatelessWidget {
                 mainAxisAlign: MainAxisAlignment.center,
               ),
               CommunityForm(_tradeMethod),
-              SubmitFormButton(onPress: () => print("submit!"))
             ],
           ),
         ),

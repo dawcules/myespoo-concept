@@ -53,6 +53,7 @@ class _CarpoolPageState extends State<CarpoolPage> {
         onPressedBrowse: _buttonShouldBeEnabled(UpperButtonsState.BROWSING)
             ? () => _onBrowsePressed()
             : null,
+            isBrowing: state == UpperButtonsState.BROWSING,
       ),
       _buildLowerSection(),
     ];

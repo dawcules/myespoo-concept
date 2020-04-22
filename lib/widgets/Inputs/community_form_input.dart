@@ -7,14 +7,17 @@ class CommunityFormInput extends StatelessWidget {
   final FontWeight fontWeight;
   final Color color;
   final Color borderColor;
+  final Function validator;
 
-  CommunityFormInput(
-      {this.hint,
-      this.maxLines,
-      this.fontSize,
-      this.fontWeight,
-      this.color,
-      this.borderColor});
+  CommunityFormInput({
+    this.hint,
+    this.maxLines,
+    this.fontSize,
+    this.fontWeight,
+    this.color,
+    this.borderColor,
+    this.validator,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,7 @@ class CommunityFormInput extends StatelessWidget {
               bottom: BorderSide(
         color: Colors.grey[300],
       ))),
-      child: TextField(
+      child: TextFormField(
         keyboardType: TextInputType.multiline,
         style: TextStyle(
           fontSize: fontSize ?? 20,
@@ -41,6 +44,7 @@ class CommunityFormInput extends StatelessWidget {
             fontWeight: fontWeight ?? FontWeight.normal,
           ),
         ),
+        validator: validator ?? null,
       ),
     );
   }

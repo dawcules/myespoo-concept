@@ -1,16 +1,20 @@
 class TitleDetailsValidator {
-  bool titleValidated = false;
-  bool detailsValidated = false;
+  bool _titleValidated = false;
+  bool _detailsValidated = false;
+
+  TitleDetailsValidator();
 
   bool validateDetails(String value) {
-    return (value.length > 10);
+    _titleValidated = value.length > 10;
+    return (value.length < 10);
   }
 
   bool validateTitle(String value) {
-    return (value.length > 5);
+    _detailsValidated = value.length > 5;
+    return (value.length < 5);
   }
 
   bool validate() {
-    return titleValidated && detailsValidated;
+    return (_titleValidated && _detailsValidated);
   }
 }
