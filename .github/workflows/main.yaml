@@ -95,7 +95,7 @@ jobs:
       - name: Create a Release APK
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "build/app/outputs/apk/debug/*.apk,build/macos/Build/Products/Release/*.app", "/Users/runner/runners/2.169.0/work/cityprog/cityprog/build/ios/iphoneos/*.app"
+          artifacts: "build/app/outputs/apk/debug/*.apk,/Users/runner/runners/2.169.0/work/cityprog/cityprog/build/ios/iphoneos/*.app"
           token: ${{ secrets.GITHUB_TOKEN }}
       # build Flutter web version
       - run: flutter build web
