@@ -1,7 +1,9 @@
+import 'package:fb_auth/fb_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -16,6 +18,7 @@ class _MessageHandlerState extends State<MessageHandler> {
   final FirebaseMessaging _fcm = FirebaseMessaging();
   var iosSubscription;
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  AuthUser _user;
 
   @override
   void initState() {
@@ -105,7 +108,7 @@ class _MessageHandlerState extends State<MessageHandler> {
   }
 
   _saveDeviceToken() async {
-    String uid = 'Gmpyu42rUyEuust5tudj';
+    String uid = _user.uid != null ? _user.uid : 'Gmpyu42rUyEuust5tudj';
     String fcmToken = await _fcm.getToken();
     if (fcmToken != null) {
       var tokenRef = _db
@@ -131,9 +134,13 @@ class _MessageHandlerState extends State<MessageHandler> {
       },
     );
     }
-
+  
   @override
   Widget build(BuildContext context) {
-    return Container(width: 0,height: 0,);
+    return BlocBuilder<AuthBloc, AuthState>(
+      builder: (context, state) {
+      _user = AuthBloc.currentUser(context);
+      return Container(width: 0,height: 0,);
+      });   
   }
 }

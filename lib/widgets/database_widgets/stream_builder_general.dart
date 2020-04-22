@@ -1,3 +1,4 @@
+import 'package:cityprog/handlers/message_handler.dart';
 import 'package:cityprog/styles/color_palette.dart';
 import 'package:flutter/material.dart';
 import '../database_model/database.dart';
@@ -63,6 +64,7 @@ class ListViewBuilder extends StatelessWidget {
                   if (index == 0)
                     Column(
                       children: <Widget>[
+                        MessageHandler(),
                         CurrentWeatherCard(),
                         Divider(),
                       ],

@@ -19,6 +19,7 @@ class AuthCheck extends StatelessWidget {
           final _user = AuthBloc.currentUser(context);
           if(ProfileCreate().isAccountCreating())
           { 
+            print("bootstrapper account creation");
             ProfileCreate().creatingAccount();
             ProfileCreate().createProfile(user:_user.uid);
             return SpeechNavigationOverlay(child: GeneralFeed());
