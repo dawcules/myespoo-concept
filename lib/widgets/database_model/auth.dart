@@ -24,6 +24,14 @@ class Auth {
     _auth.close();
     _userChanged?.cancel();
   }
+
+  void setUser({AuthUser user}){
+    _user = user;
+  }
+  AuthUser getUser(){
+    return _user;
+  }
+
   void initAuth(){
     _auth = AuthBloc(saveUser: _saveUser, deleteUser: _deleteUser, app: _app);
     final _fbAuth = FBAuth(_app);

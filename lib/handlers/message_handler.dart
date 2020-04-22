@@ -1,3 +1,4 @@
+import 'package:cityprog/widgets/database_model/auth.dart';
 import 'package:fb_auth/fb_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -23,6 +24,7 @@ class _MessageHandlerState extends State<MessageHandler> {
   @override
   void initState() {
     super.initState();
+    _user = Auth().getUser();
      var initializationSettingsAndroid = new AndroidInitializationSettings('@mipmap/ic_launcher'); 
     var initializationSettingsIOS = new IOSInitializationSettings();
     var initializationSettings = new InitializationSettings(
@@ -32,18 +34,19 @@ class _MessageHandlerState extends State<MessageHandler> {
         onSelectNotification: selectNotification);
     if (Platform.isIOS) {
       iosSubscription = _fcm.onIosSettingsRegistered.listen((data){
-        _saveDeviceToken();
+        _saveDeviceToken(user:_user);
       });
       _fcm.requestNotificationPermissions(
         IosNotificationSettings(),
       );
     } else {
-      _saveDeviceToken();
+      _saveDeviceToken(user:_user);
     }
 
     _fcm.configure(
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage: $message");
+        
         /*THIS IS CODE FOR SNACKBAR
         final snackbar = SnackBar(
           content: Text(message['notification']['title']),
@@ -107,12 +110,12 @@ class _MessageHandlerState extends State<MessageHandler> {
     );
   }
 
-  _saveDeviceToken() async {
-    String uid = _user.uid != null ? _user.uid : 'Gmpyu42rUyEuust5tudj';
+  _saveDeviceToken({user}) async {
+    String uid = user.uid != null ? user.uid : 'Gmpyu42rUyEuust5tudj';
     String fcmToken = await _fcm.getToken();
     if (fcmToken != null) {
       var tokenRef = _db
-          .collection('Citizen')
+          .collection('users')
           .document(uid)
           .collection('tokens')
           .document(fcmToken);
@@ -139,7 +142,7 @@ class _MessageHandlerState extends State<MessageHandler> {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
-      _user = AuthBloc.currentUser(context);
+      //_user = AuthBloc.currentUser(context);
       return Container(width: 0,height: 0,);
       });   
   }
