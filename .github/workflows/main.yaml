@@ -87,7 +87,7 @@ jobs:
       #enable macos,windows and  web
       - run: flutter  config --enable-web
       - run: flutter pub get
-      - run: flutter build ios --release --no-codesign
+      - run: flutter build ios #--release --no-codesign
       - run: cd ios
       - run: xcodebuild -workspace Runner.xcworkspace -scheme Runner -sdk iphoneos -configuration Release archive -archivePath $PWD/build/Runner.xcarchive
       - run: xcodebuild -exportArchive -archivePath $PWD/build/Runner.xcarchive -exportOptionsPlist exportOptions.plist -exportPath $PWD/build/Runner.ipa
