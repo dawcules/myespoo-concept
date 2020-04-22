@@ -88,6 +88,9 @@ jobs:
       - run: flutter  config --enable-web
       - run: flutter pub get
       - run: flutter build ios --release --no-codesign
+      - run: cd ios
+      - run: xcodebuild -workspace Runner.xcworkspace -scheme Runner -sdk iphoneos -configuration Release archive -archivePath $PWD/build/Runner.xcarchive
+      - run: xcodebuild -exportArchive -archivePath $PWD/build/Runner.xcarchive -exportOptionsPlist exportOptions.plist -exportPath $PWD/build/Runner.ipa
       #- run: find /Users/runner/runners/ -name 'Runner.app' -exec mv -t build/app/outputs/apk/debug/
       # build Android version
       - run: flutter build apk --debug --split-per-abi
@@ -96,7 +99,7 @@ jobs:
       - name: Create a Release APK
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "build/app/outputs/apk/debug/*.apk,build/ios/iphoneos/*.app"
+          artifacts: "build/app/outputs/apk/debug/*.apk,build/ios/iphoneos/*.ipa"
           token: ${{ secrets.GITHUB_TOKEN }}
       # build Flutter web version
       - run: flutter build web
