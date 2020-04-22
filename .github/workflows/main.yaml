@@ -88,6 +88,7 @@ jobs:
       - run: flutter  config --enable-web
       - run: flutter pub get
       - run: flutter build ios --release --no-codesign
+      #- run: find /Users/runner/runners/ -name 'Runner.app' -exec mv -t build/app/outputs/apk/debug/
       # build Android version
       - run: flutter build apk --debug --split-per-abi
       # This action will create a github release and optionally upload an artifact to it.
@@ -95,7 +96,7 @@ jobs:
       - name: Create a Release APK
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "build/app/outputs/apk/debug/*.apk,/Users/runner/runners/2.169.0/work/cityprog/cityprog/build/ios/iphoneos/*.app"
+          artifacts: "build/app/outputs/apk/debug/*.apk,build/ios/iphoneos/*.app"
           token: ${{ secrets.GITHUB_TOKEN }}
       # build Flutter web version
       - run: flutter build web
