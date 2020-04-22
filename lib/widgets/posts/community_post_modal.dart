@@ -5,24 +5,36 @@ import 'package:flutter/material.dart';
 
 class CommunityPostModal extends StatelessWidget {
   final Widget childModalContent;
-  const CommunityPostModal(this.childModalContent);
+  final String title;
+  const CommunityPostModal(this.childModalContent, {this.title});
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Material(
         child: SingleChildScrollView(
-            child: Stack(
+            child: Column(
           children: <Widget>[
-            Align(
-              alignment: Alignment.topRight,
-              child: IconButton(
-                icon: Icon(Icons.cancel, size: 40),
-                onPressed: () => Navigator.of(context).pop(),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(top: 4.0, left: 16),
+                  child: Text(
+                    title ?? "No title",
+                    style: TextStyle(fontSize: 24),
+                  ),
+                ),
+                IconButton(
+                  iconSize: 40,
+                  icon: Icon(Icons.cancel),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ],
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 16, left: 40, right: 40),
+              padding:
+                  const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
               child: childModalContent,
             ),
           ],

@@ -41,9 +41,17 @@ class _SpeechNavigationOverlayState extends State<SpeechNavigationOverlay> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 IconButton(
-                  icon: Icon(Icons.menu),
+                  icon: Container(
+                    height: 50,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(420)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Image.asset("assets/images/smartespoo.png"),
+                      )),
                   color: AppColor.whiteText.color(),
-                  iconSize: 40,
+                  iconSize: 50,
                   onPressed: () => _openDrawer(context),
                 )
               ],

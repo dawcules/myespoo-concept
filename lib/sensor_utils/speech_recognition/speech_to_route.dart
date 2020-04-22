@@ -1,5 +1,7 @@
+import 'package:cityprog/strings/danger_strings.dart';
 import 'package:cityprog/strings/string_provider.dart';
 import 'package:cityprog/widgets/dialogs/commands_dialog.dart';
+import 'package:cityprog/widgets/dialogs/danger_dialog.dart';
 import 'package:cityprog/widgets/dialogs/keywords_dialog.dart';
 import 'package:cityprog/widgets/posts/report_form.dart';
 import 'package:flutter/material.dart';
@@ -71,6 +73,7 @@ class SpeechToRoute {
   }
 
   void evaluateSpeech(String transcription) {
+    print(transcription);
     // Recognized words from user speech input into a list
     List<String> transcriptionToList = transcription.split(" ");
     // The first word in user speech input is assumed to be a command
@@ -126,6 +129,11 @@ class SpeechToRoute {
           }
         }
       }
+    } else if (DangerStrings.all.contains(userCommand)) {
+      showDialog(
+        context: _context,
+        child: DangerDialog(),
+      );
     } else {
       // The command was unknown
       Toast.show(

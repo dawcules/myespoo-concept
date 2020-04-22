@@ -1,6 +1,5 @@
+import 'package:cityprog/styles/color_palette.dart';
 import 'package:flutter/material.dart';
-
-import '../../strings/string_provider.dart';
 
 class ContinueButton extends StatelessWidget {
   @override
@@ -9,10 +8,7 @@ class ContinueButton extends StatelessWidget {
       onPressed: () => Navigator.of(context).pop(),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text(
-          StringProvider.continueToLocalized(),
-          style: TextStyle(fontSize: 20),
-        ),
+        child: Icon(Icons.check_box, size: 50, color: AppColor.button.color(),)
       ),
     );
   }

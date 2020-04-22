@@ -1,3 +1,4 @@
+import 'package:cityprog/strings/localized_descriptions.dart';
 import 'package:flutter/material.dart';
 
 import '../buttons/continue_button_localized.dart';
@@ -9,46 +10,70 @@ class KeywordsDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-        contentPadding: EdgeInsets.all(0),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: buildCommandsList(context),
-            ),
-            Row(
-              children: <Widget>[
-                Flexible(
-                  flex: 1,
-                  child: Image.asset("assets/images/smartespoo.png"),
+    return SafeArea(
+      child: Material(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                // Header row
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(LocalizedDescriptions.routeToLocalized(),
+                        style: TextStyle(fontSize: 32)),
+                    Text(LocalizedDescriptions.exampleToLocalized(),
+                        style: TextStyle(fontSize: 32)),
+                  ],
                 ),
-                Flexible(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 16),
-                    child: ContinueButton(),
+              ),
+              // List of routes and their examples
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 16, horizontal: 0),
+                child: buildCommandsList(context),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Flexible(
+                    flex: 1,
+                    child: Image.asset("assets/images/smartespoo.png"),
                   ),
-                ),
-              ],
-            ),
-          ],
-        ));
+                  Flexible(
+                    flex: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: ContinueButton(),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Widget buildCommandsList(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.4,
-      width: MediaQuery.of(context).size.width * 0.85,
-      child: ListView.builder(
-          itemCount: keywords.length,
-          itemBuilder: (BuildContext context, int position) {
-            return Padding(
-              padding: EdgeInsets.all(8),
-              child: getRow(position, context),
-            );
-          }),
+      decoration: BoxDecoration(border: Border.all(width: 1)),
+      height: MediaQuery.of(context).size.height * 0.66,
+      width: MediaQuery.of(context).size.width,
+      child: Scrollbar(
+        child: ListView.builder(
+            itemCount: keywords.length,
+            itemBuilder: (BuildContext context, int position) {
+              return Padding(
+                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+                child: getRow(position, context),
+              );
+            }),
+      ),
     );
   }
 
