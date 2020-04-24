@@ -17,7 +17,7 @@ class Database {
   Stream<QuerySnapshot> getEvents(){
     return _db.collection('Events').snapshots();
   }
-
+  
   /* Spesifimpi versio. Etsii kansalaisen Larry ja ottaa hänen henkilönkohtaiset tapahtumansa streamina*/
   Stream<QuerySnapshot> getSpecifiedEvents(){
     return _db.collection('Citizen').document('Larry').collection('personalEvents').snapshots();
@@ -87,28 +87,6 @@ void updateValue(String document, int value, DocumentReference ref){
   }
 
   //Haluan luoda uuden Documentin tyhjästä. Teen sen näin.
-Map<String,dynamic> buildDocument() {
-
-    //Initializing the Alicollection jos sellanen halutaan. 
-    Map<String, List<String>> innerCollection = new Map<String, List<String>>();
-    innerCollection['kirjasto'] = [];
-    innerCollection['terveydenhuolto'] = [];
-    innerCollection['kela'] = [];
-
-    //Pää Doc
-    Map<String, dynamic> mainDoc = Map<String, dynamic>();
-    mainDoc['nimi'] = '';
-    mainDoc['palvelut'] = innerCollection;
-    mainDoc['ikä'] = '';
-    mainDoc['muuta'] = '';
-
-    return mainDoc;
-  }
-  // Luodaan valitun collectionin alle uusi document.
-Future<void> createDocument(String collection, Map<String, dynamic> newDoc) async {
-        await _db.collection(collection).document().setData(newDoc); 
-}
-
 Map<String,dynamic> buildProfile(
   bool beaconIsSelected,
   bool healthcareSelected,
