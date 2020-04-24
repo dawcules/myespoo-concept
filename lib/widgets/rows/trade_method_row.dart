@@ -18,7 +18,7 @@ class TradeMethodRow extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
-              _method.toLocalizedString(),
+              _method != null ? _method.toLocalizedString() : "Trade method is null......",
               style: TextStyle(
                 color: AppColor.whiteText.color(),
                 fontSize: fontSize ?? 20,

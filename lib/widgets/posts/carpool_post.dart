@@ -33,7 +33,7 @@ class CarpoolPostWidget extends StatelessWidget {
                   ),
                 ),
                 Flexible(
-                  flex: 2,
+                  flex: 3,
                   child: Row(
                     children: <Widget>[
                       Padding(
