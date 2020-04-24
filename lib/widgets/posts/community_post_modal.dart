@@ -18,11 +18,14 @@ class CommunityPostModal extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 4.0, left: 16),
-                  child: Text(
-                    title ?? "No title",
-                    style: TextStyle(fontSize: 24),
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 16, left: 16),
+                    child: Text(
+                      title ?? "No title",
+                      maxLines: 4,
+                      style: TextStyle(fontSize: 28),
+                    ),
                   ),
                 ),
                 IconButton(

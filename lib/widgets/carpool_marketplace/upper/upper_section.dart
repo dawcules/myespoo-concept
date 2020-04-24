@@ -27,13 +27,12 @@ class _UpperSectionState extends State<UpperSection> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-          child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: _body(),
-      )),
-    );
+    return Container(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: _body(),
+        ),
+      );
   }
 
   Widget _body() {
