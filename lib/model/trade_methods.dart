@@ -27,7 +27,7 @@ extension TrademethodToString on Trading {
         return LocalizedCommunityStrings.offeringToLocalized();
         break;
       default:
-        return "unknown trading meth.. wtf";
+        return null;
     }
   }
 }

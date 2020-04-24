@@ -42,26 +42,26 @@ final List<MarketPostData> posts = [post1, post2, post3, post4];
 final MarketPostData post1 = MarketPostData(
     title: "Ostetaan wc paperia",
     body: "Ostetaan wc paperia 5€ rulla. Lambia kiitos",
-    postedBy: "Metti Mäikäläinen",
+    uid: "Metti Mäikäläinen",
     price: 5,
     tradeMethod: Trading.BUYING,
     postDate: DateTime.now());
 final MarketPostData post2 = MarketPostData(
     title: "Blue stuff",
     body: "You know what I'm talking about",
-    postedBy: "Heisenberg",
+    uid: "Heisenberg",
     price: 51.99,
     tradeMethod: Trading.SELLING,
     postDate: DateTime.now());
 final MarketPostData post3 = MarketPostData(
     title: "Giving away stuff",
     body: "",
-    postedBy: "Free Stuff Giver",
+    uid: "Free Stuff Giver",
     tradeMethod: Trading.FREE,
     postDate: DateTime.now());
 final MarketPostData post4 = MarketPostData(
     title: "Buying stuff",
     body: "Buying all the stuff. Testing a longer body text here to see how it would look...",
-    postedBy: "Mikael",
+    uid: "Mikael",
     tradeMethod: Trading.BUYING,
     postDate: DateTime.now());

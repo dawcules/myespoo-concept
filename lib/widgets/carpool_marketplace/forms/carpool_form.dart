@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cityprog/model/carpool.dart';
 import 'package:cityprog/model/trade_methods.dart';
 import 'package:cityprog/validation/origin_destination_validator.dart';
@@ -5,8 +7,10 @@ import 'package:cityprog/widgets/buttons/submit_form_button.dart';
 import 'package:cityprog/widgets/carpool_marketplace/forms/custom_expansion_tile.dart';
 import 'package:cityprog/widgets/columns/origin_destination.dart';
 import 'package:cityprog/widgets/columns/title_details_column.dart';
+import 'package:cityprog/widgets/database_model/database.dart';
 import 'package:cityprog/widgets/rows/text_date_with_calendar.dart';
 import 'package:cityprog/widgets/rows/time_picker.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class CarpoolForm extends StatefulWidget {
@@ -75,7 +79,7 @@ class _CarpoolFormState extends State<CarpoolForm> {
           ),
           SubmitFormButton(
             onPress: _validate,
-            onValidatedSuccess: () => _submitPost(),
+            onValidatedSuccess: () => _submitPost(context),
           )
         ],
       ),
@@ -116,16 +120,34 @@ class _CarpoolFormState extends State<CarpoolForm> {
     callback(validator.validate() && _timeWasPicked && _dateWasPicked);
   }
 
-  _submitPost() {
-    print("asking submitted");
+  // TODO title ja details ei tallennu atm
+
+  void _submitPost(BuildContext context) async {
     CarpoolPostData post = CarpoolPostData(
-      body: _body,
-      title: _title,
-      from: _origin,
-      postDate: DateTime.now(),
-      to: _destination,
-      timeOfDay: _selectedTime,
-      date: _selectedDate,
-    );
+        body: _body,
+        title: _title,
+        origin: _origin,
+        postDate: DateTime.now(),
+        destination: _destination,
+        timeOfDay: _selectedTime,
+        date: _selectedDate,
+        tradeMethod: widget.method);
+
+    String tradeMethod =
+        widget.method == Trading.ASKING ? 'Needing' : 'Offering';
+    Database().newCarpoolPost(
+        post.toMap(context: context),
+        tradeMethod,
+        (onValue, error) => {
+              if (!error)
+                {
+                  Navigator.of(context).pushReplacementNamed("/market"),
+                  print(onValue)
+                }
+              else
+                print("Error creating carpool psot")
+            });
+
+    Navigator.of(context).pushReplacementNamed("/market");
   }
 }

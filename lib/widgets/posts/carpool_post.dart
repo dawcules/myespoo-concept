@@ -44,7 +44,7 @@ class CarpoolPostWidget extends StatelessWidget {
                           children: <Widget>[
                             _originDestinationRow(
                               LocalizedCommunityStrings.fromToLocalized(),
-                              postData.from,
+                              postData.origin,
                               context,
                             ),
                             Padding(
@@ -53,7 +53,7 @@ class CarpoolPostWidget extends StatelessWidget {
                             _originDestinationRow(
                               LocalizedCommunityStrings
                                   .destinationToLocalized(),
-                              postData.to,
+                              postData.destination,
                               context,
                             ),
                             Padding(

@@ -99,7 +99,7 @@ class _MarketPlacePageState extends State<MarketPlacePage> {
   }
 
   void _moreOnPress(MarketPostData post) {
-    print("Posted by: ${post.postedBy} on ${post.postDate}");
+    print("Posted by: ${post.uid} on ${post.postDate}");
     showDialog(
         context: context,
         child: Padding(

@@ -80,7 +80,7 @@ class _CarpoolPageState extends State<CarpoolPage> {
   }
 
   void _onMorePressed(CarpoolPostData post) {
-    print("more button pressed. Post by: ${post.postedBy}");
+    print("more button pressed. Post by: ${post.uid}");
     showDialog(
         context: context,
         child: Padding(

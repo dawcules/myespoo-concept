@@ -44,32 +44,32 @@ final List<CarpoolPostData> posts = [post1, post2, post3, post4];
 final CarpoolPostData post1 = CarpoolPostData(
     title: "Tarjotaan kyytiä",
     body: "Tarjotaan kyytiä Lohjalle",
-    postedBy: "Mikael",
-    from: "Espoo",
-    to: "Lohja",
+    uid: "Mikael",
+    origin: "Espoo",
+    destination: "Lohja",
     tradeMethod: Trading.OFFERING,
     postDate: DateTime.now());
 final CarpoolPostData post2 = CarpoolPostData(
     title: "Tarjotaan kyytiä Tampereelle",
     body: "Some body text",
-    postedBy: "Mikael",
-    from: "Espoo",
-    to: "Tampere",
+    uid: "Mikael",
+    origin: "Espoo",
+    destination: "Tampere",
     tradeMethod: Trading.OFFERING,
     postDate: DateTime.now());
 final CarpoolPostData post3 = CarpoolPostData(
     title: "Tarvitsisin kyydin töihin",
     body: "Some body text",
-    postedBy: "Mikael",
-    from: "Koronakatu",
-    to: "Metropolian osote",
+    uid: "Mikael",
+    origin: "Koronakatu",
+    destination: "Metropolian osote",
     tradeMethod: Trading.ASKING,
     postDate: DateTime.now());
 final CarpoolPostData post4 = CarpoolPostData(
     title: "Olisiko kyytiä Helsingin keskustaan huomiseksi?",
     body: "Some body text",
-    postedBy: "Mikael",
-    from: "Koronakatu",
-    to: "Helsingin keskusta",
+    uid: "Mikael",
+    origin: "Koronakatu",
+    destination: "Helsingin keskusta",
     tradeMethod: Trading.ASKING,
     postDate: DateTime.now());

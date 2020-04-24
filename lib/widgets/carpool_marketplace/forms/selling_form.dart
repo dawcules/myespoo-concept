@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cityprog/model/market.dart';
@@ -100,19 +101,14 @@ class _SellingFormState extends State<SellingForm> {
       body: _titleDetailsValidator.details,
       imageUri: _image != null ? _image.uri : null,
       postDate: DateTime.now(),
-      postedBy: Auth().getUID(),
+      uid: Auth().getUID(),
       price: _price,
       title: _titleDetailsValidator.title,
       tradeMethod: _method
       
       );
-    print(post.body);
-    print(post.title);
-    print(post.tradeMethod);
-    print(post.postDate);
-    print(post.postedBy);
-    print(post.imageUri);
-    print(post.price);
+    var json = jsonEncode(post.toMap());
+    print(json);
     Navigator.of(context).pushReplacementNamed("/market");
   }
 }
