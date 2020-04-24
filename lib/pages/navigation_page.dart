@@ -1,5 +1,4 @@
 import 'package:cityprog/strings/navigation_strings.dart';
-import 'package:cityprog/styles/color_palette.dart';
 import 'package:cityprog/widgets/rows/icon_and_route_name.dart';
 import 'package:cityprog/handlers/message_handler.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +10,6 @@ class NavigationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double multiplier = logoSizeMultiplier != null ? logoSizeMultiplier : 1;
-    print(multiplier);
     return Container(
       color: Colors.transparent,
       width: MediaQuery.of(context).size.width * multiplier,
