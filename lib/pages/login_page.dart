@@ -4,7 +4,7 @@ import 'package:cityprog/widgets/Inputs/boxed_form_password.dart';
 import 'package:cityprog/widgets/buttons/login_button.dart';
 import 'package:cityprog/widgets/containers/box_container.dart';
 import 'package:cityprog/widgets/database_model/auth.dart';
-//import 'package:fb_auth/data/blocs/auth/auth_event.dart';
+import 'package:cityprog/strings/login_strings.dart';
 import 'package:fb_auth/fb_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -79,18 +79,18 @@ class _LoginState extends State<LoginPage> {
                 if (state is AuthLoadingState) ...[Center(child: CircularProgressIndicator())],
                 if (state is !AuthLoadingState)...[
                 FadeAnimation(1.5,
-                HeaderText(text: "Login", fontsize: 30, color:  AppColor.secondary.color())),
+                HeaderText(text: LoginStrings.loginHeaderToLocalized(), fontsize: 30, color:  AppColor.secondary.color())),
                 SizedBox(height: 20),
                 FadeAnimation(1.5, ShadowedBoxContainer(childWidgets: <Widget>[
-                BoxedFormEmail(hint: "Email", validationText: "Insert a proper email",validation: formValidation.validateEmail, controller: _emailController),
-                BoxedFormPassword(hint: "Password", validationText: "Password must be at least 6 characters", passwordController: _passwordController, validation: formValidation.validatePw,),
+                BoxedFormEmail(hint: LoginStrings.emailToLocalized(), validationText: LoginStrings.emailValidationToLocalized(),validation: formValidation.validateEmail, controller: _emailController),
+                BoxedFormPassword(hint: LoginStrings.passwordToLocalized(), validationText: LoginStrings.passwordValidationToLocalized(), passwordController: _passwordController, validation: formValidation.validatePw,),
                 ],)),
                 SizedBox(height: 10),
-                FadeAnimation(1.7 , CenteredText(text: "Forgot password?", color: AppColor.primary.color(), navigateToPage: _toProfile)),
+                FadeAnimation(1.7 , CenteredText(text: LoginStrings.forgotPwToLocalized(), color: AppColor.primary.color(), navigateToPage: _toProfile)),
                 SizedBox(height: 10),
-                FadeAnimation(1.9 ,LoginButton(text: "LOGIN", validateSubmit: _validateSubmit)),
+                FadeAnimation(1.9 ,LoginButton(text: LoginStrings.loginBtnToLocalized(), validateSubmit: _validateSubmit)),
                 SizedBox(height: 10),
-                FadeAnimation(2, CenteredText(text: "Create Account", color:  AppColor.primary.color(), navigateToPage: _toProfile,)),],
+                FadeAnimation(2, CenteredText(text: LoginStrings.createAccToLocalized(), color:  AppColor.primary.color(), navigateToPage: _toProfile,)),],
                
               ],
             ),

@@ -1,4 +1,5 @@
 import 'package:cityprog/model/profile_create.dart';
+import 'package:cityprog/strings/profile_strings.dart';
 import 'package:cityprog/styles/color_palette.dart';
 import 'package:cityprog/validation/validation.dart';
 import 'package:cityprog/widgets/Inputs/icon_form_confirmpw.dart';
@@ -7,6 +8,7 @@ import 'package:cityprog/widgets/Inputs/icon_form_password.dart';
 import 'package:cityprog/widgets/Inputs/icon_multiline_input.dart';
 import 'package:cityprog/widgets/buttons/login_button.dart';
 import 'package:cityprog/widgets/filters/chip_filter.dart';
+import 'package:cityprog/widgets/filters/streamforfilter.dart';
 import 'package:cityprog/widgets/links/centered_text.dart';
 import 'package:cityprog/widgets/texts/body_text.dart';
 import 'package:cityprog/widgets/texts/header_text.dart';
@@ -27,8 +29,8 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStateMixin {
   PageController _pageController;
-  final _formKey = new GlobalKey<FormState>();
- 
+  int index;
+
   Validation formValidation = new Validation();
   ProfileCreate profileCreate = new ProfileCreate();
 
@@ -73,17 +75,17 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
       default: print("no switch selected");
     }
   }
+
   
   void _validateSubmit({context, state}){
     profileCreate.takeValues();
-    profileCreate.createAccount();
-    _navigate();
-    /*
-   if (_formKey.currentState.validate()) {
-      print("Creating!!");
-      
-    }
-    */
+    if(ProfileCreate().profileValidation()){
+      print("creating!!");
+      profileCreate.createAccount();
+      _navigate();}
+    else{
+        print("Horrifyingly bad profilemaking");
+      } 
   }
 
   void _navigate(){
@@ -118,52 +120,52 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
         children: <Widget>[
           makePage(
             page: 1,
-            title: 'Account Information',
-            header: HeaderText(text: "Account Information", fontsize: 30, color: AppColor.secondary.color()),
-            body: SingleChildScrollView(child: Form(key: _formKey, 
+            title: ProfileStrings.p1HeaderToLocalized(),
+            header: HeaderText(text: ProfileStrings.p1HeaderToLocalized(), fontsize: 30, color: AppColor.secondary.color()),
+            body: SingleChildScrollView(
                   child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                  IconFormInput(hint: "Email", validationText: "Insert a proper email",validation: formValidation.validateEmail, icon: Icon(Icons.alternate_email),controller: profileCreate.emailController,),
-                  IconFormPassword(hint: "Password", validationText: "Password cannot be empty", validation: formValidation.validatePw ,passwordController: profileCreate.passwordController, icon: Icon(Icons.security)),
-                  IconFormConfirm(hint: "Repeat Password", validationText: "Please make sure passwords match", validation: formValidation.confirmPw, passwordController: profileCreate.passwordController,icon: Icon(Icons.security)),
-                  ],),),),
-            info: CenteredText(text: "More info", color:  AppColor.primary.color()),
+                  IconFormInput(hint: ProfileStrings.emailToLocalized(), validationText: ProfileStrings.emailValidationToLocalized(),validation: formValidation.validateEmail, icon: Icon(Icons.alternate_email),controller: profileCreate.emailController,),
+                  IconFormPassword(hint: ProfileStrings.passwordToLocalized(), validationText: ProfileStrings.passwordValidationToLocalized(), validation: formValidation.validatePw ,passwordController: profileCreate.passwordController, icon: Icon(Icons.security)),
+                  IconFormConfirm(hint: ProfileStrings.cfPasswordToLocalized(), validationText: ProfileStrings.cfPasswordValidationToLocalized(), validation: formValidation.confirmPw, passwordController: profileCreate.passwordController,icon: Icon(Icons.security), controller: ProfileCreate().cfpasswordController,),
+                  ],),),
+            info: CenteredText(text: ProfileStrings.moreInfoToLocalized(), color:  AppColor.primary.color()),
           ),
           makePage(
             page: 2,
-            title: 'Personal Information',
-            header: HeaderText(text: "Personal Information (DEMO)", fontsize: 30, color: AppColor.secondary.color()),
-            body: SingleChildScrollView(child: Form(
+            title: ProfileStrings.p2HeaderToLocalized(),
+            header: HeaderText(text: ProfileStrings.p2HeaderToLocalized(), fontsize: 30, color: AppColor.secondary.color()),
+            body: SingleChildScrollView(
                   child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround, 
                   children: [
-                  BodyText(text: "All of the following is normally done with TUPAS indentification", fontsize: 15, color: AppColor.darkText.color() ),
+                  BodyText(text: ProfileStrings.p2infoTextToLocalized(), fontsize: 15, color: AppColor.darkText.color() ),
                   SizedBox(height: 10,),
-                  IconFormInput(hint: "First Name", validationText: "Please insert a proper first name", validation: formValidation.validateText, icon: Icon(Icons.face), controller: profileCreate.fNameController,),
-                  IconFormInput(hint: "Surname", validationText: "Please insert a proper surname",validation: formValidation.validateText, icon: Icon(Icons.person_pin),controller: profileCreate.lNameController,),
-                  IconFormInput(hint: "Birthday", validationText: "Please insert a proper birthday",validation: formValidation.validateText, icon: Icon(Icons.cake),controller: profileCreate.bdayController,),
-                  IconFormInput(hint: "Area", validationText: "Nono",validation: formValidation.validateText, icon: Icon(Icons.add_location),controller: profileCreate.areaController),
-                  IconFormInput(hint: "Address", validationText: "Nono",validation: formValidation.validateText, icon: Icon(Icons.email), controller: profileCreate.addressController,),
-                  IconFormInput(hint: "Postal Code", validationText: "Nono",validation: formValidation.validateText, icon: Icon(Icons.code),controller: profileCreate.postalController,),
-                  ],),),),
-            info: CenteredText(text: "More information", color:  AppColor.primary.color()),
+                  IconFormInput(hint: ProfileStrings.fNameToLocalized(), validationText: ProfileStrings.fNameValidationToLocalized(), validation: formValidation.validateText, icon: Icon(Icons.face), controller: profileCreate.fNameController,),
+                  IconFormInput(hint: ProfileStrings.lNameToLocalized(), validationText: ProfileStrings.lNameValidationToLocalized(),validation: formValidation.validateText, icon: Icon(Icons.person_pin),controller: profileCreate.lNameController,),
+                  IconFormInput(hint: ProfileStrings.birthdayToLocalized(), validationText: ProfileStrings.birthdayValidationToLocalized(),validation: formValidation.validateText, icon: Icon(Icons.cake),controller: profileCreate.bdayController,),
+                  IconFormInput(hint: ProfileStrings.areaToLocalized(), validationText: ProfileStrings.areaValidationToLocalized(),validation: formValidation.validateText, icon: Icon(Icons.add_location),controller: profileCreate.areaController),
+                  IconFormInput(hint: ProfileStrings.addressToLocalized(), validationText: ProfileStrings.addressValidationToLocalized(),validation: formValidation.validateText, icon: Icon(Icons.email), controller: profileCreate.addressController,),
+                  IconFormInput(hint: ProfileStrings.postalCodeToLocalized(), validationText: ProfileStrings.postalCodeValidationToLocalized(),validation: formValidation.validateText, icon: Icon(Icons.code),controller: profileCreate.postalController,),
+                  ],),),
+            info: CenteredText(text: ProfileStrings.moreInfoToLocalized(), color:  AppColor.primary.color()),
           ),
           makePage(
             page: 3,
-            title: 'Healthcare',
-            header: HeaderText(text: "Healthcare", fontsize: 30, color: AppColor.secondary.color()),
-            body: SingleChildScrollView(child: Form(
+            title: ProfileStrings.p3headerToLocalized(),
+            header: HeaderText(text: ProfileStrings.p3headerToLocalized(), fontsize: 30, color: AppColor.secondary.color()),
+            body: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                    BodyText(text: "We can offer you customized medical services on your approval, also greatly enhance your ability to move around inside a smart city", fontsize: 15, color: AppColor.darkText.color() ),
+                    BodyText(text: ProfileStrings.p3infoTextToLocalized(), fontsize: 15, color: AppColor.darkText.color() ),
                     SizedBox(height: 10,),
                     ProfileSwitch(
-                    label: BodyText(text: "Enhanced medical services", fontsize: 15, color: AppColor.darkText.color() ),
+                    label: BodyText(text: ProfileStrings.enhancedMedToLocalized(), fontsize: 15, color: AppColor.darkText.color() ),
                     padding: EdgeInsets.symmetric(horizontal: 20.0),
                     value: profileCreate.healthcareSelected,
                     category: "healthcare",
@@ -173,40 +175,40 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                     profileCreate.healthcareSelected != true ? SizedBox(height: 20,) : ChipFilter(onSelected: selectPicker, data: profileCreate.healthcare, selected: profileCreate.selectedHealthcare,),
                     SizedBox(height: 20,),
                     otherCondition("Other", profileCreate.selectedHealthcare) && profileCreate.healthcareSelected == true ? IconMultiInput(hint: "Describe your condition", validationText: "Please insert something", icon: Icon(Icons.local_hospital),)  : SizedBox(height: 20,),
-                  ],),),),
+                  ],),),
             info: CenteredText(text: "More information", color:  AppColor.primary.color()),
           ),
             makePage(
             page: 4,
-            title: 'Emergency Detection',
-            header: HeaderText(text: "Emergency Beacon", fontsize: 30, color: AppColor.secondary.color()),
+            title: ProfileStrings.p4headerToLocalized(),
+            header: HeaderText(text: ProfileStrings.p4headerToLocalized(), fontsize: 30, color: AppColor.secondary.color()),
             body: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    BodyText(text: "Need hjelp this should probably not be a selectable attribute?", fontsize: 15, color: AppColor.darkText.color() ),
+                    BodyText(text: ProfileStrings.p4InfoTextToLocalized(), fontsize: 15, color: AppColor.darkText.color() ),
                     SizedBox(height: 10,),
                     ProfileSwitch(
-                    label: BodyText(text: "Apply Emergency Beacon", fontsize: 15, color: AppColor.darkText.color() ),
+                    label: BodyText(text: ProfileStrings.p4InfoText2ToLocalized(), fontsize: 15, color: AppColor.darkText.color() ),
                     padding: EdgeInsets.symmetric(horizontal: 20.0),
                     value: profileCreate.beaconIsSelected ,
                     category: "emergency",
                     icon: Icon(Icons.add_alert),
                     onChanged: switchStateTracker,),
             ],),
-            info: CenteredText(text: "More information", color:  AppColor.primary.color()),
+            info: CenteredText(text: ProfileStrings.moreInfoToLocalized(), color:  AppColor.primary.color()),
           ),
           makePage(
             page: 5,
-            title: 'Community',
-            header: HeaderText(text: "Community", fontsize: 30, color: AppColor.secondary.color()),
-            body: SingleChildScrollView(child: Form(
+            title: ProfileStrings.p5headerToLocalized(),
+            header: HeaderText(text: ProfileStrings.p5headerToLocalized(), fontsize: 30, color: AppColor.secondary.color()),
+            body: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                    BodyText(text: "Would you like to be part of the espoo area community? This includes all kinds of services related to users interacting with each other.", fontsize: 15, color: AppColor.darkText.color() ),
-                    SizedBox(height: 10,),
+                    BodyText(text: ProfileStrings.p5InfoTextToLocalized(), fontsize: 15, color: AppColor.darkText.color() ),
+                    SizedBox(height: 10,),    
                     ProfileSwitch(
-                    label: BodyText(text: "Partake in community activity", fontsize: 15, color: AppColor.darkText.color() ),
+                    label: BodyText(text: ProfileStrings.communityToLocalized(), fontsize: 15, color: AppColor.darkText.color() ),
                     padding: EdgeInsets.symmetric(horizontal: 20.0),
                     value: profileCreate.communitySelected,
                     category: "community",
@@ -214,31 +216,31 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                     onChanged: switchStateTracker,),
                     SizedBox(height: 20,),
                     profileCreate.communitySelected != true ? SizedBox(height: 20,) : ChipFilter(onSelected: selectPicker, data: profileCreate.community, selected: profileCreate.selectedCommunity,),
-                     SizedBox(height: 20,),
+                    SizedBox(height: 20,),
                     otherCondition("Local Activities", profileCreate.selectedCommunity) && profileCreate.communitySelected == true ?
                     Column(  
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                    BodyText(text: "Select areas you're fine travelling to.", fontsize: 15, color: AppColor.darkText.color()),
+                    BodyText(text: ProfileStrings.areaToLocalized(), fontsize: 15, color: AppColor.darkText.color()),
                     SizedBox(height: 20,), 
-                    ChipFilter(onSelected: selectPicker, data: profileCreate.areas, selected: profileCreate.selectedCommunityAreas)]
+                    StreamForFilter(onSelected: selectPicker, selected: profileCreate.selectedCommunityAreas, myQuery: "Areas",)]
                     ): SizedBox(height: 20,),
-                  ],),),),
-            info: CenteredText(text: "More information", color:  AppColor.primary.color()),
+                  ],),),
+            info: CenteredText(text: ProfileStrings.moreInfoToLocalized(), color:  AppColor.primary.color()),
           ),
            makePage(
             page: 6,
-            title: 'Help Services',
-            header: HeaderText(text: "Project Helping Hand", fontsize: 30, color: AppColor.secondary.color()),
-            body: SingleChildScrollView(child: Form(
+            title: ProfileStrings.p6headerToLocalized(),
+            header: HeaderText(text: ProfileStrings.p6headerToLocalized(), fontsize: 30, color: AppColor.secondary.color()),
+            body: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                    BodyText(text: "Interested in volunteer work?", fontsize: 15, color: AppColor.darkText.color() ),
+                    BodyText(text: ProfileStrings.p6InfoTextToLocalized(), fontsize: 15, color: AppColor.darkText.color() ),
                     SizedBox(height: 10,),
                     ProfileSwitch(
-                    label: BodyText(text: "What kind?", fontsize: 15, color: AppColor.darkText.color() ),
+                    label: BodyText(text: ProfileStrings.p6InfoText2ToLocalized(), fontsize: 15, color: AppColor.darkText.color() ),
                     padding: EdgeInsets.symmetric(horizontal: 20.0),
                     value: profileCreate.helpSelected,
                     category: "help",
@@ -251,26 +253,26 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                     Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,  
-                    children: [BodyText(text: "Areas", fontsize: 15, color: AppColor.darkText.color()),
+                    children: [BodyText(text: ProfileStrings.areaToLocalized(), fontsize: 15, color: AppColor.darkText.color()),
                     SizedBox(height: 20,), 
-                    ChipFilter(onSelected: selectPicker, data: profileCreate.areas, selected: profileCreate.selectedHelpAreas)]
+                    StreamForFilter(onSelected: selectPicker, selected: profileCreate.selectedHelpAreas, myQuery: "Areas",)]
                     ): SizedBox(height: 20,),
-                  ],),),),
-            info: CenteredText(text: "More information", color:  AppColor.primary.color()),
+                  ],),),
+            info: CenteredText(text: ProfileStrings.moreInfoToLocalized(), color:  AppColor.primary.color()),
           ),
            makePage(
             page: 7,
-            title: 'Events',
-            header: HeaderText(text: "Events", fontsize: 30, color: AppColor.secondary.color()),
-            body: SingleChildScrollView(child: Form(
+            title: ProfileStrings.p7headerToLocalized(),
+            header: HeaderText(text: ProfileStrings.p7headerToLocalized(), fontsize: 30, color: AppColor.secondary.color()),
+            body: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                    BodyText(text: "Are you interested in being informed about events happening near you?", fontsize: 15, color: AppColor.darkText.color() ),
+                    BodyText(text: ProfileStrings.p7InfoTextToLocalized(), fontsize: 15, color: AppColor.darkText.color() ),
                     SizedBox(height: 10,),
                     ProfileSwitch(
-                    label: BodyText(text: "What kind of events would you be interested in?", fontsize: 15, color: AppColor.darkText.color() ),
+                    label: BodyText(text: ProfileStrings.p7InfoText2ToLocalized(), fontsize: 15, color: AppColor.darkText.color() ),
                     padding: EdgeInsets.symmetric(horizontal: 20.0),
                     value: profileCreate.eventSelected,
                     category: "events",
@@ -285,25 +287,25 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                     mainAxisAlignment: MainAxisAlignment.spaceAround,  
                     children: [BodyText(text: "Areas", fontsize: 15, color: AppColor.darkText.color()),
                     SizedBox(height: 20,), 
-                    ChipFilter(onSelected: selectPicker, data: profileCreate.areas, selected: profileCreate.selectedEventAreas)]
+                    StreamForFilter(onSelected: selectPicker, selected: profileCreate.selectedEventAreas, myQuery: "Areas",)]
                     ): SizedBox(height: 20,),
-                  ],),),),
-            info: CenteredText(text: "More information", color:  AppColor.primary.color()),
+                  ],),),
+            info: CenteredText(text: ProfileStrings.moreInfoToLocalized(), color:  AppColor.primary.color()),
           ),
           makePage(
             page: 8,
-            title: "General Settings",
-            header: HeaderText(text: "General Settings", fontsize: 30, color: AppColor.secondary.color()),
-            body: SingleChildScrollView(child: Form(
+            title: ProfileStrings.p8headerToLocalized(),
+            header: HeaderText(text: ProfileStrings.p8headerToLocalized(), fontsize: 30, color: AppColor.secondary.color()),
+            body: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                    BodyText(text: "Which style of UI would you prefer?", fontsize: 15, color: AppColor.darkText.color() ),
+                    BodyText(text: ProfileStrings.p8InfoTextToLocalized(), fontsize: 15, color: AppColor.darkText.color() ),
                     SizedBox(height: 20,),
                     ProfileSwitch(
-                    label: !profileCreate.uiSelected  ? BodyText(text: "Traditional", fontsize: 15, color: AppColor.darkText.color())
-                    : BodyText(text: "Modern", fontsize: 15, color: AppColor.darkText.color()),
+                    label: !profileCreate.uiSelected  ? BodyText(text: ProfileStrings.traditionalToLocalized(), fontsize: 15, color: AppColor.darkText.color())
+                    : BodyText(text: ProfileStrings.modernToLocalized(), fontsize: 15, color: AppColor.darkText.color()),
                     padding: EdgeInsets.symmetric(horizontal: 20.0),
                     value: profileCreate.uiSelected,
                     category: "UI",
@@ -312,40 +314,40 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                     SizedBox(height: 20,),
                     Center(child: Image(height: 350,
                     image: !profileCreate.uiSelected  ? AssetImage("assets/images/smartespoowelcome.png") : AssetImage("assets/images/profile.png"))),
-                  ],),),),
-            info: CenteredText(text: "More information", color:  AppColor.primary.color()),
+                  ],),),
+            info: CenteredText(text: ProfileStrings.moreInfoToLocalized(), color:  AppColor.primary.color()),
           ),
            makePage(
             page: 9,
-            title: "Finalizing",
-            header: HeaderText(text: "Finalizing", fontsize: 30, color: AppColor.secondary.color()),
-            body: SingleChildScrollView(child: Form(
+            title: ProfileStrings.p9headerToLocalized(),
+            header: HeaderText(text: ProfileStrings.p9headerToLocalized(), fontsize: 30, color: AppColor.secondary.color()),
+            body: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                    BodyText(text: "Do you wish to receive notifications?", fontsize: 15, color: AppColor.darkText.color() ),
+                    BodyText(text: ProfileStrings.p9infoTextToLocalized(), fontsize: 15, color: AppColor.darkText.color() ),
                     SizedBox(height: 10,),
                     ProfileSwitch(
-                    label: BodyText(text: "Notifications", fontsize: 15, color: AppColor.darkText.color() ),
+                    label: BodyText(text: ProfileStrings.p9infoText2ToLocalized(), fontsize: 15, color: AppColor.darkText.color() ),
                     padding: EdgeInsets.symmetric(horizontal: 20.0),
                     value: profileCreate.notificationsSelected,
                     category: "notifications",
                     icon: Icon(Icons.event),
                     onChanged: switchStateTracker,),
                     SizedBox(height: 40,),
-                    BodyText(text: "Thank you for filling out the profile! This will greatly enhance our ability to provide right services for you and should make using the app much more pleasant and useful for you.", fontsize: 15, color: AppColor.darkText.color() ),
+                    BodyText(text: ProfileStrings.p9infoText3ToLocalized(), fontsize: 15, color: AppColor.darkText.color() ),
                     SizedBox(height: 40,),
-                    LoginButton(text: "SUBMIT PROFILE", validateSubmit:_validateSubmit,)
-                  ],),),),
-            info: CenteredText(text: "More information", color:  AppColor.primary.color()),
+                    LoginButton(text: ProfileStrings.submitToLocalized(), validateSubmit:_validateSubmit,)
+                  ],),),
+            info: CenteredText(text: ProfileStrings.moreInfoToLocalized(), color:  AppColor.primary.color()),
           ),
           makePage(
             page: 10,
             title: 'Example Database fetch list',
             header: HeaderText(text: "Database Steambuilder example", fontsize: 30, color: AppColor.secondary.color()),
             body: StreamBuilderExample(myQuery: 'Tapahtumat',),
-            info: CenteredText(text: "More information", color:  AppColor.primary.color()),
+            info: CenteredText(text: ProfileStrings.moreInfoToLocalized(), color:  AppColor.primary.color()),
           ),
         ],
       ),
@@ -354,6 +356,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
   }
 
   Widget makePage({ title, image, header, body, info, page}) {
+    index = page-1;
     final width = MediaQuery.of(context).size.width;
     final heigth = MediaQuery.of(context).size.height;
     return Container(
