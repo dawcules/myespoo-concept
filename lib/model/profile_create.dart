@@ -47,8 +47,8 @@ class ProfileCreate {
 
   List<String> healthcare = ["Wheelchair", "Physical Disability", "Depression", "Mental Disability", "Illness", "Vision impaired", "Other"];
   List<String> selectedHealthcare = [];
-  List<String> areas = ["Leppävaara", "Tapiola","Vanha-Espoo", "Matinkylä", "Espoonlahti", "Pohjois Espoo" ];
-
+  //List<String> areas = ["Leppävaara", "Tapiola","Vanha-Espoo", "Matinkylä", "Espoonlahti", "Pohjois Espoo" ];
+  
   List<String> community = ["Carpool", "Marketplace","Recycling", "Local Activities", ];
   List<String> selectedCommunity = [];
   List<String> selectedCommunityAreas= [];
