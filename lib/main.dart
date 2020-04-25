@@ -1,4 +1,3 @@
-import 'package:cityprog/platform/io.dart';
 import 'package:cityprog/widgets/database_model/auth.dart';
 import 'package:fb_auth/fb_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  setTargetPlatformForDesktop();
   runApp(MyApp());
 }
 
