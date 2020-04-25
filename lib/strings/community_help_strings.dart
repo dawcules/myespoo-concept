@@ -20,7 +20,8 @@ class LocalizedCommunityHelpStrings {
   static const String signUpFI = 'Ilmoittaudu';
   static const String signDescFI =
       'Ilmoittautumalla avuntarjoajaksi autat muita selviämään arjen askareissa ja edistät yleistä hyvinvointia';
-  static const String askHelpBtnFI = "Luo uusi pyyntö";
+  static const String askHelpBtnFI = 'Luo uusi pyyntö';
+  static const String postedFI = 'Ilmoitus jätetty';
 
   // ENG
   static const String titleEN = 'Smart Espoo   -   Help Services';
@@ -40,6 +41,22 @@ class LocalizedCommunityHelpStrings {
   static const String signDescEN =
       'Sign up as a helper to help others manage their everyday lives better and to uphold general wellbeing';
   static const String askHelpBtnEN = "Create a new request";
+    static const String postedEN = 'Ad posted on';
+
+    static String postedToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return postedFI;
+        break;
+      case Language.EN:
+        return postedEN;
+        break;
+      default:
+        return postedEN;
+        break;
+    }
+  }
+
 
   static String askHelpToLocalized() {
     switch (CurrentLanguage.value) {
