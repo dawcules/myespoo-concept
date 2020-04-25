@@ -16,7 +16,6 @@ class _CommunityHelpRequestState extends State<CommunityHelpRequest> {
 
         // TODO: Create localized strings, send form data to FS
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
