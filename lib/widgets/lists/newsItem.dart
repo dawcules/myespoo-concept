@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:cityprog/strings/string_provider.dart' show Language;
+import 'package:cityprog/current_language.dart';
 //import 'package:cityprog/styles/color_palette.dart';
 import 'package:xml2json/xml2json.dart';
 import 'dart:async';
@@ -10,16 +12,18 @@ import 'package:url_launcher/url_launcher.dart';
 
 Future<News> fetchNews(String contentId) async {
   final myTransformer = Xml2Json();
-  /* String language;
+  String language;
   if (CurrentLanguage.value == Language.FI) {
-    language = 'fi';
+    language = '1';
   } else {
-    language = 'en';
-  } */
+    language = '2';
+  }
+
+  print('https://www.espoo.fi/api/opennc/v1/ContentLanguages($language)/Contents($contentId)/ExtendedProperties');
+
   final response =
     await http.get(
-      'https://www.espoo.fi/api/opennc/v1/ContentLanguages(1)/Contents($contentId)/ExtendedProperties');
-
+      'https://www.espoo.fi/api/opennc/v1/ContentLanguages($language)/Contents($contentId)/ExtendedProperties');
     if (response.statusCode == 200) {
       myTransformer.parse(response.body);
       var resJson = myTransformer.toGData();
@@ -44,13 +48,21 @@ class News {
   final String text;
   final String imgUrl;
 
-
   News({this.text, this.imgUrl});
 
   factory News.fromJson(Map<String, dynamic> json) {
+    String img;
+      var urlString = json['feed']['entry'][2]['content']['m\$properties']['d\$Text']['\$t'];
+      print(urlString);
+      if (urlString != null && urlString.length > 15) {
+        img = urlString.toString().split('"')[1];
+      } else {
+        img = 'no pic :(';
+      }
+  
     return News(
       text: json['feed']['entry'][0]['content']['m\$properties']['d\$Text']['\$t'],
-      imgUrl: json['feed']['entry'][2]['content']['m\$properties']['d\$Text']['\$t'].toString().split('"')[1]
+      imgUrl: img.toString(),
     );
   }
 }
@@ -89,6 +101,7 @@ class _CurrentNewsCardState extends State<CurrentNewsCard> {
                       child: Text(snapshot.data.text.toString()
                         ),
                       ),
+                      VerticalDivider(),
                       CachedNetworkImage(
         imageUrl: snapshot.data.imgUrl,
         height: 160,

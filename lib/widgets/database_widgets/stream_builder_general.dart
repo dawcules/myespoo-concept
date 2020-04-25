@@ -4,6 +4,8 @@ import 'package:cityprog/widgets/lists/newsItem.dart';
 import 'package:flutter/material.dart';
 import '../database_model/database.dart';
 import 'package:http/http.dart' as http;
+import 'package:cityprog/strings/string_provider.dart' show Language;
+import 'package:cityprog/current_language.dart';
 import 'package:cityprog/widgets/lists/eventListItem.dart';
 import 'package:cityprog/widgets/lists/helpListItem.dart';
 import 'dart:convert';
@@ -59,9 +61,16 @@ class ListViewBuilder extends StatefulWidget {
 class _ListViewBuilderState extends State<ListViewBuilder> {
 
   _fetchIds() async {
+      String language;
+  if (CurrentLanguage.value == Language.FI) {
+    language = '1';
+  } else {
+    language = '2';
+  }
+
     List<String> contentList20 = [];
     var response = await http.get(
-        'https://www.espoo.fi/api/opennc/v1/ContentLanguages(1)/Contents?\$filter=TemplateId%20eq%209&\$orderby=PublicDate%20desc&\$format=json');
+        'https://www.espoo.fi/api/opennc/v1/ContentLanguages($language)/Contents?\$filter=TemplateId%20eq%209&\$orderby=PublicDate%20desc&\$format=json');
     if (response.statusCode == 200) {
       Map<String, dynamic> json = jsonDecode(response.body);
       var i = 0;
