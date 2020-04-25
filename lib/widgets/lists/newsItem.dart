@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:cityprog/strings/string_provider.dart' show Language;
 import 'package:cityprog/current_language.dart';
 //import 'package:cityprog/styles/color_palette.dart';
@@ -19,11 +20,15 @@ Future<News> fetchNews(String contentId) async {
     language = '2';
   }
 
-  print('https://www.espoo.fi/api/opennc/v1/ContentLanguages($language)/Contents($contentId)/ExtendedProperties');
+    String url;
+  if (kIsWeb) {
+    url = 'https://cors-anywhere.herokuapp.com/https://www.espoo.fi/api/opennc/v1/ContentLanguages($language)/Contents($contentId)/ExtendedProperties';
+  } else {
+    url = 'https://www.espoo.fi/api/opennc/v1/ContentLanguages($language)/Contents($contentId)/ExtendedProperties';
+  }
 
   final response =
-    await http.get(
-      'https://www.espoo.fi/api/opennc/v1/ContentLanguages($language)/Contents($contentId)/ExtendedProperties');
+    await http.get(url);
     if (response.statusCode == 200) {
       myTransformer.parse(response.body);
       var resJson = myTransformer.toGData();

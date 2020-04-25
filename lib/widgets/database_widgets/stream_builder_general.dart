@@ -4,6 +4,7 @@ import 'package:cityprog/widgets/lists/newsItem.dart';
 import 'package:flutter/material.dart';
 import '../database_model/database.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:cityprog/strings/string_provider.dart' show Language;
 import 'package:cityprog/current_language.dart';
 import 'package:cityprog/widgets/lists/eventListItem.dart';
@@ -67,10 +68,15 @@ class _ListViewBuilderState extends State<ListViewBuilder> {
   } else {
     language = '2';
   }
+  String url;
+  if (kIsWeb) {
+    url = 'https://cors-anywhere.herokuapp.com/https://www.espoo.fi/api/opennc/v1/ContentLanguages($language)/Contents?\$filter=TemplateId%20eq%209&\$orderby=PublicDate%20desc&\$format=json';
+  } else {
+    url = 'https://www.espoo.fi/api/opennc/v1/ContentLanguages($language)/Contents?\$filter=TemplateId%20eq%209&\$orderby=PublicDate%20desc&\$format=json';
+  }
 
     List<String> contentList20 = [];
-    var response = await http.get(
-        'https://www.espoo.fi/api/opennc/v1/ContentLanguages($language)/Contents?\$filter=TemplateId%20eq%209&\$orderby=PublicDate%20desc&\$format=json');
+    var response = await http.get(url);
     if (response.statusCode == 200) {
       Map<String, dynamic> json = jsonDecode(response.body);
       var i = 0;
