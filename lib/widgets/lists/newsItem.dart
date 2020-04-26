@@ -107,13 +107,14 @@ class _CurrentNewsCardState extends State<CurrentNewsCard> {
                         ),
                       ),
                       VerticalDivider(),
+                      if (!kIsWeb)
                       CachedNetworkImage(
         imageUrl: snapshot.data.imgUrl,
         height: 160,
         width: 120,
         placeholder: (context, url) => CircularProgressIndicator(),
         errorWidget: (context, url, error) => Image.asset('assets/images/smartespoo.png', width: 120, height: 160),
-     ),
+     ),Image.asset('assets/images/smartespoo.png', width: 120, height: 160),
                     ],
                   ),
                 );
