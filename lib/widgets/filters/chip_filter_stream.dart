@@ -8,7 +8,7 @@ class StreamChipFilter extends StatelessWidget {
   final selected;
   final myQueryData;
   StreamChipFilter({this.onSelected, this.selected, this.myQueryData});
-
+  
   @override
   Widget build(BuildContext context) {
           return Container( child: Wrap(

@@ -17,7 +17,7 @@ class Database {
   Stream<QuerySnapshot> getEvents(){
     return _db.collection('Events').snapshots();
   }
-  
+
   /* Spesifimpi versio. Etsii kansalaisen Larry ja ottaa hänen henkilönkohtaiset tapahtumansa streamina*/
   Stream<QuerySnapshot> getSpecifiedEvents(){
     return _db.collection('Citizen').document('Larry').collection('personalEvents').snapshots();
@@ -149,7 +149,5 @@ Map<String,dynamic> buildProfile(
 Future<void> createProfile(String user, Map<String, dynamic> profile) async {
         await _db.collection("users").document(user).setData(profile); 
 }
-
-
   factory Database() => _instance;
 }
