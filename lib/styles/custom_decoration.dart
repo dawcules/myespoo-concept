@@ -36,6 +36,7 @@ class CustomDecoration {
                           bottom: BorderSide(
                           color: Colors.grey[300],),),);
   }
+  
 
   factory CustomDecoration() => _instance;
 }

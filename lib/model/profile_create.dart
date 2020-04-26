@@ -43,6 +43,7 @@ class ProfileCreate {
   String postalAddress;
   String area;
   //TODO. DATEPICKER
+  DateTime selectedDate = DateTime.now();
   String birthday;
 
   List<String> healthcare = ["Wheelchair", "Physical Disability", "Depression", "Mental Disability", "Illness", "Vision impaired", "Other"];
