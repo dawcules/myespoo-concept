@@ -110,6 +110,7 @@ class _ListViewBuilderState extends State<ListViewBuilder> {
               return Column(
                 children: <Widget>[
                   //Apply logic for individual data sources. Return individual list items.
+                  if (!kIsWeb)
                   MessageHandler(),
                   if (index == 0)
                     Column(
