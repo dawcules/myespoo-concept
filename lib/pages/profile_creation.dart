@@ -7,6 +7,7 @@ import 'package:cityprog/widgets/Inputs/icon_form_input.dart';
 import 'package:cityprog/widgets/Inputs/icon_form_password.dart';
 import 'package:cityprog/widgets/Inputs/icon_multiline_input.dart';
 import 'package:cityprog/widgets/buttons/login_button.dart';
+import 'package:cityprog/widgets/buttons/navigationbutton.dart';
 import 'package:cityprog/widgets/filters/chip_filter.dart';
 import 'package:cityprog/widgets/filters/streamforfilter.dart';
 import 'package:cityprog/widgets/links/centered_text.dart';
@@ -19,6 +20,7 @@ import 'package:cityprog/animations/FadeAnimation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widgets/Backgrounds/background_widget.dart';
 import '../widgets/database_widgets/stream_builder_example.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 
 
@@ -82,7 +84,8 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
     if(ProfileCreate().profileValidation()){
       print("creating!!");
       profileCreate.createAccount();
-      _navigate();}
+      if(context.LoggedInState){
+       _navigate();}}
     else{
         print("Horrifyingly bad profilemaking");
       } 
@@ -92,7 +95,24 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
     Navigator.of(context).pushNamed("/home");
   }
 
- 
+  Future<Null> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: ProfileCreate().selectedDate,
+        firstDate: DateTime(1920, 8),
+        lastDate: DateTime.now());
+    if (picked != null && picked != ProfileCreate().selectedDate)
+      setState(() {
+        ProfileCreate().selectedDate = picked;
+      });
+  }
+
+  void nextPage(index){
+    _pageController.jumpToPage(index+1);
+  }
+  void previousPage(index){
+    _pageController.jumpToPage(index-1);
+  }
 
   @override
   void initState() {
@@ -146,6 +166,19 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                   SizedBox(height: 10,),
                   IconFormInput(hint: ProfileStrings.fNameToLocalized(), validationText: ProfileStrings.fNameValidationToLocalized(), validation: formValidation.validateText, icon: Icon(Icons.face), controller: profileCreate.fNameController,),
                   IconFormInput(hint: ProfileStrings.lNameToLocalized(), validationText: ProfileStrings.lNameValidationToLocalized(),validation: formValidation.validateText, icon: Icon(Icons.person_pin),controller: profileCreate.lNameController,),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Icon(Icons.calendar_today),
+                      SizedBox(width: 20,),
+                      Text("${ProfileCreate().selectedDate}".split(' ')[0]),
+                      SizedBox(width: 20.0,),
+                      RaisedButton(
+                        onPressed: () => _selectDate(context),
+                        child: Text('Select date'),
+                            ),
+                      ],
+                  ),
                   IconFormInput(hint: ProfileStrings.birthdayToLocalized(), validationText: ProfileStrings.birthdayValidationToLocalized(),validation: formValidation.validateText, icon: Icon(Icons.cake),controller: profileCreate.bdayController,),
                   IconFormInput(hint: ProfileStrings.areaToLocalized(), validationText: ProfileStrings.areaValidationToLocalized(),validation: formValidation.validateText, icon: Icon(Icons.add_location),controller: profileCreate.areaController),
                   IconFormInput(hint: ProfileStrings.addressToLocalized(), validationText: ProfileStrings.addressValidationToLocalized(),validation: formValidation.validateText, icon: Icon(Icons.email), controller: profileCreate.addressController,),
@@ -387,10 +420,20 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
             ),
           ),
           ),
+          kIsWeb ? Stack(children: <Widget>[
+             Align(
+            alignment: FractionalOffset.centerRight,
+            child: NavigationButton(icon: Icon(Icons.arrow_forward),text: "Forward", function: nextPage, index: index,),
+            ),
+          Align(
+            alignment: FractionalOffset.centerLeft,
+            child: NavigationButton(icon: Icon(Icons.arrow_back),text: "Previous", function: previousPage, index: index,),
+            ),
+          ],) : SizedBox(),
           Stack(children: <Widget>[
           Align( 
                 alignment: FractionalOffset.bottomCenter,
-                child:  FadeAnimation(2, info),
+                child: FadeAnimation(2, info),
           ),
           Align( 
                 alignment: FractionalOffset.bottomRight,
@@ -400,8 +443,8 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                 crossAxisAlignment: CrossAxisAlignment.baseline,
                 textBaseline: TextBaseline.alphabetic,
                 children: <Widget>[
-                  FadeAnimation(2, Text(page.toString(), style: TextStyle(color: Colors.blue, fontSize: 30, fontWeight: FontWeight.bold),)),
-                  Text('/' + totalPage.toString(), style: TextStyle(color: Colors.blue, fontSize: 15),)
+                  FadeAnimation(2, Text(page.toString(), style: TextStyle(color: AppColor.secondary.color(), fontSize: 30, fontWeight: FontWeight.bold),)),
+                  Text('/' + totalPage.toString(), style: TextStyle(color: Colors.blue, fontSize: 15),),
                 ],
               ),
                 ),
