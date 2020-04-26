@@ -102,7 +102,7 @@ Map<String,dynamic> buildProfile(
   String lName,
   String postalAddress,
   String area,
-  String birthday,
+  DateTime birthday,
 
   List<String> selectedHealthcare,
 

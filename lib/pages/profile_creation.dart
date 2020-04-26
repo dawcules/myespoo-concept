@@ -2,12 +2,14 @@ import 'package:cityprog/model/profile_create.dart';
 import 'package:cityprog/strings/profile_strings.dart';
 import 'package:cityprog/styles/color_palette.dart';
 import 'package:cityprog/validation/validation.dart';
+import 'package:cityprog/widgets/Inputs/dropdownstream.dart';
 import 'package:cityprog/widgets/Inputs/icon_form_confirmpw.dart';
 import 'package:cityprog/widgets/Inputs/icon_form_input.dart';
 import 'package:cityprog/widgets/Inputs/icon_form_password.dart';
 import 'package:cityprog/widgets/Inputs/icon_multiline_input.dart';
 import 'package:cityprog/widgets/buttons/login_button.dart';
 import 'package:cityprog/widgets/buttons/navigationbutton.dart';
+import 'package:cityprog/widgets/database_model/database.dart';
 import 'package:cityprog/widgets/filters/chip_filter.dart';
 import 'package:cityprog/widgets/filters/streamforfilter.dart';
 import 'package:cityprog/widgets/links/centered_text.dart';
@@ -36,7 +38,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
   Validation formValidation = new Validation();
   ProfileCreate profileCreate = new ProfileCreate();
 
-  int totalPage = 10;
+  int totalPage = 9;
 
   void _onScroll() {
   }
@@ -49,6 +51,12 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                   }
   }
 
+  void selectArea(selected){
+    print(selected);
+    setState(() {
+      ProfileCreate().area = selected;
+    });
+  }
   void selectPicker(index,selected){
      if (selected.contains(index)) {
                     selected.remove(index);
@@ -84,8 +92,8 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
     if(ProfileCreate().profileValidation()){
       print("creating!!");
       profileCreate.createAccount();
-      if(context.LoggedInState){
-       _navigate();}}
+      _navigate();
+      } 
     else{
         print("Horrifyingly bad profilemaking");
       } 
@@ -179,8 +187,9 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                             ),
                       ],
                   ),
-                  IconFormInput(hint: ProfileStrings.birthdayToLocalized(), validationText: ProfileStrings.birthdayValidationToLocalized(),validation: formValidation.validateText, icon: Icon(Icons.cake),controller: profileCreate.bdayController,),
-                  IconFormInput(hint: ProfileStrings.areaToLocalized(), validationText: ProfileStrings.areaValidationToLocalized(),validation: formValidation.validateText, icon: Icon(Icons.add_location),controller: profileCreate.areaController),
+                  DropDownStream(onSelected: selectArea, selected: profileCreate.area, myQuery: Database().getCollection("Areas"), hint: ProfileStrings.areaToLocalized()),
+                  //IconFormInput(hint: ProfileStrings.birthdayToLocalized(), validationText: ProfileStrings.birthdayValidationToLocalized(),validation: formValidation.validateText, icon: Icon(Icons.cake),controller: profileCreate.bdayController,),
+                  //IconFormInput(hint: ProfileStrings.areaToLocalized(), validationText: ProfileStrings.areaValidationToLocalized(),validation: formValidation.validateText, icon: Icon(Icons.add_location),controller: profileCreate.areaController),
                   IconFormInput(hint: ProfileStrings.addressToLocalized(), validationText: ProfileStrings.addressValidationToLocalized(),validation: formValidation.validateText, icon: Icon(Icons.email), controller: profileCreate.addressController,),
                   IconFormInput(hint: ProfileStrings.postalCodeToLocalized(), validationText: ProfileStrings.postalCodeValidationToLocalized(),validation: formValidation.validateText, icon: Icon(Icons.code),controller: profileCreate.postalController,),
                   ],),),
@@ -374,14 +383,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                     LoginButton(text: ProfileStrings.submitToLocalized(), validateSubmit:_validateSubmit,)
                   ],),),
             info: CenteredText(text: ProfileStrings.moreInfoToLocalized(), color:  AppColor.primary.color()),
-          ),
-          makePage(
-            page: 10,
-            title: 'Example Database fetch list',
-            header: HeaderText(text: "Database Steambuilder example", fontsize: 30, color: AppColor.secondary.color()),
-            body: StreamBuilderExample(myQuery: 'Tapahtumat',),
-            info: CenteredText(text: ProfileStrings.moreInfoToLocalized(), color:  AppColor.primary.color()),
-          ),
+          )
         ],
       ),
       ),

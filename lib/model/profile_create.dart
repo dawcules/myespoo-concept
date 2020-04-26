@@ -44,7 +44,7 @@ class ProfileCreate {
   String area;
   //TODO. DATEPICKER
   DateTime selectedDate = DateTime.now();
-  String birthday;
+  DateTime birthday;
 
   List<String> healthcare = ["Wheelchair", "Physical Disability", "Depression", "Mental Disability", "Illness", "Vision impaired", "Other"];
   List<String> selectedHealthcare = [];
@@ -71,9 +71,7 @@ class ProfileCreate {
   fName = fNameController.text;
   lName = lNameController.text;
   postalAddress = postalController.text;
-  area = areaController.text;
-  //DATEPICKER
-  //birthday = bdayController.text;
+  birthday = selectedDate;
   }
 
   bool profileValidation(){
@@ -84,7 +82,7 @@ class ProfileCreate {
       !_validation.validateEmail(email)
       && password == cfpassword
       && !_validation.validatePw(password)
-      && !_validation.validateText(postalAddress)
+      && area != null
     ){
       return true;
     }
