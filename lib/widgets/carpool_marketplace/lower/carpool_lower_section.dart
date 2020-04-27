@@ -1,4 +1,5 @@
 import 'package:cityprog/model/trade_methods.dart';
+import 'package:cityprog/strings/widget_texts.dart';
 import 'package:cityprog/widgets/database_model/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,11 @@ class _CarpoolLowerState extends State<CarpoolLower> {
   ListView _allPosts;
 
   int _dropdownValue; // TODO: Localize IT!
-  List<String> dropdownItems = ["Kaikki ilmoitukset", "Pyydetään", "Tarjotaan"];
+  List<String> dropdownItems = [
+    LocalizedWidgetStrings.allCategoriesToLocalized(),
+    LocalizedWidgetStrings.askingToLocalized(),
+    LocalizedWidgetStrings.offeringToLocalized()
+  ];
 
   bool _fetchedAndBuilt;
 

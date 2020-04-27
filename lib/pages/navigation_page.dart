@@ -1,6 +1,7 @@
 import 'package:cityprog/strings/navigation_strings.dart';
 import 'package:cityprog/widgets/rows/icon_and_route_name.dart';
 import 'package:cityprog/handlers/message_handler.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class NavigationPage extends StatelessWidget {
@@ -51,7 +52,11 @@ class NavigationPage extends StatelessWidget {
               padding: const EdgeInsets.only(left: 8, right: 8),
               child: generateNavigationButtons(context),
             ),
-            MessageHandler(),
+            kIsWeb
+                ? Padding(
+                    padding: EdgeInsets.all(0),
+                  )
+                : MessageHandler(),
           ],
         ),
       ),
