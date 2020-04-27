@@ -230,7 +230,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                         SizedBox(height: 20,),
                         profileCreate.healthcareSelected != true ? SizedBox(height: 20,) : ChipFilter(onSelected: selectPicker, data: profileCreate.healthcare, selected: profileCreate.selectedHealthcare,),
                         SizedBox(height: 20,),
-                        otherCondition("Other", profileCreate.selectedHealthcare) && profileCreate.healthcareSelected == true ? IconMultiInput(hint: "Describe your condition", validationText: "Please insert something", icon: Icon(Icons.local_hospital),controller: ProfileCreate().otherConditionController,)  : SizedBox(height: 20,),
+                        otherCondition("Other", profileCreate.selectedHealthcare) && profileCreate.healthcareSelected == true ? IconMultiInput(hint: ProfileStrings.otherMedToLocalized(), validationText: "Please insert something", icon: Icon(Icons.local_hospital),controller: ProfileCreate().otherConditionController,)  : SizedBox(height: 20,),
                       ],),),
                 info: CenteredText(text: "More information", color:  AppColor.primary.color()),
               ),

@@ -86,6 +86,7 @@ class _MessageHandlerState extends State<MessageHandler> {
         print("onLaunch: $message");
       },
     );
+    _fcm.subscribeToTopic("Tapahtumat");
   }
 
   Future _showNotificationWithoutSound(_post, _description,
@@ -143,7 +144,7 @@ class _MessageHandlerState extends State<MessageHandler> {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
       //_user = AuthBloc.currentUser(context);
-      return Container(width: 0,height: 0,);
+      return SizedBox();
       });   
   }
 }

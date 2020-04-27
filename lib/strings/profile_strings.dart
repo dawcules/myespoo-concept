@@ -39,6 +39,7 @@ class ProfileStrings {
   static const String p3headerFI = "Terveys";
   static const String p3InfoTextFI = "Näillä tiedoilla voimme tarjota sinulle henkilönkohtaiseen terveydentilaanne liittyviä älykkäitä ratkaisuja.";
   static const String enhancedMedFI = "Älykkäät terveys ja hyvinvointi -palvelut";
+  static const String otherMedFI = "Kuvaile vaivasi ja/tai erityistarpeesi";
 
   //FIN Page4
   static const String p4headerFI = "Turvallisuus";
@@ -110,6 +111,7 @@ class ProfileStrings {
   static const String p3headerEN = "Healthcare";
   static const String p3InfoTextEN = "We can offer you customized medical services on your approval, also greatly enhance your ability to move around inside a smart city";
   static const String enhancedMedEN = "Smart Healthcare and Wellbeing Services";
+  static const String otherMedEN = "Describe your condition";
 
   //EN Page4
   static const String p4headerEN = "Safety";
@@ -522,6 +524,19 @@ static String enhancedMedToLocalized() {
         break;
       default:
         return enhancedMedEN;
+        break;
+    }
+}
+static String otherMedToLocalized() {  
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return otherMedFI;
+        break;
+      case Language.EN:
+        return otherMedEN;
+        break;
+      default:
+        return otherMedEN;
         break;
     }
 }
