@@ -14,7 +14,7 @@ class CustomDecoration {
           borderSide: BorderSide(color: AppColor.primary.color())),
       hintText: hint,
       enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Color.fromRGBO(151, 151, 151, 1))),
+          borderSide: BorderSide(color: AppColor.hint.color())),
       hintStyle: TextStyle(color: AppColor.hint.color()),
       icon: icon != null ? icon : null,
       errorStyle: TextStyle(color: AppColor.primary.color()),
@@ -28,7 +28,7 @@ class CustomDecoration {
     return InputDecoration(
                               border: InputBorder.none,
                               hintText: hint,
-                              hintStyle: TextStyle(color: Colors.grey));
+                              hintStyle: TextStyle(color: AppColor.hint.color()));
   }
   BoxDecoration formBoxDecoration(){
     return BoxDecoration(

@@ -16,7 +16,7 @@ class IconFormInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-                          autovalidate: true,
+                          autovalidate: false,
                           controller: controller,
                           validator: (value) => validation(value) ? validationText : null,
                           style: TextStyle(color: AppColor.secondary.color(), fontFamily: 'RadikalLight'),

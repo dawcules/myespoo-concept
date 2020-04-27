@@ -7,8 +7,9 @@ class DropDownStream extends StatelessWidget {
   final Function onSelected;
   final selected;
   final myQuery;
+  final icon;
 
-  DropDownStream({this.onSelected, this.selected, this.myQuery, this.hint});
+  DropDownStream({this.onSelected, this.selected, this.myQuery, this.hint, this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class DropDownStream extends StatelessWidget {
           stream: myQuery,
           builder: (context, snapshot) {
             if (!snapshot.hasData) return const Text('Loading..');
-            return QueryDropdown(myQueryData: snapshot.data.documents, onSelected: onSelected, selected: selected, hint: hint);
+            return QueryDropdown(myQueryData: snapshot.data.documents, onSelected: onSelected, selected: selected, hint: hint, icon: icon,);
           }),
     );
   }

@@ -12,41 +12,36 @@ class QueryDropdown extends StatelessWidget {
   final myQueryData;
   final onSelected;
   final selected;
+  final icon;
 
-  QueryDropdown({this.myQueryData, this.onSelected, this.selected, this.hint});
+  QueryDropdown({this.myQueryData, this.onSelected, this.selected, this.hint, this.icon});
 
   
    @override
   Widget build(BuildContext context) {
 
-  return Container(
-        child: DropdownButton<String>(
+  return
+    Center(child:Container(
+          child: DropdownButton<String>(
           value: selected,
-          isExpanded: true,
-          hint: AutoSizeText(
+          isExpanded: false,
+          hint:Text(
             hint,
-            maxLines: 1,
-            maxFontSize: 20,
-            minFontSize: 10,
-            overflow: TextOverflow.ellipsis,       
+            style: TextStyle(color: AppColor.hint.color()) ,   
           ),
-          
           onChanged: (newValue) => onSelected(newValue),
           items: myQueryData.map<DropdownMenuItem<String>>((DocumentSnapshot document) {
                     return DropdownMenuItem<String>(
                         value: document.data["nameEN"],
                         child: Container(
-                          decoration: BoxDecoration(
-                              color: AppColor.background.color(),
-                              borderRadius: BorderRadius.circular(5.0)
-                          ),
-                          padding: EdgeInsets.fromLTRB(10.0, 2.0, 10.0, 0.0),
+                          padding: EdgeInsets.all(10),
                           //color: AppColor.secondary.color(),
-                          child: CurrentLanguage.value == Language.FI ? Text(document['nameFI'], style: TextStyle(color: AppColor.darkText.color(), fontFamily: 'RadikalLight' )) : Text(document['nameEN'],style: TextStyle(color: AppColor.darkText.color(), fontFamily: 'RadikalLight')),
+                          child: CurrentLanguage.value == Language.FI ? Text(document['nameFI'], style: TextStyle(color: AppColor.secondary.color(), fontFamily: 'RadikalLight', fontWeight: FontWeight.bold, fontSize: 20 )) : Text(document['nameEN'],style: TextStyle(color: AppColor.secondary.color(), fontFamily: 'RadikalLight', fontSize: 20 )),
                         )
                     );
                   }).toList(),
         ),
-      );
+    ),
+        );
   }
 }

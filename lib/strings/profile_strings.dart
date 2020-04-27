@@ -21,7 +21,7 @@ class ProfileStrings {
 
  //FIN Page2
   static const String p2headerFI = "Henkilönkotaiset tiedot";
-  static const String p2InfoTextFI = "Postinumeroa lukuunottamatta kaikki tiedot ovat täysin vapaaehtoisia, suosittelemme kuitenkin mahdollisimman tarkan profiilin tekemistä parhaimman mahdollisen juuri sinulle kohdistetun palveluratkaisun vastaanottamiseksi";
+  static const String p2InfoTextFI = "Ainoastaan alueen valitseminen on pakollista, mutta suosittelemme täyttämään profiilin mahdollisimman tarkasti ja realistisesti";
   static const String fNameFI = "Etunimi";
   static const String fNameValidationFI = "Vääränlainen etunimi";
   static const String lNameFI = "Sukunimi";

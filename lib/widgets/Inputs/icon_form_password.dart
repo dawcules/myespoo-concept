@@ -18,7 +18,7 @@ class IconFormPassword extends StatelessWidget {
     return 
                       TextFormField(
                             obscureText: true,
-                            autovalidate: true,
+                            autovalidate: false,
                             controller: passwordController, 
                             validator: (value) => validation(value) ? validationText : null,
                             style: TextStyle(color: AppColor.secondary.color(), fontFamily: 'RadikalLight'),

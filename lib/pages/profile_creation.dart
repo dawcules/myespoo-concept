@@ -34,6 +34,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStateMixin {
   PageController _pageController;
   int index;
+  Icon areaIcon = Icon(Icons.local_activity, color: AppColor.hint.color());
 
   Validation formValidation = new Validation();
   ProfileCreate profileCreate = new ProfileCreate();
@@ -55,6 +56,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
     print(selected);
     setState(() {
       ProfileCreate().area = selected;
+      areaIcon = Icon(Icons.local_activity, color: AppColor.primary.color());
     });
   }
   void selectPicker(index,selected){
@@ -174,24 +176,27 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                   SizedBox(height: 10,),
                   IconFormInput(hint: ProfileStrings.fNameToLocalized(), validationText: ProfileStrings.fNameValidationToLocalized(), validation: formValidation.validateText, icon: Icon(Icons.face), controller: profileCreate.fNameController,),
                   IconFormInput(hint: ProfileStrings.lNameToLocalized(), validationText: ProfileStrings.lNameValidationToLocalized(),validation: formValidation.validateText, icon: Icon(Icons.person_pin),controller: profileCreate.lNameController,),
+                  IconFormInput(hint: ProfileStrings.addressToLocalized(), validationText: ProfileStrings.addressValidationToLocalized(),validation: formValidation.validateText, icon: Icon(Icons.email), controller: profileCreate.addressController,),
+                  IconFormInput(hint: ProfileStrings.postalCodeToLocalized(), validationText: ProfileStrings.postalCodeValidationToLocalized(),validation: formValidation.validateText, icon: Icon(Icons.code),controller: profileCreate.postalController,),
+                  SizedBox(height: 20,),
                   Row(
-                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Icon(Icons.calendar_today),
                       SizedBox(width: 20,),
-                      Text("${ProfileCreate().selectedDate}".split(' ')[0]),
+                      Text("${ProfileCreate().selectedDate}".split(' ')[0] , style: TextStyle(color: AppColor.darkText.color(),fontSize: 20,), ),
                       SizedBox(width: 20.0,),
                       RaisedButton(
                         onPressed: () => _selectDate(context),
-                        child: Text('Select date'),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                        color: AppColor.button.color(),
+                        child: Text('SYNTYNYT', style: TextStyle(color: AppColor.whiteText.color(),),),
                             ),
                       ],
-                  ),
-                  DropDownStream(onSelected: selectArea, selected: profileCreate.area, myQuery: Database().getCollection("Areas"), hint: ProfileStrings.areaToLocalized()),
-                  //IconFormInput(hint: ProfileStrings.birthdayToLocalized(), validationText: ProfileStrings.birthdayValidationToLocalized(),validation: formValidation.validateText, icon: Icon(Icons.cake),controller: profileCreate.bdayController,),
-                  //IconFormInput(hint: ProfileStrings.areaToLocalized(), validationText: ProfileStrings.areaValidationToLocalized(),validation: formValidation.validateText, icon: Icon(Icons.add_location),controller: profileCreate.areaController),
-                  IconFormInput(hint: ProfileStrings.addressToLocalized(), validationText: ProfileStrings.addressValidationToLocalized(),validation: formValidation.validateText, icon: Icon(Icons.email), controller: profileCreate.addressController,),
-                  IconFormInput(hint: ProfileStrings.postalCodeToLocalized(), validationText: ProfileStrings.postalCodeValidationToLocalized(),validation: formValidation.validateText, icon: Icon(Icons.code),controller: profileCreate.postalController,),
+                  ),                 
+                  SizedBox(height: 20,),
+                  DropDownStream(onSelected: selectArea, selected: profileCreate.area, myQuery: Database().getCollection("Areas"), hint: ProfileStrings.areaToLocalized(), icon: areaIcon),
                   ],),),
             info: CenteredText(text: ProfileStrings.moreInfoToLocalized(), color:  AppColor.primary.color()),
           ),
