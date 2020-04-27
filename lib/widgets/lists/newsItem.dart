@@ -100,23 +100,31 @@ class _CurrentNewsCardState extends State<CurrentNewsCard> {
               if (snapshot.hasData) {
                 return InkWell(
                   onTap: () => _launchURL(widget.contentId),
-                    child: Row(
-                    children: <Widget>[
-                      Flexible(
-                      child: Text(snapshot.data.text.toString()
-                        ),
-                      ),
-                      VerticalDivider(),
-                      if (!kIsWeb)
-                      CachedNetworkImage(
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Flexible(
+                          child: Text(snapshot.data.text.toString(), style: TextStyle(fontSize: 18 ) ,
+                            ),
+                          ),
+                          VerticalDivider(),
+                          if (!kIsWeb)
+                          CachedNetworkImage(
         imageUrl: snapshot.data.imgUrl,
         height: 160,
         width: 120,
         placeholder: (context, url) => CircularProgressIndicator(),
         errorWidget: (context, url, error) => Image.asset('assets/images/smartespoo.png', width: 120, height: 160),
-     ),Image.asset('assets/images/smartespoo.png', width: 120, height: 160),
-                    ],
+     ),
+     if (kIsWeb)
+     Image.asset('assets/images/smartespoo.png', width: 120, height: 160),
+                        ],
                   ),
+                  Divider(),
+                      ],
+                    ),
                 );
               } else if (snapshot.hasError) {
                 return Text("${snapshot.error}");

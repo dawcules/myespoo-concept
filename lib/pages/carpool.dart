@@ -30,24 +30,28 @@ class _CarpoolPageState extends State<CarpoolPage> {
         resizeToAvoidBottomPadding: false,
         body: Center(
           child: SafeArea(
-              child: Column(
+              child: Container(
+                height: 1000,
+                width: 750,
+                child: Column(
             children: <Widget>[
-              CarpoolUpper(
-                onPressedOffer:
-                    _buttonShouldBeEnabled(UpperButtonsState.PROVIDING)
-                        ? () => _onOfferPressed()
-                        : null,
-                onPressedAsk: _buttonShouldBeEnabled(UpperButtonsState.ASKING)
-                    ? () => _onAskPressed()
-                    : null,
-                onPressedBrowse:
-                    _buttonShouldBeEnabled(UpperButtonsState.BROWSING)
-                        ? () => _onBrowsePressed()
-                        : null,
-              ),
-              _buildLowerSection(),
+                CarpoolUpper(
+                  onPressedOffer:
+                      _buttonShouldBeEnabled(UpperButtonsState.PROVIDING)
+                          ? () => _onOfferPressed()
+                          : null,
+                  onPressedAsk: _buttonShouldBeEnabled(UpperButtonsState.ASKING)
+                      ? () => _onAskPressed()
+                      : null,
+                  onPressedBrowse:
+                      _buttonShouldBeEnabled(UpperButtonsState.BROWSING)
+                          ? () => _onBrowsePressed()
+                          : null,
+                ),
+                _buildLowerSection(),
             ],
-          )),
+          ),
+              )),
         ),
       ),
     );

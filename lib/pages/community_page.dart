@@ -9,20 +9,24 @@ class CommunityPage extends StatelessWidget {
     return Container(
       child: Scaffold(
         body: Center(
-            child: Column(
+            child: Container(
+              height: 1000,
+              width: 750,
+              child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            _communityNavigationButton("Carpool", "/carpool", context),
-            Padding(
-              padding: EdgeInsets.all(8),
-            ),
-            _communityNavigationButton("Market", "/market", context),
-            Padding(
-              padding: EdgeInsets.all(8),
-            ),
-            _communityNavigationButton("Help services", "/communityHelp", context),
+              _communityNavigationButton("Carpool", "/carpool", context),
+              Padding(
+                padding: EdgeInsets.all(8),
+              ),
+              _communityNavigationButton("Market", "/market", context),
+              Padding(
+                padding: EdgeInsets.all(8),
+              ),
+              _communityNavigationButton("Help services", "/communityHelp", context),
           ],
-        )),
+        ),
+            )),
       ),
     );
   }

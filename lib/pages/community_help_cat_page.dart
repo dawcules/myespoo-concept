@@ -26,8 +26,8 @@ class _CommunityHelpCatState extends State<CommunityHelpCat> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Container(
-                height: 700,
-                width: 400,
+                height: 1000,
+                width: 750,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
