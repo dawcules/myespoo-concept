@@ -24,7 +24,7 @@ class MarketPostWidget extends StatelessWidget {
               paddingAmount: 8,
             ),
             Padding(
-              padding: const EdgeInsets.all(4.0),
+              padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: <Widget>[
                   Align(
