@@ -1,5 +1,3 @@
-
-import 'package:cityprog/widgets/buttons/universal_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../../styles/color_palette.dart';
@@ -15,9 +13,14 @@ class LowerSection extends StatelessWidget {
       color: AppColor.background.color(),
       child: Column(
         children: <Widget>[
-          UniversalRaisedButton(onPressed: () => print("xd"),),
-          header != null ? header : Padding(padding: EdgeInsets.all(0),),
-          Expanded(child: listViewPosts,),
+          header != null
+              ? header
+              : Padding(
+                  padding: EdgeInsets.all(0),
+                ),
+          Expanded(
+            child: listViewPosts,
+          ),
         ],
       ),
     );
