@@ -1,3 +1,4 @@
+import 'package:cityprog/model/trade_methods.dart';
 import 'package:cityprog/widgets/database_model/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +18,9 @@ class CarpoolLower extends StatefulWidget {
 class _CarpoolLowerState extends State<CarpoolLower> {
   ListView _offeringPosts;
   ListView _askingPosts;
-  int _dropdownValue = 0;
   ListView _allPosts;
 
+  int _dropdownValue; // TODO: Localize IT!
   List<String> dropdownItems = ["Kaikki ilmoitukset", "Pyydetään", "Tarjotaan"];
 
   bool _fetchedAndBuilt;
@@ -27,6 +28,7 @@ class _CarpoolLowerState extends State<CarpoolLower> {
   @override
   void initState() {
     super.initState();
+    _dropdownValue = 0;
     _fetchedAndBuilt = false;
     _offeringPosts = ListView(children: <Widget>[]);
     _askingPosts = ListView(children: <Widget>[]);
@@ -112,11 +114,16 @@ class _CarpoolLowerState extends State<CarpoolLower> {
   }
 
   Future<QuerySnapshot> _getOfferingPosts() {
-    return Database().getCarpoolPostsOffering();
+    //return Database().getMarketplaceSelling();
+    return Database().getCommunityPosts(
+        document: "Carpool",
+        collection: Trading.OFFERING.toDatabaseCollectionId());
   }
 
   Future<QuerySnapshot> _getAskingPosts() {
-    return Database().getCarpoolPostsAsking();
+    return Database().getCommunityPosts(
+        document: "Carpool",
+        collection: Trading.ASKING.toDatabaseCollectionId());
   }
 
   Widget _buildList(BuildContext context, List<CarpoolPostData> posts) {

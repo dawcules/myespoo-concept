@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
+
 class Database {
   Database._internal();
   static final Database _instance = Database._internal();
@@ -183,40 +185,38 @@ lähinnä vaan tarpeellinen esim, Jonkun tapahtuman/postauksen tykkäysten mää
 
   factory Database() => _instance;
 
-  // New carpool post. tradeMethod == Trading.toLocalizedString()
+  // New community post.
+  // Specify document: "Carpool" or "Marketplace" & collection: Trading.toDatabaseCollectionId().
   // Possible errors sent to the callback function.
-  void newCarpoolPost(
-      Map<String, dynamic> post, String tradeMethod, Function callback) async {
+  void newCommunityPost({
+    @required Map<String, dynamic> post,
+    @required String document,
+    @required String collection,
+    @required Function callback,
+  }) async {
     await _db
         .collection('Services')
         .document('Community')
         .collection('Service')
-        .document('Carpool')
-        .collection(tradeMethod)
+        .document(document)
+        .collection(collection)
         .add(post)
-        .then((onValue) => callback(onValue, false))
+        .then((onValue) => callback != null ? callback(onValue, false) : print("callback not defined."))
         .catchError((onError) => {callback(null, true)});
   }
 
-  // Carpool - all offering posts
-  Future<QuerySnapshot> getCarpoolPostsOffering() {
+  // All specified community posts. Document should be either: "Marketplace" or "Carpool"
+  // -- collection should specify which trading method: Trading.toDatabaseCollectionId().
+  Future<QuerySnapshot> getCommunityPosts({
+    @required String document,
+    @required String collection,
+  }) {
     return _db
         .collection('Services')
         .document('Community')
         .collection('Service')
-        .document('Carpool')
-        .collection('Offering')
-        .getDocuments();
-  }
-
-  // Carpool - all asking posts
-  Future<QuerySnapshot> getCarpoolPostsAsking() {
-    return _db
-        .collection('Services')
-        .document('Community')
-        .collection('Service')
-        .document('Carpool')
-        .collection('Needing')
+        .document(document)
+        .collection(collection)
         .getDocuments();
   }
 }

@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:cityprog/model/market.dart';
@@ -9,6 +8,7 @@ import 'package:cityprog/widgets/camera/app_image_picker.dart';
 import 'package:cityprog/widgets/columns/title_details_column.dart';
 import 'package:cityprog/widgets/columns/select_price_column.dart';
 import 'package:cityprog/widgets/database_model/auth.dart';
+import 'package:cityprog/widgets/database_model/database.dart';
 import 'package:flutter/material.dart';
 
 class SellingForm extends StatefulWidget {
@@ -93,22 +93,22 @@ class _SellingFormState extends State<SellingForm> {
   }
 
   void _submitPost() {
-    print("submitted da sell post!");
-    if (_image != null) {
-      print(_image);
-    }
+    print("Submit sell post!");
     MarketPostData post = MarketPostData(
-      body: _titleDetailsValidator.details,
-      imageUri: _image != null ? _image.uri : null,
-      postDate: DateTime.now(),
-      uid: Auth().getUID(),
-      price: _price,
-      title: _titleDetailsValidator.title,
-      tradeMethod: _method
-      
-      );
-    var json = jsonEncode(post.toMap());
-    print(json);
-    Navigator.of(context).pushReplacementNamed("/market");
+        body: _titleDetailsValidator.details,
+        imageUri: _image != null ? _image.uri : null,
+        postDate: DateTime.now(),
+        uid: Auth().getUID(),
+        price: _price,
+        title: _titleDetailsValidator.title,
+        tradeMethod: _method);
+    Database().newCommunityPost(
+        post: post.toMap(),
+        document: "Marketplace",
+        collection: _method.toDatabaseCollectionId(),
+        callback: (value, error) => {
+              if (!error)
+                {Navigator.of(context).pushReplacementNamed("/market")}
+            });
   }
 }

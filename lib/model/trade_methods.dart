@@ -68,4 +68,26 @@ extension TrademethodToString on Trading {
         return null;
     }
   }
+
+  String toDatabaseCollectionId() {
+    switch (this) {
+      case Trading.BUYING:
+        return "Buying";
+        break;
+      case Trading.SELLING:
+        return "Selling";
+        break;
+      case Trading.FREE:
+        return "Free";
+        break;
+      case Trading.ASKING:
+        return "Needing";
+        break;
+      case Trading.OFFERING:
+        return "Offering";
+        break;
+      default:
+        return "Trading method was null";
+    }
+  }
 }

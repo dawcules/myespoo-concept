@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:cityprog/model/carpool.dart';
 import 'package:cityprog/model/trade_methods.dart';
 import 'package:cityprog/validation/origin_destination_validator.dart';
@@ -7,10 +5,10 @@ import 'package:cityprog/widgets/buttons/submit_form_button.dart';
 import 'package:cityprog/widgets/carpool_marketplace/forms/custom_expansion_tile.dart';
 import 'package:cityprog/widgets/columns/origin_destination.dart';
 import 'package:cityprog/widgets/columns/title_details_column.dart';
+import 'package:cityprog/widgets/database_model/auth.dart';
 import 'package:cityprog/widgets/database_model/database.dart';
 import 'package:cityprog/widgets/rows/text_date_with_calendar.dart';
 import 'package:cityprog/widgets/rows/time_picker.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class CarpoolForm extends StatefulWidget {
@@ -24,7 +22,7 @@ class CarpoolForm extends StatefulWidget {
 class _CarpoolFormState extends State<CarpoolForm> {
   bool _dateWasPicked = false;
   bool _timeWasPicked = false;
-  bool _dateNeedsToReDraw = false;
+  //bool _dateNeedsToReDraw = false;
   DateTime _selectedDate;
   TimeOfDay _selectedTime;
   String _destination;
@@ -124,6 +122,7 @@ class _CarpoolFormState extends State<CarpoolForm> {
 
   void _submitPost(BuildContext context) async {
     CarpoolPostData post = CarpoolPostData(
+        uid: Auth().getUID(),
         body: _body,
         title: _title,
         origin: _origin,
@@ -133,19 +132,19 @@ class _CarpoolFormState extends State<CarpoolForm> {
         date: _selectedDate,
         tradeMethod: widget.method);
 
-    String tradeMethod =
-        widget.method == Trading.ASKING ? 'Needing' : 'Offering';
-    Database().newCarpoolPost(
-        post.toMap(context: context),
-        tradeMethod,
-        (onValue, error) => {
+    String dbCollection = widget.method.toDatabaseCollectionId();
+    Database().newCommunityPost(
+        document: "Carpool",
+        post: post.toMap(context: context),
+        collection: dbCollection,
+        callback: (onValue, error) => {
               if (!error)
                 {
-                  Navigator.of(context).pushReplacementNamed("/market"),
+                  Navigator.of(context).pushReplacementNamed("/carpool"),
                   print(onValue)
                 }
               else
-                print("Error creating carpool psot")
+                print("Error creating carpool post")
             });
 
     Navigator.of(context).pushReplacementNamed("/market");
