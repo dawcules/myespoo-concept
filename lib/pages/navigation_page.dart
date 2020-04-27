@@ -12,8 +12,10 @@ class NavigationPage extends StatelessWidget {
     double multiplier = logoSizeMultiplier != null ? logoSizeMultiplier : 1;
     print(multiplier);
     return Container(
+      height: 1000,
+      width: 750,
       color: Colors.transparent,
-      width: MediaQuery.of(context).size.width * multiplier,
+      //width: MediaQuery.of(context).size.width * multiplier,
       child: Scaffold(
         body: Column(
           children: <Widget>[

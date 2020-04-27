@@ -32,23 +32,27 @@ class _MarketPlacePageState extends State<MarketPlacePage> {
       child: Scaffold(
         resizeToAvoidBottomPadding: false,
         body: Center(
-          child: Column(
-            children: <Widget>[
-              MarketplaceUpper(
-                onPressedBuy: _buttonShouldBeEnabled(UpperButtonsState.ASKING)
-                    ? () => _buyOnPress()
-                    : null,
-                onPressedBrowse:
-                    _buttonShouldBeEnabled(UpperButtonsState.BROWSING)
-                        ? () => _browseOnPress()
-                        : null,
-                onPressedSell:
-                    _buttonShouldBeEnabled(UpperButtonsState.PROVIDING)
-                        ? () => _sellOnPress()
-                        : null,
-              ),
-              _buildLowerSection()
-            ],
+          child: Container(
+            height: 1000,
+            width: 750,
+            child: Column(
+              children: <Widget>[
+                MarketplaceUpper(
+                  onPressedBuy: _buttonShouldBeEnabled(UpperButtonsState.ASKING)
+                      ? () => _buyOnPress()
+                      : null,
+                  onPressedBrowse:
+                      _buttonShouldBeEnabled(UpperButtonsState.BROWSING)
+                          ? () => _browseOnPress()
+                          : null,
+                  onPressedSell:
+                      _buttonShouldBeEnabled(UpperButtonsState.PROVIDING)
+                          ? () => _sellOnPress()
+                          : null,
+                ),
+                _buildLowerSection()
+              ],
+            ),
           ),
         ),
       ),

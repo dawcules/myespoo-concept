@@ -7,8 +7,12 @@ class PersonalPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
-        body: Center(
-          child: Text("This is the greatest personal page in the world!")
+        body: Container(
+          height: 1000,
+          width: 750,
+          child: Center(
+            child: Text("This is the greatest personal page in the world!")
+          ),
         ),
       ),
     );
