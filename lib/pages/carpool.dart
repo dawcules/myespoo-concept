@@ -90,7 +90,7 @@ class _CarpoolPageState extends State<CarpoolPage> {
         context: context,
         child: Padding(
             padding: EdgeInsets.symmetric(vertical: 100, horizontal: 20),
-            child: CommunityPostModal(CarpoolPostModal(post))));
+            child: CommunityPostModal(CarpoolPostModal(post), title: post.title,)));
   }
 
   void _onOfferPressed() {

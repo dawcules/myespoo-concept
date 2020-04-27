@@ -1,3 +1,4 @@
+import 'package:cityprog/strings/widget_texts.dart';
 import 'package:flutter/material.dart';
 
 // An empty dialog with an "x" button to close it with.
@@ -22,9 +23,9 @@ class CommunityPostModal extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(top: 16, left: 16),
                     child: Text(
-                      title ?? "No title",
+                      title ?? LocalizedWidgetStrings.noTitleToLocalized(),
                       maxLines: 4,
-                      style: TextStyle(fontSize: 28),
+                      style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
