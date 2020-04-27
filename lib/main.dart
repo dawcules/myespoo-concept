@@ -36,7 +36,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<AuthBloc>(create: (_) => _auth.getAuthBloc()),
       ],
       child: MaterialApp(
-      title: 'Flutter Demo',
+      title: 'My Espoo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
