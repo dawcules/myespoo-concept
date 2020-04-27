@@ -1,3 +1,4 @@
+import 'package:cityprog/model/initialize_profile.dart';
 import 'package:cityprog/model/profile_create.dart';
 import 'package:cityprog/pages/general_feed.dart';
 import 'package:cityprog/pages/login_page.dart';
@@ -20,9 +21,12 @@ class AuthCheck extends StatelessWidget {
       builder: (context, state) {
         //checking if user is logged in
         if (state is LoggedInState) {
+         
           //getting the current user from the bloc.. aand sending it back to the singleton. reasons...
           final _user = AuthBloc.currentUser(context);
           Auth().setUser(user: _user);
+          final initializer = InitializeProfile();
+          initializer.getUserData();
           //Checking if user is in middle of creating a profile
           if(ProfileCreate().isAccountCreating())
           { 
