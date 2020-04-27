@@ -25,8 +25,6 @@ class AuthCheck extends StatelessWidget {
           //getting the current user from the bloc.. aand sending it back to the singleton. reasons...
           final _user = AuthBloc.currentUser(context);
           Auth().setUser(user: _user);
-          final initializer = InitializeProfile();
-          initializer.getUserData();
           //Checking if user is in middle of creating a profile
           if(ProfileCreate().isAccountCreating())
           { 
@@ -34,6 +32,8 @@ class AuthCheck extends StatelessWidget {
             print("bootstrapper account creation");
             ProfileCreate().creatingAccount();
             ProfileCreate().createProfile(user:_user.uid);
+            final initializer = InitializeProfile();
+            initializer.getUserData();
             return SpeechNavigationOverlay(child: GeneralFeed());
           }
           //Not creating so we go here.
