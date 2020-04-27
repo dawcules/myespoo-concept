@@ -114,6 +114,8 @@ Map<String,dynamic> buildProfile(
 
   List<String> selectedEvents,
   List<String> selectedEventAreas,
+  String other,
+  bool securitySelected
 ) {
 
     //Listed services
@@ -137,12 +139,15 @@ Map<String,dynamic> buildProfile(
     profDoc['area'] = area;
     profDoc['email'] = email;
     profDoc['beacon activated'] = beaconIsSelected.toString();
+    profDoc['security survailance'] = securitySelected.toString();
     profDoc['special health condition'] = healthcareSelected.toString();
+    profDoc['other medical condition'] = other.toString();
     profDoc['community services'] = communitySelected.toString();
     profDoc['help services'] = helpSelected.toString();
     profDoc['events selected'] = eventSelected.toString();
     profDoc['UI'] = uiSelected.toString();
     profDoc['notifications'] = notificationsSelected.toString();
+    
     return profDoc;
   }
   // Luodaan valitun collectionin alle uusi document. 

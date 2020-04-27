@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cityprog/model/profile_create.dart';
 import 'package:cityprog/strings/profile_strings.dart';
 import 'package:cityprog/styles/color_palette.dart';
@@ -85,6 +83,8 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
       case "UI": setState(() {profileCreate.uiSelected = newValue;});
       break;
       case "notifications": setState(() {profileCreate.notificationsSelected = newValue;});
+      break;
+      case "safety":  setState(() {profileCreate.securitySelected = newValue;});
       break;
       default: print("no switch selected");
     }
@@ -230,7 +230,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                         SizedBox(height: 20,),
                         profileCreate.healthcareSelected != true ? SizedBox(height: 20,) : ChipFilter(onSelected: selectPicker, data: profileCreate.healthcare, selected: profileCreate.selectedHealthcare,),
                         SizedBox(height: 20,),
-                        otherCondition("Other", profileCreate.selectedHealthcare) && profileCreate.healthcareSelected == true ? IconMultiInput(hint: "Describe your condition", validationText: "Please insert something", icon: Icon(Icons.local_hospital),)  : SizedBox(height: 20,),
+                        otherCondition("Other", profileCreate.selectedHealthcare) && profileCreate.healthcareSelected == true ? IconMultiInput(hint: "Describe your condition", validationText: "Please insert something", icon: Icon(Icons.local_hospital),controller: ProfileCreate().otherConditionController,)  : SizedBox(height: 20,),
                       ],),),
                 info: CenteredText(text: "More information", color:  AppColor.primary.color()),
               ),
@@ -242,13 +242,23 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         BodyText(text: ProfileStrings.p4InfoTextToLocalized(), fontsize: 15, color: AppColor.darkText.color() ),
-                        SizedBox(height: 10,),
+                        SizedBox(height: 20,),
                         ProfileSwitch(
-                        label: BodyText(text: ProfileStrings.p4InfoText2ToLocalized(), fontsize: 15, color: AppColor.darkText.color() ),
+                        label: BodyText(text: ProfileStrings.healthBeaconToLocalized(), fontsize: 15, color: AppColor.darkText.color() ),
                         padding: EdgeInsets.symmetric(horizontal: 20.0),
                         value: profileCreate.beaconIsSelected ,
                         category: "emergency",
                         icon: Icon(Icons.add_alert),
+                        onChanged: switchStateTracker,),
+                        SizedBox(height: 20,),
+                        BodyText(text: ProfileStrings.p4InfoText2ToLocalized(), fontsize: 15, color: AppColor.darkText.color() ),
+                        SizedBox(height: 20,),
+                        ProfileSwitch(
+                        label: BodyText(text: ProfileStrings.safetyBeaconToLocalized(), fontsize: 15, color: AppColor.darkText.color() ),
+                        padding: EdgeInsets.symmetric(horizontal: 20.0),
+                        value: profileCreate.securitySelected ,
+                        category: "safety",
+                        icon: Icon(Icons.verified_user),
                         onChanged: switchStateTracker,),
                 ],),
                 info: CenteredText(text: ProfileStrings.moreInfoToLocalized(), color:  AppColor.primary.color()),
@@ -304,8 +314,8 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                         onChanged: switchStateTracker,),
                         SizedBox(height: 20,),
                         profileCreate.helpSelected != true ? SizedBox(height: 20,) : ChipFilter(onSelected: selectPicker, data: profileCreate.help, selected: profileCreate.selectedHelp,),
-                         SizedBox(height: 20,),
-                        profileCreate.helpSelected == true ?
+                        SizedBox(height: 20,),
+                        profileCreate.helpSelected == true && profileCreate.selectedHelp.length > 0 ?
                         Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,  
@@ -336,8 +346,8 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                         onChanged: switchStateTracker,),
                         SizedBox(height: 20,),
                         profileCreate.eventSelected != true ? SizedBox(height: 20,) : ChipFilter(onSelected: selectPicker, data: profileCreate.events, selected: profileCreate.selectedEvents,),
-                         SizedBox(height: 20,),
-                        profileCreate.eventSelected == true ?
+                        SizedBox(height: 20,),
+                        profileCreate.eventSelected == true && profileCreate.selectedEvents.length > 0 ?
                         Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,  
@@ -417,8 +427,8 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
             height: heigth/5,
             child: Stack(
               children: <Widget>[
-                kIsWeb ? SizedBox(height: 200, width: 200,) : BackgroundWidget(heigth: heigth/5, width: width+30, imageUrl: "assets/images/backgroundtesting.png",),
-                kIsWeb ? BackgroundWidget(top: 40, heigth: 100, width: 150, imageUrl: "assets/images/smartespoo.png",) : BackgroundWidget(top: 40, heigth: heigth/10, width: width/3, imageUrl: "assets/images/smartespoo.png",)
+                kIsWeb ? SizedBox(height: 200, width: 200,) : BackgroundWidget(heigth: heigth/4.5, width: width+30, imageUrl: "assets/images/backgroundtesting.png",),
+                kIsWeb ? BackgroundWidget(top: 40, heigth: 100, width: 150, imageUrl: "assets/images/smartespoo.png",) : BackgroundWidget(top:-10,heigth: heigth/5, width: width/2, imageUrl: "assets/images/backgroundmyespoo.png",)
               ],
             ),
           ),
