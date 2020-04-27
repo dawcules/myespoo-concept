@@ -6,6 +6,7 @@ import 'package:cityprog/widgets/containers/box_container.dart';
 import 'package:cityprog/widgets/database_model/auth.dart';
 import 'package:cityprog/strings/login_strings.dart';
 import 'package:fb_auth/fb_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../animations/FadeAnimation.dart';
@@ -65,8 +66,8 @@ class _LoginState extends State<LoginPage> {
             height: heigth/2.2,
             child: Stack(
               children: <Widget>[
-                BackgroundWidget(heigth: heigth/2.2, width: width+30, imageUrl: "assets/images/backgroundtesting.png",),
-                BackgroundWidget(top: 40, heigth: heigth/10, width: width/3, imageUrl: "assets/images/smartespoo.png",)
+                kIsWeb ? SizedBox(height: 200,width: 200) : BackgroundWidget(heigth: heigth/2.2, width: width+30, imageUrl: "assets/images/backgroundtesting.png",),
+                kIsWeb ? BackgroundWidget(top: 200, heigth: 100, width: 150, imageUrl: "assets/images/smartespoo.png",) : BackgroundWidget(top: 40, heigth: heigth/10, width: width/3, imageUrl: "assets/images/smartespoo.png",)
               ],
             ),
           ),
