@@ -1,5 +1,3 @@
- 
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cityprog/current_language.dart';
 import 'package:cityprog/strings/string_provider.dart';
 import 'package:cityprog/styles/color_palette.dart';
