@@ -30,19 +30,23 @@ class _MarketPlacePageState extends State<MarketPlacePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-        resizeToAvoidBottomPadding: false,
-        body: SafeArea(
-          child: Center(
-            child: state == UpperButtonsState.BROWSING
-                ? Column(
-                    children: _content(),
-                    mainAxisSize: MainAxisSize.min,
-                  )
-                : ListView(
-                    children: _content(),
-                  ),
+    return Center(
+      child: Container(
+        height: 1000,
+        width: 750,
+        child: Scaffold(
+          resizeToAvoidBottomPadding: false,
+          body: SafeArea(
+            child: Center(
+              child: state == UpperButtonsState.BROWSING
+                  ? Column(
+                      children: _content(),
+                      mainAxisSize: MainAxisSize.min,
+                    )
+                  : ListView(
+                      children: _content(),
+                    ),
+            ),
           ),
         ),
       ),
@@ -107,7 +111,7 @@ class _MarketPlacePageState extends State<MarketPlacePage> {
         context: context,
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 100, horizontal: 20),
-          child: CommunityPostModal(MarketPostModal(post)),
+          child: CommunityPostModal(MarketPostModal(post), title: post.title,),
         ));
   }
 }

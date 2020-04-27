@@ -1,5 +1,6 @@
 import 'package:cityprog/model/market.dart';
 import 'package:cityprog/model/trade_methods.dart';
+import 'package:cityprog/strings/widget_texts.dart';
 import 'package:cityprog/widgets/database_model/database.dart';
 import 'package:cityprog/widgets/posts/market_post.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -23,10 +24,10 @@ class _MarketLowerState extends State<MarketLower> {
 
   int _dropdownValue; // TODO: Localize IT!
   List<String> dropdownItems = [
-    "Kaikki ilmoitukset",
-    "Myydään",
-    "Ostetaan",
-    "Ilmaiseksi"
+    LocalizedWidgetStrings.allCategoriesToLocalized(),
+    LocalizedWidgetStrings.sellingToLocalized(),
+    LocalizedWidgetStrings.buyingToLocalized(),
+    LocalizedWidgetStrings.freeToLocalized(),
   ];
 
   bool _fetchedAndBuilt;

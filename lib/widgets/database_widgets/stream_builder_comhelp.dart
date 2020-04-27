@@ -7,9 +7,9 @@ import 'package:cityprog/widgets/lists/helpListItem.dart';
 class StreamBuilderHelp extends StatelessWidget {
   //Tähän siis sisään collection mikä näytetään
   final String myQuery;
-  final String category;
 
-  StreamBuilderHelp({this.myQuery, this.category});
+
+  StreamBuilderHelp({this.myQuery});
 
   @override
   Widget build(BuildContext context) {

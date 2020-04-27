@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 class TradeMethodRow extends StatelessWidget {
   final Trading _method;
   final double fontSize;
+  final double paddingAmount;
   final MainAxisAlignment mainAxisAlign;
-  const TradeMethodRow(this._method, {this.fontSize, this.mainAxisAlign});
+  const TradeMethodRow(this._method, {this.fontSize, this.mainAxisAlign, this.paddingAmount});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class TradeMethodRow extends StatelessWidget {
         mainAxisAlignment: mainAxisAlign ?? MainAxisAlignment.start,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(paddingAmount ?? 16.0),
             child: Text(
               _method != null ? _method.toLocalizedString() : "Trade method is null......",
               style: TextStyle(

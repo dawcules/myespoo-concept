@@ -18,38 +18,37 @@ class _CommunityHelpCatState extends State<CommunityHelpCat> {
   @override
   Widget build(BuildContext context) {
     final key = new GlobalKey<ScaffoldState>();
-    return Container(
-      child: Scaffold(
-        key: key,
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Container(
-                height: 1000,
-                width: 750,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.all(10.0),
-                      child: Text(
-                        widget._category,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 26),
+    return SafeArea(
+          child: Container(
+        height: 1000,
+        width: 750,
+        child: Scaffold(
+          key: key,
+          body: Center(
+              child:
+                Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        child: Text(
+                          widget._category,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 26),
+                        ),
                       ),
-                    ),
-                    Padding(padding: EdgeInsets.all(20.0)),
-                    Expanded(
-                      child: StreamBuilderHelp(myQuery: widget._category,),
-                    ),
-                  ],
+                      Padding(padding: EdgeInsets.all(20.0)),
+                      Expanded(
+                        child: StreamBuilderHelp(
+                          myQuery: widget._category,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+            ),
           ),
         ),
-      ),
     );
   }
 }
