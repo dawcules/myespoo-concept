@@ -9,6 +9,7 @@ import 'package:cityprog/strings/string_provider.dart' show Language;
 import 'package:cityprog/current_language.dart';
 import 'package:cityprog/widgets/lists/eventListItem.dart';
 import 'package:cityprog/widgets/lists/helpListItem.dart';
+import 'package:cityprog/widgets/lists/notificationItem.dart';
 import 'dart:convert';
 
 import 'package:cityprog/widgets/weather/current_weather_item.dart';
@@ -28,19 +29,26 @@ class StreamBuilderGeneral extends StatelessWidget {
             stream: Database().getCollection('Apupalvelu'),
             builder: (context, snapshot1) {
               return StreamBuilder(
-                stream: Database().getCollection('Tapahtumat'),
-                builder: (context, snapshot2) {
-                  if (!snapshot1.hasData && !snapshot2.hasData)
-                    return const Text('Loading..');
-                  return ListViewBuilder(
-                      snapshot1
-                          .data.documents, // Pass 'Apupalvelu' document results
-                      snapshot1.data.documents.length,
-                      snapshot2
-                          .data.documents, // Pass 'Tapahtuma' document results
-                      snapshot2.data.documents.length);
-                },
-              );
+                  stream: Database().getCollection('Tapahtumat'),
+                  builder: (context, snapshot2) {
+                    return StreamBuilder(
+                      stream: Database().getCollection('Ilmoitukset'),
+                      builder: (context, snapshot3) {
+                        if (!snapshot1.hasData &&
+                            !snapshot2.hasData &&
+                            !snapshot3.hasData) return const Text('Loading..');
+                        return ListViewBuilder(
+                            snapshot1.data
+                                .documents, // Pass 'Apupalvelu' document results
+                            snapshot1.data.documents.length,
+                            snapshot2.data
+                                .documents, // Pass 'Tapahtuma' document results
+                            snapshot2.data.documents.length,
+                            snapshot3.data.documents,
+                            snapshot3.data.documents.length);
+                      },
+                    );
+                  });
             }),
       ),
     );
@@ -52,28 +60,32 @@ class ListViewBuilder extends StatefulWidget {
   final helpDataLength;
   final eventData;
   final eventDataLength;
-  ListViewBuilder(
-      this.helpData, this.helpDataLength, this.eventData, this.eventDataLength);
+  final notificationData;
+  final notificationDataLength;
+
+  ListViewBuilder(this.helpData, this.helpDataLength, this.eventData,
+      this.eventDataLength, this.notificationData, this.notificationDataLength);
 
   @override
   _ListViewBuilderState createState() => _ListViewBuilderState();
 }
 
 class _ListViewBuilderState extends State<ListViewBuilder> {
-
   _fetchIds() async {
-      String language;
-  if (CurrentLanguage.value == Language.FI) {
-    language = '1';
-  } else {
-    language = '2';
-  }
-  String url;
-  if (kIsWeb) {
-    url = 'https://cors-anywhere.herokuapp.com/https://www.espoo.fi/api/opennc/v1/ContentLanguages($language)/Contents?\$filter=TemplateId%20eq%209&\$orderby=PublicDate%20desc&\$format=json';
-  } else {
-    url = 'https://www.espoo.fi/api/opennc/v1/ContentLanguages($language)/Contents?\$filter=TemplateId%20eq%209&\$orderby=PublicDate%20desc&\$format=json';
-  }
+    String language;
+    if (CurrentLanguage.value == Language.FI) {
+      language = '1';
+    } else {
+      language = '2';
+    }
+    String url;
+    if (kIsWeb) {
+      url =
+          'https://cors-anywhere.herokuapp.com/https://www.espoo.fi/api/opennc/v1/ContentLanguages($language)/Contents?\$filter=TemplateId%20eq%209&\$orderby=PublicDate%20desc&\$format=json';
+    } else {
+      url =
+          'https://www.espoo.fi/api/opennc/v1/ContentLanguages($language)/Contents?\$filter=TemplateId%20eq%209&\$orderby=PublicDate%20desc&\$format=json';
+    }
 
     List<String> contentList20 = [];
     var response = await http.get(url);
@@ -104,14 +116,14 @@ class _ListViewBuilderState extends State<ListViewBuilder> {
         child: ListView.builder(
             padding: EdgeInsets.all(16),
             itemCount: widget.eventDataLength +
-                widget.helpDataLength +
-                6, //+1 for weather card
+                widget.helpDataLength + widget.notificationDataLength +
+                6, //+1 for weather card + 5 for news
             itemBuilder: (BuildContext _context, index) {
               return Column(
                 children: <Widget>[
                   //Apply logic for individual data sources. Return individual list items.
                   if (!kIsWeb)
-                  MessageHandler(),
+                    MessageHandler(),
                   if (index == 0)
                     Column(
                       children: <Widget>[
@@ -125,7 +137,8 @@ class _ListViewBuilderState extends State<ListViewBuilder> {
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           print('TÄÄLLÄ DATAA ' + snapshot.data[0]);
-                          return CurrentNewsCard(contentId: snapshot.data[index]);
+                          return CurrentNewsCard(
+                              contentId: snapshot.data[index]);
                         } else if (snapshot.hasError) {
                           return Text("${snapshot.error}");
                         }
@@ -146,6 +159,13 @@ class _ListViewBuilderState extends State<ListViewBuilder> {
                         Divider(),
                       ],
                     ),
+                    if (index <= widget.notificationDataLength - 1)
+                    Column(
+                      children: <Widget>[
+                        NotificationListTile(widget.notificationData[index]),
+                        Divider(),
+                      ],
+                    )
                 ],
               );
             }));
