@@ -10,28 +10,46 @@ class NavigationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double multiplier = logoSizeMultiplier != null ? logoSizeMultiplier : 1;
-    print(multiplier);
     return Container(
       height: 1000,
       width: 750,
       color: Colors.transparent,
       //width: MediaQuery.of(context).size.width * multiplier,
       child: Scaffold(
+        // backgroundColor: Colors.orangeAccent,
+        extendBody: true,
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Align(
               alignment: Alignment.topLeft,
-              child: SizedBox(
-                height: 200 * multiplier,
-                width: 200 * multiplier,
-                child: Image.asset("assets/images/smartespoo.png"),
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  // gradient: LinearGradient(
+                  //     begin: Alignment.topLeft,
+                  //     end: Alignment.bottomRight,
+                  //     colors: <Color>[
+                  //       AppColor.secondary.color(),
+                  //       AppColor.secondary.color()
+                  //     ]),
+                ),
+                child: Container(
+                  color: Colors.white,
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: SizedBox(
+                      height: 200 * multiplier,
+                      width: 200 * multiplier,
+                      child: Image.asset("assets/images/smartespoo.png"),
+                    ),
+                  ),
+                ),
               ),
             ),
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8, right: 8),
-                child: generateNavigationButtons(context),
-              ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8),
+              child: generateNavigationButtons(context),
             ),
             MessageHandler(),
           ],

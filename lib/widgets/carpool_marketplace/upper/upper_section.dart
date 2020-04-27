@@ -16,7 +16,6 @@ class UpperSection extends StatefulWidget {
     @required this.onPressedAsk,
     @required this.onPressedBrowse,
     @required this.isCarpoolPage,
-    
   });
 
   @override
@@ -24,39 +23,36 @@ class UpperSection extends StatefulWidget {
 }
 
 class _UpperSectionState extends State<UpperSection> {
-  bool isExpanded = true;
+  bool isExpanded = false;
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-          child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: _body(),
-      )),
-    );
+    return Container(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: _body(),
+        ),
+      );
   }
 
   Widget _body() {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        isExpanded
+        isExpanded == true
             ? _buttonColumn()
             : Padding(
                 padding: EdgeInsets.all(0),
               ),
-        Padding(
-          padding: EdgeInsets.only(top: 8),
-        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             RotatedBox(
               quarterTurns: isExpanded ? 0 : 2,
               child: IconButton(
+                iconSize: 35,
                 icon: Icon(
                   Icons.arrow_drop_up,
-                  size: 35,
                 ),
                 onPressed: () => setState(() => isExpanded = !isExpanded),
               ),
@@ -78,8 +74,10 @@ class _UpperSectionState extends State<UpperSection> {
           textRight: widget.isCarpoolPage
               ? LocalizedCommunityStrings.askToLocalized()
               : LocalizedCommunityStrings.buyToLocalized(),
-          onPressedLeft: () => widget.onPressedOffer(),
-          onPressedRight: () => widget.onPressedAsk(),
+          onPressedLeft: () =>
+              _collapseAndExecute(() => widget.onPressedOffer()),
+          onPressedRight: () =>
+              _collapseAndExecute(() => widget.onPressedAsk()),
           rightIsNull: widget.onPressedAsk == null ? true : false,
           leftIsNull: widget.onPressedOffer == null ? true : false,
         ),
@@ -89,27 +87,36 @@ class _UpperSectionState extends State<UpperSection> {
     );
   }
 
+  void _collapseAndExecute(Function func) {
+    setState(() {
+      func();
+      isExpanded = false;
+      print(isExpanded);
+    });
+  }
+
   Widget _browseButtoN() {
     return Row(
       children: <Widget>[
         Expanded(
           child: RaisedButton(
-            color: AppColor.button.color(),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 28,
-                vertical: 16,
-              ),
-              child: Text(
-                LocalizedCommunityStrings.browseToLocalized(),
-                style: TextStyle(
-                  color: AppColor.buttonText.color(),
-                  fontSize: 20,
+              color: AppColor.button.color(),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 28,
+                  vertical: 16,
+                ),
+                child: Text(
+                  LocalizedCommunityStrings.browseToLocalized(),
+                  style: TextStyle(
+                    color: AppColor.buttonText.color(),
+                    fontSize: 20,
+                  ),
                 ),
               ),
-            ),
-            onPressed: widget.onPressedBrowse != null ? () => widget.onPressedBrowse() : null,
-          ),
+              onPressed: widget.onPressedBrowse != null
+                  ? () => _collapseAndExecute(() => widget.onPressedBrowse())
+                  : null),
         )
       ],
     );

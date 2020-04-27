@@ -1,3 +1,4 @@
+import 'package:cityprog/strings/validation_strings.dart';
 import 'package:flutter/material.dart';
 
 import '../../strings/community_strings.dart';
@@ -7,7 +8,11 @@ import '../../styles/color_palette.dart';
 // along with a IconButton with onPress for picking a date.
 
 class TextDateWithCalendarPicker extends StatefulWidget {
-  TextDateWithCalendarPicker();
+  final Function onDatePicked;
+  final MainAxisAlignment alignment;
+  final bool textIsInstructions;
+  TextDateWithCalendarPicker(
+      {this.onDatePicked, this.alignment, this.textIsInstructions});
 
   @override
   _TextDateWithCalendarPickerState createState() =>
@@ -16,9 +21,8 @@ class TextDateWithCalendarPicker extends StatefulWidget {
 
 class _TextDateWithCalendarPickerState
     extends State<TextDateWithCalendarPicker> {
-
+  DateTime _firstDate = DateTime.now().subtract(Duration(days: 1));
   DateTime _selectedDate = DateTime.now();
-  DateTime _firstDate = DateTime(2020);
   DateTime _lastDate = DateTime(2021);
 
   _TextDateWithCalendarPickerState();
@@ -32,21 +36,23 @@ class _TextDateWithCalendarPickerState
 
   Widget _calendarRow(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: widget.alignment ?? MainAxisAlignment.center,
       children: <Widget>[
-        Text(
-          LocalizedCommunityStrings.dateTimeToLocaleString(
-              _selectedDate),
-          style: TextStyle(
-            fontSize: 20,
-            color: AppColor.secondary.color(),
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        widget.textIsInstructions == null ||
+                widget.textIsInstructions == false
+            ? Text(
+                LocalizedCommunityStrings.dateTimeToLocaleString(_selectedDate),
+                style: TextStyle(
+                  fontSize: 20,
+                  color: AppColor.secondary.color(),
+                  fontWeight: FontWeight.bold,
+                ),
+              )
+            : Text(ValidationStrings.chooseDateToLocalized(), style: TextStyle(color: Colors.red),),
         IconButton(
+          iconSize: 40,
           icon: Icon(
             Icons.calendar_today,
-            size: 30,
             color: AppColor.button.color(),
           ),
           onPressed: () => _openCalendar(context),
@@ -61,8 +67,16 @@ class _TextDateWithCalendarPickerState
       firstDate: _firstDate,
       initialDate: _selectedDate,
       lastDate: _lastDate,
-    ).then((onValue) => {
-          if (onValue != null) {setState(() => _selectedDate = onValue)}
-        });
+    ).then(
+      (onValue) => {
+        if (onValue != null)
+          {
+            setState(() => _selectedDate = onValue),
+            if (widget.onDatePicked != null){
+              widget.onDatePicked(_selectedDate),
+              }
+          }
+      },
+    );
   }
 }

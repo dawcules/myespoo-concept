@@ -33,7 +33,7 @@ class MarketPostModal extends StatelessWidget {
                 padding: EdgeInsets.all(0),
               ),
         Padding(padding: EdgeInsets.only(top: 8)),
-        Text(post.postedBy, style: _style),
+        Text(post.uid, style: _style),
         Padding(
           padding: EdgeInsets.only(top: 8),
         ),

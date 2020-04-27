@@ -1,4 +1,6 @@
 import 'package:cityprog/pages/community_help_cat_page.dart';
+import 'package:cityprog/pages/login_page.dart';
+import 'package:cityprog/pages/personal_page.dart';
 import 'package:cityprog/widgets/database_widgets/auth_check.dart';
 import 'package:cityprog/widgets/navigation/navigation_drawer.dart';
 import 'package:cityprog/widgets/navigation/speech_nav_overlay.dart';
@@ -7,12 +9,10 @@ import 'package:flutter/material.dart';
 //import './pages/navigation_page.dart';
 import './pages/community_page.dart';
 import './pages/introduction_page.dart';
-//import './pages/personal_page.dart';
 import 'pages/community_help_sign_page.dart';
 import 'pages/community_help_main_page.dart';
 import 'pages/community_help_request.dart';
 import './pages/carpool.dart';
-import './pages/login_page.dart';
 import './pages/profile_creation.dart';
 import './pages/marketplace.dart';
 import './pages/general_feed.dart';
@@ -50,7 +50,7 @@ class Router {
             builder: (_) =>
                 SpeechNavigationOverlay(child: CommunityHelpCat(args)));
       case '/personal':
-        return MaterialPageRoute(builder: (_) => LoginPage());
+        return MaterialPageRoute(builder: (_) => PersonalPage());
       case '/login':
         return MaterialPageRoute(builder: (_) => LoginPage());
       case '/introduction':

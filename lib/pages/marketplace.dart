@@ -23,7 +23,9 @@ class _MarketPlacePageState extends State<MarketPlacePage> {
   @override
   void initState() {
     super.initState();
-    state = widget.navigatedWithNewCommand != null ? UpperButtonsState.PROVIDING : UpperButtonsState.BROWSING;
+    state = widget.navigatedWithNewCommand != null
+        ? UpperButtonsState.PROVIDING
+        : UpperButtonsState.BROWSING;
   }
 
   @override
@@ -31,32 +33,37 @@ class _MarketPlacePageState extends State<MarketPlacePage> {
     return Container(
       child: Scaffold(
         resizeToAvoidBottomPadding: false,
-        body: Center(
-          child: Container(
-            height: 1000,
-            width: 750,
-            child: Column(
-              children: <Widget>[
-                MarketplaceUpper(
-                  onPressedBuy: _buttonShouldBeEnabled(UpperButtonsState.ASKING)
-                      ? () => _buyOnPress()
-                      : null,
-                  onPressedBrowse:
-                      _buttonShouldBeEnabled(UpperButtonsState.BROWSING)
-                          ? () => _browseOnPress()
-                          : null,
-                  onPressedSell:
-                      _buttonShouldBeEnabled(UpperButtonsState.PROVIDING)
-                          ? () => _sellOnPress()
-                          : null,
-                ),
-                _buildLowerSection()
-              ],
-            ),
+        body: SafeArea(
+          child: Center(
+            child: state == UpperButtonsState.BROWSING
+                ? Column(
+                    children: _content(),
+                    mainAxisSize: MainAxisSize.min,
+                  )
+                : ListView(
+                    children: _content(),
+                  ),
           ),
         ),
       ),
     );
+  }
+
+  List<Widget> _content() {
+    return <Widget>[
+      MarketplaceUpper(
+        onPressedBuy: _buttonShouldBeEnabled(UpperButtonsState.ASKING)
+            ? () => _buyOnPress()
+            : null,
+        onPressedBrowse: _buttonShouldBeEnabled(UpperButtonsState.BROWSING)
+            ? () => _browseOnPress()
+            : null,
+        onPressedSell: _buttonShouldBeEnabled(UpperButtonsState.PROVIDING)
+            ? () => _sellOnPress()
+            : null,
+      ),
+      _buildLowerSection()
+    ];
   }
 
   bool _buttonShouldBeEnabled(UpperButtonsState buttonState) {
@@ -95,7 +102,7 @@ class _MarketPlacePageState extends State<MarketPlacePage> {
   }
 
   void _moreOnPress(MarketPostData post) {
-    print("Posted by: ${post.postedBy} on ${post.postDate}");
+    print("Posted by: ${post.uid} on ${post.postDate}");
     showDialog(
         context: context,
         child: Padding(

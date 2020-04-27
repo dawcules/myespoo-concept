@@ -1,26 +1,36 @@
 import 'package:cityprog/strings/community_strings.dart';
-import 'package:cityprog/widgets/Inputs/community_form_input.dart';
+import 'package:cityprog/strings/validation_strings.dart';
+import 'package:cityprog/validation/title_details_validator.dart';
+import 'package:cityprog/widgets/Inputs/icon_form_input.dart';
 import 'package:flutter/material.dart';
 
 class TitleDetailsColumn extends StatelessWidget {
-  const TitleDetailsColumn({Key key}) : super(key: key);
+  final TitleDetailsValidator validator;
+
+  const TitleDetailsColumn({this.validator});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        CommunityFormInput(
-          maxLines: 1,
+        IconFormInput(
           hint: LocalizedCommunityStrings.titleToLocalized(),
-          fontSize: 28,
+          validation: validator != null ? validator.validateTitle : noValidation,
+          validationText: validator != null ? ValidationStrings.titleErrorTextToLocalized() : " ",
+          icon: Icon(Icons.title),
         ),
-        CommunityFormInput(
-          maxLines: 5,
+        IconFormInput(
           hint: LocalizedCommunityStrings.detailsToLocalized(),
-          fontSize: 28,
+          validation: validator != null ? validator.validateDetails : noValidation,
+          validationText: validator != null ? ValidationStrings.descriptionErrorTextToLocalized() : " ",
+          icon: Icon(Icons.description),
         ),
       ],
     );
+  }
+
+  bool noValidation(String value) {
+    return true;
   }
 }

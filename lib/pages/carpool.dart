@@ -21,40 +21,47 @@ class _CarpoolPageState extends State<CarpoolPage> {
   @override
   void initState() {
     super.initState();
-    state = widget.navigatedWithNewCommand != null ? UpperButtonsState.PROVIDING : UpperButtonsState.BROWSING;
+    state = widget.navigatedWithNewCommand != null
+        ? UpperButtonsState.PROVIDING
+        : UpperButtonsState.BROWSING;
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
-        resizeToAvoidBottomPadding: false,
-        body: Center(
-          child: SafeArea(
+        body: SafeArea(
+          child: Center(
               child: Container(
-                height: 1000,
-                width: 750,
-                child: Column(
-            children: <Widget>[
-                CarpoolUpper(
-                  onPressedOffer:
-                      _buttonShouldBeEnabled(UpperButtonsState.PROVIDING)
-                          ? () => _onOfferPressed()
-                          : null,
-                  onPressedAsk: _buttonShouldBeEnabled(UpperButtonsState.ASKING)
-                      ? () => _onAskPressed()
-                      : null,
-                  onPressedBrowse:
-                      _buttonShouldBeEnabled(UpperButtonsState.BROWSING)
-                          ? () => _onBrowsePressed()
-                          : null,
-                ),
-                _buildLowerSection(),
-            ],
-          ),
-              )),
+            height: 1000,
+            width: 750,
+            child: state == UpperButtonsState.BROWSING
+                ? Column(children: _content())
+                : ListView(
+                    children: _content(),
+                  ),
+          )),
         ),
       ),
     );
+  }
+
+  List<Widget> _content() {
+    return [
+      CarpoolUpper(
+        onPressedOffer: _buttonShouldBeEnabled(UpperButtonsState.PROVIDING)
+            ? () => _onOfferPressed()
+            : null,
+        onPressedAsk: _buttonShouldBeEnabled(UpperButtonsState.ASKING)
+            ? () => _onAskPressed()
+            : null,
+        onPressedBrowse: _buttonShouldBeEnabled(UpperButtonsState.BROWSING)
+            ? () => _onBrowsePressed()
+            : null,
+        isBrowing: state == UpperButtonsState.BROWSING,
+      ),
+      _buildLowerSection(),
+    ];
   }
 
   bool _buttonShouldBeEnabled(UpperButtonsState buttonState) {
@@ -78,7 +85,7 @@ class _CarpoolPageState extends State<CarpoolPage> {
   }
 
   void _onMorePressed(CarpoolPostData post) {
-    print("more button pressed. Post by: ${post.postedBy}");
+    print("more button pressed. Post by: ${post.uid}");
     showDialog(
         context: context,
         child: Padding(

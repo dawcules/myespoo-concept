@@ -1,5 +1,8 @@
 // Google places api seems to not be free, so random data for addresses.
 
+import 'package:cityprog/current_language.dart';
+import 'package:cityprog/strings/string_provider.dart' show Language;
+
 class DummyAdress {
   static List<String> all = [
     "Iivisniementie 1, 02260 Espoo",
@@ -24,4 +27,15 @@ class DummyAdress {
     "Degerbyntie 16, 02600 Espoo",
     "Jääskentie 22, 02140 Espoo",
   ];
+
+  static String addressRequiredToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return "Pakollinen";
+      case Language.EN:
+        return "Required";
+      default:
+        return "Required";
+    }
+  }
 }

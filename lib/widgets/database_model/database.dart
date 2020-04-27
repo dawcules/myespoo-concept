@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
+
 
 class Database {
   Database._internal();  
@@ -155,4 +157,36 @@ Future<void> createProfile(String user, Map<String, dynamic> profile) async {
         await _db.collection("users").document(user).setData(profile); 
 }
   factory Database() => _instance;
+
+  void newCommunityPost({
+    @required Map<String, dynamic> post,
+    @required String document,
+    @required String collection,
+    @required Function callback,
+  }) async {
+    await _db
+        .collection('Services')
+        .document('Community')
+        .collection('Service')
+        .document(document)
+        .collection(collection)
+        .add(post)
+        .then((onValue) => callback != null ? callback(onValue, false) : print("callback not defined."))
+        .catchError((onError) => {callback(null, true)});
+  }
+
+  // All specified community posts. Document should be either: "Marketplace" or "Carpool"
+  // -- collection should specify which trading method: Trading.toDatabaseCollectionId().
+  Future<QuerySnapshot> getCommunityPosts({
+    @required String document,
+    @required String collection,
+  }) {
+    return _db
+        .collection('Services')
+        .document('Community')
+        .collection('Service')
+        .document(document)
+        .collection(collection)
+        .getDocuments();
+  }
 }
