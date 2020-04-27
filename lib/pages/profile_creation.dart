@@ -122,6 +122,9 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
   }
   void previousPage(index){
     _pageController.jumpToPage(index-1);
+    if(index == 0){
+      Navigator.of(context).pushNamed("/login");
+    }
   }
 
   @override
@@ -430,7 +433,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
           kIsWeb ? Stack(children: <Widget>[
              Align(
             alignment: FractionalOffset.centerRight,
-            child: NavigationButton(icon: Icon(Icons.arrow_forward),text: "Forward", function: nextPage, index: index,),
+            child: index+1 < totalPage ? NavigationButton(icon: Icon(Icons.arrow_forward),text: "Forward", function: nextPage, index: index,): SizedBox(),
             ),
           Align(
             alignment: FractionalOffset.centerLeft,

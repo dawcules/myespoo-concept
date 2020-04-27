@@ -51,6 +51,8 @@ class Router {
                 SpeechNavigationOverlay(child: CommunityHelpCat(args)));
       case '/personal':
         return MaterialPageRoute(builder: (_) => LoginPage());
+      case '/login':
+        return MaterialPageRoute(builder: (_) => LoginPage());
       case '/introduction':
         return MaterialPageRoute(
             builder: (_) => SpeechNavigationOverlay(
