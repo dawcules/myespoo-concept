@@ -71,7 +71,7 @@ class _LoginState extends State<LoginPage> {
                 child: Stack(
                   children: <Widget>[
                      kIsWeb ? SizedBox(height: 200,width: 200) : BackgroundWidget(heigth: heigth/2.2, width: width+30, imageUrl: "assets/images/backgroundtesting.png",),
-                kIsWeb ? BackgroundWidget(top: 200, heigth: 100, width: 150, imageUrl: "assets/images/smartespoo.png",) : BackgroundWidget(top: 40, heigth: heigth/10, width: width/3, imageUrl: "assets/images/smartespoo.png",)
+                kIsWeb ? BackgroundWidget(top: 200, heigth: 100, width: 150, imageUrl: "assets/images/smartespoo.png",) : BackgroundWidget(heigth: heigth/5, width: width/2, imageUrl: "assets/images/backgroundmyespoo.png",)
                   ],
                 ),
               ),
