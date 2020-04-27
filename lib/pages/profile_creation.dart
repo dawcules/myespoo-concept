@@ -393,7 +393,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                         onChanged: switchStateTracker,),
                         SizedBox(height: 40,),
                         BodyText(text: ProfileStrings.p9infoText3ToLocalized(), fontsize: 15, color: AppColor.darkText.color() ),
-                        SizedBox(height: 40,),
+                        SizedBox(height: 100,),
                         LoginButton(text: ProfileStrings.submitToLocalized(), validateSubmit:_validateSubmit,)
                       ],),),
                 info: CenteredText(text: ProfileStrings.moreInfoToLocalized(), color:  AppColor.primary.color()),
