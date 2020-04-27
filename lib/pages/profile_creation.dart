@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cityprog/model/profile_create.dart';
 import 'package:cityprog/strings/profile_strings.dart';
 import 'package:cityprog/styles/color_palette.dart';
@@ -21,7 +23,6 @@ import 'package:flutter/material.dart';
 import 'package:cityprog/animations/FadeAnimation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widgets/Backgrounds/background_widget.dart';
-import '../widgets/database_widgets/stream_builder_example.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 
@@ -35,6 +36,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
   PageController _pageController;
   int index;
   Icon areaIcon = Icon(Icons.local_activity, color: AppColor.hint.color());
+  Icon birthdayIcon = Icon(Icons.calendar_today, color: AppColor.hint.color());
 
   Validation formValidation = new Validation();
   ProfileCreate profileCreate = new ProfileCreate();
@@ -186,7 +188,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     //mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      Icon(Icons.calendar_today),
+                      birthdayIcon,
                       SizedBox(width: 20,),
                       Text("${ProfileCreate().selectedDate}".split(' ')[0] , style: TextStyle(color: AppColor.darkText.color(),fontSize: 20,), ),
                       SizedBox(width: 20.0,),
@@ -194,7 +196,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                         onPressed: () => _selectDate(context),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
                         color: AppColor.button.color(),
-                        child: Text('SYNTYNYT', style: TextStyle(color: AppColor.whiteText.color(),),),
+                        child: Text(ProfileStrings.birthdayToLocalized(), style: TextStyle(color: AppColor.whiteText.color(),),),
                             ),
                       ],
                   ),                 
@@ -409,8 +411,8 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
             height: heigth/5,
             child: Stack(
               children: <Widget>[
-                BackgroundWidget(heigth: heigth/5, width: width+30, imageUrl: "assets/images/backgroundtesting.png",),
-                BackgroundWidget(top: 40, heigth: heigth/10, width: width/3, imageUrl: "assets/images/smartespoo.png",)
+                kIsWeb ? SizedBox(height: 200, width: 200,) : BackgroundWidget(heigth: heigth/5, width: width+30, imageUrl: "assets/images/backgroundtesting.png",),
+                kIsWeb ? BackgroundWidget(top: 40, heigth: 100, width: 150, imageUrl: "assets/images/smartespoo.png",) : BackgroundWidget(top: 40, heigth: heigth/10, width: width/3, imageUrl: "assets/images/smartespoo.png",)
               ],
             ),
           ),
