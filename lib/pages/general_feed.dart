@@ -14,10 +14,10 @@ class GeneralFeed extends StatefulWidget {
 
 class _GeneralFeedState extends State<GeneralFeed> {
   //String dropdownValue = 'Valitse kategoria';
-
   @override
   Widget build(BuildContext context) {
     final key = new GlobalKey<ScaffoldState>();
+   
     return Container(
       child: Scaffold(
         key: key,

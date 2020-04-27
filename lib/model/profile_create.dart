@@ -55,7 +55,7 @@ class ProfileCreate {
   List<String> selectedCommunityAreas= [];
 
 
-  List<String> help = ["Helping Elderly", "Shoplifting","Being a good guy", "Gardening", ];
+  List<String> help = ["Company", "Shopping","Housework", "Gardening", ];
   List<String> selectedHelp = [];
   List<String> selectedHelpAreas= [];
 

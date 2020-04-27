@@ -15,12 +15,6 @@ class MarketPostModal extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(post.title,
-            style: TextStyle(
-              fontSize: 40,
-              fontWeight: FontWeight.bold,
-            )),
-        Padding(padding: EdgeInsets.only(top: 8)),
         post.body != null && post.body.isNotEmpty
             ? Text(post.body, style: _style)
             : Padding(

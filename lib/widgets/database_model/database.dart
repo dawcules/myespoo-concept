@@ -89,11 +89,12 @@ void updateValue(String document, int value, DocumentReference ref){
   }
 
    /* Spesifimpi versio. Etsii kansalaisen Larry ja ottaa hänen henkilönkohtaiset tapahtumansa streamina*/
-  Stream<DocumentSnapshot> getUserData({String user}){
-    return _db.collection('Users').document(user).snapshots();
+  Stream<DocumentSnapshot> getUserData({user}){
+    return _db.collection('users').document(user.uid).snapshots();
   }
-  Future<DocumentSnapshot> getUserDataReference({String user}){
-    return _db.collection('Users').document(user).get();
+  Future<DocumentSnapshot> getUserDataReference({user}){
+    print("$user in snapshot");
+    return _db.collection('users').document(user.uid).get();
   }
 
   //Haluan luoda uuden Documentin tyhjästä. Teen sen näin.
@@ -148,15 +149,15 @@ Map<String,dynamic> buildProfile(
     profDoc['postal code'] = postalAddress;
     profDoc['area'] = area;
     profDoc['email'] = email;
-    profDoc['beacon activated'] = beaconIsSelected.toString();
-    profDoc['security survailance'] = securitySelected.toString();
-    profDoc['special health condition'] = healthcareSelected.toString();
-    profDoc['other medical condition'] = other.toString();
-    profDoc['community services'] = communitySelected.toString();
-    profDoc['help services'] = helpSelected.toString();
-    profDoc['events selected'] = eventSelected.toString();
-    profDoc['UI'] = uiSelected.toString();
-    profDoc['notifications'] = notificationsSelected.toString();
+    profDoc['beacon activated'] = beaconIsSelected;
+    profDoc['security survailance'] = securitySelected;
+    profDoc['special health condition'] = healthcareSelected;
+    profDoc['other medical condition'] = other;
+    profDoc['community services'] = communitySelected;
+    profDoc['help services'] = helpSelected;
+    profDoc['events selected'] = eventSelected;
+    profDoc['UI'] = uiSelected;
+    profDoc['notifications'] = notificationsSelected;
     
     return profDoc;
   }

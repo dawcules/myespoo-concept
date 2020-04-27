@@ -1,5 +1,6 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
+//import { snapshotConstructor } from 'firebase-functions/lib/providers/firestore';
 admin.initializeApp();
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
@@ -24,7 +25,19 @@ export const sendToTopic = functions.firestore
 }
   return null;
 },);
+/*
+export const sendToDevicce = functions.firestore.document("Something here").onCreate(async snapshot => {
+  const myballs = snapshot.data();
 
+  const querySnapshot = await db
+  .collection("users")
+  .doc("someone offering a ride for example")
+  .collection("tokens")
+  .get();
+
+
+});
+*/
 
 
 export const helloWorld = functions.https.onRequest((request, response) => {
