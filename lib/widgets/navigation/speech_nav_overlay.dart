@@ -17,15 +17,16 @@ class SpeechNavigationOverlay extends StatefulWidget {
 class _SpeechNavigationOverlayState extends State<SpeechNavigationOverlay> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   bool _speechIsActivated = false;
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        color: Colors.white,
+    return getWidget();
+  }
+
+  Widget getWidget() {
+    if (!kIsWeb) {
+      return Container(
         child: Scaffold(
-          extendBody: true,
-          backgroundColor: Colors.transparent,
-          extendBodyBehindAppBar: true,
           key: _scaffoldKey,
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
@@ -41,15 +42,7 @@ class _SpeechNavigationOverlayState extends State<SpeechNavigationOverlay> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 IconButton(
-                  icon: Container(
-                    height: 50,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(420)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Image.asset("assets/images/smartespoo.png"),
-                      )),
+                  icon: Icon(Icons.menu),
                   color: AppColor.whiteText.color(),
                   iconSize: 50,
                   onPressed: () => _openDrawer(context),
@@ -60,7 +53,7 @@ class _SpeechNavigationOverlayState extends State<SpeechNavigationOverlay> {
           drawer: NavigationDrawer(),
           body: Stack(
             children: <Widget>[
-              Center(child: widget.child),
+              widget.child,
               Align(
                 alignment: Alignment.bottomCenter * 0.9,
                 child: Container(
@@ -77,8 +70,32 @@ class _SpeechNavigationOverlayState extends State<SpeechNavigationOverlay> {
             ],
           ),
         ),
-      ),
-    );
+      );
+    } else {
+      return Container(
+        child: Scaffold(
+          key: _scaffoldKey,
+          drawer: NavigationDrawer(),
+          body: Stack(
+            children: <Widget>[
+              widget.child,
+              Align(
+                alignment: Alignment.bottomCenter * 0.9,
+                child: Container(
+                    decoration: BoxDecoration(color: AppColor.primary.color()),
+                    child: IconButton(
+                      icon: Icon(Icons.menu),
+                      color: AppColor.whiteText.color(),
+                      iconSize: 50,
+                      onPressed: () => _openDrawer(context),
+                    ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
   }
 
   void _openDrawer(BuildContext context) {

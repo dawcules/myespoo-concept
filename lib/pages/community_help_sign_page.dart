@@ -12,8 +12,8 @@ class CommunityHelpPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Container(
-                height: 600,
-                width: 400,
+                height: 1000,
+                width: 750,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[

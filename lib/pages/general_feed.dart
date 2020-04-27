@@ -22,7 +22,11 @@ class _GeneralFeedState extends State<GeneralFeed> {
       child: Scaffold(
         key: key,
         body: Center(
-          child: StreamBuilderGeneral(),
+          child: Container(
+            height: 1000,
+            width: 750,
+            child: StreamBuilderGeneral()
+            ),
         ),
       ),
     );

@@ -19,7 +19,7 @@ class IconFormConfirm extends StatelessWidget {
     return 
                       TextFormField(
                             obscureText: true,
-                            autovalidate: true,
+                            autovalidate: false,
                             controller: controller,
                             validator: (value) => validation(value, passwordController.text) ? validationText : null,
                             style: TextStyle(color: AppColor.secondary.color(), fontFamily: 'RadikalLight'),

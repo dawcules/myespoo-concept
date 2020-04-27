@@ -19,6 +19,8 @@ class _CommunityHelpMainState extends State<CommunityHelpMain> {
   Widget build(BuildContext context) {
     final key = new GlobalKey<ScaffoldState>();
     return Container(
+      height: 1000,
+      width: 750,
       child: Scaffold(
         key: key,
         body: Center(
@@ -26,8 +28,6 @@ class _CommunityHelpMainState extends State<CommunityHelpMain> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Container(
-                height: 600,
-                width: 400,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[

@@ -1,4 +1,5 @@
 import 'package:cityprog/pages/community_help_cat_page.dart';
+import 'package:cityprog/pages/login_page.dart';
 import 'package:cityprog/pages/personal_page.dart';
 import 'package:cityprog/widgets/database_widgets/auth_check.dart';
 import 'package:cityprog/widgets/navigation/navigation_drawer.dart';
@@ -50,6 +51,8 @@ class Router {
                 SpeechNavigationOverlay(child: CommunityHelpCat(args)));
       case '/personal':
         return MaterialPageRoute(builder: (_) => PersonalPage());
+      case '/login':
+        return MaterialPageRoute(builder: (_) => LoginPage());
       case '/introduction':
         return MaterialPageRoute(
             builder: (_) => SpeechNavigationOverlay(

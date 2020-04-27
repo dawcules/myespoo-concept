@@ -33,7 +33,8 @@ class _MarketPlacePageState extends State<MarketPlacePage> {
     return Container(
       child: Scaffold(
         resizeToAvoidBottomPadding: false,
-        body: Center(
+        body: SafeArea(
+          child: Center(
             child: state == UpperButtonsState.BROWSING
                 ? Column(
                     children: _content(),
@@ -41,7 +42,9 @@ class _MarketPlacePageState extends State<MarketPlacePage> {
                   )
                 : ListView(
                     children: _content(),
-                  )),
+                  ),
+          ),
+        ),
       ),
     );
   }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:cityprog/styles/color_palette.dart';
+import 'package:cityprog/strings/community_help_strings.dart';
 
 class HelpListTile extends StatelessWidget {
   final dynamic index;
 
   HelpListTile(this.index);
 
-  // TODO: Create localized strings
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +18,8 @@ class HelpListTile extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
+                // TODO: Get a localized category
+
               Text(
                 index['type'].toString(),
               ),
@@ -34,7 +36,7 @@ class HelpListTile extends StatelessWidget {
                   style: TextStyle(color: AppColor.secondary.color()),
                 ),
                 Text(index['description'].toString()),
-                Text('Ilmoitus jätetty: ' +
+                Text( LocalizedCommunityHelpStrings.postedToLocalized() +': ' +
                     index['date'].toDate().toString().split(' ')[0]),
               ],
             ),

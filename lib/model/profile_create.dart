@@ -11,12 +11,13 @@ class ProfileCreate {
 
   ProfileCreate._internal();  
   static final ProfileCreate _instance = ProfileCreate._internal();
-
+  //Bootstrapper, Just to check if user is creating a profile
   bool _creatingProfile = false;
 
-
+  // booleans for switches
   bool beaconIsSelected = false;
   bool healthcareSelected = false;
+  bool securitySelected = false;
   bool communitySelected = false;
   bool helpSelected = false;
   bool eventSelected = false;
@@ -29,7 +30,7 @@ class ProfileCreate {
   final fNameController = TextEditingController();
   final lNameController = TextEditingController();
   final postalController = TextEditingController();
-  final bdayController = TextEditingController();
+  final otherConditionController = TextEditingController();
   final healthcareController = TextEditingController();
   final areaController = TextEditingController();
   final addressController = TextEditingController();
@@ -42,12 +43,12 @@ class ProfileCreate {
   String lName;
   String postalAddress;
   String area;
-  //TODO. DATEPICKER
-  String birthday;
+  String other;
+  DateTime selectedDate = DateTime.now();
+  DateTime birthday;
 
   List<String> healthcare = ["Wheelchair", "Physical Disability", "Depression", "Mental Disability", "Illness", "Vision impaired", "Other"];
   List<String> selectedHealthcare = [];
-  //List<String> areas = ["Leppävaara", "Tapiola","Vanha-Espoo", "Matinkylä", "Espoonlahti", "Pohjois Espoo" ];
   
   List<String> community = ["Carpool", "Marketplace","Recycling", "Local Activities", ];
   List<String> selectedCommunity = [];
@@ -70,9 +71,8 @@ class ProfileCreate {
   fName = fNameController.text;
   lName = lNameController.text;
   postalAddress = postalController.text;
-  area = areaController.text;
-  //DATEPICKER
-  //birthday = bdayController.text;
+  birthday = selectedDate;
+  other = otherConditionController.text;
   }
 
   bool profileValidation(){
@@ -83,7 +83,7 @@ class ProfileCreate {
       !_validation.validateEmail(email)
       && password == cfpassword
       && !_validation.validatePw(password)
-      && !_validation.validateText(postalAddress)
+      && area != null
     ){
       return true;
     }
@@ -112,7 +112,7 @@ class ProfileCreate {
   }
 
   void createProfile({user}) {
-    _db.createProfile(user, _db.buildProfile(beaconIsSelected, healthcareSelected, communitySelected, helpSelected, eventSelected, uiSelected, notificationsSelected, email, address, fName, lName, postalAddress, area, birthday, selectedHealthcare, selectedCommunity, selectedCommunityAreas, selectedHelp, selectedHelpAreas, selectedEvents, selectedEventAreas));
+    _db.createProfile(user, _db.buildProfile(beaconIsSelected, healthcareSelected, communitySelected, helpSelected, eventSelected, uiSelected, notificationsSelected, email, address, fName, lName, postalAddress, area, birthday, selectedHealthcare, selectedCommunity, selectedCommunityAreas, selectedHelp, selectedHelpAreas, selectedEvents, selectedEventAreas, other, securitySelected));
   }
   factory ProfileCreate() => _instance;
 }

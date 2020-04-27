@@ -1,13 +1,22 @@
+import 'package:cityprog/current_language.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:cityprog/strings/weather_strings.dart';
+import 'package:cityprog/strings/string_provider.dart' show Language;
 //import 'package:cityprog/styles/color_palette.dart';
 import 'dart:async';
 import 'dart:convert';
 
 Future<Weather> fetchWeather() async {
+  String language;
+  if (CurrentLanguage.value == Language.FI) {
+    language = 'fi';
+  } else {
+    language = 'en';
+  }
   final response =
     await http.get(
-      'https://api.openweathermap.org/data/2.5/weather?q=Espoo&lang=fi&units=metric&appid=47b4f964d6c11c890337f2f5abe51d31');
+      'https://api.openweathermap.org/data/2.5/weather?q=Espoo&lang=$language&units=metric&appid=47b4f964d6c11c890337f2f5abe51d31');
 
     if (response.statusCode == 200) {
       return Weather.fromJson(json.decode(response.body));
@@ -49,8 +58,7 @@ class _CurrentWeatherCardState extends State<CurrentWeatherCard> {
     super.initState();
     futureWeather = fetchWeather();
   }
-      // TODO: Create localized strings
-
+  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -64,8 +72,8 @@ class _CurrentWeatherCardState extends State<CurrentWeatherCard> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Text('Sää Espoossa nyt', style: TextStyle(fontWeight: FontWeight.bold),),
-                        Text(snapshot.data.weather[0].toUpperCase() + snapshot.data.weather.substring(1) + ', ' + snapshot.data.temp.toInt().toString() +' astetta'),
+                        Text(LocalizedWeatherStrings.weatherTitleToLocalized(), style: TextStyle(fontWeight: FontWeight.bold),),
+                        Text(snapshot.data.weather[0].toUpperCase() + snapshot.data.weather.substring(1) + ', ' + snapshot.data.temp.toInt().toString() + ' ' + LocalizedWeatherStrings.degreesToLocalized()),
                       ],
                     ),
                   ],

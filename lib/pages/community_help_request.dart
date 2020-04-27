@@ -16,7 +16,6 @@ class _CommunityHelpRequestState extends State<CommunityHelpRequest> {
 
         // TODO: Create localized strings, send form data to FS
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,8 +25,8 @@ class _CommunityHelpRequestState extends State<CommunityHelpRequest> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Container(
-                height: 600,
-                width: 400,
+                height: 1000,
+                width: 750,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[

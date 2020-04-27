@@ -1,4 +1,3 @@
-import 'package:cityprog/platform/io.dart';
 import 'package:cityprog/widgets/database_model/auth.dart';
 import 'package:fb_auth/fb_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,11 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  setTargetPlatformForDesktop();
   runApp(MyApp());
 }
-
-
 
 class MyApp extends StatefulWidget{
    @override
@@ -40,7 +36,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<AuthBloc>(create: (_) => _auth.getAuthBloc()),
       ],
       child: MaterialApp(
-      title: 'Flutter Demo',
+      title: 'My Espoo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -56,90 +52,5 @@ class _MyAppState extends State<MyApp> {
   void _initLanguage(String localeId) {
     print(localeId);
     CurrentLanguage.setNewFromString(localeId);
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-// Some updating data source
-/* setState(() {
-    }); */
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  final List<String> entries = <String>['Uutinen', 'Uutinen', 'Tapahtuma'];
-  final List<int> colorCodes = <int>[600, 500, 100];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: new AppBar(
-        title: new Text(widget.title),
-      ),
-      body: new Center(
-        child: new Container(
-          child: Column(
-            children: <Widget>[
-              new Text(
-                'Cityproggis',
-                // style: TextStyle(color: Colors.blue, fontSize: 50),
-              ),
-              ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.all(8),
-                  itemCount: entries.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      margin:
-                          EdgeInsets.only(right: 40.0, left: 40.0, bottom: 5.0),
-                      height: 50,
-                      color: Colors.blue[colorCodes[index]],
-                      child: Center(child: Text('${entries[index]}')),
-                    );
-                  }),
-              new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  new FlatButton(
-                    color: Colors.amber,
-                    child: Text('Nappi'),
-                    onPressed: () {
-                      print('Blip');
-                    },
-                  ),
-                  new FlatButton(
-                    color: Colors.amber,
-                    child: Text('Nappi'),
-                    onPressed: () {
-                      print('Blip');
-                    },
-                  ),
-                  new FlatButton(
-                    color: Colors.amber,
-                    child: Text('Nappi'),
-                    onPressed: () {
-                      print('Blip');
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }
