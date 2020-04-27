@@ -44,7 +44,7 @@ class Database {
   Stream<QuerySnapshot> getCitizenByName(String nimi) {
   return _db.collection('kaupunkilainen').where('nimi', isEqualTo: nimi).snapshots();
   }
-   Stream<QuerySnapshot> getHelpByCategory(String category) {
+  Stream<QuerySnapshot> getHelpByCategory(String category) {
   return _db.collection('Apupalvelu').where('type', isEqualTo: category).snapshots();
   }
 
@@ -86,6 +86,14 @@ void updateValue(String document, int value, DocumentReference ref){
              throw Exception('Me no like!');
         }
     });
+  }
+
+   /* Spesifimpi versio. Etsii kansalaisen Larry ja ottaa hänen henkilönkohtaiset tapahtumansa streamina*/
+  Stream<DocumentSnapshot> getUserData({String user}){
+    return _db.collection('Users').document(user).snapshots();
+  }
+  Future<DocumentSnapshot> getUserDataReference({String user}){
+    return _db.collection('Users').document(user).get();
   }
 
   //Haluan luoda uuden Documentin tyhjästä. Teen sen näin.
