@@ -35,7 +35,7 @@ class HelpListTile extends StatelessWidget {
                   index['title'].toString(),
                   style: TextStyle(color: AppColor.secondary.color()),
                 ),
-                Text(index['description'].toString()),
+                Flexible(child: Text(index['description'].toString())),
                 Text( LocalizedCommunityHelpStrings.postedToLocalized() +': ' +
                     index['date'].toDate().toString().split(' ')[0]),
               ],
