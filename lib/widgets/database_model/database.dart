@@ -92,7 +92,9 @@ void updateValue(String document, int value, DocumentReference ref){
   Stream<DocumentSnapshot> getUserData({String user}){
     return _db.collection('Users').document(user).snapshots();
   }
-
+  Future<DocumentSnapshot> getUserDataReference({String user}){
+    return _db.collection('Users').document(user).get();
+  }
 
   //Haluan luoda uuden Documentin tyhjästä. Teen sen näin.
 Map<String,dynamic> buildProfile(
