@@ -53,7 +53,7 @@ class _SpeechNavigationOverlayState extends State<SpeechNavigationOverlay> {
           drawer: NavigationDrawer(),
           body: Stack(
             children: <Widget>[
-              widget.child,
+              Center(child: widget.child),
               Align(
                 alignment: Alignment.bottomCenter * 0.9,
                 child: Container(
