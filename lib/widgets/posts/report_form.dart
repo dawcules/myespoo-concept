@@ -5,7 +5,7 @@ import 'package:cityprog/styles/color_palette.dart';
 import 'package:cityprog/validation/report_form_validator.dart';
 import 'package:cityprog/widgets/Inputs/address_picker.dart';
 import 'package:cityprog/widgets/camera/app_image_picker.dart';
-import 'package:cityprog/widgets/carpool_marketplace/forms/custom_expansion_tile.dart';
+//import 'package:cityprog/widgets/carpool_marketplace/forms/custom_expansion_tile.dart';
 import 'package:cityprog/widgets/columns/title_details_column.dart';
 import 'package:cityprog/widgets/posts/community_post_modal.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +65,7 @@ class _ReportFormState extends State<ReportForm> {
                   onAddressPicked: (String address) =>
                       _onAddressPicked(address),
                 ),
-                CustomExpansionTile(
+                ExpansionTile(
                   title:
                       Text(LocalizedReportStrings.additionalInfoToLocalized()),
                   children: <Widget>[

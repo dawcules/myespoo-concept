@@ -37,7 +37,9 @@ class _CarpoolUpperState extends State<CarpoolUpper> {
               isCarpoolPage: true,
             ),
             widget.isBrowing != null && widget.isBrowing
-                ? TextDateWithCalendarPicker(onDatePicked: (DateTime date) => _onDatePicked(date),)
+                ? TextDateWithCalendarPicker(
+                    onDatePicked: (DateTime date) => _onDatePicked(date),
+                  )
                 : Padding(
                     padding: EdgeInsets.all(0),
                   ),

@@ -1,7 +1,9 @@
 import 'package:cityprog/model/initialize_profile.dart';
 import 'package:cityprog/model/profile_create.dart';
+//import 'package:cityprog/pages/general_feed.dart';
 import 'package:cityprog/pages/login_page.dart';
 import 'package:cityprog/widgets/database_model/auth.dart';
+//import 'package:cityprog/widgets/navigation/speech_nav_overlay.dart';
 import 'package:fb_auth/fb_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

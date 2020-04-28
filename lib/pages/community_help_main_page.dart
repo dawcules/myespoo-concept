@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import '../widgets/rows/dropdown_select.dart';
 import 'package:cityprog/strings/community_help_strings.dart';
