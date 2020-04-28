@@ -39,13 +39,7 @@ class AuthCheck extends StatelessWidget {
             if(!kIsWeb) {
             final initializer = InitializeProfile();
             initializer.getUserData();
-<<<<<<< HEAD
-            }
-            //return SpeechNavigationOverlay(child: GeneralFeed());
-            return Padding(padding: EdgeInsets.all(0),);
-=======
             SpeechNavigationOverlay(child: GeneralFeed());
->>>>>>> cdab42fa8a949bce7081f5b82267af88a2f26bb2
           }
           //Not creating so we go here.
           print("Logged in");
