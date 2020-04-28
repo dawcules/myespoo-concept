@@ -2,7 +2,7 @@ import 'package:cityprog/model/carpool.dart';
 import 'package:cityprog/model/trade_methods.dart';
 import 'package:cityprog/validation/origin_destination_validator.dart';
 import 'package:cityprog/widgets/buttons/submit_form_button.dart';
-//import 'package:cityprog/widgets/carpool_marketplace/forms/custom_expansion_tile.dart';
+import 'package:cityprog/widgets/carpool_marketplace/forms/custom_expansion_tile.dart';
 import 'package:cityprog/widgets/columns/origin_destination.dart';
 import 'package:cityprog/widgets/columns/title_details_column.dart';
 import 'package:cityprog/widgets/database_model/auth.dart';
@@ -20,6 +20,7 @@ class CarpoolForm extends StatefulWidget {
 }
 
 class _CarpoolFormState extends State<CarpoolForm> {
+
   bool _dateWasPicked = false;
   bool _timeWasPicked = false;
   //bool _dateNeedsToReDraw = false;
@@ -43,7 +44,7 @@ class _CarpoolFormState extends State<CarpoolForm> {
     return Container(
       child: Column(
         children: <Widget>[
-          ExpansionTile(
+          CustomExpansionTile(
             leading: Icon(Icons.notification_important),
             initiallyExpanded: true,
             title: Text("Pakolliset"),
@@ -67,7 +68,7 @@ class _CarpoolFormState extends State<CarpoolForm> {
           Padding(
             padding: EdgeInsets.all(8),
           ),
-          ExpansionTile(
+          CustomExpansionTile(
             onExpansionChanged: (value) => print(value),
             leading: Icon(Icons.more),
             title: Text("Lisätietoja"),
@@ -90,6 +91,21 @@ class _CarpoolFormState extends State<CarpoolForm> {
     if (!_dateWasPicked) {
       setState(() => _dateWasPicked = true);
     }
+    _combineDateAndTime();
+  }
+
+  void _combineDateAndTime() {
+    print(
+        "Selected date hour:${_selectedDate.hour}, Selected date minute:${_selectedDate.minute}");
+    if (_selectedDate != null && _selectedTime != null) {
+      setState(() {
+        DateTime date = DateTime(_selectedDate.year, _selectedDate.month,
+            _selectedDate.day, _selectedTime.hour, _selectedTime.minute);
+        _selectedDate = date;
+        print(
+            "Selected date hour after comine:${_selectedDate.hour}, Selected date minute after combine:${_selectedDate.minute}");
+      });
+    }
   }
 
   void _onTimePicked(TimeOfDay time) {
@@ -100,6 +116,7 @@ class _CarpoolFormState extends State<CarpoolForm> {
         _timeWasPicked = true;
       });
     }
+    _combineDateAndTime();
   }
 
   void _onDestinationPicked(String address) {

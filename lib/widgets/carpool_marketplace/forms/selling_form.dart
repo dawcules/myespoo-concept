@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cityprog/model/market.dart';
 import 'package:cityprog/model/trade_methods.dart';
+import 'package:cityprog/networking/network_api.dart';
 import 'package:cityprog/validation/title_details_validator.dart';
 import 'package:cityprog/widgets/buttons/submit_form_button.dart';
 import 'package:cityprog/widgets/camera/app_image_picker.dart';
@@ -10,6 +11,7 @@ import 'package:cityprog/widgets/columns/select_price_column.dart';
 import 'package:cityprog/widgets/database_model/auth.dart';
 import 'package:cityprog/widgets/database_model/database.dart';
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 
 class SellingForm extends StatefulWidget {
   @override
@@ -73,7 +75,9 @@ class _SellingFormState extends State<SellingForm> {
 
   void _onTradeMethodChanged(Trading method) {
     print(method);
-    _method = method;
+    setState(() {
+      _method = method;
+    });
   }
 
   void _onImagePicked(File img) {
@@ -92,11 +96,35 @@ class _SellingFormState extends State<SellingForm> {
       return true;
   }
 
+  void _uploadImage() {
+    print("Submit sell post!");
+    NetworkApi.uploadImage(
+        _image,
+        (error, imageUrl) => {
+              if (!error)
+                {
+                  _sendData(imageUrl),
+                  Navigator.of(context).pushReplacementNamed("/market")
+                }
+              else
+                {Toast.show("Error uploading image", context)}
+            });
+  }
+
   void _submitPost() {
     print("Submit sell post!");
+    if (_image != null) {
+      _uploadImage();
+    } else {
+      _sendData(null);
+    }
+  }
+
+  void _sendData(String imageUrl) {
     MarketPostData post = MarketPostData(
         body: _titleDetailsValidator.details,
-        imageUri: _image != null ? _image.uri : null,
+        //imageUri: _image != null ? _image.uri : null,
+        imageUri: imageUrl,
         postDate: DateTime.now(),
         uid: Auth().getUID(),
         price: _price,

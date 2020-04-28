@@ -17,10 +17,13 @@ class TitleDetailsColumn extends StatelessWidget {
         IconFormInput(
           hint: LocalizedCommunityStrings.titleToLocalized(),
           validation: validator != null ? validator.validateTitle : noValidation,
+          autoValidate: true,
           validationText: validator != null ? ValidationStrings.titleErrorTextToLocalized() : " ",
           icon: Icon(Icons.title),
         ),
         IconFormInput(
+          autoValidate: true,
+          maxLines: 10,
           hint: LocalizedCommunityStrings.detailsToLocalized(),
           validation: validator != null ? validator.validateDetails : noValidation,
           validationText: validator != null ? ValidationStrings.descriptionErrorTextToLocalized() : " ",

@@ -33,6 +33,7 @@ class SpeechNavigationButton extends StatefulWidget {
 class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
     with TickerProviderStateMixin {
   bool _hasPermissions = false;
+  bool _didInit = false;
 
   double level = 0.0;
 
@@ -48,10 +49,14 @@ class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
 
   @override
   void initState() {
+    print("Initializing speech navigation button state...");
     super.initState();
-    initSpeechState();
-    _initAnimationController();
-    _initModules();
+    if (!_didInit) {
+      initSpeechState();
+      _initAnimationController();
+      _initModules();
+      _didInit = true;
+    }
   }
 
   void _initSpeechToRoute(Language language) {
@@ -64,11 +69,15 @@ class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
   }
 
   Future<void> initSpeechState() async {
-    bool hasSpeech = await speech.initialize(
-        onError: errorListener, onStatus: (statusListener));
-    if (hasSpeech) {
-      var systemLocale = await speech.systemLocale();
-      _currentLocaleId = systemLocale.localeId;
+    try {
+      bool hasSpeech = await speech.initialize(
+          onError: errorListener, onStatus: (statusListener));
+      if (hasSpeech) {
+        var systemLocale = await speech.systemLocale();
+        _currentLocaleId = systemLocale.localeId;
+      }
+    } catch (e) {
+      print(e.toString());
     }
 
     if (!mounted) return;

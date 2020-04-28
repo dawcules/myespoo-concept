@@ -24,33 +24,49 @@ class MarketPostWidget extends StatelessWidget {
               paddingAmount: 8,
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
               child: Column(
                 children: <Widget>[
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: _autoSizeTextRow(postData.title, context,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 28)),
-                  ),
-                  Padding(padding: EdgeInsets.all(4),),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: _autoSizeTextRow(
-                      postData.body,
-                      context,
-                      style: TextStyle(fontSize: 20)
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: _autoSizeTextRow(postData.title, context,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 28)),
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: FlatButton(
-                      child: Text(
-                        LocalizedCommunityStrings.moreToLocalized(),
-                        style: TextStyle(
-                            color: AppColor.primary.color(), fontSize: 16),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                  ),
+                  postData.imageUri != null
+                      ? Image.network(postData.imageUri)
+                      : Padding(
+                          padding: EdgeInsets.all(0),
+                        ),
+                  Padding(
+                    padding: EdgeInsets.all(4),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: _autoSizeTextRow(postData.body, context,
+                          style: TextStyle(fontSize: 20)),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: FlatButton(
+                        child: Text(
+                          LocalizedCommunityStrings.moreToLocalized(),
+                          style: TextStyle(
+                              color: AppColor.primary.color(), fontSize: 16),
+                        ),
+                        onPressed: () => _moreButtonPressed(),
                       ),
-                      onPressed: () => _moreButtonPressed(),
                     ),
                   ),
                 ],
