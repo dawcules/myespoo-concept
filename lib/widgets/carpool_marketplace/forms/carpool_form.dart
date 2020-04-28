@@ -2,7 +2,7 @@ import 'package:cityprog/model/carpool.dart';
 import 'package:cityprog/model/trade_methods.dart';
 import 'package:cityprog/validation/origin_destination_validator.dart';
 import 'package:cityprog/widgets/buttons/submit_form_button.dart';
-import 'package:cityprog/widgets/carpool_marketplace/forms/custom_expansion_tile.dart';
+//import 'package:cityprog/widgets/carpool_marketplace/forms/custom_expansion_tile.dart';
 import 'package:cityprog/widgets/columns/origin_destination.dart';
 import 'package:cityprog/widgets/columns/title_details_column.dart';
 import 'package:cityprog/widgets/database_model/auth.dart';
@@ -43,7 +43,7 @@ class _CarpoolFormState extends State<CarpoolForm> {
     return Container(
       child: Column(
         children: <Widget>[
-          CustomExpansionTile(
+          ExpansionTile(
             leading: Icon(Icons.notification_important),
             initiallyExpanded: true,
             title: Text("Pakolliset"),
@@ -67,7 +67,7 @@ class _CarpoolFormState extends State<CarpoolForm> {
           Padding(
             padding: EdgeInsets.all(8),
           ),
-          CustomExpansionTile(
+          ExpansionTile(
             onExpansionChanged: (value) => print(value),
             leading: Icon(Icons.more),
             title: Text("Lisätietoja"),
