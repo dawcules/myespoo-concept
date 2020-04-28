@@ -31,7 +31,6 @@ class _CarpoolUpperState extends State<CarpoolUpper> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            UniversalRaisedButton(onPressed: () => print("xd"),),
             UpperSection(
               onPressedOffer: widget.onPressedOffer,
               onPressedAsk: widget.onPressedAsk,
