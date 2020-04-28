@@ -117,7 +117,7 @@ class _ListViewBuilderState extends State<ListViewBuilder> {
             padding: EdgeInsets.all(16),
             itemCount: widget.eventDataLength +
                 widget.helpDataLength + widget.notificationDataLength +
-                6, //+1 for weather card + 5 for news
+                8, //+1 for weather card + 7 for news
             itemBuilder: (BuildContext _context, index) {
               return Column(
                 children: <Widget>[
@@ -131,14 +131,19 @@ class _ListViewBuilderState extends State<ListViewBuilder> {
                         Divider(),
                       ],
                     ),
-                  if (index < 5)
+                  if (index < 7)
                     FutureBuilder(
                       future: _fetchIds(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           print('TÄÄLLÄ DATAA ' + snapshot.data[0]);
-                          return CurrentNewsCard(
-                              contentId: snapshot.data[index]);
+                          return Column(
+                            children: <Widget>[
+                              CurrentNewsCard(
+                                  contentId: snapshot.data[index]),
+                                  Divider(),
+                            ],
+                          );
                         } else if (snapshot.hasError) {
                           return Text("${snapshot.error}");
                         }

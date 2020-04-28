@@ -51,7 +51,7 @@ class _CommunityHelpMainState extends State<CommunityHelpMain> {
                         key,
                         '/communityHelpCat'),
                     Padding(padding: EdgeInsets.all(20.0)),
-                    RaisedButton(
+                    /* RaisedButton(
                       color: AppColor.button.color(),
                       onPressed: () {
                         //Navigator.of(context).pushNamed('/communityHelpSign');
@@ -71,11 +71,11 @@ class _CommunityHelpMainState extends State<CommunityHelpMain> {
                           ),
                         ),
                       ),
-                    ),
+                    ), */
                     Padding(
                       padding: EdgeInsets.all(20),
                     ),
-                    RaisedButton(
+                    /* RaisedButton(
                       color: AppColor.button.color(),
                       onPressed: () {
                         //Navigator.of(context).pushNamed('/communityHelpSign');
@@ -96,7 +96,7 @@ class _CommunityHelpMainState extends State<CommunityHelpMain> {
                           ),
                         ),
                       ),
-                    ),
+                    ), */
                   ],
                 ),
               ),

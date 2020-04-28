@@ -23,11 +23,14 @@ class NotificationListTile extends StatelessWidget {
 
     return Container(
           color: Colors.yellow[50],
-          child: ListTile(
+          child: Material(
+            elevation: 5.0,
+                      child: ListTile(
         leading: Icon(Icons.warning, color: Colors.yellowAccent, size: 40),
         title: Text(index[cardContent]),
         subtitle: Text(cardDate1[0] + ' ' + cardTime1[0] + ':' + cardTime1[1] + " - " + cardDate2[0] + ' ' + cardTime2[0] + ':' + cardTime2[1]),
       ),
+          ),
     );
   }
 }
