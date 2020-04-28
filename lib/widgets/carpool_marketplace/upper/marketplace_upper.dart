@@ -10,6 +10,7 @@ class MarketplaceUpper extends StatelessWidget {
     @required this.onPressedSell,
     @required this.onPressedBuy,
     @required this.onPressedBrowse,
+    
   });
 
   @override
