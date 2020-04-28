@@ -59,7 +59,7 @@ class News {
   factory News.fromJson(Map<String, dynamic> json) {
     String img;
     var entryList = json['feed']['entry'];
-    if (entryList != null && entryList.length >= 2) {
+    if (entryList != null && entryList.length >= 3) {
       var urlString =
           entryList[2]['content']['m\$properties']['d\$Text']['\$t'];
       print(urlString);

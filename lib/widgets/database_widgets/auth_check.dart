@@ -1,13 +1,15 @@
 import 'package:cityprog/model/initialize_profile.dart';
 import 'package:cityprog/model/profile_create.dart';
+import 'package:cityprog/pages/general_feed.dart';
 //import 'package:cityprog/pages/general_feed.dart';
 import 'package:cityprog/pages/login_page.dart';
 import 'package:cityprog/widgets/database_model/auth.dart';
+import 'package:cityprog/widgets/navigation/speech_nav_overlay.dart';
 //import 'package:cityprog/widgets/navigation/speech_nav_overlay.dart';
 import 'package:fb_auth/fb_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
+//import 'package:flutter/foundation.dart' show kIsWeb;
 
 
 //This class acts as a "bootstrapper" for authing. 
@@ -37,18 +39,21 @@ class AuthCheck extends StatelessWidget {
             if(!kIsWeb) {
             final initializer = InitializeProfile();
             initializer.getUserData();
+<<<<<<< HEAD
             }
             //return SpeechNavigationOverlay(child: GeneralFeed());
             return Padding(padding: EdgeInsets.all(0),);
+=======
+            SpeechNavigationOverlay(child: GeneralFeed());
+>>>>>>> cdab42fa8a949bce7081f5b82267af88a2f26bb2
           }
           //Not creating so we go here.
           print("Logged in");
-          if (!kIsWeb) {
           final initializer = InitializeProfile();
           initializer.getUserData();
-          //return SpeechNavigationOverlay(child: GeneralFeed());
-          }
-          return Padding(padding: EdgeInsets.all(0),);
+          return SpeechNavigationOverlay(child: GeneralFeed());
+         
+          
         }else{
           //Not logged in so we go to login
            print("Not logged in");
