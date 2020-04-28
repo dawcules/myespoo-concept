@@ -7,6 +7,8 @@ import 'package:cityprog/widgets/database_model/auth.dart';
 import 'package:fb_auth/fb_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+
 
 //This class acts as a "bootstrapper" for authing. 
 class AuthCheck extends StatelessWidget {
@@ -39,9 +41,11 @@ class AuthCheck extends StatelessWidget {
           }
           //Not creating so we go here.
           print("Logged in");
+          if (!kIsWeb) {
           final initializer = InitializeProfile();
           initializer.getUserData();
           //return SpeechNavigationOverlay(child: GeneralFeed());
+          }
           return Padding(padding: EdgeInsets.all(0),);
         }else{
           //Not logged in so we go to login
