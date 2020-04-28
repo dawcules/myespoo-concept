@@ -10,11 +10,11 @@ class CommunityPage extends StatelessWidget {
       child: Scaffold(
         body: Center(
             child: Container(
-              height: 1000,
-              width: 750,
-              child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          height: 1000,
+          width: 750,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
               _communityNavigationButton("Carpool", "/carpool", context),
               Padding(
                 padding: EdgeInsets.all(8),
@@ -23,17 +23,20 @@ class CommunityPage extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.all(8),
               ),
-              _communityNavigationButton("Help services", "/communityHelp", context),
-          ],
-        ),
-            )),
+              _communityNavigationButton(
+                  "Help services", "/communityHelp", context),
+            ],
+          ),
+        )),
       ),
     );
   }
 
-  Widget _communityNavigationButton(String title, String route, BuildContext context) {
+  Widget _communityNavigationButton(
+      String title, String route, BuildContext context) {
     return RaisedButton(
       color: AppColor.button.color(),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(

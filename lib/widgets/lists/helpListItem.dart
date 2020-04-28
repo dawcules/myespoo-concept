@@ -11,39 +11,30 @@ class HelpListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.red[50],
       height: 130,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-                // TODO: Get a localized category
-
-              Text(
-                index['type'].toString(),
+      child: Material(
+        elevation: 5.0,
+              child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Flexible(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Text(
+                    index['title'].toString(),
+                    style: TextStyle(color: AppColor.secondary.color(), fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                  Flexible(child: Text(index['description'].toString(), style: TextStyle(fontSize: 16))),
+                  Text( LocalizedCommunityHelpStrings.postedToLocalized() +': ' +
+                      index['date'].toDate().toString().split(' ')[0]),
+                ],
               ),
-              Icon(Icons.event_seat),
-            ],
-          ),
-          VerticalDivider(),
-          Flexible(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Text(
-                  index['title'].toString(),
-                  style: TextStyle(color: AppColor.secondary.color()),
-                ),
-                Flexible(child: Text(index['description'].toString())),
-                Text( LocalizedCommunityHelpStrings.postedToLocalized() +': ' +
-                    index['date'].toDate().toString().split(' ')[0]),
-              ],
             ),
-          ),
-          VerticalDivider(),
-          Image.network(index['img'].toString()),
-        ],
+            Image.network(index['img'].toString()),
+          ],
+        ),
       ),
     );
   }

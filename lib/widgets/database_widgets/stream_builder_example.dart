@@ -1,8 +1,7 @@
 import 'package:cityprog/styles/color_palette.dart';
 import 'package:flutter/material.dart';
 import '../database_model/database.dart';
-
-
+import 'package:getflutter/getflutter.dart';
 
 // Example. Streambuildattu Listview firestore datalla. päivitetään eventin likeja painamalla.
 class StreamBuilderExample extends StatelessWidget {
@@ -14,7 +13,7 @@ class StreamBuilderExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:StreamBuilder(
+      body: StreamBuilder(
           stream: Database().getCollection(myQuery),
           builder: (context, snapshot) {
             if (!snapshot.hasData) return const Text('Loading..');
@@ -33,37 +32,38 @@ class ListViewBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Ink(
-      color: AppColor.background.color(),
-      child:ListView.builder(
-        padding: EdgeInsets.all(16),
-        itemExtent: 80,
-        itemCount: queryData.length,
-        itemBuilder: (BuildContext _context, index) {
-          return _buildListItem(context, queryData[index]);
-        }));
+        color: AppColor.background.color(),
+        child: ListView.builder(
+            padding: EdgeInsets.all(16),
+            itemExtent: 80,
+            itemCount: queryData.length,
+            itemBuilder: (BuildContext _context, index) {
+              return _buildListItem(context, queryData[index]);
+            }));
   }
 
   Widget _buildListItem(BuildContext context, index) {
-    return ListTile(
-      title: Ink(
-        color: AppColor.background.color(),
-        child: Row(
-        children: [
-        Expanded(
-            child: Text(
-              index['nimi'].toString(), style: TextStyle(color: AppColor.secondary.color()),
-            )),
-        Container(
-            decoration: BoxDecoration(color: AppColor.primary.color()),
-            padding: EdgeInsets.all(10),
-            child: Text(index['likes'].toString(),style: TextStyle(color: AppColor.whiteText.color()),),),
-        Divider(),
-      ]),),
-      trailing: Icon(Icons.person_pin),
-      onTap: () {
-          Database().updateValue('likes', 1, index.reference); //Katso Database singleton, päivittää referenssin likeja
-          //Tähän voi pistää vaikka navigoinnin ja viedä index dokkarin mukana.
-      },
+    return GFCard(
+      boxFit: BoxFit.cover,
+      image: Image.network(
+          'https://i.picsum.photos/id/${index['img']}/500/300.jpg'),
+      title: GFListTile(
+          title: Text('Card Title'),
+          icon: GFIconButton(
+            onPressed: null,
+            icon: Icon(Icons.favorite_border),
+            type: GFButtonType.transparent,
+          )),
+      content: Text("Some quick example text to build on the card"),
+      buttonBar: GFButtonBar(
+        alignment: WrapAlignment.start,
+        children: <Widget>[
+          GFButton(
+            onPressed: () {},
+            text: 'Read More',
+          ),
+        ],
+      ),
     );
   }
 }

@@ -102,43 +102,60 @@ class _CurrentNewsCardState extends State<CurrentNewsCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.blue[50],
       child: FutureBuilder<News>(
         future: futureNews,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return InkWell(
-              onTap: () => _launchURL(widget.contentId),
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Flexible(
-                        child: Text(
-                          snapshot.data.text.toString(),
-                          style: TextStyle(fontSize: 18),
+            return Material(
+              elevation: 5.0,
+                          child: InkWell(
+                onTap: () => _launchURL(widget.contentId),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Flexible(
+                          child: Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(2.0),
+                                child: Text(
+                                  snapshot.data.text.toString(),
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  Icon(Icons.import_contacts),
+                                  Icon(Icons.arrow_forward),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      VerticalDivider(),
-                      if (!kIsWeb)
-                        CachedNetworkImage(
-                          imageUrl: snapshot.data.imgUrl,
-                          height: 160,
-                          width: 120,
-                          placeholder: (context, url) =>
-                              CircularProgressIndicator(),
-                          errorWidget: (context, url, error) => Image.asset(
-                              'assets/images/smartespoo.png',
-                              width: 120,
-                              height: 160),
-                        ),
-                      if (kIsWeb)
-                        Image.asset('assets/images/smartespoo.png',
-                            width: 120, height: 160),
-                    ],
-                  ),
-                  Divider(),
-                ],
+                        Padding(padding: EdgeInsets.all(1.5)),
+                        if (!kIsWeb)
+                          CachedNetworkImage(
+                            imageUrl: snapshot.data.imgUrl,
+                            width: 180,
+                            fit: BoxFit.fill,
+                            placeholder: (context, url) =>
+                                CircularProgressIndicator(),
+                            errorWidget: (context, url, error) => Image.asset(
+                                'assets/images/smartespoo.png',
+                                width: 120,
+                                height: 160),
+                          ),
+                        if (kIsWeb)
+                          Image.asset('assets/images/smartespoo.png',
+                              width: 120, height: 160),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             );
           } else if (snapshot.hasError) {
