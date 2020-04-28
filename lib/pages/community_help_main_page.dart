@@ -13,12 +13,12 @@ class _CommunityHelpMainState extends State<CommunityHelpMain> {
   @override
   Widget build(BuildContext context) {
     final key = new GlobalKey<ScaffoldState>();
-    return Container(
-      height: 1000,
-      width: 750,
-      child: Scaffold(
+    return 
+        Scaffold(
         key: key,
-        body: Center(
+        body: Center(child: Container(
+          height: 1000,
+          width: 750,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[

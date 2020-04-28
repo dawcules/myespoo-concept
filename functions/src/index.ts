@@ -8,7 +8,7 @@ admin.initializeApp();
 //const db = admin.firestore();
 const fcm = admin.messaging();
 
-export const sendToTopic = functions.firestore
+export const sendToTapahtumat = functions.firestore
 .document("Tapahtumat/{TapahtumatID}")
 .onCreate(async snapshot => {
   const event = snapshot.data();
@@ -25,6 +25,26 @@ export const sendToTopic = functions.firestore
 }
   return null;
 },);
+
+export const sendToImportant = functions.firestore
+.document("Tapahtumat/{TapahtumatID}")
+.onCreate(async snapshot => {
+  const event = snapshot.data();
+  if(event){
+  const payload: admin.messaging.MessagingPayload = {
+    notification:{
+      title: "new Event Added!",
+      body: `New event randomly appeared! Named ${event.nameEN ? event.nameEN : null}`,
+      //icon
+      clickAction: 'FLUTTER_NOTIFICATION_CLICK',
+    }
+  }
+  return fcm.sendToTopic("Tapahtumat", payload);
+}
+  return null;
+},);
+
+
 /*
 export const sendToDevicce = functions.firestore.document("Something here").onCreate(async snapshot => {
   const myballs = snapshot.data();
