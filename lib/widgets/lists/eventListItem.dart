@@ -30,7 +30,7 @@ class EventListTile extends StatelessWidget {
       boxFit: BoxFit.cover,
       titlePosition: GFPosition.start,
       margin: EdgeInsets.all(0.0),
-      color: Color.fromRGBO(241, 255, 235, 1.0),
+      color: Colors.green[50],
       elevation: 5.0,
       image: Image.network(
           'https://i.picsum.photos/id/${index['img']}/500/300.jpg'),

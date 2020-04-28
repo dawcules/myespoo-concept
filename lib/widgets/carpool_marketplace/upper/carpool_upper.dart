@@ -1,4 +1,3 @@
-import 'package:cityprog/widgets/buttons/universal_raised_button.dart';
 import 'package:flutter/material.dart';
 
 import './upper_section.dart';
@@ -38,7 +37,9 @@ class _CarpoolUpperState extends State<CarpoolUpper> {
               isCarpoolPage: true,
             ),
             widget.isBrowing != null && widget.isBrowing
-                ? TextDateWithCalendarPicker(onDatePicked: (DateTime date) => _onDatePicked(date),)
+                ? TextDateWithCalendarPicker(
+                    onDatePicked: (DateTime date) => _onDatePicked(date),
+                  )
                 : Padding(
                     padding: EdgeInsets.all(0),
                   ),
