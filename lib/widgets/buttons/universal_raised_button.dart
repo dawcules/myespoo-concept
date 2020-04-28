@@ -37,7 +37,7 @@ class UniversalRaisedButton extends StatelessWidget {
           ),
         ),
         color: color ?? AppColor.button.color(),
-        onPressed: onPressed != null ? () => onPressed : null,
+        onPressed: onPressed != null ? () => onPressed() : null,
       ),
     );
   }
