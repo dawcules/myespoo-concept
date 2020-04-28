@@ -142,13 +142,15 @@ class _MarketLowerState extends State<MarketLower> {
         });
     List<MarketPostData> allPosts = (sellingPosts + buyingPosts + freePosts);
     allPosts.sort();
-    setState(() {
-      _sellingPosts = _buildList(context, sellingPosts);
-      _buyingPosts = _buildList(context, buyingPosts);
-      _freePosts = _buildList(context, freePosts);
-      _allPosts = _buildList(context, allPosts);
-      _fetchedAndBuilt = true;
-    });
+    if (mounted) {
+      setState(() {
+        _sellingPosts = _buildList(context, sellingPosts);
+        _buyingPosts = _buildList(context, buyingPosts);
+        _freePosts = _buildList(context, freePosts);
+        _allPosts = _buildList(context, allPosts);
+        _fetchedAndBuilt = true;
+      });
+    }
   }
 
   Future<QuerySnapshot> _getBuyingPosts() {

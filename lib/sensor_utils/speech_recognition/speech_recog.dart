@@ -69,13 +69,15 @@ class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
   }
 
   Future<void> initSpeechState() async {
-    if (speech.isAvailable) {
+    try {
       bool hasSpeech = await speech.initialize(
           onError: errorListener, onStatus: (statusListener));
       if (hasSpeech) {
         var systemLocale = await speech.systemLocale();
         _currentLocaleId = systemLocale.localeId;
       }
+    } catch (e) {
+      print(e.toString());
     }
 
     if (!mounted) return;

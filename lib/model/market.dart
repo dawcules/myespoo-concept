@@ -18,7 +18,7 @@ class MarketPostData implements Comparable<MarketPostData> {
   final String uid;
   final DateTime postDate;
   final Trading tradeMethod;
-  final Uri imageUri;
+  final String imageUri;
   final double price;
   final String area;
 

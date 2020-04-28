@@ -73,8 +73,8 @@ class News {
     }
 
     return News(
-      text: json['feed']['entry'][0]['content']['m\$properties']['d\$Text']
-          ['\$t'],
+      text: """json['feed']['entry'][0]['content']['m\$properties']['d\$Text']
+          ['\$t']""",
       imgUrl: img.toString(),
     );
   }
