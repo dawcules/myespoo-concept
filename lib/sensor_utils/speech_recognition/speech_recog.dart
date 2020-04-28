@@ -34,6 +34,7 @@ class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
     with TickerProviderStateMixin {
   bool _hasPermissions = false;
   bool _didInit = false;
+  bool _hasSpeech = false;
 
   double level = 0.0;
 
@@ -75,6 +76,9 @@ class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
       if (hasSpeech) {
         var systemLocale = await speech.systemLocale();
         _currentLocaleId = systemLocale.localeId;
+        setState(() {
+          _hasSpeech = true;
+        });
       }
     } catch (e) {
       print(e.toString());
@@ -92,9 +96,6 @@ class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
     PermissionStatus request = await Permission.microphone.request();
     if (request.isGranted) {
       setState(() => _hasPermissions = true);
-      startListening();
-      _animationController.forward();
-      widget.onSpeechActivate();
     }
   }
 
@@ -147,13 +148,17 @@ class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
     widget.onSpeechActivate();
     _transcription = "";
     lastError = "";
-    speech.listen(
-        onResult: resultListener,
-        listenFor: Duration(seconds: 10),
-        localeId: _currentLocaleId, // fi-FI <--- lokalisaatio demo
-        onSoundLevelChange: soundLevelListener,
-        cancelOnError: true,
-        partialResults: true);
+    if (!_hasSpeech) {
+      initSpeechState();
+    } else {
+      speech.listen(
+          onResult: resultListener,
+          listenFor: Duration(seconds: 10),
+          localeId: _currentLocaleId, // fi-FI <--- lokalisaatio demo
+          onSoundLevelChange: soundLevelListener,
+          cancelOnError: true,
+          partialResults: true);
+    }
     setState(() {});
   }
 
