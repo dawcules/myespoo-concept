@@ -9,7 +9,7 @@ import 'package:cityprog/widgets/navigation/speech_nav_overlay.dart';
 import 'package:fb_auth/fb_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
+//import 'package:flutter/foundation.dart' show kIsWeb;
 
 
 //This class acts as a "bootstrapper" for authing. 
