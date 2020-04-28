@@ -87,16 +87,10 @@ class NavigationPage extends StatelessWidget {
         Padding(
           padding: EdgeInsets.all(8),
         ),
-        IconRouteNameRow(
-          heroTag: "nav_communityHelp",
-          icon: Icon(Icons.transfer_within_a_station),
-          route: "/communityHelp",
-          routeName: NavigationStrings.helpServicesToLocalized(),
-        ),
         Padding(
           padding: EdgeInsets.all(8),
         ),
-        IconRouteNameRow(
+/*         IconRouteNameRow(
           heroTag: "nav_personal",
           icon: Icon(Icons.person),
           route: "/personal",
@@ -104,13 +98,13 @@ class NavigationPage extends StatelessWidget {
         ),
         Padding(
           padding: EdgeInsets.all(8),
-        ),
-        IconRouteNameRow(
+        ), */
+  /*       IconRouteNameRow(
           heroTag: "nav_introduction",
           icon: Icon(Icons.help),
           route: "/introduction",
           routeName: NavigationStrings.introductionToLocalized(),
-        ),
+        ), */
       ],
     );
   }

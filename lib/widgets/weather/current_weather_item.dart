@@ -72,8 +72,8 @@ class _CurrentWeatherCardState extends State<CurrentWeatherCard> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Text(LocalizedWeatherStrings.weatherTitleToLocalized(), style: TextStyle(fontWeight: FontWeight.bold),),
-                        Text(snapshot.data.weather[0].toUpperCase() + snapshot.data.weather.substring(1) + ', ' + snapshot.data.temp.toInt().toString() + ' ' + LocalizedWeatherStrings.degreesToLocalized()),
+                        Text(LocalizedWeatherStrings.weatherTitleToLocalized(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                        Text(snapshot.data.weather[0].toUpperCase() + snapshot.data.weather.substring(1) + ', ' + snapshot.data.temp.toInt().toString() + ' ' + LocalizedWeatherStrings.degreesToLocalized(), style: TextStyle(fontSize: 16),),
                       ],
                     ),
                   ],
