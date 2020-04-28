@@ -15,6 +15,7 @@ class LoginStrings {
   static const String forgotPwFI = "Unohditko salasanasi?";
   static const String loginBtnFI = "KIRJAUDU";
   static const String createAccFI = "Luo tili";
+  static const String testaccFI = "Kirjaudu testikäyttäjällä";
 
   // ENG
   static const String loginEN = "Login";
@@ -25,6 +26,24 @@ class LoginStrings {
   static const String forgotPwEN = "Forget password?";
   static const String loginBtnEN = "LOGIN";
   static const String createAccEN = "Create Account";
+  static const String testaccEN = "Sign in with a test account";
+
+
+  
+
+     static String testAccToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return testaccFI;
+        break;
+      case Language.EN:
+        return testaccEN;
+        break;
+      default:
+        return testaccEN;
+        break;
+    }
+  }
 
    static String loginHeaderToLocalized() {
     switch (CurrentLanguage.value) {
