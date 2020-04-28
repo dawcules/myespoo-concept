@@ -10,7 +10,7 @@ class CommunityHelpCat extends StatefulWidget {
 
   @override
   _CommunityHelpCatState createState() => _CommunityHelpCatState();
-}
+} 
 
 class _CommunityHelpCatState extends State<CommunityHelpCat> {
   //String dropdownValue = 'Valitse kategoria';
