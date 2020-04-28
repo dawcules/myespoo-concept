@@ -16,7 +16,7 @@ export const sendToTopic = functions.firestore
   const payload: admin.messaging.MessagingPayload = {
     notification:{
       title: "new Event Added!",
-      body: `New event randomly appeared! Named ${event.nameEN ? null : event.nameEN}`,
+      body: `New event randomly appeared! Named ${event.nameEN ? event.nameEN : null}`,
       //icon
       clickAction: 'FLUTTER_NOTIFICATION_CLICK',
     }
