@@ -38,7 +38,8 @@ class AuthCheck extends StatelessWidget {
             ProfileCreate().createProfile(user:_user.uid);
             final initializer = InitializeProfile();
             initializer.getUserData();
-            SpeechNavigationOverlay(child: GeneralFeed());
+            return SizedBox();
+            //SpeechNavigationOverlay(child: GeneralFeed());
           }
           //Not creating so we go here.
           print("Logged in");
