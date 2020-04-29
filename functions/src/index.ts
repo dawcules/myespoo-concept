@@ -75,7 +75,7 @@ export const sendToLocation = functions.firestore
       clickAction: 'FLUTTER_NOTIFICATION_CLICK',
     }
   }
-  return fcm.sendToTopic("Tapahtumat", payload);
+  return fcm.sendToTopic("Location", payload);
 }
   return null;
 },);
@@ -106,7 +106,11 @@ export const sendToUsersInArea = functions.firestore.document("Ilmoitukset/{Ilmo
         click_action: 'FLUTTER_NOTIFICATION_CLICK'
       }
     };
-    return fcm.sendToDevice(tokens, payload);
+    if(tokens){
+      return fcm.sendToDevice(tokens, payload);}
+    else{
+      console.log("No tokens")
+      return null ;}
   })})
   return null;
 }
@@ -114,37 +118,79 @@ return null;
 });
 
 export const lookingForCarpoolInArea = functions.firestore
-.document("Services/{CommunityID}/{ServiceID}/{CarpoolID}/{OfferingCollectionID}/{OfferingID}")
+.document("Services/Community/Service/Carpool/Offering/{OfferingID}")
 .onCreate(async snapshot => {
 
   const offering = snapshot.data();
+  console.log(offering);
 
   if(offering){ 
-        await db.collection("users").where("community",'array-contains', "Carpool").where("community areas",'array-contains-any', offering.areas).get()
-        .then(async userInNeedSnapshot => {
-        userInNeedSnapshot.forEach(async user => {
-          const userTokenSnapshot = await db
-          .collection('users')
-          .doc(user.id)
-          .collection('tokens')
-          .get();
-    const tokens = userTokenSnapshot.docs.map(snap => snap.id);
-    const payload: admin.messaging.MessagingPayload = {
-      notification: {
-        title: "Kimppakyyti tarjolla!",
-        body: `Käyttäjä ${offering.user} , tarjoaa kimppakyytiä alueille ${offering.areas} aikaan: ${offering.timeOfDay}`,
-        icon: 'your-icon-url',
-        click_action: 'FLUTTER_NOTIFICATION_CLICK'
+        await db.collection("users").where("community","array-contains", "Carpool").get()
+        .then(async userInCarpoolSnapshot => {
+          userInCarpoolSnapshot.forEach(async user => {
+            const userTokenSnapshot = await db
+            .collection('users')
+            .doc(user.id)
+            .collection('tokens')
+            .get();      
+      const tokens = userTokenSnapshot.docs.map(snap => snap.id);
+      const payload: admin.messaging.MessagingPayload = {
+        notification: {
+          title: "Kimppakyyti tarjolla!",
+          body: `Käyttäjä ${offering.user} , tarjoaa kimppakyytiä alueille ${offering.areas[0]} ja ${offering.areas[1]} aikaan: ${offering.timeOfDay}`,
+          icon: 'your-icon-url',
+          click_action: 'FLUTTER_NOTIFICATION_CLICK'
+        }
       }
-    };
-    return fcm.sendToDevice(tokens, payload);
-  });
-  })
-}
+      if(tokens){
+        return fcm.sendToDevice(tokens, payload);}
+        else{
+          console.log("No tokens")
+          return null;}
+    });
+         
+    });
+   
+  }
   return null;
-},);
+});
+/*
+export const HelpServicesInArea = functions.firestore
+.document("Services/Community/Service/Carpool/Offering/{OfferingID}")
+.onCreate(async snapshot => {
 
+  const offering = snapshot.data();
+  console.log(offering);
 
+  if(offering){ 
+        await db.collection("users").where("community","array-contains", "Carpool").get()
+        .then(async userInCarpoolSnapshot => {
+          userInCarpoolSnapshot.forEach(async user => {
+            const userTokenSnapshot = await db
+            .collection('users')
+            .doc(user.id)
+            .collection('tokens')
+            .get();      
+      const tokens = userTokenSnapshot.docs.map(snap => snap.id);
+      const payload: admin.messaging.MessagingPayload = {
+        notification: {
+          title: "Kimppakyyti tarjolla!",
+          body: `Käyttäjä ${offering.user} , tarjoaa kimppakyytiä alueille ${offering.areas[0]} ja ${offering.areas[1]} aikaan: ${offering.timeOfDay}`,
+          icon: 'your-icon-url',
+          click_action: 'FLUTTER_NOTIFICATION_CLICK'
+        }
+      }
+      if(tokens){
+        return fcm.sendToDevice(tokens, payload);}
+        else{return console.log("No tokens");}
+    });
+         
+    });
+   
+  }
+  return null;
+});
+*/
 /*
 export const sendToDevice = functions.firestore
   .document('orders/{orderId}')

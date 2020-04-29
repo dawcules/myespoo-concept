@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cityprog/widgets/database_model/auth.dart';
 import 'package:cityprog/widgets/database_model/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -6,6 +8,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 class InitializeProfile{
     InitializeProfile();
     final FirebaseMessaging _fcm = FirebaseMessaging();
+    final Firestore _db = Firestore.instance;
     final uid = Auth().getUser();
     var user;
     var data;
@@ -16,8 +19,26 @@ class InitializeProfile{
       initializeSubscriptions(data);
       });
     }
+    
+    _saveDeviceToken({user}) async {
+    String uid = user.uid != null ? user.uid : 'Gmpyu42rUyEuust5tudj';
+    String fcmToken = await _fcm.getToken();
+    if (fcmToken != null) {
+      var tokenRef = _db
+          .collection('users')
+          .document(uid)
+          .collection('tokens')
+          .document(fcmToken);
+      await tokenRef.setData({
+        'token': fcmToken,
+        'createdAt': FieldValue.serverTimestamp(),
+        'platform': Platform.operatingSystem,
+      });
+    }
+  }
     //Initializing the subscriptions. note that if the values change so will the subscriptions.
     void initializeSubscriptions(data){
+      _saveDeviceToken();
       if(user != null){
          _fcm.subscribeToTopic("Important");
         if(data["notifications"]){
