@@ -19,11 +19,11 @@ class InitializeProfile{
     //Initializing the subscriptions. note that if the values change so will the subscriptions.
     void initializeSubscriptions(data){
       if(user != null){
+         _fcm.subscribeToTopic("Important");
         if(data["notifications"]){
           print("notifications on");
           print("subscribing to public events");
          _fcm.subscribeToTopic("PublicEvents");
-         _fcm.subscribeToTopic("Important");
          _fcm.subscribeToTopic("Location");
           
         if(data["beacon activated"]){

@@ -113,18 +113,39 @@ export const sendToUsersInArea = functions.firestore.document("Ilmoitukset/{Ilmo
 return null;
 });
 
+export const lookingForCarpoolInArea = functions.firestore
+.document("Services/{CommunityID}/{ServiceID}/{CarpoolID}/{OfferingCollectionID}/{OfferingID}")
+.onCreate(async snapshot => {
+
+  const offering = snapshot.data();
+
+  if(offering){ 
+        await db.collection("users").where("community",'array-contains', "Carpool").where("community areas",'array-contains-any', offering.areas).get()
+        .then(async userInNeedSnapshot => {
+        userInNeedSnapshot.forEach(async user => {
+          const userTokenSnapshot = await db
+          .collection('users')
+          .doc(user.id)
+          .collection('tokens')
+          .get();
+    const tokens = userTokenSnapshot.docs.map(snap => snap.id);
+    const payload: admin.messaging.MessagingPayload = {
+      notification: {
+        title: "Kimppakyyti tarjolla!",
+        body: `Käyttäjä ${offering.user} , tarjoaa kimppakyytiä alueille ${offering.areas} aikaan: ${offering.timeOfDay}`,
+        icon: 'your-icon-url',
+        click_action: 'FLUTTER_NOTIFICATION_CLICK'
+      }
+    };
+    return fcm.sendToDevice(tokens, payload);
+  });
+  })
+}
+  return null;
+},);
+
+
 /*
-export const sendToDevicce = functions.firestore.document("Something here").onCreate(async snapshot => {
-  const myballs = snapshot.data();
-
-  const querySnapshot = await db
-  .collection("users")
-  .doc("someone offering a ride for example")
-  .collection("tokens")
-  .get();
-
-
-});
 export const sendToDevice = functions.firestore
   .document('orders/{orderId}')
   .onCreate(async snapshot => {
