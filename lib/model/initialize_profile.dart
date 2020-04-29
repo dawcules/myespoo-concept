@@ -58,6 +58,7 @@ class InitializeProfile{
         if(data["community services"]){
           print("community on");
           _fcm.subscribeToTopic("Community");
+          /*
           for(var service in data["services"]["community"]){
                 print("$service");
                 //TODO PURKKAA LOCAL ACTIVITIES
@@ -67,10 +68,12 @@ class InitializeProfile{
                    service != "Local Activities" ? _fcm.subscribeToTopic("$service$area") : _fcm.subscribeToTopic("LocalActivities$area");
                 }
             }
+            */
         }
         if(data["help services"]){
           print("help on");
           _fcm.subscribeToTopic("Helper");
+          /*
           for(var service in data["services"]["help"]){
                 print("$service");
                 _fcm.subscribeToTopic("$service");
@@ -78,12 +81,12 @@ class InitializeProfile{
                     print("$area");
                     _fcm.subscribeToTopic("$service$area");
                 }
-            }
+            }*/
         }
         if(data["special health condition"]){
           print("healthcare on");
           _fcm.subscribeToTopic("Healthcare");
-          _fcm.subscribeToTopic("Receiver");
+          _fcm.subscribeToTopic("Receiver");/*
            for(var service in data["services"]["healthcare"]){
                 print("$service");
                 //TODO PURKKAA HEALTHCARE SUBSCRIPTIONS
@@ -92,11 +95,11 @@ class InitializeProfile{
                 }else if(service == "Physical Disability"){  _fcm.subscribeToTopic("PhysicalDisability");}
                 else if(service == "Vision impaired"){_fcm.subscribeToTopic("VisionImpaired");}
                 else{_fcm.subscribeToTopic("$service");}
-            }
+            }*/
         }
         if(data["events selected"]){
           print("events on");
-          _fcm.subscribeToTopic("Tapahtumat");
+          _fcm.subscribeToTopic("Tapahtumat");/*
            for(var service in data["services"]["events"]){
                 print("$service");
                 _fcm.subscribeToTopic("$service");
@@ -105,6 +108,7 @@ class InitializeProfile{
                     _fcm.subscribeToTopic("$service$area");
                 }
             }
+            */
         }
         if(data["UI"]){
            print("UI");
