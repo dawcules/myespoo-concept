@@ -1,12 +1,13 @@
 import 'dart:io';
-
 import 'package:cityprog/widgets/database_model/auth.dart';
 import 'package:cityprog/widgets/database_model/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+
 // Class for fetching the user profile and subscribing him/her to the right services
 class InitializeProfile{
     InitializeProfile();
+    
     final FirebaseMessaging _fcm = FirebaseMessaging();
     final Firestore _db = Firestore.instance;
     final uid = Auth().getUser();
@@ -39,6 +40,9 @@ class InitializeProfile{
     //Initializing the subscriptions. note that if the values change so will the subscriptions.
     void initializeSubscriptions(data){
       _saveDeviceToken(user: uid);
+      //print(Database().getUsersWithCommunitiesReference());
+      //print(Database().getUsersWithCommunitiesReference2());
+
       if(user != null){
          _fcm.subscribeToTopic("Important");
         if(data["notifications"]){

@@ -97,8 +97,18 @@ void updateValue(String document, int value, DocumentReference ref){
     return _db.collection('users').document(user.uid).get();
   }
 
+  //Test
+  Future<QuerySnapshot> getUsersWithCommunitiesReference(){
+    return _db.collection("services").where("community", arrayContains: "Carpool").getDocuments();
+  }
+
+  //Test 2
+  Future<QuerySnapshot> getUsersWithCommunitiesReference2(){
+    return _db.collection("users").document("services").collection("services").where("community", arrayContains: "Marketplace").getDocuments();
+  }
+
   //Haluan luoda uuden Documentin tyhjästä. Teen sen näin.
-List<Map<String,dynamic>> buildProfile(
+Map<String,dynamic> buildProfile(
   bool beaconIsSelected,
   bool healthcareSelected,
   bool communitySelected, 
@@ -125,17 +135,6 @@ List<Map<String,dynamic>> buildProfile(
   bool securitySelected
 ) {
 
-    //Listed services
-    Map<String, List<String>> profileCollection = new Map<String, List<String>>();
-    profileCollection['healthcare'] = selectedHealthcare;
-    profileCollection['community'] = selectedCommunity;
-    profileCollection['community areas'] = selectedCommunityAreas;
-    profileCollection['help'] = selectedHelp;
-    profileCollection['help areas'] = selectedHelpAreas;
-    profileCollection['events'] = selectedEvents;
-    profileCollection['event areas'] = selectedEventAreas;
-
-    
 
     //Profile
     Map<String, dynamic> profDoc = Map<String, dynamic>();
@@ -156,13 +155,21 @@ List<Map<String,dynamic>> buildProfile(
     profDoc['events selected'] = eventSelected;
     profDoc['UI'] = uiSelected;
     profDoc['notifications'] = notificationsSelected;
+    //Listed services
+    profDoc['healthcare'] = selectedHealthcare;
+    profDoc['community'] = selectedCommunity;
+    profDoc['community areas'] = selectedCommunityAreas;
+    profDoc['help'] = selectedHelp;
+    profDoc['help areas'] = selectedHelpAreas;
+    profDoc['events'] = selectedEvents;
+    profDoc['event areas'] = selectedEventAreas;
+
     
-    return [profDoc, profileCollection];
+    return profDoc;
   }
   // Luodaan valitun collectionin alle uusi document. 
-Future<void> createProfile(String user, List profile) async {
-        await _db.collection("users").document(user).setData(profile[0]).then((data) => 
-        _db.collection("users").document(user).collection("services").document("services").setData(profile[1]));
+Future<void> createProfile(String user, Map profile) async {
+      await _db.collection("users").document(user).setData(profile);    
 }
   factory Database() => _instance;
 

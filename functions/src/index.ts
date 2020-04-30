@@ -128,6 +128,7 @@ export const lookingForCarpoolInArea = functions.firestore
         await db.collection("users").where("community","array-contains", "Carpool").get()
         .then(async userInCarpoolSnapshot => {
           userInCarpoolSnapshot.forEach(async user => {
+            console.log(user);
             console.log(user.id);
             const userTokenSnapshot = await db
             .collection('users')
@@ -156,11 +157,51 @@ export const lookingForCarpoolInArea = functions.firestore
   return null;
 });
 
+//${user.get('fName')} ${user.get('lName')}
+export const newItemInMarket = functions.firestore
+.document("Services/Community/Service/Marketplace/Selling/{SellingID}")
+.onCreate(async snapshot => {
+
+  const selling = snapshot.data();
+  console.log(selling);
+
+  if(selling){ 
+        await db.collection("users").where("community","array-contains", "Marketplace").get()
+        .then(async userInCarpoolSnapshot => {
+          userInCarpoolSnapshot.forEach(async user => {
+            console.log(user);
+            console.log(user.id);
+            const userTokenSnapshot = await db
+            .collection('users')
+            .doc(user.id)
+            .collection('tokens')
+            .get();      
+      const tokens = userTokenSnapshot.docs.map(snap => snap.id);
+      const payload: admin.messaging.MessagingPayload = {
+        notification: {
+          title: `Uusi tavara marketissa: ${selling.title}`,
+          body: `Käyttäjä ${selling.user} , tarjoaa tuotetta ${selling.title} kuvauksella: ${selling.body} hintaan: ${selling.price} alueella: ${selling.area}`,
+          icon: 'your-icon-url',
+          click_action: 'FLUTTER_NOTIFICATION_CLICK'
+        }
+      }
+      if(tokens){
+        return fcm.sendToDevice(tokens, payload);}
+        else{
+          console.log("No tokens")
+          return null;}
+    });
+         
+    });
+   
+  }
+  return null;
+});
 
 
 /*
 export const HelpServicesInArea = functions.firestore
-.document("Services/Community/Service/Carpool/Offering/{OfferingID}")
+.document("Services/Helper/Service/Carpool/Offering/{OfferingID}")
 .onCreate(async snapshot => {
 
   const offering = snapshot.data();
