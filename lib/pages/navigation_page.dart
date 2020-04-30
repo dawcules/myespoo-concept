@@ -1,4 +1,5 @@
 import 'package:cityprog/strings/navigation_strings.dart';
+import 'package:cityprog/widgets/Backgrounds/background_widget.dart';
 import 'package:cityprog/widgets/rows/icon_and_route_name.dart';
 import 'package:cityprog/handlers/message_handler.dart';
 import 'package:flutter/foundation.dart';
@@ -11,6 +12,8 @@ class NavigationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double multiplier = logoSizeMultiplier != null ? logoSizeMultiplier : 1;
+    final width = MediaQuery.of(context).size.width;
+    final heigth = MediaQuery.of(context).size.height;
     return Container(
       height: 1000,
       width: 750,
@@ -22,7 +25,16 @@ class NavigationPage extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Align(
+            Container(
+                height: heigth/2.2,
+                child: Stack(
+                  children: <Widget>[
+                     kIsWeb ? SizedBox(height: 200,width: 200) : BackgroundWidget(heigth: heigth/2.2, width: width+30, imageUrl: "assets/images/backgroundtesting.png",),
+                      kIsWeb ? BackgroundWidget(top: 200, heigth: 100, width: 150, imageUrl: "assets/images/smartespoo.png",) : BackgroundWidget(heigth: heigth/5, width: width/2, imageUrl: "assets/images/backgroundmyespoo.png",)
+                  ],
+                ),
+              ),
+            /*Align(
               alignment: Alignment.topLeft,
               child: Container(
                 width: double.infinity,
@@ -47,7 +59,7 @@ class NavigationPage extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
+            ),*/
             Padding(
               padding: const EdgeInsets.only(left: 8, right: 8),
               child: generateNavigationButtons(context),

@@ -128,6 +128,7 @@ export const lookingForCarpoolInArea = functions.firestore
         await db.collection("users").where("community","array-contains", "Carpool").get()
         .then(async userInCarpoolSnapshot => {
           userInCarpoolSnapshot.forEach(async user => {
+            console.log(user.id);
             const userTokenSnapshot = await db
             .collection('users')
             .doc(user.id)
@@ -154,6 +155,7 @@ export const lookingForCarpoolInArea = functions.firestore
   }
   return null;
 });
+
 
 
 /*

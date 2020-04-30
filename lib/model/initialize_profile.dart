@@ -38,7 +38,7 @@ class InitializeProfile{
   }
     //Initializing the subscriptions. note that if the values change so will the subscriptions.
     void initializeSubscriptions(data){
-      _saveDeviceToken();
+      _saveDeviceToken(user: uid);
       if(user != null){
          _fcm.subscribeToTopic("Important");
         if(data["notifications"]){
@@ -99,7 +99,8 @@ class InitializeProfile{
         }
         if(data["events selected"]){
           print("events on");
-          _fcm.subscribeToTopic("Tapahtumat");/*
+          _fcm.subscribeToTopic("Tapahtumat");
+          /*
            for(var service in data["services"]["events"]){
                 print("$service");
                 _fcm.subscribeToTopic("$service");
