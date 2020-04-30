@@ -17,27 +17,48 @@ class _AppImagePickerState extends State<AppImagePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return _selectedFile == null
-        ? IconButton(
-            iconSize: widget.iconSize ?? 100,
-            icon: Icon(
-              Icons.camera_alt,
-            ),
-            onPressed: () => _getImage(ImageSource.camera),
-          )
-        : Stack(
-            children: <Widget>[
-              Image.file(_selectedFile),
-              Align(
-                alignment: Alignment.topRight,
-                child: IconButton(
-                  iconSize: widget.iconSize ?? 40,
-                  icon: Icon(Icons.delete_forever),
-                  onPressed: () => _removeImage(),
+    return Container(
+      child: Center(
+        child: _selectedFile == null
+            ? IconButton(
+                iconSize: widget.iconSize ?? 100,
+                icon: Icon(
+                  Icons.camera_alt,
                 ),
+                onPressed: () => _getImage(ImageSource.camera),
               )
-            ],
-          );
+            : Column(
+                children: <Widget>[
+                  Container(
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: CircleAvatar(
+                          backgroundColor: Colors.black54,
+                          child: IconButton(
+                            color: Colors.white,
+                            icon: Icon(Icons.delete_forever),
+                            onPressed: () => _removeImage(),
+                          ),
+                        ),
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.fitWidth,
+                        image: FileImage(
+                          _selectedFile,
+                        ),
+                      ),
+                    ),
+                    width: double.infinity,
+                    height: 400,
+                  ),
+                ],
+              ),
+      ),
+    );
   }
 
   void _removeImage() {
@@ -50,7 +71,8 @@ class _AppImagePickerState extends State<AppImagePicker> {
   }
 
   void _getImage(ImageSource source) async {
-    File image = await ImagePicker.pickImage(source: source);
+    File image = await ImagePicker.pickImage(
+        source: source, maxHeight: 400, maxWidth: 400);
     if (image != null) {
       setState(() {
         _selectedFile = image;

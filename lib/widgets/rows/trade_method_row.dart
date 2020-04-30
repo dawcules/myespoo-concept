@@ -12,17 +12,18 @@ class TradeMethodRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColor.secondary.color(),
+      color: Colors.white,
       child: Row(
         mainAxisAlignment: mainAxisAlign ?? MainAxisAlignment.start,
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.all(paddingAmount ?? 16.0),
+            padding: EdgeInsets.all(paddingAmount ?? 8),
             child: Text(
               _method != null ? _method.toLocalizedString() : "Trade method is null......",
               style: TextStyle(
-                color: AppColor.whiteText.color(),
-                fontSize: fontSize ?? 20,
+                color: AppColor.secondary.color(),
+                fontSize: fontSize ?? 16,
+                fontWeight: FontWeight.bold,
               ),
             ),
           )

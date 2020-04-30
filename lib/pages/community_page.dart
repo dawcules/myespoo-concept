@@ -1,3 +1,4 @@
+import 'package:cityprog/strings/widget_texts.dart';
 import 'package:cityprog/styles/color_palette.dart';
 import 'package:flutter/material.dart';
 
@@ -15,16 +16,16 @@ class CommunityPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              _communityNavigationButton("Carpool", "/carpool", context),
+              _communityNavigationButton(LocalizedWidgetStrings.carpoolToLocalized(), "/carpool", context),
               Padding(
                 padding: EdgeInsets.all(8),
               ),
-              _communityNavigationButton("Market", "/market", context),
+              _communityNavigationButton(LocalizedWidgetStrings.marketplaceToLocalized(), "/market", context),
               Padding(
                 padding: EdgeInsets.all(8),
               ),
               _communityNavigationButton(
-                  "Help services", "/communityHelp", context),
+                  LocalizedWidgetStrings.helpServicesToLocalized(), "/communityHelp", context),
             ],
           ),
         )),

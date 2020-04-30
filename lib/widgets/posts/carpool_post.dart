@@ -13,64 +13,69 @@ class CarpoolPostWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Card(
-        elevation: 2,
-        child: Wrap(
-          children: <Widget>[
-            TradeMethodRow(
-              postData.tradeMethod,
-              fontSize: 16,
-              paddingAmount: 8,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  _originDestinationRow(
-                    LocalizedCommunityStrings.fromToLocalized(),
-                    postData.origin,
-                    context,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(4),
-                  ),
-                  _originDestinationRow(
-                    LocalizedCommunityStrings.destinationToLocalized(),
-                    postData.destination,
-                    context,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(4),
-                  ),
-                  Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        LocalizedCommunityStrings.dateTimeToLocaleString(
-                          postData.postDate,
-                          needsHrs: true,
-                        ),
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      )),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: FlatButton(
-                      child: Text(
-                        LocalizedCommunityStrings.moreToLocalized(),
-                        style: TextStyle(
-                          color: AppColor.secondary.color(),
-                          fontSize: 16,
-                        ),
+      child: Material(
+        child: InkWell(
+          splashColor: AppColor.secondary.color(),
+          onTap: () => _moreButtonPressed(),
+          child: Card(
+            elevation: 2,
+            child: Wrap(
+              children: <Widget>[
+                TradeMethodRow(
+                  postData.tradeMethod,
+                  fontSize: 16,
+                  paddingAmount: 8,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      _originDestinationRow(
+                        LocalizedCommunityStrings.fromToLocalized(),
+                        postData.origin,
+                        context,
                       ),
-                      onPressed: () => _moreButtonPressed(),
-                    ),
-                  )
-                ],
-              ),
+                 
+                      _originDestinationRow(
+                        LocalizedCommunityStrings.destinationToLocalized(),
+                        postData.destination,
+                        context,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8),
+                      ),
+                      Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            LocalizedCommunityStrings.dateTimeToLocaleString(
+                              postData.postDate,
+                              needsHrs: true,
+                            ),
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.bold),
+                          )),
+                      // Align(
+                      //   alignment: Alignment.centerRight,
+                      //   child: FlatButton(
+                      //     child: Text(
+                      //       LocalizedCommunityStrings.moreToLocalized(),
+                      //       style: TextStyle(
+                      //         color: AppColor.secondary.color(),
+                      //         fontSize: 16,
+                      //       ),
+                      //     ),
+                      //     onPressed: () => _moreButtonPressed(),
+                      //   ),
+                      // )
+                      Padding(padding: EdgeInsets.all(8),)
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

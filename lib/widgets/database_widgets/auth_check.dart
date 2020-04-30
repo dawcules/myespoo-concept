@@ -36,15 +36,15 @@ class AuthCheck extends StatelessWidget {
             print("bootstrapper account creation");
             ProfileCreate().creatingAccount();
             ProfileCreate().createProfile(user:_user.uid);
-            final initializer = InitializeProfile();
-            initializer.getUserData();
+            //final initializer = InitializeProfile();
+            //initializer.getUserData();
             return SizedBox();
             //SpeechNavigationOverlay(child: GeneralFeed());
           }
           //Not creating so we go here.
           print("Logged in");
-          final initializer = InitializeProfile();
-          initializer.getUserData();
+          //final initializer = InitializeProfile();
+          //initializer.getUserData();
           return SpeechNavigationOverlay(child: GeneralFeed());
          
           
