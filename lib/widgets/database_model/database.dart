@@ -155,6 +155,7 @@ Map<String,dynamic> buildProfile(
     profDoc['events selected'] = eventSelected;
     profDoc['UI'] = uiSelected;
     profDoc['notifications'] = notificationsSelected;
+    profDoc['citizenpoints'] = 0;
     //Listed services
     profDoc['healthcare'] = selectedHealthcare;
     profDoc['community'] = selectedCommunity;

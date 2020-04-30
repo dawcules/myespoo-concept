@@ -5,8 +5,10 @@ admin.initializeApp();
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
 //
+
 const db = admin.firestore();
 const fcm = admin.messaging();
+
 /*
 export const sendToTapahtumat = functions.firestore
 .document("Tapahtumat/{TapahtumatID}")
@@ -26,6 +28,7 @@ export const sendToTapahtumat = functions.firestore
   return null;
 },);
 */
+
 export const sendToImportant = functions.firestore
 .document("Important/{ImportantID}")
 .onCreate(async snapshot => {
@@ -79,8 +82,6 @@ export const sendToLocation = functions.firestore
 }
   return null;
 },);
-
-
 
 export const sendToUsersInArea = functions.firestore.document("Ilmoitukset/{IlmoituksetID}")
   .onCreate(async snapshot => {
