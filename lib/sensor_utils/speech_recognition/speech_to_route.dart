@@ -137,7 +137,7 @@ class SpeechToRoute {
     } else {
       // The command was unknown
       Toast.show(
-        "${_navStringBundleLocalized["unknown"]["command"]}: $transcription",
+        "${_navStringBundleLocalized["unknown"]["command"]}",
         _context,
         duration: Toast.LENGTH_LONG,
         gravity: 2,

@@ -10,6 +10,7 @@ class CarpoolPostData implements Comparable<CarpoolPostData> {
   final String origin;
   final String destination;
   final String uid;
+  final String postedBy;
   final DateTime postDate;
   final DateTime date;
   final TimeOfDay timeOfDay;
@@ -41,6 +42,7 @@ class CarpoolPostData implements Comparable<CarpoolPostData> {
     this.date,
     this.areas,
     this.slots,
+    this.postedBy,
   });
 
   List<String> _chooseRandomAreas() {
@@ -67,6 +69,7 @@ class CarpoolPostData implements Comparable<CarpoolPostData> {
       date: DateTime.parse(data["date"]),
       slots: data["slots"],
       areas: areas,
+      postedBy: data["postedBy"],
     );
   }
 
@@ -83,6 +86,7 @@ class CarpoolPostData implements Comparable<CarpoolPostData> {
         'date': this.date.toIso8601String(),
         'slots': this.slots,
         'areas': _chooseRandomAreas(),
+        'postedBy': this.postedBy,
       };
 
   @override

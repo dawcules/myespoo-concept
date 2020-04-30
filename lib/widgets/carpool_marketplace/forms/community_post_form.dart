@@ -16,11 +16,13 @@ class CommunityPostForm extends StatelessWidget {
         child: Card(
           child: Column(
             children: <Widget>[
+              Padding(padding: EdgeInsets.all(8),),
               TradeMethodRow(
                 _tradeMethod,
-                fontSize: 28,
+                fontSize: 20,
                 mainAxisAlign: MainAxisAlignment.center,
               ),
+              Padding(padding: EdgeInsets.all(8)),
               CommunityForm(_tradeMethod),
             ],
           ),

@@ -127,6 +127,7 @@ class _SellingFormState extends State<SellingForm> {
         imageUri: imageUrl,
         postDate: DateTime.now(),
         uid: Auth().getUID(),
+        postedBy: Auth().getUser().displayName,
         price: _price,
         title: _titleDetailsValidator.title,
         tradeMethod: _method);

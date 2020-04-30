@@ -113,6 +113,7 @@ class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
   }
 
   Widget activateSpeechButtonNoText(double radius) {
+    bool keyboardIsOpened = MediaQuery.of(context).viewInsets.bottom != 0.0;
     return GestureDetector(
         child: Container(
           color: Colors.transparent,
@@ -120,11 +121,15 @@ class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
           //     shape: BoxShape.circle,
           //     border: Border.all(color: Colors.black),
           //   ),
-          child: Icon(
-            Icons.mic,
-            size: radius,
-            color: Colors.black87,
-          ),
+          child: keyboardIsOpened
+              ? Padding(
+                  padding: EdgeInsets.all(0),
+                )
+              : Icon(
+                  Icons.mic,
+                  size: radius,
+                  color: Colors.black87,
+                ),
         ),
         onTapDown: (details) {
           if (_hasPermissions) {

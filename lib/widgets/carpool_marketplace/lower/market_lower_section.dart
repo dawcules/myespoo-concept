@@ -53,7 +53,7 @@ class _MarketLowerState extends State<MarketLower> {
                 _getCorrectItems(),
                 header: Padding(
                   padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+                      const EdgeInsets.only(left: 24, right: 24, bottom: 24),
                   child: Align(
                     child: DropdownButtonFormField<int>(
                       hint: Text(dropdownItems[_dropdownValue]),

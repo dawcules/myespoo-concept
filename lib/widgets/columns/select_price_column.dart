@@ -1,6 +1,7 @@
 import 'package:cityprog/model/trade_methods.dart';
 import 'package:cityprog/strings/widget_texts.dart';
 import 'package:cityprog/styles/color_palette.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -37,36 +38,40 @@ class _SelectPriceColumnState extends State<SelectPriceColumn> {
       child: Column(
         children: <Widget>[
           _toggleButtons(),
+          Padding(padding: EdgeInsets.all(8),),
           _isFreeSelected
               ? Padding(
                   padding: EdgeInsets.all(0),
                 )
-              : Row(
-                  children: <Widget>[
-                    Flexible(
-                      flex: 1,
-                      child: TextFormField(
-                        maxLength: 4,
-                        inputFormatters: [
-                          WhitelistingTextInputFormatter.digitsOnly,
-                        ],
-                        onChanged: (value) => {
-                          if (widget.onPriceChanged != null)
-                            if (value == "")
-                              {widget.onPriceChanged(null)}
-                            else
-                              widget.onPriceChanged(double.parse(value)),
-                        },
-                        decoration: InputDecoration(
-                            focusColor: AppColor.button.color(),
-                            hintText: LocalizedWidgetStrings.priceToLocalized(),
-                            icon: Icon(Icons.euro_symbol)),
-                        keyboardType:
-                            TextInputType.numberWithOptions(decimal: true),
+              : Padding(
+                padding: const EdgeInsets.only(top: 8, right: 8, left: 8),
+                child: Row(
+                    children: <Widget>[
+                      Flexible(
+                        flex: 1,
+                        child: TextFormField(
+                          maxLength: 4,
+                          inputFormatters: [
+                            WhitelistingTextInputFormatter.digitsOnly,
+                          ],
+                          onChanged: (value) => {
+                            if (widget.onPriceChanged != null)
+                              if (value == "")
+                                {widget.onPriceChanged(null)}
+                              else
+                                widget.onPriceChanged(double.parse(value)),
+                          },
+                          decoration: InputDecoration(
+                              focusColor: AppColor.button.color(),
+                              hintText: LocalizedWidgetStrings.priceToLocalized(),
+                              icon: Icon(Icons.euro_symbol)),
+                          keyboardType:
+                              TextInputType.numberWithOptions(decimal: true),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
+              ),
         ],
       ),
     );
@@ -85,7 +90,8 @@ class _SelectPriceColumnState extends State<SelectPriceColumn> {
               {widget.onTradeMethodChanged(_tradeMethods[index])},
             setState(() => {
                   _isFreeSelected = index == 1,
-                  if (index == 1 && widget.onPriceChanged != null) widget.onPriceChanged(null)
+                  if (index == 1 && widget.onPriceChanged != null)
+                    widget.onPriceChanged(null)
                 })
           },
         )
@@ -96,7 +102,7 @@ class _SelectPriceColumnState extends State<SelectPriceColumn> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(LocalizedWidgetStrings.priceToLocalized(),
-                style: TextStyle(fontSize: 20)),
+                style: TextStyle(fontSize: 16)),
           ),
         ),
         Padding(
@@ -104,11 +110,14 @@ class _SelectPriceColumnState extends State<SelectPriceColumn> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(LocalizedWidgetStrings.freeToLocalized(),
-                style: TextStyle(fontSize: 20)),
+                style: TextStyle(fontSize: 16)),
           ),
         )
       ],
       isSelected: _isSelected,
+      renderBorder: false,
+      constraints: BoxConstraints(
+          minWidth: kIsWeb ? 200 : MediaQuery.of(context).size.width * 0.4),
     );
   }
 }
