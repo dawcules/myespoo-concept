@@ -4,7 +4,6 @@ import 'package:cityprog/model/market.dart';
 import 'package:cityprog/widgets/rows/trade_method_row.dart';
 import 'package:flutter/material.dart';
 
-import '../../strings/community_strings.dart';
 import '../../styles/color_palette.dart';
 
 class MarketPostWidget extends StatefulWidget {
@@ -75,15 +74,6 @@ class _MarketPostWidgetState extends State<MarketPostWidget> {
                       Padding(
                         padding: EdgeInsets.all(4),
                       ),
-                      // Padding(
-                      //   padding: const EdgeInsets.all(8.0),
-                      //   child: Align(
-                      //     alignment: Alignment.centerLeft,
-                      //     child: _autoSizeTextRow(widget.postData.body, context,
-                      //         style: TextStyle(fontSize: 16)),
-                      //   ),
-                      // ),
-                      
                     ],
                   ),
                 ),

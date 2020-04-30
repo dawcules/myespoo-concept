@@ -23,6 +23,7 @@ class StreamBuilderGeneral extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
+        bottom: false,
         //Nest StreamBuilders for each collection. Then pass the snapshots individually to ListViewBuilder
         // Must be replaced with profile specific calls
         child: StreamBuilder(

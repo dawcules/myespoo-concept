@@ -21,6 +21,7 @@ class MarketPostData implements Comparable<MarketPostData> {
   final String imageUri;
   final double price;
   final String area;
+  final String postedBy;
 
   const MarketPostData({
     this.title,
@@ -31,6 +32,7 @@ class MarketPostData implements Comparable<MarketPostData> {
     this.imageUri,
     this.price,
     this.area,
+    this.postedBy
   }); 
 
   Map<String, dynamic> toMap() => {
@@ -42,6 +44,7 @@ class MarketPostData implements Comparable<MarketPostData> {
     'imageUri': this.imageUri,
     'price': this.price,
     'area': _chooseRandomArea(),
+    'postedBy': this.postedBy,
   };
 
   static MarketPostData fromMap(Map<String, dynamic> data) {
@@ -54,6 +57,7 @@ class MarketPostData implements Comparable<MarketPostData> {
       tradeMethod: TradeMethodFromString.fromString(data["tradeMethod"]),
       imageUri: data["imageUri"],
       area: data["area"],
+      postedBy: data["postedBy"],
 
     );
   }

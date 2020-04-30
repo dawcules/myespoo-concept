@@ -140,6 +140,7 @@ class _CarpoolFormState extends State<CarpoolForm> {
   void _submitPost(BuildContext context) async {
     CarpoolPostData post = CarpoolPostData(
         uid: Auth().getUID(),
+        postedBy: Auth().getUser().displayName,
         body: _body,
         title: _title,
         origin: _origin,

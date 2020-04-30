@@ -27,6 +27,10 @@ class _SpeechNavigationOverlayState extends State<SpeechNavigationOverlay> {
     if (!kIsWeb) {
       return Container(
         child: Scaffold(
+          extendBody: true,
+          resizeToAvoidBottomInset: false,
+          extendBodyBehindAppBar: true,
+          resizeToAvoidBottomPadding: true,
           key: _scaffoldKey,
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
@@ -51,23 +55,25 @@ class _SpeechNavigationOverlayState extends State<SpeechNavigationOverlay> {
             ),
           ),
           drawer: NavigationDrawer(),
-          body: Stack(
-            children: <Widget>[
-              widget.child,
-              Align(
-                alignment: Alignment.bottomCenter * 0.9,
-                child: Container(
-                  child: kIsWeb
-                      ? Material(
-                          child: Text(
-                              'Asenna sovellus käyttääksesi puhetoimintoja!'))
-                      : Padding(
-                          padding: EdgeInsets.all(0),
-                        ),
+          body: Scaffold(
+            body: Stack(
+              children: <Widget>[
+                widget.child,
+                Align(
+                  alignment: Alignment.bottomCenter * 0.9,
+                  child: Container(
+                    child: kIsWeb
+                        ? Material(
+                            child: Text(
+                                'Asenna sovellus käyttääksesi puhetoimintoja!'))
+                        : Padding(
+                            padding: EdgeInsets.all(0),
+                          ),
+                  ),
                 ),
-              ),
-              _buildSpeechActivatedDialog(),
-            ],
+                _buildSpeechActivatedDialog(),
+              ],
+            ),
           ),
         ),
       );
@@ -82,13 +88,13 @@ class _SpeechNavigationOverlayState extends State<SpeechNavigationOverlay> {
               Align(
                 alignment: Alignment.bottomCenter * 0.9,
                 child: Container(
-                    decoration: BoxDecoration(color: AppColor.primary.color()),
-                    child: IconButton(
-                      icon: Icon(Icons.menu),
-                      color: AppColor.whiteText.color(),
-                      iconSize: 50,
-                      onPressed: () => _openDrawer(context),
-                    ),
+                  decoration: BoxDecoration(color: AppColor.primary.color()),
+                  child: IconButton(
+                    icon: Icon(Icons.menu),
+                    color: AppColor.whiteText.color(),
+                    iconSize: 50,
+                    onPressed: () => _openDrawer(context),
+                  ),
                 ),
               ),
             ],
@@ -116,7 +122,8 @@ class _SpeechNavigationOverlayState extends State<SpeechNavigationOverlay> {
 
   Widget _buildSpeechActivatedDialog() {
     return _speechIsActivated
-        ? Center(
+        ? Align(
+            alignment: Alignment.bottomCenter * 0.5,
             child: SpeechActiveDialog(),
           )
         : Padding(

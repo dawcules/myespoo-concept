@@ -18,11 +18,13 @@ class LocalizedWidgetStrings {
   static String _noTitleFi = "Ei otsikkoa";
   static String _allCategoriesFI = "Kaikki kategoriat";
   static String _helpServicesFI = "Apupalvelut";
+  static String _postedByFI = "Ilmoituksen tekijä";
 
   // Random ENG
   static String _noTitleEN = "No title";
   static String _allCategoriesEN = "All categories";
   static String _helpServicesEN = "Help services";
+  static String _postedByEN = "Posted by";
 
   // Marketplace ENG
   static String _priceEN = "Price";
@@ -154,6 +156,17 @@ class LocalizedWidgetStrings {
         return _carpoolEN;
       default:
         return _carpoolEN;
+    }
+  }
+
+  static String postedByToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return _postedByFI;
+      case Language.EN:
+        return _postedByEN;
+      default:
+        return _postedByEN;
     }
   }
 }

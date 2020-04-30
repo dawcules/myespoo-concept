@@ -37,7 +37,6 @@ class CarpoolPostWidget extends StatelessWidget {
                         postData.origin,
                         context,
                       ),
-                 
                       _originDestinationRow(
                         LocalizedCommunityStrings.destinationToLocalized(),
                         postData.destination,

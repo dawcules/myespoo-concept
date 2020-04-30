@@ -29,9 +29,10 @@ class _CarpoolPageState extends State<CarpoolPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Scaffold(
-        body: SafeArea(
-          child: Center(
+      child: SafeArea(
+        bottom: false,
+        child: Scaffold(
+          body: Center(
               child: Container(
             height: 1000,
             width: 750,
@@ -90,7 +91,10 @@ class _CarpoolPageState extends State<CarpoolPage> {
         context: context,
         child: Padding(
             padding: EdgeInsets.symmetric(vertical: 100, horizontal: 20),
-            child: CommunityPostModal(CarpoolPostModal(post), title: post.title,)));
+            child: CommunityPostModal(
+              CarpoolPostModal(post),
+              title: post.title,
+            )));
   }
 
   void _onOfferPressed() {
