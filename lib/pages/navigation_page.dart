@@ -11,7 +11,7 @@ class NavigationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double multiplier = logoSizeMultiplier != null ? logoSizeMultiplier : 1;
+    //double multiplier = logoSizeMultiplier != null ? logoSizeMultiplier : 1;
     final width = MediaQuery.of(context).size.width;
     final heigth = MediaQuery.of(context).size.height;
     return Container(
