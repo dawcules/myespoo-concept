@@ -106,6 +106,10 @@ void updateValue(String document, int value, DocumentReference ref){
   Future<QuerySnapshot> getUsersWithCommunitiesReference2(){
     return _db.collection("users").document("services").collection("services").where("community", arrayContains: "Marketplace").getDocuments();
   }
+  // get citizenpoints
+  Future<DocumentSnapshot> getUserCitizenpoints({user}){
+    return _db.collection("users").document(user).get();
+  }
 
   //Haluan luoda uuden Documentin tyhjästä. Teen sen näin.
 Map<String,dynamic> buildProfile(
@@ -205,4 +209,12 @@ Future<void> createProfile(String user, Map profile) async {
         .collection(collection)
         .getDocuments();
   }
+  Future<void> updateCitizenpoints({user,citizenpoints})async {
+      await _db.collection("users").document(user).updateData(
+       {'citizenpoints':citizenpoints,
+      }
+  );
+  }
+}
+
 }
