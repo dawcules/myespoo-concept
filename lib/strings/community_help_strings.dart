@@ -197,4 +197,18 @@ class LocalizedCommunityHelpStrings {
         break;
     }
   }
+
+  static String weAppreciateToLocalized(int value) {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return 'Arvostamme mukaanlähtemistäsi.\n\nTässä kiitoksena 🏆$value Kansalaispistettä!';
+        break;
+      case Language.EN:
+        return 'We appreciate your contribution.\n\nAs a reward, we have given you 🏆$value Citizen Points!';
+        break;
+      default:
+        return 'We appreciate your contribution.\n\nAs a reward, we have given you 🏆$value Citizen Points!';
+        break;
+    }
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:cityprog/sensor_utils/speech_recognition/speech_recog.dart';
+import 'package:flutter/services.dart';
 import 'package:cityprog/styles/color_palette.dart';
 import 'package:cityprog/widgets/dialogs/speech_dialog.dart';
 import 'package:cityprog/widgets/navigation/navigation_drawer.dart';
@@ -20,6 +21,9 @@ class _SpeechNavigationOverlayState extends State<SpeechNavigationOverlay> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: AppColor.secondary.color(),
+    ));
     return getWidget();
   }
 
@@ -38,22 +42,22 @@ class _SpeechNavigationOverlayState extends State<SpeechNavigationOverlay> {
             onSpeechActivate: () => _onSpeechActivate(),
             onSpeehDeActivate: () => _onSpeechDeActivate(),
           ),
-          bottomNavigationBar: BottomAppBar(
-            color: AppColor.secondary.color(),
-            notchMargin: 4,
-            shape: CircularNotchedRectangle(),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.menu),
-                  color: AppColor.whiteText.color(),
-                  iconSize: 50,
-                  onPressed: () => _openDrawer(context),
-                )
-              ],
-            ),
-          ),
+          // bottomNavigationBar: BottomAppBar(
+          //   color: AppColor.secondary.color(),
+          //   notchMargin: 4,
+          //   shape: CircularNotchedRectangle(),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.end,
+          //     children: <Widget>[
+          //       IconButton(
+          //         icon: Icon(Icons.menu),
+          //         color: AppColor.whiteText.color(),
+          //         iconSize: 50,
+          //         onPressed: () => _openDrawer(context),
+          //       )
+          //     ],
+          //   ),
+          // ),
           drawer: NavigationDrawer(),
           body: Scaffold(
             body: Stack(
@@ -72,6 +76,16 @@ class _SpeechNavigationOverlayState extends State<SpeechNavigationOverlay> {
                   ),
                 ),
                 _buildSpeechActivatedDialog(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: FloatingActionButton(
+                        backgroundColor: AppColor.secondary.color(),
+                        child: Icon(Icons.menu),
+                        onPressed: () => _openDrawer(context)),
+                  ),
+                )
               ],
             ),
           ),
@@ -97,6 +111,12 @@ class _SpeechNavigationOverlayState extends State<SpeechNavigationOverlay> {
                   ),
                 ),
               ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: FloatingActionButton(
+                    child: Icon(Icons.list),
+                    onPressed: () => _openDrawer(context)),
+              )
             ],
           ),
         ),
@@ -123,7 +143,7 @@ class _SpeechNavigationOverlayState extends State<SpeechNavigationOverlay> {
   Widget _buildSpeechActivatedDialog() {
     return _speechIsActivated
         ? Align(
-            alignment: Alignment.bottomCenter * 0.5,
+            alignment: Alignment.center,
             child: SpeechActiveDialog(),
           )
         : Padding(

@@ -7,9 +7,11 @@ import 'package:cityprog/widgets/columns/origin_destination.dart';
 import 'package:cityprog/widgets/columns/title_details_column.dart';
 import 'package:cityprog/widgets/database_model/auth.dart';
 import 'package:cityprog/widgets/database_model/database.dart';
+import 'package:cityprog/widgets/dialogs/citizenpoint_update.dart';
 import 'package:cityprog/widgets/rows/text_date_with_calendar.dart';
 import 'package:cityprog/widgets/rows/time_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 
 class CarpoolForm extends StatefulWidget {
   final Trading method;
@@ -20,7 +22,6 @@ class CarpoolForm extends StatefulWidget {
 }
 
 class _CarpoolFormState extends State<CarpoolForm> {
-
   bool _dateWasPicked = false;
   bool _timeWasPicked = false;
   //bool _dateNeedsToReDraw = false;
@@ -73,7 +74,11 @@ class _CarpoolFormState extends State<CarpoolForm> {
             leading: Icon(Icons.more),
             title: Text("Lisätietoja"),
             children: <Widget>[
-              TitleDetailsColumn(),
+              TitleDetailsColumn(
+                autoValidate: false,
+                onChangedDetails: (String value) => _onBodyChanged(value),
+                onChangedTitle: (String value) => _onTitleChanged(value),
+              )
             ],
           ),
           SubmitFormButton(
@@ -83,6 +88,18 @@ class _CarpoolFormState extends State<CarpoolForm> {
         ],
       ),
     );
+  }
+
+  void _onTitleChanged(String value) {
+    setState(() {
+      _title = value;
+    });
+  }
+
+  void _onBodyChanged(String value) {
+    setState(() {
+      _body = value;
+    });
   }
 
   void _onDatePicked(DateTime date) {
@@ -135,8 +152,6 @@ class _CarpoolFormState extends State<CarpoolForm> {
     callback(validator.validate() && _timeWasPicked && _dateWasPicked);
   }
 
-  // TODO title ja details ei tallennu atm
-
   void _submitPost(BuildContext context) async {
     CarpoolPostData post = CarpoolPostData(
         uid: Auth().getUID(),
@@ -157,14 +172,19 @@ class _CarpoolFormState extends State<CarpoolForm> {
         collection: dbCollection,
         callback: (onValue, error) => {
               if (!error)
-                {
-                  Navigator.of(context).pushReplacementNamed("/carpool"),
-                  print(onValue)
-                }
-              else
-                print("Error creating carpool post")
+                if (!error)
+                  {
+                    showDialog(
+                      context: context,
+                      child: CitizenPointUpdateDialog(
+                        amount: 200,
+                      ),
+                    ),
+                    Navigator.of(context).pushReplacementNamed("/carpool")
+                  }
+                else
+                  Toast.show("Error creating carpool post", context,
+                      duration: Toast.LENGTH_LONG)
             });
-
-    Navigator.of(context).pushReplacementNamed("/market");
   }
 }

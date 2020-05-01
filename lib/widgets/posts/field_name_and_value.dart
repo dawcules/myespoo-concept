@@ -14,7 +14,7 @@ class FieldNameAndValue extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(fieldName, style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(fieldName, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
         Padding(padding: EdgeInsets.all(2),),
         valueChild != null ? valueChild : Text(value, style: _style),
       ],

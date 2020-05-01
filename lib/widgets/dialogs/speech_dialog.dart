@@ -6,7 +6,7 @@ class SpeechActiveDialog extends StatelessWidget {
   final String _descriptionFirst =
       NavigationStrings.speechDialogHelpString().split(" ").first + " ";
   final String _descriptionSecond =
-      NavigationStrings.speechDialogHelpString().split(" ")[1] + " ";
+      NavigationStrings.speechDialogHelpString().split(" ")[1] + "\n";
   final List<String> _descriptionRest =
       NavigationStrings.speechDialogHelpString().split(" ");
   @override
@@ -39,7 +39,7 @@ class SpeechActiveDialog extends StatelessWidget {
                     children: [
                       TextSpan(
                         text: _descriptionSecond,
-                        style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                       ),
                       TextSpan(
                         text: _descriptionRest.join(" "),

@@ -1,4 +1,5 @@
 import 'package:cityprog/styles/color_palette.dart';
+import 'package:cityprog/widgets/dialogs/citizenpoint_update.dart';
 import 'package:flutter/material.dart';
 import 'package:cityprog/strings/community_help_strings.dart';
 
@@ -34,7 +35,9 @@ class CommunityHelpPage extends StatelessWidget {
                     ),
                     RaisedButton(
                       color: AppColor.button.color(),
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(context: context, child: CitizenPointUpdateDialog(amount: 200, title: Text("We appreciate what you did."),));
+                      },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 18,
