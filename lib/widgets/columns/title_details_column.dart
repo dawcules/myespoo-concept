@@ -14,17 +14,26 @@ class TitleDetailsColumn extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        IconFormInput(
-          hint: LocalizedCommunityStrings.titleToLocalized(),
-          validation: validator != null ? validator.validateTitle : noValidation,
-          validationText: validator != null ? ValidationStrings.titleErrorTextToLocalized() : " ",
-          icon: Icon(Icons.title),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: IconFormInput(
+            hint: LocalizedCommunityStrings.titleToLocalized(),
+            validation: validator != null ? validator.validateTitle : noValidation,
+            autoValidate: true,
+            validationText: validator != null ? ValidationStrings.titleErrorTextToLocalized() : " ",
+            icon: Icon(Icons.title),
+          ),
         ),
-        IconFormInput(
-          hint: LocalizedCommunityStrings.detailsToLocalized(),
-          validation: validator != null ? validator.validateDetails : noValidation,
-          validationText: validator != null ? ValidationStrings.descriptionErrorTextToLocalized() : " ",
-          icon: Icon(Icons.description),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: IconFormInput(
+            autoValidate: true,
+            maxLines: 10,
+            hint: LocalizedCommunityStrings.detailsToLocalized(),
+            validation: validator != null ? validator.validateDetails : noValidation,
+            validationText: validator != null ? ValidationStrings.descriptionErrorTextToLocalized() : " ",
+            icon: Icon(Icons.description),
+          ),
         ),
       ],
     );

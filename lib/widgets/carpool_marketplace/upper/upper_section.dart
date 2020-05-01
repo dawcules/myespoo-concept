@@ -1,3 +1,4 @@
+import 'package:cityprog/widgets/buttons/universal_raised_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../rows/two_button_row.dart';
@@ -28,11 +29,11 @@ class _UpperSectionState extends State<UpperSection> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: _body(),
-        ),
-      );
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: _body(),
+      ),
+    );
   }
 
   Widget _body() {
@@ -99,21 +100,11 @@ class _UpperSectionState extends State<UpperSection> {
     return Row(
       children: <Widget>[
         Expanded(
-          child: RaisedButton(
+          child: UniversalRaisedButton(
               color: AppColor.button.color(),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 28,
-                  vertical: 16,
-                ),
-                child: Text(
-                  LocalizedCommunityStrings.browseToLocalized(),
-                  style: TextStyle(
-                    color: AppColor.buttonText.color(),
-                    fontSize: 20,
-                  ),
-                ),
-              ),
+              padding: 16,
+              title: LocalizedCommunityStrings.browseToLocalized(),
+              fontSize: 20,
               onPressed: widget.onPressedBrowse != null
                   ? () => _collapseAndExecute(() => widget.onPressedBrowse())
                   : null),

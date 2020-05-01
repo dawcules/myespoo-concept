@@ -39,7 +39,8 @@ class AuthCheck extends StatelessWidget {
             if(!kIsWeb) {
             final initializer = InitializeProfile();
             initializer.getUserData();
-            SpeechNavigationOverlay(child: GeneralFeed());
+            return SizedBox();
+            //SpeechNavigationOverlay(child: GeneralFeed());
           }
           //Not creating so we go here.
           print("Logged in");

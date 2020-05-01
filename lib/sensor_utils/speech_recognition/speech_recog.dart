@@ -33,6 +33,8 @@ class SpeechNavigationButton extends StatefulWidget {
 class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
     with TickerProviderStateMixin {
   bool _hasPermissions = false;
+  bool _didInit = false;
+  bool _hasSpeech = false;
 
   double level = 0.0;
 
@@ -48,10 +50,14 @@ class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
 
   @override
   void initState() {
+    print("Initializing speech navigation button state...");
     super.initState();
-    initSpeechState();
-    _initAnimationController();
-    _initModules();
+    if (!_didInit) {
+      initSpeechState();
+      _initAnimationController();
+      _initModules();
+      _didInit = true;
+    }
   }
 
   void _initSpeechToRoute(Language language) {
@@ -64,11 +70,18 @@ class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
   }
 
   Future<void> initSpeechState() async {
-    bool hasSpeech = await speech.initialize(
-        onError: errorListener, onStatus: (statusListener));
-    if (hasSpeech) {
-      var systemLocale = await speech.systemLocale();
-      _currentLocaleId = systemLocale.localeId;
+    try {
+      bool hasSpeech = await speech.initialize(
+          onError: errorListener, onStatus: (statusListener));
+      if (hasSpeech) {
+        var systemLocale = await speech.systemLocale();
+        _currentLocaleId = systemLocale.localeId;
+        setState(() {
+          _hasSpeech = true;
+        });
+      }
+    } catch (e) {
+      print(e.toString());
     }
 
     if (!mounted) return;
@@ -83,9 +96,6 @@ class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
     PermissionStatus request = await Permission.microphone.request();
     if (request.isGranted) {
       setState(() => _hasPermissions = true);
-      startListening();
-      _animationController.forward();
-      widget.onSpeechActivate();
     }
   }
 
@@ -103,6 +113,7 @@ class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
   }
 
   Widget activateSpeechButtonNoText(double radius) {
+    bool keyboardIsOpened = MediaQuery.of(context).viewInsets.bottom != 0.0;
     return GestureDetector(
         child: Container(
           color: Colors.transparent,
@@ -110,11 +121,15 @@ class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
           //     shape: BoxShape.circle,
           //     border: Border.all(color: Colors.black),
           //   ),
-          child: Icon(
-            Icons.mic,
-            size: radius,
-            color: Colors.black87,
-          ),
+          child: keyboardIsOpened
+              ? Padding(
+                  padding: EdgeInsets.all(0),
+                )
+              : Icon(
+                  Icons.mic,
+                  size: radius,
+                  color: Colors.black87,
+                ),
         ),
         onTapDown: (details) {
           if (_hasPermissions) {
@@ -138,13 +153,17 @@ class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
     widget.onSpeechActivate();
     _transcription = "";
     lastError = "";
-    speech.listen(
-        onResult: resultListener,
-        listenFor: Duration(seconds: 10),
-        localeId: _currentLocaleId, // fi-FI <--- lokalisaatio demo
-        onSoundLevelChange: soundLevelListener,
-        cancelOnError: true,
-        partialResults: true);
+    if (!_hasSpeech) {
+      initSpeechState();
+    } else {
+      speech.listen(
+          onResult: resultListener,
+          listenFor: Duration(seconds: 10),
+          localeId: _currentLocaleId, // fi-FI <--- lokalisaatio demo
+          onSoundLevelChange: soundLevelListener,
+          cancelOnError: true,
+          partialResults: true);
+    }
     setState(() {});
   }
 

@@ -77,6 +77,7 @@ class _BuyingFormState extends State<BuyingForm> {
         body: _titleDetailsValidator.details,
         postDate: DateTime.now(),
         uid: Auth().getUID(),
+        postedBy: Auth().getUser().displayName,
         price: _price,
         title: _titleDetailsValidator.title,
         tradeMethod: _method);

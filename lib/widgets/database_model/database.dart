@@ -97,6 +97,20 @@ void updateValue(String document, int value, DocumentReference ref){
     return _db.collection('users').document(user.uid).get();
   }
 
+  //Test
+  Future<QuerySnapshot> getUsersWithCommunitiesReference(){
+    return _db.collection("services").where("community", arrayContains: "Carpool").getDocuments();
+  }
+
+  //Test 2
+  Future<QuerySnapshot> getUsersWithCommunitiesReference2(){
+    return _db.collection("users").document("services").collection("services").where("community", arrayContains: "Marketplace").getDocuments();
+  }
+  // get citizenpoints
+  Future<DocumentSnapshot> getUserCitizenpoints({user}){
+    return _db.collection("users").document(user).get();
+  }
+
   //Haluan luoda uuden Documentin tyhjästä. Teen sen näin.
 Map<String,dynamic> buildProfile(
   bool beaconIsSelected,
@@ -114,36 +128,23 @@ Map<String,dynamic> buildProfile(
   String postalAddress,
   String area,
   DateTime birthday,
-
   List<String> selectedHealthcare,
-
   List<String> selectedCommunity,
   List<String> selectedCommunityAreas,
-
   List<String> selectedHelp,
   List<String> selectedHelpAreas,
-
   List<String> selectedEvents,
   List<String> selectedEventAreas,
   String other,
   bool securitySelected
 ) {
 
-    //Listed services
-    Map<String, List<String>> profileCollection = new Map<String, List<String>>();
-    profileCollection['healthcare'] = selectedHealthcare;
-    profileCollection['community'] = selectedCommunity;
-    profileCollection['community areas'] = selectedCommunityAreas;
-    profileCollection['help'] = selectedHelp;
-    profileCollection['help areas'] = selectedHelpAreas;
-    profileCollection['events'] = selectedEvents;
-    profileCollection['event areas'] = selectedEventAreas;
 
     //Profile
     Map<String, dynamic> profDoc = Map<String, dynamic>();
     profDoc['fname'] = fName;
     profDoc['lname'] = lName;
-    profDoc['services'] = profileCollection;
+    //profDoc['services'] = profileCollection;
     profDoc['birthday'] = birthday;
     profDoc['address'] = address;
     profDoc['postal code'] = postalAddress;
@@ -158,12 +159,22 @@ Map<String,dynamic> buildProfile(
     profDoc['events selected'] = eventSelected;
     profDoc['UI'] = uiSelected;
     profDoc['notifications'] = notificationsSelected;
+    profDoc['citizenpoints'] = 0;
+    //Listed services
+    profDoc['healthcare'] = selectedHealthcare;
+    profDoc['community'] = selectedCommunity;
+    profDoc['community areas'] = selectedCommunityAreas;
+    profDoc['help'] = selectedHelp;
+    profDoc['help areas'] = selectedHelpAreas;
+    profDoc['events'] = selectedEvents;
+    profDoc['event areas'] = selectedEventAreas;
+
     
     return profDoc;
   }
   // Luodaan valitun collectionin alle uusi document. 
-Future<void> createProfile(String user, Map<String, dynamic> profile) async {
-        await _db.collection("users").document(user).setData(profile); 
+Future<void> createProfile(String user, Map profile) async {
+      await _db.collection("users").document(user).setData(profile);    
 }
   factory Database() => _instance;
 
@@ -198,4 +209,12 @@ Future<void> createProfile(String user, Map<String, dynamic> profile) async {
         .collection(collection)
         .getDocuments();
   }
+  Future<void> updateCitizenpoints({user,citizenpoints})async {
+      await _db.collection("users").document(user).updateData(
+       {'citizenpoints':citizenpoints,
+      }
+  );
+  }
+}
+
 }

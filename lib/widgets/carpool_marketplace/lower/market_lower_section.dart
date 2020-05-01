@@ -53,7 +53,7 @@ class _MarketLowerState extends State<MarketLower> {
                 _getCorrectItems(),
                 header: Padding(
                   padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+                      const EdgeInsets.only(left: 24, right: 24, bottom: 24),
                   child: Align(
                     child: DropdownButtonFormField<int>(
                       hint: Text(dropdownItems[_dropdownValue]),
@@ -142,13 +142,15 @@ class _MarketLowerState extends State<MarketLower> {
         });
     List<MarketPostData> allPosts = (sellingPosts + buyingPosts + freePosts);
     allPosts.sort();
-    setState(() {
-      _sellingPosts = _buildList(context, sellingPosts);
-      _buyingPosts = _buildList(context, buyingPosts);
-      _freePosts = _buildList(context, freePosts);
-      _allPosts = _buildList(context, allPosts);
-      _fetchedAndBuilt = true;
-    });
+    if (mounted) {
+      setState(() {
+        _sellingPosts = _buildList(context, sellingPosts);
+        _buyingPosts = _buildList(context, buyingPosts);
+        _freePosts = _buildList(context, freePosts);
+        _allPosts = _buildList(context, allPosts);
+        _fetchedAndBuilt = true;
+      });
+    }
   }
 
   Future<QuerySnapshot> _getBuyingPosts() {

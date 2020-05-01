@@ -1,3 +1,4 @@
+import 'package:cityprog/widgets/buttons/universal_raised_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../styles/color_palette.dart';
@@ -34,21 +35,11 @@ class TwoButtonRow extends StatelessWidget {
               flex: 1,
               child: Padding(
                 padding: const EdgeInsets.only(right: 4),
-                child: RaisedButton(
+                child: UniversalRaisedButton(
                   color: AppColor.button.color(),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 28,
-                      vertical: 16,
-                    ),
-                    child: Text(
-                      textLeft,
-                      style: TextStyle(
-                        color: AppColor.background.color(),
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
+                  padding: 16,
+                  title: textLeft,
+                  fontSize: 20,
                   onPressed: leftIsNull ? null : () => onPressedLeft(),
                 ),
               ),
@@ -57,21 +48,11 @@ class TwoButtonRow extends StatelessWidget {
               flex: 1,
               child: Padding(
                 padding: const EdgeInsets.only(left: 4),
-                child: RaisedButton(
+                child: UniversalRaisedButton(
                   color: AppColor.button.color(),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 28,
-                      vertical: 16,
-                    ),
-                    child: Text(
-                      textRight,
-                      style: TextStyle(
-                        color: AppColor.background.color(),
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
+                  padding: 16,
+                  title: textRight,
+                  fontSize: 20,
                   onPressed: rightIsNull ? null : () => onPressedRight(),
                 ),
               ),
