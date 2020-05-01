@@ -16,6 +16,9 @@ import './pages/carpool.dart';
 import './pages/profile_creation.dart';
 import './pages/marketplace.dart';
 import './pages/general_feed.dart';
+import './pages/health_reservation.dart';
+
+
 
 // https://www.youtube.com/watch?v=nyvwx7o277U
 
@@ -29,6 +32,9 @@ class Router {
       case '/home':
         return MaterialPageRoute(
             builder: (_) => SpeechNavigationOverlay(child: GeneralFeed()));
+              case '/health':
+        return MaterialPageRoute(
+            builder: (_) => SpeechNavigationOverlay(child: HealthReservation()));
       case '/community':
         return MaterialPageRoute(
             builder: (_) => SpeechNavigationOverlay(child: CommunityPage()));
@@ -106,6 +112,7 @@ class Router {
 enum Routes {
   AUTH,
   HOME,
+  HEALTH,
   PERSONAL,
   COMMUNITY,
   INTRODUCTION,
@@ -123,6 +130,9 @@ extension RoutePaths on Routes {
     switch (this) {
       case Routes.AUTH:
         return "/auth";
+        break;
+          case Routes.HEALTH:
+        return "/health";
         break;
       case Routes.HOME:
         return "/home";

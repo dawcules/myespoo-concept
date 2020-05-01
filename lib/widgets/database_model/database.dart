@@ -33,6 +33,10 @@ class Database {
     return _db.collection('Events').snapshots();
   }
 
+    Stream<QuerySnapshot> getHealth(){
+    return _db.collection('Terveys').where('reserved', isEqualTo: false).snapshots();
+  }
+
   // Palauttaa spesifin collectionin
   Stream<QuerySnapshot> getCollection(String collection) {
     return _db.collection(collection).snapshots();
@@ -235,5 +239,13 @@ lähinnä vaan tarpeellinen esim, Jonkun tapahtuman/postauksen tykkäysten mää
     await _db.collection("users").document(user).updateData({
       'citizenpoints': FieldValue.increment(citizenpoints),
     });
+  }
+
+   Future<void> reserveHealth(document,user)async {
+      await _db.collection("Terveys").document(document).updateData(
+       {'reserved':true,
+       'user':user,
+      }
+  );
   }
 }

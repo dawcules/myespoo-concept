@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 //import 'package:cityprog/widgets/lists/clickable_listview.dart';
 //import 'package:cityprog/strings/community_help_strings.dart';
-import 'package:cityprog/widgets/database_widgets/stream_builder_comhelp.dart';
+import 'package:cityprog/widgets/database_widgets/stream_builder_health.dart';
+import 'package:cityprog/strings/navigation_strings.dart';
 
-class CommunityHelpCat extends StatefulWidget {
-  final String _category;
 
-  CommunityHelpCat(this._category);
+class HealthReservation extends StatefulWidget {
+
 
   @override
-  _CommunityHelpCatState createState() => _CommunityHelpCatState();
+  _HealthReservationState createState() => _HealthReservationState();
 } 
 
-class _CommunityHelpCatState extends State<CommunityHelpCat> {
+class _HealthReservationState extends State<HealthReservation> {
   //String dropdownValue = 'Valitse kategoria';
 
   @override
   Widget build(BuildContext context) {
     final key = new GlobalKey<ScaffoldState>();
     return SafeArea(
+      bottom: false,
       child: Center(
         child: Container(
           height: 1000,
@@ -32,16 +33,14 @@ class _CommunityHelpCatState extends State<CommunityHelpCat> {
                   children: <Widget>[
                     Container(
                       child: Text(
-                        widget._category,
+                       NavigationStrings.healthToLocalized(),
                         style:
                             TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
                       ),
                     ),
                     Padding(padding: EdgeInsets.all(20.0)),
                     Expanded(
-                      child: StreamBuilderHelp(
-                        myQuery: widget._category,
-                      ),
+                      child: StreamBuilderHealth(),
                     ),
                   ],
                 ),
