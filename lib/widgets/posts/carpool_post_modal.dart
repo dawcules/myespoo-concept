@@ -6,7 +6,6 @@ import 'package:cityprog/widgets/containers/box_with_border.dart';
 import 'package:cityprog/widgets/database_model/database.dart';
 import 'package:cityprog/widgets/dialogs/citizenpoint_update.dart';
 import 'package:cityprog/widgets/posts/field_name_and_value.dart';
-import 'package:cityprog/widgets/rows/citizen_points.dart';
 import 'package:flutter/material.dart';
 
 class CarpoolPostModal extends StatefulWidget {
