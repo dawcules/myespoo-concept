@@ -209,12 +209,11 @@ Future<void> createProfile(String user, Map profile) async {
         .collection(collection)
         .getDocuments();
   }
+  //UPDATE CITIZENPOINTS. GAMIFICATION FOR THE 
   Future<void> updateCitizenpoints({user,citizenpoints})async {
       await _db.collection("users").document(user).updateData(
        {'citizenpoints':citizenpoints,
       }
   );
   }
-}
-
 }
