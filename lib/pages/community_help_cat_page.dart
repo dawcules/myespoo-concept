@@ -19,36 +19,36 @@ class _CommunityHelpCatState extends State<CommunityHelpCat> {
   Widget build(BuildContext context) {
     final key = new GlobalKey<ScaffoldState>();
     return SafeArea(
-          child: Container(
+      bottom: false,
+      child: Container(
         height: 1000,
         width: 750,
         child: Scaffold(
           key: key,
           body: Center(
-              child:
-                Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        child: Text(
-                          widget._category,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 26),
-                        ),
-                      ),
-                      Padding(padding: EdgeInsets.all(20.0)),
-                      Expanded(
-                        child: StreamBuilderHelp(
-                          myQuery: widget._category,
-                        ),
-                      ),
-                    ],
+            child: Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    child: Text(
+                      widget._category,
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
+                    ),
                   ),
-                ),
+                  Padding(padding: EdgeInsets.all(20.0)),
+                  Expanded(
+                    child: StreamBuilderHelp(
+                      myQuery: widget._category,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
+      ),
     );
   }
 }

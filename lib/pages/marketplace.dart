@@ -35,8 +35,8 @@ class _MarketPlacePageState extends State<MarketPlacePage> {
         height: 1000,
         width: 750,
         child: Scaffold(
-          resizeToAvoidBottomPadding: false,
           body: SafeArea(
+            bottom: false,
             child: Center(
               child: state == UpperButtonsState.BROWSING
                   ? Column(

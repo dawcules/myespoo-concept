@@ -10,6 +10,7 @@ class CarpoolPostData implements Comparable<CarpoolPostData> {
   final String origin;
   final String destination;
   final String uid;
+  final String postedBy;
   final DateTime postDate;
   final DateTime date;
   final TimeOfDay timeOfDay;
@@ -41,6 +42,7 @@ class CarpoolPostData implements Comparable<CarpoolPostData> {
     this.date,
     this.areas,
     this.slots,
+    this.postedBy,
   });
 
   List<String> _chooseRandomAreas() {
@@ -62,15 +64,16 @@ class CarpoolPostData implements Comparable<CarpoolPostData> {
       postDate: DateTime.parse(data["postDate"]),
       tradeMethod: TradeMethodFromString.fromString(data["tradeMethod"]),
       imageUri: data["imageUri"],
-      timeOfDay: TimeOfDay(hour: int.parse(formatter[0]), minute: int.parse(formatter[1])),
+      timeOfDay: TimeOfDay(
+          hour: int.parse(formatter[0]), minute: int.parse(formatter[1])),
       date: DateTime.parse(data["date"]),
       slots: data["slots"],
       areas: areas,
-
+      postedBy: data["postedBy"],
     );
   }
 
-  Map<String, dynamic> toMap({@required BuildContext context}) => {
+  Map<String, dynamic> toMap({BuildContext context}) => {
         'title': this.title,
         'body': this.body,
         'origin': this.origin,
@@ -79,12 +82,18 @@ class CarpoolPostData implements Comparable<CarpoolPostData> {
         'postDate': this.postDate.toIso8601String(),
         'tradeMethod': this.tradeMethod.toLocalizedString(),
         'imageUri': this.imageUri,
-        'timeOfDay': this.timeOfDay.format(context),
+        'timeOfDay': timeOfDayFormatter(this.timeOfDay),
         'date': this.date.toIso8601String(),
         'slots': this.slots,
         'areas': _chooseRandomAreas(),
+        'postedBy': this.postedBy,
       };
 
   @override
-  int compareTo(CarpoolPostData other) => this.postDate.day - other.postDate.day;
+  int compareTo(CarpoolPostData other) =>
+      this.postDate.day - other.postDate.day;
+
+  String timeOfDayFormatter(TimeOfDay time) {
+    return "${time.hour}:${time.minute}";
+  }
 }

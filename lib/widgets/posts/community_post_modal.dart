@@ -25,12 +25,12 @@ class CommunityPostModal extends StatelessWidget {
                     child: Text(
                       title ?? LocalizedWidgetStrings.noTitleToLocalized(),
                       maxLines: 4,
-                      style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
                 IconButton(
-                  iconSize: 40,
+                  iconSize: 32,
                   icon: Icon(Icons.cancel),
                   onPressed: () => Navigator.of(context).pop(),
                 ),

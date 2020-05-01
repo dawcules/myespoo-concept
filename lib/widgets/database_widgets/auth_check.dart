@@ -36,16 +36,10 @@ class AuthCheck extends StatelessWidget {
             print("bootstrapper account creation");
             ProfileCreate().creatingAccount();
             ProfileCreate().createProfile(user:_user.uid);
-            if(!kIsWeb) {
             final initializer = InitializeProfile();
             initializer.getUserData();
-<<<<<<< HEAD
-            }
-            //return SpeechNavigationOverlay(child: GeneralFeed());
-            return Padding(padding: EdgeInsets.all(0),);
-=======
-            SpeechNavigationOverlay(child: GeneralFeed());
->>>>>>> cdab42fa8a949bce7081f5b82267af88a2f26bb2
+            return SizedBox();
+            //SpeechNavigationOverlay(child: GeneralFeed());
           }
           //Not creating so we go here.
           print("Logged in");

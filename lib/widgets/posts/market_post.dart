@@ -1,62 +1,85 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cityprog/model/market.dart';
 import 'package:cityprog/widgets/rows/trade_method_row.dart';
 import 'package:flutter/material.dart';
 
-import '../../strings/community_strings.dart';
 import '../../styles/color_palette.dart';
 
-class MarketPostWidget extends StatelessWidget {
+class MarketPostWidget extends StatefulWidget {
   final MarketPostData postData;
   final Function _moreButtonPressed;
   const MarketPostWidget(this.postData, this._moreButtonPressed);
 
   @override
+  _MarketPostWidgetState createState() => _MarketPostWidgetState();
+}
+
+class _MarketPostWidgetState extends State<MarketPostWidget> {
+  @override
+  void initState() {
+    super.initState();
+    //print("init");
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
-      child: Card(
-        elevation: 2,
-        child: Wrap(
-          children: <Widget>[
-            TradeMethodRow(
-              postData.tradeMethod,
-              fontSize: 16,
-              paddingAmount: 8,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: <Widget>[
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: _autoSizeTextRow(postData.title, context,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 28)),
-                  ),
-                  Padding(padding: EdgeInsets.all(4),),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: _autoSizeTextRow(
-                      postData.body,
-                      context,
-                      style: TextStyle(fontSize: 20)
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: FlatButton(
-                      child: Text(
-                        LocalizedCommunityStrings.moreToLocalized(),
-                        style: TextStyle(
-                            color: AppColor.primary.color(), fontSize: 16),
+      child: Material(
+        child: InkWell(
+          splashColor: AppColor.secondary.color(),
+          onTap: () => widget._moreButtonPressed(),
+          child: Card(
+            elevation: 2,
+            child: Wrap(
+              children: <Widget>[
+                TradeMethodRow(
+                  widget.postData.tradeMethod,
+                  fontSize: 16,
+                  paddingAmount: 8,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: _autoSizeTextRow(
+                              widget.postData.title, context,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 24)),
+                        ),
                       ),
-                      onPressed: () => _moreButtonPressed(),
-                    ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 16, right: 8),
+                      ),
+                      widget.postData.imageUri != null
+                          ? Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: CachedNetworkImage(
+                                width: double.infinity,
+                                fit: BoxFit.fitWidth,
+                                imageUrl: widget.postData.imageUri,
+                                placeholder: (context, url) =>
+                                    CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                              ),
+                            )
+                          : Padding(
+                              padding: EdgeInsets.all(0),
+                            ),
+                      Padding(
+                        padding: EdgeInsets.all(4),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
