@@ -30,11 +30,12 @@ Future<News> fetchNews(String contentId) async {
   }
 
   final response = await http.get(url);
+    // Get XML
   if (response.statusCode == 200) {
+    // Convert to JSON
     myTransformer.parse(response.body);
     var resJson = myTransformer.toGData();
-    //print('PITUUS' + resJson.length.toString());
-    //log(resJson);
+    // Proceed to map Json contents to a widget
     return News.fromJson(json.decode(resJson));
   } else {
     throw Exception('Failed to load resources');
@@ -59,11 +60,11 @@ class News {
   factory News.fromJson(Map<String, dynamic> json) {
     String img;
     var entryList = json['feed']['entry'];
-    if (entryList != null && entryList.length >= 3) {
+    if (entryList != null && entryList.length >= 2) {
       var urlString =
           entryList[2]['content']['m\$properties']['d\$Text']['\$t'];
       print(urlString);
-      if (urlString != null && urlString.length > 15) {
+      if (urlString != null && urlString.length > 15 && urlString.toString().split('"').length > 1) {
         img = urlString.toString().split('"')[1];
       } else {
         img = 'no pic :(';

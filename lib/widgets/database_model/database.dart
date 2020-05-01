@@ -30,6 +30,10 @@ class Database {
     return _db.collection('Events').snapshots();
   }
 
+    Stream<QuerySnapshot> getHealth(){
+    return _db.collection('Terveys').where('reserved', isEqualTo: false).snapshots();
+  }
+
   // Palauttaa spesifin collectionin
  Stream<QuerySnapshot> getCollection(String collection){
     return _db.collection(collection).snapshots();
@@ -215,6 +219,12 @@ Future<void> createProfile(String user, Map profile) async {
       }
   );
   }
-}
 
+   Future<void> reserveHealth(document,user)async {
+      await _db.collection("Terveys").document(document).updateData(
+       {'reserved':true,
+       'user':user,
+      }
+  );
+  }
 }
