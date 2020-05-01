@@ -31,6 +31,13 @@ class _CarpoolLowerState extends State<CarpoolLower> {
   bool _fetchedAndBuilt;
 
   @override
+   void setState(fn) {
+    if(mounted){
+      super.setState(fn);
+    }
+  }
+
+  @override
   void initState() {
     super.initState();
     _dropdownValue = 0;
@@ -133,6 +140,7 @@ class _CarpoolLowerState extends State<CarpoolLower> {
 
   Widget _buildList(BuildContext context, List<CarpoolPostData> posts) {
     return ListView.builder(
+      padding: EdgeInsets.only(bottom: 60),
       itemCount: posts.length,
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int position) {

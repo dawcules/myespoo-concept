@@ -104,6 +104,7 @@ class _MarketLowerState extends State<MarketLower> {
 
   ListView _buildList(BuildContext context, List<MarketPostData> posts) {
     return ListView.builder(
+      padding: EdgeInsets.only(bottom: 60),
       itemCount: posts.length,
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int position) {

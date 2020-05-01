@@ -10,6 +10,7 @@ import 'package:cityprog/widgets/columns/title_details_column.dart';
 import 'package:cityprog/widgets/columns/select_price_column.dart';
 import 'package:cityprog/widgets/database_model/auth.dart';
 import 'package:cityprog/widgets/database_model/database.dart';
+import 'package:cityprog/widgets/dialogs/citizenpoint_update.dart';
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
 
@@ -137,7 +138,15 @@ class _SellingFormState extends State<SellingForm> {
         collection: _method.toDatabaseCollectionId(),
         callback: (value, error) => {
               if (!error)
-                {Navigator.of(context).pushReplacementNamed("/market")}
+                {
+                  showDialog(
+                    context: context,
+                    child: CitizenPointUpdateDialog(
+                      amount: 200,
+                    ),
+                  ),
+                  Navigator.of(context).pushReplacementNamed("/market")
+                }
             });
   }
 }
