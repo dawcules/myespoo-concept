@@ -23,7 +23,6 @@ class StreamBuilderGeneral extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        bottom: false,
         //Nest StreamBuilders for each collection. Then pass the snapshots individually to ListViewBuilder
         // Must be replaced with profile specific calls
         child: StreamBuilder(
@@ -115,7 +114,7 @@ class _ListViewBuilderState extends State<ListViewBuilder> {
     return Ink(
         color: AppColor.background.color(),
         child: ListView.builder(
-            padding: EdgeInsets.all(16),
+            padding: EdgeInsets.only(top: 16, right: 16, left: 16, bottom: 60),
             itemCount: widget.eventDataLength +
                 widget.helpDataLength + widget.notificationDataLength +
                 8, //+1 for weather card + 7 for news

@@ -30,7 +30,6 @@ class _CarpoolPageState extends State<CarpoolPage> {
   Widget build(BuildContext context) {
     return Container(
       child: SafeArea(
-        bottom: false,
         child: Scaffold(
           body: Center(
               child: Container(
@@ -90,7 +89,7 @@ class _CarpoolPageState extends State<CarpoolPage> {
     showDialog(
         context: context,
         child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 100, horizontal: 20),
+            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
             child: CommunityPostModal(
               CarpoolPostModal(post),
               title: post.title,

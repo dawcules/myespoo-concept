@@ -6,6 +6,7 @@ import 'package:cityprog/widgets/columns/select_price_column.dart';
 import 'package:cityprog/widgets/columns/title_details_column.dart';
 import 'package:cityprog/widgets/database_model/auth.dart';
 import 'package:cityprog/widgets/database_model/database.dart';
+import 'package:cityprog/widgets/dialogs/citizenpoint_update.dart';
 import 'package:flutter/material.dart';
 
 class BuyingForm extends StatefulWidget {
@@ -87,7 +88,15 @@ class _BuyingFormState extends State<BuyingForm> {
         collection: _method.toDatabaseCollectionId(),
         callback: (value, error) => {
               if (!error)
-                {Navigator.of(context).pushReplacementNamed("/market")}
+                {
+                  showDialog(
+                    context: context,
+                    child: CitizenPointUpdateDialog(
+                      amount: 200,
+                    ),
+                  ),
+                  Navigator.of(context).pushReplacementNamed("/market")
+                }
             });
   }
 }

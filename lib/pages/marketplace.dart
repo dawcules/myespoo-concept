@@ -36,7 +36,6 @@ class _MarketPlacePageState extends State<MarketPlacePage> {
         width: 750,
         child: Scaffold(
           body: SafeArea(
-            bottom: false,
             child: Center(
               child: state == UpperButtonsState.BROWSING
                   ? Column(
@@ -44,6 +43,7 @@ class _MarketPlacePageState extends State<MarketPlacePage> {
                       mainAxisSize: MainAxisSize.min,
                     )
                   : ListView(
+                    padding: EdgeInsets.only(bottom: 60),
                       children: _content(),
                     ),
             ),

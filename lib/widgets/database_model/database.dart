@@ -3,9 +3,8 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 
-
 class Database {
-  Database._internal();  
+  Database._internal();
   static final Database _instance = Database._internal();
   final Firestore _db = Firestore.instance;
 
@@ -16,130 +15,149 @@ class Database {
 
   /* Jokainen event streamataan firestoresta, QuerySnapshot pitää sisällään koko collectionin.
   Käytä tätä StreamBuilder widgetin kanssa näyttääksesi dynaamisen listan (jonka voi sitten pistää listviewiin jne..)*/
-  Stream<QuerySnapshot> getEvents(){
+  Stream<QuerySnapshot> getEvents() {
     return _db.collection('Events').snapshots();
   }
 
   /* Spesifimpi versio. Etsii kansalaisen Larry ja ottaa hänen henkilönkohtaiset tapahtumansa streamina*/
-  Stream<QuerySnapshot> getSpecifiedEvents(){
-    return _db.collection('Citizen').document('Larry').collection('personalEvents').snapshots();
+  Stream<QuerySnapshot> getSpecifiedEvents() {
+    return _db
+        .collection('Citizen')
+        .document('Larry')
+        .collection('personalEvents')
+        .snapshots();
   }
 
   // Haetaan kaikki apupalveluilmoitukset
-  Stream<QuerySnapshot> getHelps(){
+  Stream<QuerySnapshot> getHelps() {
     return _db.collection('Events').snapshots();
   }
 
   // Palauttaa spesifin collectionin
- Stream<QuerySnapshot> getCollection(String collection){
+  Stream<QuerySnapshot> getCollection(String collection) {
     return _db.collection(collection).snapshots();
   }
 
   //Jos haluat yksittäisen dokumentin tiedot käytä DocumentSnapshottia.
-  Stream<DocumentSnapshot> getDocument(String document){
+  Stream<DocumentSnapshot> getDocument(String document) {
     return _db.document(document).snapshots();
   }
 
   //En mä löydä sitä dokkarii mitä mun pitäis. Mitä teen. Where auttaa
   Stream<QuerySnapshot> getCitizenByName(String nimi) {
-  return _db.collection('kaupunkilainen').where('nimi', isEqualTo: nimi).snapshots();
+    return _db
+        .collection('kaupunkilainen')
+        .where('nimi', isEqualTo: nimi)
+        .snapshots();
   }
+
   Stream<QuerySnapshot> getHelpByCategory(String category) {
-  return _db.collection('Apupalvelu').where('type', isEqualTo: category).snapshots();
+    return _db
+        .collection('Apupalvelu')
+        .where('type', isEqualTo: category)
+        .snapshots();
   }
 
   // Päivitetään dokkaria ID:n perusteella.
-  Future<void> updateData(String collection , String documentId, String nimi, String ika, Timestamp date) async {
-  await _db.collection(collection).document(documentId).updateData(
-      {'nimi': nimi,
-        'ikä': ika,
-        'tili luotu': date,
-      }
-  );
-}
+  Future<void> updateData(String collection, String documentId, String nimi,
+      String ika, Timestamp date) async {
+    await _db.collection(collection).document(documentId).updateData({
+      'nimi': nimi,
+      'ikä': ika,
+      'tili luotu': date,
+    });
+  }
 
 // Poistetaan fieldi
-Future<void> deleteValue(String collection, String documentId, String value) async {
-  await _db.collection(collection).document(documentId).updateData({'palvelut.terveydenhuolto': FieldValue.arrayRemove([value])});
-}
+  Future<void> deleteValue(
+      String collection, String documentId, String value) async {
+    await _db.collection(collection).document(documentId).updateData({
+      'palvelut.terveydenhuolto': FieldValue.arrayRemove([value])
+    });
+  }
 
 // Tallennetaan jotain kivaa
-Future<void> saveNewValue(String collection, String documentID, String value) async {
-  await _db.collection(collection).document(documentID).updateData(
-      {'palvelut.terveydenhuolto': FieldValue.arrayUnion([value]),
-      }
-  );
-}
+  Future<void> saveNewValue(
+      String collection, String documentID, String value) async {
+    await _db.collection(collection).document(documentID).updateData({
+      'palvelut.terveydenhuolto': FieldValue.arrayUnion([value]),
+    });
+  }
 
 /* Päivittää jonkun tietyn objektin numeraalista arvoa, ottaa tuoreimman arvon snapshottina ennen päivitystä (Varmasti tarkka)
 Jos päivität tekstikenttää tätä ei tietenkään tarvita, 
 lähinnä vaan tarpeellinen esim, Jonkun tapahtuman/postauksen tykkäysten määrän päivitykseen */
-void updateValue(String document, int value, DocumentReference ref){
+  void updateValue(String document, int value, DocumentReference ref) {
     _db.runTransaction((transaction) async {
-        try{
-            DocumentSnapshot freshSnap = await transaction.get(ref);
-            await transaction.update(freshSnap.reference, {
-              document: freshSnap[document] + value,
-            });
-        }
-          catch (_) {
-             throw Exception('Me no like!');
-        }
+      try {
+        DocumentSnapshot freshSnap = await transaction.get(ref);
+        await transaction.update(freshSnap.reference, {
+          document: freshSnap[document] + value,
+        });
+      } catch (_) {
+        throw Exception('Me no like!');
+      }
     });
   }
 
-   /* Spesifimpi versio. Etsii kansalaisen Larry ja ottaa hänen henkilönkohtaiset tapahtumansa streamina*/
-  Stream<DocumentSnapshot> getUserData({user}){
+  /* Spesifimpi versio. Etsii kansalaisen Larry ja ottaa hänen henkilönkohtaiset tapahtumansa streamina*/
+  Stream<DocumentSnapshot> getUserData({user}) {
     return _db.collection('users').document(user.uid).snapshots();
   }
-  Future<DocumentSnapshot> getUserDataReference({user}){
+
+  Future<DocumentSnapshot> getUserDataReference({user}) {
     print("$user in snapshot");
     return _db.collection('users').document(user.uid).get();
   }
 
   //Test
-  Future<QuerySnapshot> getUsersWithCommunitiesReference(){
-    return _db.collection("services").where("community", arrayContains: "Carpool").getDocuments();
+  Future<QuerySnapshot> getUsersWithCommunitiesReference() {
+    return _db
+        .collection("services")
+        .where("community", arrayContains: "Carpool")
+        .getDocuments();
   }
 
   //Test 2
-  Future<QuerySnapshot> getUsersWithCommunitiesReference2(){
-    return _db.collection("users").document("services").collection("services").where("community", arrayContains: "Marketplace").getDocuments();
+  Future<QuerySnapshot> getUsersWithCommunitiesReference2() {
+    return _db
+        .collection("users")
+        .document("services")
+        .collection("services")
+        .where("community", arrayContains: "Marketplace")
+        .getDocuments();
   }
+
   // get citizenpoints
-  Future<DocumentSnapshot> getUserCitizenpoints({user}){
+  Future<DocumentSnapshot> getUserCitizenpoints({user}) {
     return _db.collection("users").document(user).get();
   }
 
   //Haluan luoda uuden Documentin tyhjästä. Teen sen näin.
-Map<String,dynamic> buildProfile(
-  bool beaconIsSelected,
-  bool healthcareSelected,
-  bool communitySelected, 
-  bool helpSelected, 
-  bool eventSelected, 
-  bool uiSelected, 
-  bool notificationsSelected,
-
-  String email,
-  String address,
-  String fName,
-  String lName,
-  String postalAddress,
-  String area,
-  DateTime birthday,
-  List<String> selectedHealthcare,
-  List<String> selectedCommunity,
-  List<String> selectedCommunityAreas,
-  List<String> selectedHelp,
-  List<String> selectedHelpAreas,
-  List<String> selectedEvents,
-  List<String> selectedEventAreas,
-  String other,
-  bool securitySelected
-) {
-
-
+  Map<String, dynamic> buildProfile(
+      bool beaconIsSelected,
+      bool healthcareSelected,
+      bool communitySelected,
+      bool helpSelected,
+      bool eventSelected,
+      bool uiSelected,
+      bool notificationsSelected,
+      String email,
+      String address,
+      String fName,
+      String lName,
+      String postalAddress,
+      String area,
+      DateTime birthday,
+      List<String> selectedHealthcare,
+      List<String> selectedCommunity,
+      List<String> selectedCommunityAreas,
+      List<String> selectedHelp,
+      List<String> selectedHelpAreas,
+      List<String> selectedEvents,
+      List<String> selectedEventAreas,
+      String other,
+      bool securitySelected) {
     //Profile
     Map<String, dynamic> profDoc = Map<String, dynamic>();
     profDoc['fname'] = fName;
@@ -169,13 +187,14 @@ Map<String,dynamic> buildProfile(
     profDoc['events'] = selectedEvents;
     profDoc['event areas'] = selectedEventAreas;
 
-    
     return profDoc;
   }
-  // Luodaan valitun collectionin alle uusi document. 
-Future<void> createProfile(String user, Map profile) async {
-      await _db.collection("users").document(user).setData(profile);    
-}
+
+  // Luodaan valitun collectionin alle uusi document.
+  Future<void> createProfile(String user, Map profile) async {
+    await _db.collection("users").document(user).setData(profile);
+  }
+
   factory Database() => _instance;
 
   void newCommunityPost({
@@ -191,7 +210,9 @@ Future<void> createProfile(String user, Map profile) async {
         .document(document)
         .collection(collection)
         .add(post)
-        .then((onValue) => callback != null ? callback(onValue, false) : print("callback not defined."))
+        .then((onValue) => callback != null
+            ? callback(onValue, false)
+            : print("callback not defined."))
         .catchError((onError) => {callback(null, true)});
   }
 
@@ -209,12 +230,10 @@ Future<void> createProfile(String user, Map profile) async {
         .collection(collection)
         .getDocuments();
   }
-  Future<void> updateCitizenpoints({user,citizenpoints})async {
-      await _db.collection("users").document(user).updateData(
-       {'citizenpoints':citizenpoints,
-      }
-  );
-  }
-}
 
+  Future<void> updateCitizenpoints({user, citizenpoints}) async {
+    await _db.collection("users").document(user).updateData({
+      'citizenpoints': FieldValue.increment(citizenpoints),
+    });
+  }
 }

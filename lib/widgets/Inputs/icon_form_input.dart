@@ -12,8 +12,9 @@ class IconFormInput extends StatelessWidget {
   final TextEditingController controller;
   final bool autoValidate;
   final int maxLines;
+  final Function onChanged;
   
-  IconFormInput({this.hint, this.validationText, this.icon, this.validation, this.controller, this.autoValidate, this.maxLines});
+  IconFormInput({this.hint, this.validationText, this.icon, this.validation, this.controller, this.autoValidate, this.maxLines, this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +26,7 @@ class IconFormInput extends StatelessWidget {
                           validator: (value) => validation(value) ? validationText : null,
                           style: TextStyle(color: AppColor.secondary.color(), fontFamily: 'RadikalLight'),
                           decoration: CustomDecoration().formInputDecoration(hint, icon),
+                          onChanged: (value) => onChanged != null ? onChanged(value) : null,
                       );
   }
 }

@@ -19,7 +19,6 @@ class _CommunityHelpCatState extends State<CommunityHelpCat> {
   Widget build(BuildContext context) {
     final key = new GlobalKey<ScaffoldState>();
     return SafeArea(
-      bottom: false,
       child: Container(
         height: 1000,
         width: 750,

@@ -25,8 +25,7 @@ class Router {
 
     switch (settings.name) {
       case '/': // The absolute first page
-        return MaterialPageRoute(
-            builder: (_) => AuthCheck());
+        return MaterialPageRoute(builder: (_) => AuthCheck());
       case '/home':
         return MaterialPageRoute(
             builder: (_) => SpeechNavigationOverlay(child: GeneralFeed()));
@@ -50,7 +49,8 @@ class Router {
             builder: (_) =>
                 SpeechNavigationOverlay(child: CommunityHelpCat(args)));
       case '/personal':
-        return MaterialPageRoute(builder: (_) => PersonalPage());
+        return MaterialPageRoute(
+            builder: (_) => SpeechNavigationOverlay(child: PersonalPage()));
       case '/login':
         return MaterialPageRoute(builder: (_) => LoginPage());
       case '/introduction':
@@ -62,8 +62,7 @@ class Router {
         return MaterialPageRoute(
             builder: (_) => SpeechNavigationOverlay(child: CarpoolPage()));
       case '/profile':
-        return MaterialPageRoute(
-            builder: (_) =>  ProfilePage());
+        return MaterialPageRoute(builder: (_) => ProfilePage());
       case '/market':
         return MaterialPageRoute(
             builder: (_) => SpeechNavigationOverlay(child: MarketPlacePage()));

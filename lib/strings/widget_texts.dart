@@ -19,12 +19,18 @@ class LocalizedWidgetStrings {
   static String _allCategoriesFI = "Kaikki kategoriat";
   static String _helpServicesFI = "Apupalvelut";
   static String _postedByFI = "Ilmoituksen tekijä";
+  static String _citizenPointsFI = "Kansalaispisteet";
+  static String _citizenPointsAwardedFI = "Kansalaispistettä myönnetty";
+  static String _niceFI = "Hienoa";
 
   // Random ENG
   static String _noTitleEN = "No title";
   static String _allCategoriesEN = "All categories";
   static String _helpServicesEN = "Help services";
   static String _postedByEN = "Posted by";
+  static String _citizenPointsEN = "Citizen points";
+  static String _citizenPointsAwardedEN = "Citizen Points awarded";
+  static String _niceEN = "Nice";
 
   // Marketplace ENG
   static String _priceEN = "Price";
@@ -167,6 +173,39 @@ class LocalizedWidgetStrings {
         return _postedByEN;
       default:
         return _postedByEN;
+    }
+  }
+
+  static String citizenPointsToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return _citizenPointsFI;
+      case Language.EN:
+        return _citizenPointsEN;
+      default:
+        return _citizenPointsEN;
+    }
+  }
+
+  static String niceToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return _niceFI;
+      case Language.EN:
+        return _niceEN;
+      default:
+        return _niceEN;
+    }
+  }
+
+  static String citizenPointsAwardedToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return _citizenPointsAwardedFI;
+      case Language.EN:
+        return _citizenPointsAwardedEN;
+      default:
+        return _citizenPointsAwardedEN;
     }
   }
 }

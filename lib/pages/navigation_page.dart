@@ -102,7 +102,7 @@ class NavigationPage extends StatelessWidget {
         Padding(
           padding: EdgeInsets.all(8),
         ),
-/*         IconRouteNameRow(
+        IconRouteNameRow(
           heroTag: "nav_personal",
           icon: Icon(Icons.person),
           route: "/personal",
@@ -110,7 +110,7 @@ class NavigationPage extends StatelessWidget {
         ),
         Padding(
           padding: EdgeInsets.all(8),
-        ), */
+        ), 
   /*       IconRouteNameRow(
           heroTag: "nav_introduction",
           icon: Icon(Icons.help),
