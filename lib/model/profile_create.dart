@@ -13,6 +13,7 @@ class ProfileCreate {
   static final ProfileCreate _instance = ProfileCreate._internal();
   //Bootstrapper, Just to check if user is creating a profile
   bool _creatingProfile = false;
+  bool autovalidate = false;
 
   // booleans for switches
   bool beaconIsSelected = false;
@@ -34,6 +35,8 @@ class ProfileCreate {
   final healthcareController = TextEditingController();
   final areaController = TextEditingController();
   final addressController = TextEditingController();
+
+  
 
   String email;
   String password;

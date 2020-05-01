@@ -99,6 +99,25 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
       _navigate();
       } 
     else{
+      setState(() {
+         profileCreate.autovalidate = true;
+      });
+       showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              content: ListTile(
+                title: Text("Validation failed"),
+                subtitle: Text("Please make sure you have entered a proper email address, password and area"),
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('OK'),
+                  onPressed: () => {Navigator.of(context).pop(),
+                   _pageController.jumpToPage(0),}
+                ),
+              ],
+            ),
+        );
         print("Horrifyingly bad profilemaking");
       } 
   }
@@ -166,9 +185,9 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                      IconFormInput(hint: ProfileStrings.emailToLocalized(), validationText: ProfileStrings.emailValidationToLocalized(),validation: formValidation.validateEmail, icon: Icon(Icons.alternate_email),controller: profileCreate.emailController,),
-                      IconFormPassword(hint: ProfileStrings.passwordToLocalized(), validationText: ProfileStrings.passwordValidationToLocalized(), validation: formValidation.validatePw ,passwordController: profileCreate.passwordController, icon: Icon(Icons.security)),
-                      IconFormConfirm(hint: ProfileStrings.cfPasswordToLocalized(), validationText: ProfileStrings.cfPasswordValidationToLocalized(), validation: formValidation.confirmPw, passwordController: profileCreate.passwordController,icon: Icon(Icons.security), controller: ProfileCreate().cfpasswordController,),
+                      IconFormInput(hint: ProfileStrings.emailToLocalized(), validationText: ProfileStrings.emailValidationToLocalized(),validation: formValidation.validateEmail, icon: Icon(Icons.alternate_email),controller: profileCreate.emailController, autoValidate: profileCreate.autovalidate,),
+                      IconFormPassword(hint: ProfileStrings.passwordToLocalized(), validationText: ProfileStrings.passwordValidationToLocalized(), validation: formValidation.validatePw ,passwordController: profileCreate.passwordController, icon: Icon(Icons.security), autovalidate: profileCreate.autovalidate),
+                      IconFormConfirm(hint: ProfileStrings.cfPasswordToLocalized(), validationText: ProfileStrings.cfPasswordValidationToLocalized(), validation: formValidation.confirmPw, passwordController: profileCreate.passwordController,icon: Icon(Icons.security), controller: ProfileCreate().cfpasswordController, autovalidate: profileCreate.autovalidate),
                       ],),),
                 info: CenteredText(text: ProfileStrings.moreInfoToLocalized(), color:  AppColor.primary.color()),
               ),

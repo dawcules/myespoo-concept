@@ -10,15 +10,16 @@ class IconFormPassword extends StatelessWidget {
   final Function validation;
   final Icon icon;
   final TextEditingController passwordController;
+  final bool autovalidate;
 
-  IconFormPassword({this.hint, this.validationText, this.icon, this.validation, this.passwordController});
+  IconFormPassword({this.hint, this.validationText, this.icon, this.validation, this.passwordController, this.autovalidate});
 
   @override
   Widget build(BuildContext context) {
     return 
                       TextFormField(
                             obscureText: true,
-                            autovalidate: false,
+                            autovalidate: autovalidate ? autovalidate: false,
                             controller: passwordController, 
                             validator: (value) => validation(value) ? validationText : null,
                             style: TextStyle(color: AppColor.secondary.color(), fontFamily: 'RadikalLight'),
