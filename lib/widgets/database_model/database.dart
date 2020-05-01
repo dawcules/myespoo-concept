@@ -234,20 +234,11 @@ lähinnä vaan tarpeellinen esim, Jonkun tapahtuman/postauksen tykkäysten mää
         .collection(collection)
         .getDocuments();
   }
-<<<<<<< HEAD
-  //UPDATE CITIZENPOINTS. GAMIFICATION FOR THE 
-  Future<void> updateCitizenpoints({user,citizenpoints})async {
-      await _db.collection("users").document(user).updateData(
-       {'citizenpoints':citizenpoints,
-      }
-  );
-=======
 
   Future<void> updateCitizenpoints({user, citizenpoints}) async {
     await _db.collection("users").document(user).updateData({
       'citizenpoints': FieldValue.increment(citizenpoints),
     });
->>>>>>> 7405b5aabfbe918da2676348cf06cc1668042e53
   }
 
    Future<void> reserveHealth(document,user)async {
