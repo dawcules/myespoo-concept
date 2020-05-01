@@ -99,6 +99,12 @@ class NavigationPage extends StatelessWidget {
         Padding(
           padding: EdgeInsets.all(8),
         ),
+           IconRouteNameRow(
+          heroTag: "nav_health",
+          icon: Icon(Icons.local_hospital),
+          route: "/health",
+          routeName: NavigationStrings.healthToLocalized(),
+        ),
         Padding(
           padding: EdgeInsets.all(8),
         ),

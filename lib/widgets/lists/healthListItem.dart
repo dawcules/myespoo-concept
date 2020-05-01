@@ -3,9 +3,9 @@ import 'package:cityprog/styles/color_palette.dart';
 import 'package:cityprog/strings/community_help_strings.dart';
 
 class HealthListTile extends StatelessWidget {
-  final String type;
+  final dynamic index;
 
-  HealthListTile(this.type);
+  HealthListTile(this.index);
 
   //Random times and dates
   // Reserve -> Toast and hide the card
@@ -26,8 +26,7 @@ class HealthListTile extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Text(
-                    'TEXT HERE',
+                  Text(index['locationFI'].toString(),
                     style: TextStyle(color: AppColor.secondary.color(), fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   Flexible(child: Text('TEXT HERE', style: TextStyle(fontSize: 16))),

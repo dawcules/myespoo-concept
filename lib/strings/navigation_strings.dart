@@ -159,6 +159,10 @@ class NavigationStrings {
     return CurrentLanguage.value == Language.FI ? "Yhteisö" : "Community";
   }
 
+  static String healthToLocalized() {
+    return CurrentLanguage.value == Language.FI ? "Terveys" : "Health";
+  }
+
   static String helpServicesToLocalized() {
     return CurrentLanguage.value == Language.FI
         ? "Apupalvelut"
