@@ -1,14 +1,12 @@
 import 'package:cityprog/model/market.dart';
 import 'package:cityprog/strings/community_strings.dart';
 import 'package:cityprog/strings/widget_texts.dart';
-import 'package:cityprog/styles/color_palette.dart';
 import 'package:cityprog/widgets/carpool_marketplace/textviews/localized_price.dart';
 import 'package:cityprog/widgets/columns/user_info_column.dart';
 import 'package:cityprog/widgets/containers/box_with_border.dart';
 import 'package:cityprog/widgets/database_model/database.dart';
 import 'package:cityprog/widgets/dialogs/citizenpoint_update.dart';
 import 'package:cityprog/widgets/posts/field_name_and_value.dart';
-import 'package:cityprog/widgets/rows/citizen_points.dart';
 import 'package:flutter/material.dart';
 
 class MarketPostModal extends StatefulWidget {
