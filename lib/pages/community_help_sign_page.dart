@@ -1,7 +1,9 @@
 import 'package:cityprog/styles/color_palette.dart';
+import 'package:cityprog/widgets/database_model/database.dart';
 import 'package:cityprog/widgets/dialogs/citizenpoint_update.dart';
 import 'package:flutter/material.dart';
 import 'package:cityprog/strings/community_help_strings.dart';
+import 'package:cityprog/widgets/database_model/auth.dart';
 
 class CommunityHelpPage extends StatefulWidget {
   @override
@@ -49,6 +51,7 @@ class _CommunityHelpPageState extends State<CommunityHelpPage> {
                           setState(() {
                             signed = true;                            
                           });
+                          Database().helpSignUp(Auth().getUID());
                           showDialog(context: context, child: CitizenPointUpdateDialog(amount: 200, title: Text("We appreciate what you did."),));
                         },
                         child: Padding(

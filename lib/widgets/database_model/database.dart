@@ -38,6 +38,20 @@ class Database {
         .snapshots();
   }
 
+   Future<void> helpSignUp(user)async {
+      await _db.collection("Services")
+      .document('Helper')
+      .collection('Service')
+      .document('Helper')
+      .collection('Helpers')
+      .add(
+       {
+       'user':user,
+      }
+  );
+  }
+  
+
     Stream<QuerySnapshot> getHealth(){
     return _db.collection('Terveys').where('reserved', isEqualTo: false).snapshots();
   }

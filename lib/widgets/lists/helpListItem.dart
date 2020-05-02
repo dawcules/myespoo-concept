@@ -39,12 +39,3 @@ class HelpListTile extends StatelessWidget {
     );
   }
 }
-
-/* onTap: () {
-        Database().updateValue(
-            'likes',
-            1,
-            index
-                .reference); //Katso Database singleton, päivittää referenssin likeja
-        //Tähän voi pistää vaikka navigoinnin ja viedä index dokkarin mukana.
-      }, */
