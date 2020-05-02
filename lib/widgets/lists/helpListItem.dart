@@ -32,7 +32,7 @@ class HelpListTile extends StatelessWidget {
                 ],
               ),
             ),
-            Image.network(index['img'].toString()),
+            Image.asset('assets/images/helper.jpg', width: 160),
           ],
         ),
       ),
