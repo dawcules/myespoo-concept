@@ -8,22 +8,16 @@ import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-Future<Premise> fetchPremise(String contentId) async {
-  String language;
-  if (CurrentLanguage.value == Language.FI) {
-    language = '1';
-  } else {
-    language = '2';
-  }
+Future<List> fetchPremise() async {
+  List items;
 
-
-  final response = await http.get(url);
-    // Get XML
+  final response = await http
+      .get('https://api.hel.fi/respa/v1/resource/?municipality=espoo');
   if (response.statusCode == 200) {
-
-    return Premise.fromJson(json.decode(resJson));
+    items = json.decode(response.body)['results'];
+    return items;
   } else {
-    throw Exception('Failed to load resources');
+    throw Exception('Failed to load premises');
   }
 }
 
@@ -36,53 +30,43 @@ _launchURL(contentId) async {
   }
 }
 
-class Premise {
-  final String text;
-  final String imgUrl;
-
-  Premise({this.text, this.imgUrl});
-
-  factory Premise.fromJson(Map<String, dynamic> json) {
- 
-    return Premise(
-      text: json['feed']['entry'][0]['content']['m\$properties']['d\$Text']
-          ['\$t'],
-      imgUrl: img.toString(),
-    );
-  }
-}
-
 void main() => runApp(CurrentPremiseCard());
 
 class CurrentPremiseCard extends StatefulWidget {
-  final String contentId;
-  CurrentPremiseCard({Key key, this.contentId}) : super(key: key);
+  CurrentPremiseCard({Key key}) : super(key: key);
 
   @override
   _CurrentPremiseCardState createState() => _CurrentPremiseCardState();
 }
 
 class _CurrentPremiseCardState extends State<CurrentPremiseCard> {
-  Future<Premise> futurePremise;
+  Future<List> futurePremise;
+  var index = 0;
 
   @override
   void initState() {
     super.initState();
-    futurePremise = fetchPremise(widget.contentId);
+    futurePremise = fetchPremise();
   }
 
   @override
   Widget build(BuildContext context) {
+    String language;
+    if (CurrentLanguage.value == Language.FI) {
+      language = 'fi';
+    } else {
+      language = 'en';
+    }
     return Container(
       color: Colors.blue[50],
-      child: FutureBuilder<Premise>(
+      child: FutureBuilder<List>(
         future: futurePremise,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Material(
               elevation: 5.0,
-                          child: InkWell(
-                onTap: () => _launchURL(widget.contentId),
+              child: InkWell(
+                //onTap: () => _launchURL(snapshot.data[index]['type']['name']),
                 child: Column(
                   children: <Widget>[
                     Row(
@@ -94,12 +78,17 @@ class _CurrentPremiseCardState extends State<CurrentPremiseCard> {
                               Padding(
                                 padding: const EdgeInsets.all(2.0),
                                 child: Text(
-                                  snapshot.data.text.toString(),
+                                  snapshot.data[index]['name'][language],
                                   style: TextStyle(fontSize: 20),
                                 ),
                               ),
+                              Text(
+                                  snapshot.data[index]['type']['name'][language],
+                                  style: TextStyle(fontSize: 20),
+                                ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: <Widget>[
                                   Icon(Icons.import_contacts),
                                   Icon(Icons.arrow_forward),
@@ -109,7 +98,7 @@ class _CurrentPremiseCardState extends State<CurrentPremiseCard> {
                           ),
                         ),
                         Padding(padding: EdgeInsets.all(1.5)),
-                        if (!kIsWeb)
+                        /* if (!kIsWeb)
                           CachedNetworkImage(
                             imageUrl: snapshot.data.imgUrl,
                             width: 180,
@@ -123,7 +112,7 @@ class _CurrentPremiseCardState extends State<CurrentPremiseCard> {
                           ),
                         if (kIsWeb)
                           Image.asset('assets/images/smartespoo.png',
-                              width: 120, height: 160),
+                              width: 120, height: 160), */
                       ],
                     ),
                   ],
