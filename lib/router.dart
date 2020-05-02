@@ -1,6 +1,7 @@
 import 'package:cityprog/pages/community_help_cat_page.dart';
 import 'package:cityprog/pages/login_page.dart';
 import 'package:cityprog/pages/personal_page.dart';
+import 'package:cityprog/pages/voting.dart';
 import 'package:cityprog/widgets/database_widgets/auth_check.dart';
 import 'package:cityprog/widgets/navigation/navigation_drawer.dart';
 import 'package:cityprog/widgets/navigation/speech_nav_overlay.dart';
@@ -99,7 +100,9 @@ class Router {
             pageBuilder: (BuildContext context, _, __) {
               return NavigationDrawer();
             });
-
+      case '/voting':
+        return MaterialPageRoute(
+            builder: (_) => SpeechNavigationOverlay(child: VotingPage()));
       default:
         return _errorRoute();
     }
@@ -131,6 +134,7 @@ enum Routes {
   MARKET_NEW,
   CARPOOL_NEW,
   NAVIGATION_DRAWER,
+  VOTING,
 }
 
 extension RoutePaths on Routes {
@@ -172,6 +176,8 @@ extension RoutePaths on Routes {
         return "/carpool_new";
       case Routes.NAVIGATION_DRAWER:
         return "/navigation_drawer";
+      case Routes.VOTING:
+        return "/voting";
       default:
         return "/lookslikea404";
         break;

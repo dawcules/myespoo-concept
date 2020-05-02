@@ -20,6 +20,7 @@ class _MessageHandlerState extends State<MessageHandler> {
   var iosSubscription;
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   AuthUser _user;
+  String newMessage; 
 
   @override
   void initState() {
@@ -46,7 +47,6 @@ class _MessageHandlerState extends State<MessageHandler> {
     _fcm.configure(
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage: $message");
-        
         /*THIS IS CODE FOR SNACKBAR
         final snackbar = SnackBar(
           content: Text(message['notification']['title']),
@@ -86,7 +86,7 @@ class _MessageHandlerState extends State<MessageHandler> {
         print("onLaunch: $message");
       },
     );
-    _fcm.subscribeToTopic("Tapahtumat");
+    //_fcm.subscribeToTopic("Tapahtumat");
   }
 
   Future _showNotificationWithoutSound(_post, _description,
@@ -127,16 +127,10 @@ class _MessageHandlerState extends State<MessageHandler> {
       });
     }
   }
-   Future selectNotification(String payload) async {
-    showDialog(
-      context: context,
-      builder: (_) {
-        return new AlertDialog(
-          title: Text("PayLoad"),
-          content: Text("Payload : $payload"),
-        );
-      },
-    );
+   Future selectNotification(payload) async {
+     if(payload != null){
+       print(payload.toString());
+     }
     }
   
   @override
