@@ -127,28 +127,30 @@ class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
                   padding: EdgeInsets.all(0),
                 )
               : Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Material(
-                  color: Colors.transparent,
-                    child: Ink(
-                    decoration: BoxDecoration(
-                      border:
-                          Border.all(color: Colors.white, width: 2.0),
-                      color: AppColor.secondary.color(),
-                      shape: BoxShape.circle,
-                    ),
-                    child: InkWell(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          Icons.mic,
-                          size: radius,
-                          color: Colors.white,
+                  padding: const EdgeInsets.all(8.0),
+                  child: Material(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(420)),
+                      elevation: 10,
+                      color: Colors.transparent,
+                      child: Ink(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white, width: 2.0),
+                          color: AppColor.secondary.color(),
+                          shape: BoxShape.circle,
                         ),
-                      ),
-                    ),
-                  )),
-              ),
+                        child: InkWell(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.mic,
+                              size: radius,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      )),
+                ),
         ),
         onTapDown: (details) {
           if (_hasPermissions) {

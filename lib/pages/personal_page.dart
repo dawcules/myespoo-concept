@@ -13,6 +13,10 @@ class _PersonalPageState extends State<PersonalPage> {
   final AuthUser _user = Auth().getUser();
   int _citizenPoints;
 
+  void _getUserPosts() {
+    
+  }
+
   @override
   void initState() {
     super.initState();

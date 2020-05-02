@@ -85,10 +85,23 @@ class _SpeechNavigationOverlayState extends State<SpeechNavigationOverlay> {
                         ? Padding(
                             padding: EdgeInsets.all(0),
                           )
-                        : FloatingActionButton(
-                            backgroundColor: AppColor.secondary.color(),
-                            child: Icon(Icons.menu),
-                            onPressed: () => _openDrawer(context)),
+                        : Material(
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(420)),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border:
+                                    Border.all(width: 2, color: Colors.white),
+                                borderRadius: BorderRadius.circular(420),
+                              ),
+                              child: FloatingActionButton(
+                                elevation: 0,
+                                  backgroundColor: AppColor.secondary.color(),
+                                  child: Icon(Icons.menu),
+                                  onPressed: () => _openDrawer(context)),
+                            ),
+                          ),
                   ),
                 )
               ],
