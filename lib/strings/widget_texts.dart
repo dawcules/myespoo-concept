@@ -22,6 +22,9 @@ class LocalizedWidgetStrings {
   static String _citizenPointsFI = "Kansalaispisteet";
   static String _citizenPointsAwardedFI = "Kansalaispistettä myönnetty";
   static String _niceFI = "Hienoa";
+  static String _premisesFI = "Toimitilat";
+
+
 
   // Random ENG
   static String _noTitleEN = "No title";
@@ -31,6 +34,8 @@ class LocalizedWidgetStrings {
   static String _citizenPointsEN = "Citizen points";
   static String _citizenPointsAwardedEN = "Citizen Points awarded";
   static String _niceEN = "Nice";
+  static String _premisesEN = "Premises";
+
 
   // Marketplace ENG
   static String _priceEN = "Price";
@@ -43,6 +48,17 @@ class LocalizedWidgetStrings {
   static String _offeringEN = "Offering";
   static String _askingEN = "Asking";
   static String _carpoolEN = "Carpool";
+
+   static String premisesToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return _premisesFI;
+      case Language.EN:
+        return _premisesEN;
+      default:
+        return _premisesEN;
+    }
+  }
 
   static String priceToLocalized() {
     switch (CurrentLanguage.value) {

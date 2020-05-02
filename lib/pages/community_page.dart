@@ -26,8 +26,11 @@ class CommunityPage extends StatelessWidget {
               ),
               _communityNavigationButton(
                   LocalizedWidgetStrings.helpServicesToLocalized(), "/communityHelp", context),
+                  Padding(
+                padding: EdgeInsets.all(8)),
                   _communityNavigationButton(
-                  'PREMISES', "/premises", context),
+                  LocalizedWidgetStrings.premisesToLocalized(), "/premises", context), Padding(
+                padding: EdgeInsets.all(8)),
             ],
           ),
         )),
