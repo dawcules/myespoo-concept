@@ -18,6 +18,9 @@ import './pages/profile_creation.dart';
 import './pages/marketplace.dart';
 import './pages/general_feed.dart';
 import './pages/health_reservation.dart';
+import './pages/premises_page.dart';
+
+
 
 
 
@@ -51,6 +54,10 @@ class Router {
         return MaterialPageRoute(
             builder: (_) =>
                 SpeechNavigationOverlay(child: CommunityHelpRequest()));
+                      case '/premises':
+        return MaterialPageRoute(
+            builder: (_) =>
+                SpeechNavigationOverlay(child: CommunityPremises()));
       case '/communityHelpCat':
         return MaterialPageRoute(
             builder: (_) =>
@@ -118,6 +125,7 @@ enum Routes {
   HEALTH,
   PERSONAL,
   COMMUNITY,
+  PREMISES,
   INTRODUCTION,
   CARPOOL,
   PROFILE,
@@ -149,6 +157,8 @@ extension RoutePaths on Routes {
         break;
       case Routes.COMMUNITYHELP:
         return "/communityHelp";
+         case Routes.PREMISES:
+        return "/premises";
       case Routes.INTRODUCTION:
         return "/introduction";
         break;
