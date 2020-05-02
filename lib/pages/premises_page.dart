@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-//import 'package:cityprog/strings/community_help_strings.dart';
 import 'package:cityprog/widgets/lists/premiseListItem.dart';
+import 'package:cityprog/strings/premises_strings.dart';
+
 
 class CommunityPremises extends StatefulWidget {
   @override
@@ -9,9 +10,6 @@ class CommunityPremises extends StatefulWidget {
 
 class _CommunityPremisesState extends State<CommunityPremises> {
   //String dropdownValue = 'Valitse kategoria';
-
-  // TODO: Localize
-
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +29,9 @@ class _CommunityPremisesState extends State<CommunityPremises> {
                     Padding(padding: EdgeInsets.all(10.0)),
                     Container(
                       child: Text(
-                        'PREMISES TEXT HERE',
+                        LocalizedPremisesStrings.titleToLocalized(),
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 26),
+                            fontWeight: FontWeight.bold, fontSize: 26), textAlign: TextAlign.center,
                       ),
                     ),
                     Padding(padding: EdgeInsets.all(10.0)),
