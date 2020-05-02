@@ -36,7 +36,13 @@ class CommunityHelpPage extends StatelessWidget {
                     RaisedButton(
                       color: AppColor.button.color(),
                       onPressed: () {
-                        showDialog(context: context, child: CitizenPointUpdateDialog(amount: 200, title: Text("We appreciate what you did."),));
+                        showDialog(
+                            context: context,
+                            child: CitizenPointUpdateDialog(
+                              amount: 250,
+                              title: Text(
+                                  LocalizedCommunityHelpStrings.weAppreciateToLocalized(250)),
+                            ));
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(

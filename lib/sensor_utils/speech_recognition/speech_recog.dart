@@ -1,5 +1,6 @@
 import 'package:cityprog/sensor_utils/speech_recognition/speech_to_route.dart';
 import 'package:cityprog/strings/string_provider.dart';
+import 'package:cityprog/styles/color_palette.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:speech_to_text/speech_recognition_error.dart';
@@ -109,7 +110,7 @@ class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
 
   @override
   Widget build(BuildContext context) {
-    return activateSpeechButtonNoText(175 * _animationController.value);
+    return activateSpeechButtonNoText(100 * _animationController.value);
   }
 
   Widget activateSpeechButtonNoText(double radius) {
@@ -125,11 +126,29 @@ class _SpeechNavigationButtonState extends State<SpeechNavigationButton>
               ? Padding(
                   padding: EdgeInsets.all(0),
                 )
-              : Icon(
-                  Icons.mic,
-                  size: radius,
-                  color: Colors.black87,
-                ),
+              : Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Material(
+                  color: Colors.transparent,
+                    child: Ink(
+                    decoration: BoxDecoration(
+                      border:
+                          Border.all(color: Colors.white, width: 2.0),
+                      color: AppColor.secondary.color(),
+                      shape: BoxShape.circle,
+                    ),
+                    child: InkWell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.mic,
+                          size: radius,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  )),
+              ),
         ),
         onTapDown: (details) {
           if (_hasPermissions) {

@@ -22,54 +22,73 @@ class NavigationPage extends StatelessWidget {
       child: Scaffold(
         // backgroundColor: Colors.orangeAccent,
         extendBody: true,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Container(
-                height: heigth/2.2,
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Container(
+                height: heigth / 2.2,
                 child: Stack(
                   children: <Widget>[
-                     kIsWeb ? SizedBox(height: 200,width: 200) : BackgroundWidget(heigth: heigth/2.2, width: width+30, imageUrl: "assets/images/backgroundtesting.png",),
-                      kIsWeb ? BackgroundWidget(top: 200, heigth: 100, width: 150, imageUrl: "assets/images/smartespoo.png",) : BackgroundWidget(heigth: heigth/5, width: width/2, imageUrl: "assets/images/backgroundmyespoo.png",)
+                    kIsWeb
+                        ? SizedBox(height: 200, width: 200)
+                        : BackgroundWidget(
+                            heigth: heigth / 2.2,
+                            width: width + 30,
+                            imageUrl: "assets/images/backgroundtesting.png",
+                          ),
+                    kIsWeb
+                        ? BackgroundWidget(
+                            top: 200,
+                            heigth: 100,
+                            width: 150,
+                            imageUrl: "assets/images/smartespoo.png",
+                          )
+                        : BackgroundWidget(
+                            heigth: heigth / 5,
+                            width: width / 2,
+                            imageUrl: "assets/images/backgroundmyespoo.png",
+                          )
                   ],
                 ),
               ),
-            /*Align(
-              alignment: Alignment.topLeft,
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  // gradient: LinearGradient(
-                  //     begin: Alignment.topLeft,
-                  //     end: Alignment.bottomRight,
-                  //     colors: <Color>[
-                  //       AppColor.secondary.color(),
-                  //       AppColor.secondary.color()
-                  //     ]),
-                ),
+              /*Align(
+                alignment: Alignment.topLeft,
                 child: Container(
-                  color: Colors.white,
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: SizedBox(
-                      height: 200 * multiplier,
-                      width: 200 * multiplier,
-                      child: Image.asset("assets/images/smartespoo.png"),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    // gradient: LinearGradient(
+                    //     begin: Alignment.topLeft,
+                    //     end: Alignment.bottomRight,
+                    //     colors: <Color>[
+                    //       AppColor.secondary.color(),
+                    //       AppColor.secondary.color()
+                    //     ]),
+                  ),
+                  child: Container(
+                    color: Colors.white,
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: SizedBox(
+                        height: 200 * multiplier,
+                        width: 200 * multiplier,
+                        child: Image.asset("assets/images/smartespoo.png"),
+                      ),
                     ),
                   ),
                 ),
+              ),*/
+              Padding(
+                padding: const EdgeInsets.only(left: 8, right: 8),
+                child: generateNavigationButtons(context),
               ),
-            ),*/
-            Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8),
-              child: generateNavigationButtons(context),
-            ),
-            kIsWeb
-                ? Padding(
-                    padding: EdgeInsets.all(0),
-                  )
-                : MessageHandler(),
-          ],
+              kIsWeb
+                  ? Padding(
+                      padding: EdgeInsets.all(0),
+                    )
+                  : MessageHandler(),
+            ],
+          ),
         ),
       ),
     );
@@ -99,7 +118,7 @@ class NavigationPage extends StatelessWidget {
         Padding(
           padding: EdgeInsets.all(8),
         ),
-           IconRouteNameRow(
+        IconRouteNameRow(
           heroTag: "nav_health",
           icon: Icon(Icons.local_hospital),
           route: "/health",
@@ -116,8 +135,8 @@ class NavigationPage extends StatelessWidget {
         ),
         Padding(
           padding: EdgeInsets.all(8),
-        ), 
-  /*       IconRouteNameRow(
+        ),
+        /*       IconRouteNameRow(
           heroTag: "nav_introduction",
           icon: Icon(Icons.help),
           route: "/introduction",

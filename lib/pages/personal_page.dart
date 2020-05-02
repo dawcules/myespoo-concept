@@ -32,11 +32,35 @@ class _PersonalPageState extends State<PersonalPage> {
           body: Container(
             height: 1000,
             width: 750,
-            child: Center(
-                child: UserInfoColumn(
-              name: _user.displayName,
-              citizenPoints: _citizenPoints,
-            )),
+            child: ListView(padding: EdgeInsets.only(bottom: 60), children: [
+              Padding(padding: EdgeInsets.all(8)),
+              Row(
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: UserInfoColumn(
+                      name: _user.displayName,
+                      citizenPoints: _citizenPoints,
+                    ),
+                  ),
+                ],
+              ),
+              Padding(padding: EdgeInsets.all(20)),
+              Row(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Your activity",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ]),
           ),
         ),
       ),
