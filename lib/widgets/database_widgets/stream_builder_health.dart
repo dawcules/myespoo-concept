@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../database_model/database.dart';
 import 'package:cityprog/widgets/database_model/auth.dart';
 
-
 // Example. Streambuildattu Listview firestore datalla. päivitetään eventin likeja painamalla.
 class StreamBuilderHealth extends StatelessWidget {
   //Tähän siis sisään collection mikä näytetään

@@ -71,7 +71,10 @@ class ListViewBuilder extends StatefulWidget {
 }
 
 class _ListViewBuilderState extends State<ListViewBuilder> {
-  _fetchIds() async {
+  Future<dynamic> _future;
+
+    _fetchIds() async {
+    print('TULEVAISUUS TRIGGERÖITY');
     String language;
     if (CurrentLanguage.value == Language.FI) {
       language = '1';
@@ -96,7 +99,7 @@ class _ListViewBuilderState extends State<ListViewBuilder> {
         contentList20.add(json['value'][i]['ContentId'].toString());
         i++;
       }
-      print(contentList20);
+      //print(contentList20);
       return contentList20;
     } else {
       throw Exception('Failed to load resources');
@@ -105,6 +108,7 @@ class _ListViewBuilderState extends State<ListViewBuilder> {
 
   @override
   void initState() {
+    _future = _fetchIds();
     super.initState();
   }
 
@@ -132,24 +136,7 @@ class _ListViewBuilderState extends State<ListViewBuilder> {
                       ],
                     ),
                   if (index < 7)
-                    FutureBuilder(
-                      future: _fetchIds(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          print('TÄÄLLÄ DATAA ' + snapshot.data[0]);
-                          return Column(
-                            children: <Widget>[
-                              CurrentNewsCard(
-                                  contentId: snapshot.data[index]),
-                                  Divider(),
-                            ],
-                          );
-                        } else if (snapshot.hasError) {
-                          return Text("${snapshot.error}");
-                        }
-                        return CircularProgressIndicator();
-                      },
-                    ),
+                    _buildNewsItem(context, index),
                   if (index <= widget.helpDataLength - 1)
                     Column(
                       children: <Widget>[
@@ -182,5 +169,26 @@ class _ListViewBuilderState extends State<ListViewBuilder> {
 
   Widget _buildListItem(BuildContext context, index) {
     return EventListTile(index);
+  }
+
+  Widget _buildNewsItem(BuildContext context, index) {
+    return FutureBuilder(
+                      future: _future,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Column(
+                            children: <Widget>[
+                              CurrentNewsCard(
+                                  contentId: snapshot.data[index]),
+                                  Divider(),
+                            ],
+                          );
+                        } else if (snapshot.hasError) {
+                          return Text("${snapshot.error}");
+                        }
+                        return CircularProgressIndicator();
+                      },
+                    );
+
   }
 }
