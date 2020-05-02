@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 
@@ -33,8 +34,11 @@ class Database {
     return _db.collection('Events').snapshots();
   }
 
-    Stream<QuerySnapshot> getHealth(){
-    return _db.collection('Terveys').where('reserved', isEqualTo: false).snapshots();
+  Stream<QuerySnapshot> getHealth() {
+    return _db
+        .collection('Terveys')
+        .where('reserved', isEqualTo: false)
+        .snapshots();
   }
 
   // Palauttaa spesifin collectionin
@@ -241,11 +245,50 @@ lähinnä vaan tarpeellinen esim, Jonkun tapahtuman/postauksen tykkäysten mää
     });
   }
 
-   Future<void> reserveHealth(document,user)async {
-      await _db.collection("Terveys").document(document).updateData(
-       {'reserved':true,
-       'user':user,
-      }
-  );
+  Future<void> reserveHealth(document, user) async {
+    await _db.collection("Terveys").document(document).updateData({
+      'reserved': true,
+      'user': user,
+    });
+  }
+
+  Future<QuerySnapshot> getCarpoolPostsByUid(
+      String uid, String collection) async {
+    return _db
+        .collection("Services")
+        .document("Community")
+        .collection('Service')
+        .document("Carpool")
+        .collection(collection)
+        .where("user", isEqualTo: uid)
+        .getDocuments();
+  }
+
+  Future<QuerySnapshot> getMarketPostsByUid(
+      String uid, String collection) async {
+    return _db
+        .collection("Services")
+        .document("Community")
+        .collection('Service')
+        .document("Marketplace")
+        .collection(collection)
+        .where("user", isEqualTo: uid)
+        .getDocuments();
+  }
+
+  // Return every Marketplace and Carpool post by user id
+  Future<Map<String, dynamic>> getAllPostsByUser(String uid) async {
+    QuerySnapshot carpoolNeeding = await getCarpoolPostsByUid(uid, "Needing");
+    QuerySnapshot carpoolOffering = await getCarpoolPostsByUid(uid, "Offering");
+    QuerySnapshot marketFree = await getMarketPostsByUid(uid, "Free");
+    QuerySnapshot marketBuying = await getMarketPostsByUid(uid, "Buying");
+    QuerySnapshot marketSelling = await getMarketPostsByUid(uid, "Selling");
+    Map<String, dynamic> allPosts = {
+      "carpoolPosts": carpoolNeeding.documents + carpoolOffering.documents,
+      "marketPosts": marketFree.documents +
+          marketBuying.documents +
+          marketSelling.documents,
+    };
+    return allPosts;
   }
 }

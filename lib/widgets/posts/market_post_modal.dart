@@ -4,6 +4,7 @@ import 'package:cityprog/strings/widget_texts.dart';
 import 'package:cityprog/widgets/carpool_marketplace/textviews/localized_price.dart';
 import 'package:cityprog/widgets/columns/user_info_column.dart';
 import 'package:cityprog/widgets/containers/box_with_border.dart';
+import 'package:cityprog/widgets/database_model/auth.dart';
 import 'package:cityprog/widgets/database_model/database.dart';
 import 'package:cityprog/widgets/dialogs/citizenpoint_update.dart';
 import 'package:cityprog/widgets/posts/field_name_and_value.dart';
@@ -22,20 +23,20 @@ class MarketPostModal extends StatefulWidget {
 
 class _MarketPostModalState extends State<MarketPostModal> {
   int _citizenPoints;
+  bool _isUsersPost;
 
   @override
   void initState() {
     super.initState();
+    String uid = Auth().getUID();
+    _isUsersPost = uid == widget.post.uid;
     Database().getUserCitizenpoints(user: widget.post.uid);
+    _getPoints();
   }
 
-  void getCitizenPointsAsync() async {
-    Database().getUserCitizenpoints(user: widget.post.uid).then((value) => {
-          if (mounted)
-            setState(() {
-              _citizenPoints = value.data["citizenpoints"];
-            })
-        });
+  void _getPoints() {
+    Database().getUserCitizenpoints(user: widget.post.uid).then((value) =>
+        {setState(() => _citizenPoints = value.data["citizenpoints"])});
   }
 
   @override
@@ -53,7 +54,15 @@ class _MarketPostModalState extends State<MarketPostModal> {
         Padding(padding: EdgeInsets.only(top: 8)),
         _user(),
         Padding(padding: EdgeInsets.only(top: 8)),
-        _contact(),
+        _isUsersPost
+            ? Align(
+                alignment: Alignment.center,
+                child: FlatButton(
+                  child: Text(LocalizedWidgetStrings.closeToLocalized()),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              )
+            : _contact(),
         Padding(padding: EdgeInsets.all(8)),
       ],
     );
