@@ -1307,7 +1307,9 @@ file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/pages/login_page
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/pages/marketplace.dart
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/pages/navigation_page.dart
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/pages/personal_page.dart
+file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/pages/premises_page.dart
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/pages/profile_creation.dart
+file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/pages/voting.dart
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/router.dart
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/sensor_utils/speech_recognition/speech_recog.dart
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/sensor_utils/speech_recognition/speech_to_route.dart
@@ -1320,6 +1322,7 @@ file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/strings/localize
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/strings/localized_report_strings.dart
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/strings/login_strings.dart
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/strings/navigation_strings.dart
+file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/strings/premises_strings.dart
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/strings/profile_strings.dart
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/strings/string_provider.dart
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/strings/validation_strings.dart
@@ -1373,6 +1376,7 @@ file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/widgets/database
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/widgets/database_widgets/stream_builder_comhelp.dart
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/widgets/database_widgets/stream_builder_general.dart
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/widgets/database_widgets/stream_builder_health.dart
+file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/widgets/database_widgets/stream_builder_voting.dart
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/widgets/dialogs/citizenpoint_update.dart
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/widgets/dialogs/commands_dialog.dart
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/widgets/dialogs/danger_dialog.dart
@@ -1386,6 +1390,8 @@ file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/widgets/lists/ev
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/widgets/lists/helpListItem.dart
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/widgets/lists/newsItem.dart
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/widgets/lists/notificationItem.dart
+file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/widgets/lists/premiseListItem.dart
+file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/widgets/lists/votingListTile.dart
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/widgets/navigation/navigation_drawer.dart
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/widgets/navigation/speech_nav_overlay.dart
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/widgets/posts/carpool_post.dart
@@ -1395,6 +1401,7 @@ file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/widgets/posts/fi
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/widgets/posts/market_post.dart
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/widgets/posts/market_post_modal.dart
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/widgets/posts/report_form.dart
+file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/widgets/routes/zoom_route.dart
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/widgets/rows/citizen_points.dart
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/widgets/rows/dropdown_select.dart
 file:///Users/runner/runners/2.169.1/work/cityprog/cityprog/lib/widgets/rows/icon_and_route_name.dart
