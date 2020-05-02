@@ -8,9 +8,10 @@ class BoxedFormPassword extends StatelessWidget {
   final String hint;
   final String validationText;
   final Function validation;
+  final bool autovalidate;
   final TextEditingController passwordController;
 
-  BoxedFormPassword({this.hint, this.validationText, this.passwordController, this.validation});
+  BoxedFormPassword({this.hint, this.validationText, this.passwordController, this.validation, this.autovalidate});
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +20,7 @@ class BoxedFormPassword extends StatelessWidget {
                         decoration: CustomDecoration().formBoxDecoration(),
                         child: TextFormField(
                             obscureText: true,
+                            autovalidate: autovalidate ? autovalidate : false,
                             controller:  passwordController,
                             validator: (value) => validation(value) ? validationText : null,
                             style: TextStyle(color: AppColor.secondary.color(), fontFamily: 'RadikalLight'),

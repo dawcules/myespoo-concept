@@ -27,6 +27,7 @@ class _LoginState extends State<LoginPage> {
   final _formKey = new GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool _autovalidate = false;
   
   void _validateSubmit({context, state}){
    if (_formKey.currentState.validate()) {
@@ -39,6 +40,23 @@ class _LoginState extends State<LoginPage> {
       // If the form is valid, display a snackbar. In the real world,
       // you'd often call a server or save the information in a database.
       print("Doing good!");
+    }else{
+      _autovalidate = true;
+      showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              content: ListTile(
+                title: Text("Validation failed"),
+                subtitle: Text("Please make sure you have entered a proper email address, password"),
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('OK'),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ],
+            ),
+        );
     }
   }
 
@@ -87,8 +105,8 @@ class _LoginState extends State<LoginPage> {
                     HeaderText(text: LoginStrings.loginHeaderToLocalized(), fontsize: 30, color:  AppColor.secondary.color())),
                     SizedBox(height: 20),
                     FadeAnimation(1.5, ShadowedBoxContainer(childWidgets: <Widget>[
-                    BoxedFormEmail(hint: LoginStrings.emailToLocalized(), validationText: LoginStrings.emailValidationToLocalized(),validation: formValidation.validateEmail, controller: _emailController),
-                    BoxedFormPassword(hint: LoginStrings.passwordToLocalized(), validationText: LoginStrings.passwordValidationToLocalized(), passwordController: _passwordController, validation: formValidation.validatePw,),
+                    BoxedFormEmail(hint: LoginStrings.emailToLocalized(), validationText: LoginStrings.emailValidationToLocalized(),validation: formValidation.validateEmail, controller: _emailController, autovalidate: _autovalidate,),
+                    BoxedFormPassword(hint: LoginStrings.passwordToLocalized(), validationText: LoginStrings.passwordValidationToLocalized(), passwordController: _passwordController, validation: formValidation.validatePw, autovalidate: _autovalidate,),
                     ],)),
                     SizedBox(height: 10),
                     FadeAnimation(1.7 , CenteredText(text: LoginStrings.forgotPwToLocalized(), color: AppColor.primary.color(), navigateToPage: _toProfile)),
