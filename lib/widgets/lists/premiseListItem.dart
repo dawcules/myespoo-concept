@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/foundation.dart' show kIsWeb;
+//import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:cityprog/strings/string_provider.dart' show Language;
 import 'package:cityprog/current_language.dart';
 import 'dart:async';
 import 'dart:convert';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:url_launcher/url_launcher.dart';
+//import 'package:cached_network_image/cached_network_image.dart';
+//import 'package:url_launcher/url_launcher.dart';
 
 Future<List> fetchPremise() async {
   List items;
@@ -21,14 +21,14 @@ Future<List> fetchPremise() async {
   }
 }
 
-_launchURL(contentId) async {
+/* _launchURL(contentId) async {
   var url = 'http://www.espoo.fi/default.aspx?contentid=' + contentId;
   if (await canLaunch(url)) {
     await launch(url);
   } else {
     throw 'Could not launch $url';
   }
-}
+} */
 
 void main() => runApp(CurrentPremiseCard());
 
