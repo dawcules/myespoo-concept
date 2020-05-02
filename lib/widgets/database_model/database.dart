@@ -31,8 +31,27 @@ class Database {
 
   // Haetaan kaikki apupalveluilmoitukset
   Stream<QuerySnapshot> getHelps() {
-    return _db.collection('Events').snapshots();
+    return _db.collection('Services')
+        .document('Helper')
+        .collection('Service')
+        .document('Receiver')
+        .collection('HelpRequest')
+        .snapshots();
   }
+
+   Future<void> helpSignUp(user)async {
+      await _db.collection("Services")
+      .document('Helper')
+      .collection('Service')
+      .document('Helper')
+      .collection('Helpers')
+      .add(
+       {
+       'user':user,
+      }
+  );
+  }
+  
 
   Stream<QuerySnapshot> getHealth() {
     return _db
@@ -61,7 +80,11 @@ class Database {
 
   Stream<QuerySnapshot> getHelpByCategory(String category) {
     return _db
-        .collection('Apupalvelu')
+        .collection('Services')
+        .document('Helper')
+        .collection('Service')
+        .document('Receiver')
+        .collection('HelpRequest')
         .where('type', isEqualTo: category)
         .snapshots();
   }
@@ -214,6 +237,25 @@ lähinnä vaan tarpeellinen esim, Jonkun tapahtuman/postauksen tykkäysten mää
     await _db
         .collection('Services')
         .document('Community')
+        .collection('Service')
+        .document(document)
+        .collection(collection)
+        .add(post)
+        .then((onValue) => callback != null
+            ? callback(onValue, false)
+            : print("callback not defined."))
+        .catchError((onError) => {callback(null, true)});
+  }
+
+    void newHelperPost({
+    @required Map<String, dynamic> post,
+    @required String document,
+    @required String collection,
+    @required Function callback,
+  }) async {
+    await _db
+        .collection('Services')
+        .document('Helper')
         .collection('Service')
         .document(document)
         .collection(collection)

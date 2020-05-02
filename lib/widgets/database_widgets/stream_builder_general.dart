@@ -26,7 +26,7 @@ class StreamBuilderGeneral extends StatelessWidget {
         //Nest StreamBuilders for each collection. Then pass the snapshots individually to ListViewBuilder
         // Must be replaced with profile specific calls
         child: StreamBuilder(
-            stream: Database().getCollection('Apupalvelu'),
+            stream: Database().getHelps(),
             builder: (context, snapshot1) {
               return StreamBuilder(
                   stream: Database().getCollection('Tapahtumat'),

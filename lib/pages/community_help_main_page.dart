@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import '../widgets/rows/dropdown_select.dart';
 import 'package:cityprog/strings/community_help_strings.dart';
+import 'package:cityprog/styles/color_palette.dart';
+import 'package:cityprog/widgets/routes/zoom_route.dart';
+import 'package:cityprog/pages/community_help_request.dart';
+import 'package:cityprog/pages/community_help_sign_page.dart';
 
 class CommunityHelpMain extends StatefulWidget {
   @override
@@ -46,7 +50,7 @@ class _CommunityHelpMainState extends State<CommunityHelpMain> {
                         key,
                         '/communityHelpCat'),
                     Padding(padding: EdgeInsets.all(20.0)),
-                    /* RaisedButton(
+                    RaisedButton(
                       color: AppColor.button.color(),
                       onPressed: () {
                         //Navigator.of(context).pushNamed('/communityHelpSign');
@@ -66,11 +70,11 @@ class _CommunityHelpMainState extends State<CommunityHelpMain> {
                           ),
                         ),
                       ),
-                    ), */
+                    ),
                     Padding(
                       padding: EdgeInsets.all(20),
                     ),
-                    /* RaisedButton(
+                     RaisedButton(
                       color: AppColor.button.color(),
                       onPressed: () {
                         //Navigator.of(context).pushNamed('/communityHelpSign');
@@ -91,7 +95,7 @@ class _CommunityHelpMainState extends State<CommunityHelpMain> {
                           ),
                         ),
                       ),
-                    ), */
+                    ),
                   ],
                 ),
               ),
