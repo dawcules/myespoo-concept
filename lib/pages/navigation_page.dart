@@ -114,6 +114,12 @@ class NavigationPage extends StatelessWidget {
           route: "/personal",
           routeName: NavigationStrings.personalToLocalized(),
         ),
+          IconRouteNameRow(
+          heroTag: "nav_voting",
+          icon: Icon(Icons.flag),
+          route: "/voting",
+          routeName: NavigationStrings.personalToLocalized(),
+        ),
         Padding(
           padding: EdgeInsets.all(8),
         ), 

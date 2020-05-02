@@ -40,8 +40,6 @@ class InitializeProfile{
     //Initializing the subscriptions. note that if the values change so will the subscriptions.
     void initializeSubscriptions(data){
       _saveDeviceToken(user: uid);
-      //print(Database().getUsersWithCommunitiesReference());
-      //print(Database().getUsersWithCommunitiesReference2());
 
       if(user != null){
          _fcm.subscribeToTopic("Important");
