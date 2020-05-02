@@ -143,6 +143,12 @@ export const lookingForCarpoolInArea = functions.firestore
           body: `Käyttäjä ${offering.user} , tarjoaa kimppakyytiä alueille ${offering.areas[0]} ja ${offering.areas[1]} aikaan: ${offering.timeOfDay}`,
           icon: 'your-icon-url',
           click_action: 'FLUTTER_NOTIFICATION_CLICK'
+        },
+        data: {
+          title: "Kimppakyyti tarjolla!",
+          body: `Käyttäjä ${offering.user} , tarjoaa kimppakyytiä alueille ${offering.areas[0]} ja ${offering.areas[1]} aikaan: ${offering.timeOfDay}`,
+          icon: 'your-icon-url',
+          click_action: 'FLUTTER_NOTIFICATION_CLICK'
         }
       }
       if(tokens){
@@ -184,6 +190,12 @@ export const newItemInMarket = functions.firestore
           body: `Käyttäjä ${selling.user} , tarjoaa tuotetta ${selling.title} kuvauksella: ${selling.body} hintaan: ${selling.price} alueella: ${selling.area}`,
           icon: 'your-icon-url',
           click_action: 'FLUTTER_NOTIFICATION_CLICK'
+        },
+        data: {
+          title: `Uusi tavara marketissa: ${selling.title}`,
+          body: `Käyttäjä ${selling.user} , tarjoaa tuotetta ${selling.title} kuvauksella: ${selling.body} hintaan: ${selling.price} alueella: ${selling.area}`,
+          icon: 'your-icon-url',
+          click_action: 'FLUTTER_NOTIFICATION_CLICK'
         }
       }
       if(tokens){
@@ -199,7 +211,45 @@ export const newItemInMarket = functions.firestore
   return null;
 });
 
-
+export const timeReservedForHealthcare = functions.firestore
+.document("Terveys/{TerveysID}")
+.onUpdate(async (change, context) => {
+ 
+  const health = change.after.data();
+  console.log(health);
+  console.log(context.params);
+  if(health){
+      const userTokenSnapshot = await db
+            .collection('users')
+            .doc(health.user)
+            .collection('tokens')
+            .get();     
+      const tokens = userTokenSnapshot.docs.map(snap => snap.id);
+      console.log(health.typeFI);
+      console.log(health.locationFI);
+      console.log(health.area);
+      console.log(health.date);
+      const payload: admin.messaging.MessagingPayload = {
+        notification: {
+          title: "Aika varattu onnistuneesti!",
+          body: `Teille on varattu aika, ${health.typeFI} paikkaan: ${health.locationFI} alueella: ${health.area} aikaan: ${health.date}`,
+          icon: 'your-icon-url',
+          click_action: 'FLUTTER_NOTIFICATION_CLICK',
+        },  
+        data : {
+          title: "Aika varattu onnistuneesti!",
+          body: `Teille on varattu aika, ${health.typeFI} paikkaan: ${health.locationFI} alueella: ${health.area} aikaan: ${health.date}`,
+          icon: 'your-icon-url',
+          click_action: 'FLUTTER_NOTIFICATION_CLICK',
+        }
+      }
+      if(tokens){
+        return fcm.sendToDevice(tokens, payload);}
+        else{
+          console.log("No tokens")
+          return null;}
+}return null;})
+  
 /*
 export const HelpServicesInArea = functions.firestore
 .document("Services/Helper/Service/Carpool/Offering/{OfferingID}")
