@@ -65,46 +65,48 @@ class _PersonalPageState extends State<PersonalPage> {
     return Container(
       child: SafeArea(
         child: Scaffold(
-          body: Container(
-            height: 1000,
-            width: 750,
-            child: SingleChildScrollView(
-              padding: EdgeInsets.only(bottom: 80),
-              child: Column(children: [
-                Padding(padding: EdgeInsets.all(8)),
-                Row(
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: UserInfoColumn(
-                        name: _user.displayName,
-                        citizenPoints: _citizenPoints,
+          body: Center(
+            child: Container(
+              height: 1000,
+              width: 750,
+              child: SingleChildScrollView(
+                padding: EdgeInsets.only(bottom: 80),
+                child: Column(children: [
+                  Padding(padding: EdgeInsets.all(8)),
+                  Row(
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: UserInfoColumn(
+                          name: _user.displayName,
+                          citizenPoints: _citizenPoints,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 16),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        LocalizedWidgetStrings.yourActivityToLocalized(),
-                        style: TextStyle(
-                            fontSize: 16, color: AppColor.secondary.color()),
-                      ),
-                    )
-                  ],
-                ),
-                fetchingPosts
-                    ? CircularProgressIndicator()
-                    : Column(
-                        children: posts,
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 16),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          LocalizedWidgetStrings.yourActivityToLocalized(),
+                          style: TextStyle(
+                              fontSize: 16, color: AppColor.secondary.color()),
+                        ),
                       )
-              ]),
+                    ],
+                  ),
+                  fetchingPosts
+                      ? CircularProgressIndicator()
+                      : Column(
+                          children: posts,
+                        )
+                ]),
+              ),
             ),
           ),
         ),

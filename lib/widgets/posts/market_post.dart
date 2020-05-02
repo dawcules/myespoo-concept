@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cityprog/model/market.dart';
 import 'package:cityprog/widgets/rows/trade_method_row.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../styles/color_palette.dart';
@@ -58,15 +59,21 @@ class _MarketPostWidgetState extends State<MarketPostWidget> {
                       widget.postData.imageUri != null
                           ? Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: CachedNetworkImage(
-                                width: double.infinity,
-                                fit: BoxFit.fitWidth,
-                                imageUrl: widget.postData.imageUri,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
+                              child: !kIsWeb
+                                  ? CachedNetworkImage(
+                                      width: double.infinity,
+                                      fit: BoxFit.fitWidth,
+                                      imageUrl: widget.postData.imageUri,
+                                      placeholder: (context, url) =>
+                                          CircularProgressIndicator(),
+                                      errorWidget: (context, url, error) =>
+                                          Icon(Icons.error),
+                                    )
+                                  : Image.network(
+                                      widget.postData.imageUri,
+                                      fit: BoxFit.fitWidth,
+                                      width: double.infinity,
+                                    ),
                             )
                           : Padding(
                               padding: EdgeInsets.all(0),
