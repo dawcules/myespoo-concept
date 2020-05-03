@@ -11,6 +11,19 @@ class VotingPage extends StatefulWidget {
 }
 
 class _VotingState extends State<VotingPage> {
+
+  void voteFor(index){
+    setState(() {
+       Database().voteFor(index);
+    });
+   
+  }
+  void voteAgainst(index){
+    setState(() {
+       Database().voteAgainst(index);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -33,7 +46,7 @@ class _VotingState extends State<VotingPage> {
               ],
             ),
           ),
-           Expanded(child: StreamBuilderVoting(myQuery: Database().getCollection("voting"),)),
+           Expanded(child: StreamBuilderVoting(myQuery: Database().getCollection("voting"), voteFor: voteFor, voteAgainst: voteAgainst)),
           ] 
           ),
           ),   

@@ -241,10 +241,24 @@ lähinnä vaan tarpeellinen esim, Jonkun tapahtuman/postauksen tykkäysten mää
     });
   }
 
-   Future<void> reserveHealth(document,user)async {
+  Future<void> reserveHealth(document,user)async {
       await _db.collection("Terveys").document(document).updateData(
        {'reserved':true,
        'user':user,
+      }
+  );
+  }
+   Future<void> voteFor(document)async {
+      await _db.collection("voting").document(document).updateData(
+       {
+       'for': FieldValue.increment(1),
+      }
+  );
+  }
+  Future<void> voteAgainst(document)async {
+      await _db.collection("voting").document(document).updateData(
+       {
+         'against': FieldValue.increment(1),
       }
   );
   }

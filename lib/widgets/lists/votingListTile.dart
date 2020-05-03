@@ -5,7 +5,9 @@ import 'package:cityprog/styles/color_palette.dart';
 class VotingListTile extends StatelessWidget {
 
   final dynamic index;
-  VotingListTile(this.index);
+  final Function voteFor;
+  final Function voteAgainst;
+  VotingListTile({this.index, this.voteFor, this.voteAgainst });
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +25,8 @@ class VotingListTile extends StatelessWidget {
                   Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                        UniversalRaisedButton(title: "FOR",),
-                        UniversalRaisedButton(title: "AGAINST",),
+                        UniversalRaisedButton(title: "FOR", onPressed: voteFor(index.reference)),
+                        UniversalRaisedButton(title: "AGAINST", onPressed: voteAgainst(index.reference),),
                         ],),
                 ],
               ),         
