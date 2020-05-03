@@ -4,6 +4,8 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 
+import 'auth.dart';
+
 class Database {
   Database._internal();
   static final Database _instance = Database._internal();
@@ -334,17 +336,56 @@ lähinnä vaan tarpeellinen esim, Jonkun tapahtuman/postauksen tykkäysten mää
     return allPosts;
   }
    Future<void> voteFor(document,number)async {
-      await _db.collection("voting").document(document).updateData(
-       {
-       'for': FieldValue.increment(number),
+      await _db.collection("voting").document(document.documentID).get().then((DocumentSnapshot mySnapshot) async{
+      final doc = mySnapshot.data;
+      if(doc != null){
+        if(doc['alreadyVoted'].contains(Auth().getUID())){
+          print("already voted");
+        }else{
+        await _db.collection("voting").document(document.documentID).updateData(
+        {
+          'for': FieldValue.increment(number),
+          'alreadyVoted': FieldValue.arrayUnion([Auth().getUID()]),
+        }
+      
+      );
+      }
+      }
       }
   );
   }
   Future<void> voteAgainst(document,number)async {
-      await _db.collection("voting").document(document).updateData(
-       {
-         'against': FieldValue.increment(number),
+      await _db.collection("voting").document(document.documentID).get().then((DocumentSnapshot mySnapshot) async{
+      final doc = mySnapshot.data;
+      if(doc != null){
+        if(doc['alreadyVoted'].contains(Auth().getUID())){
+          print("already voted");
+        }else{
+        await _db.collection("voting").document(document.documentID).updateData(
+        {
+          'against': FieldValue.increment(number),
+          'alreadyVoted': FieldValue.arrayUnion([Auth().getUID()]),
+        }
+      
+      );
+      }
+      }
       }
   );
   }
+  bool checkForVoted(document) {
+      _db.collection("voting").document(document.documentID).get().then((DocumentSnapshot mySnapshot) async{
+      final doc = mySnapshot.data;
+      if(doc != null){
+        if(doc['alreadyVoted'].contains(Auth().getUID())){
+         return true;
+         }else{
+           return false;
+         }
+    }
+    return false;
+  });
+   return false;
+}
+
 }

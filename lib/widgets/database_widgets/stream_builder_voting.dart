@@ -9,8 +9,9 @@ class StreamBuilderVoting extends StatelessWidget {
   final myQuery;
   final voteFor;
   final voteAgainst;
+  final hasVoted;
 
-  StreamBuilderVoting({this.myQuery, this.voteFor, this.voteAgainst});
+  StreamBuilderVoting({this.myQuery, this.voteFor, this.voteAgainst,this.hasVoted});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class StreamBuilderVoting extends StatelessWidget {
           stream: myQuery,
           builder: (context, snapshot) {
             if (!snapshot.hasData) return const Text('Loading..');
-            return VotingListViewBuilder(snapshot.data.documents, voteFor, voteAgainst);
+            return VotingListViewBuilder(snapshot.data.documents, voteFor, voteAgainst, hasVoted);
           }),
     );
   }
@@ -30,8 +31,9 @@ class VotingListViewBuilder extends StatelessWidget {
   final queryData;
   final Function voteFor;
   final Function voteAgainst;
+  final bool hasVoted;
 
-  VotingListViewBuilder(this.queryData,this.voteFor,this.voteAgainst);
+  VotingListViewBuilder(this.queryData,this.voteFor,this.voteAgainst, this.hasVoted);
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +45,14 @@ class VotingListViewBuilder extends StatelessWidget {
             itemBuilder: (BuildContext _context, index) {
               return Column(
                 children: <Widget>[
-                  _buildListItem(context, queryData[index],voteFor,voteAgainst),
+                  _buildListItem(context, queryData[index],voteFor,voteAgainst,hasVoted),
                   Divider(),
                 ],
               );
             }));
   }
 
-  Widget _buildListItem(BuildContext context, index, voteFor, voteAgainst) {
-    return VotingListTile(index: index, voteFor: voteFor, voteAgainst: voteAgainst);
+  Widget _buildListItem(BuildContext context, index, voteFor, voteAgainst,hasVoted) {
+    return VotingListTile(index: index, voteFor: voteFor, voteAgainst: voteAgainst,hasAlreadyVoted: hasVoted,);
   }
 }
