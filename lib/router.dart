@@ -2,7 +2,9 @@ import 'package:cityprog/pages/community_help_cat_page.dart';
 import 'package:cityprog/pages/login_page.dart';
 import 'package:cityprog/pages/personal_page.dart';
 import 'package:cityprog/pages/voting.dart';
+import 'package:cityprog/styles/color_palette.dart';
 import 'package:cityprog/widgets/database_widgets/auth_check.dart';
+import 'package:cityprog/widgets/dialogs/danger_dialog.dart';
 import 'package:cityprog/widgets/navigation/navigation_drawer.dart';
 import 'package:cityprog/widgets/navigation/speech_nav_overlay.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +22,6 @@ import './pages/general_feed.dart';
 import './pages/health_reservation.dart';
 import './pages/premises_page.dart';
 
-
 // https://www.youtube.com/watch?v=nyvwx7o277U
 
 class Router {
@@ -33,9 +34,10 @@ class Router {
       case '/home':
         return MaterialPageRoute(
             builder: (_) => SpeechNavigationOverlay(child: GeneralFeed()));
-              case '/health':
+      case '/health':
         return MaterialPageRoute(
-            builder: (_) => SpeechNavigationOverlay(child: HealthReservation()));
+            builder: (_) =>
+                SpeechNavigationOverlay(child: HealthReservation()));
       case '/community':
         return MaterialPageRoute(
             builder: (_) => SpeechNavigationOverlay(child: CommunityPage()));
@@ -51,7 +53,7 @@ class Router {
         return MaterialPageRoute(
             builder: (_) =>
                 SpeechNavigationOverlay(child: CommunityHelpRequest()));
-                      case '/premises':
+      case '/premises':
         return MaterialPageRoute(
             builder: (_) =>
                 SpeechNavigationOverlay(child: CommunityPremises()));
@@ -100,6 +102,12 @@ class Router {
       case '/voting':
         return MaterialPageRoute(
             builder: (_) => SpeechNavigationOverlay(child: VotingPage()));
+      case '/emergency':
+        return MaterialPageRoute(
+            builder: (_) => Material(
+                  child: DangerDialog(),
+                  color: AppColor.secondary.color(),
+                ));
       default:
         return _errorRoute();
     }
@@ -132,6 +140,7 @@ enum Routes {
   CARPOOL_NEW,
   NAVIGATION_DRAWER,
   VOTING,
+  EMERGENCY,
 }
 
 extension RoutePaths on Routes {
@@ -140,7 +149,7 @@ extension RoutePaths on Routes {
       case Routes.AUTH:
         return "/auth";
         break;
-          case Routes.HEALTH:
+      case Routes.HEALTH:
         return "/health";
         break;
       case Routes.HOME:
@@ -154,7 +163,7 @@ extension RoutePaths on Routes {
         break;
       case Routes.COMMUNITYHELP:
         return "/communityHelp";
-         case Routes.PREMISES:
+      case Routes.PREMISES:
         return "/premises";
       case Routes.INTRODUCTION:
         return "/introduction";
@@ -175,6 +184,8 @@ extension RoutePaths on Routes {
         return "/navigation_drawer";
       case Routes.VOTING:
         return "/voting";
+      case Routes.EMERGENCY:
+        return "/emergency";
       default:
         return "/lookslikea404";
         break;

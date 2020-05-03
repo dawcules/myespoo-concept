@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import './upper_section.dart';
-import '../../rows/text_date_with_calendar.dart';
 import '../../../styles/color_palette.dart';
 
 class CarpoolUpper extends StatefulWidget {
@@ -47,8 +46,8 @@ class _CarpoolUpperState extends State<CarpoolUpper> {
         ));
   }
 
-  void _onDatePicked(DateTime date) {
-    print("Sorting by date not implemented in carpool_upper.dart");
-    print("Picked Date: $date");
-  }
+  // void _onDatePicked(DateTime date) {
+  //   print("Sorting by date not implemented in carpool_upper.dart");
+  //   print("Picked Date: $date");
+  // }
 }

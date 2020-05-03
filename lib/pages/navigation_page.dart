@@ -1,5 +1,8 @@
 import 'package:cityprog/strings/navigation_strings.dart';
+import 'package:cityprog/strings/widget_texts.dart';
 import 'package:cityprog/widgets/Backgrounds/background_widget.dart';
+import 'package:cityprog/widgets/buttons/universal_raised_button.dart';
+import 'package:cityprog/widgets/dialogs/danger_dialog.dart';
 import 'package:cityprog/widgets/rows/icon_and_route_name.dart';
 import 'package:cityprog/handlers/message_handler.dart';
 import 'package:flutter/foundation.dart';
@@ -139,6 +142,15 @@ class NavigationPage extends StatelessWidget {
         //   route: "/voting",
         //   routeName: NavigationStrings.personalToLocalized(),
         // ),
+        Padding(
+          padding: EdgeInsets.all(8),
+        ),
+        IconRouteNameRow(
+          heroTag: "nav_emergency",
+          icon: Icon(Icons.exposure),
+          route: "/emergency",
+          routeName: LocalizedWidgetStrings.emergencyToLocalized(),
+        ),
         Padding(
           padding: EdgeInsets.all(8),
         ),

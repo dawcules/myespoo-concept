@@ -27,8 +27,8 @@ class LocalizedWidgetStrings {
   static String _premisesFI = "Toimitilat";
   static String _mandatoryFI = "Pakolliset";
   static String _additionalFI = "Lisää";
-
-
+  static String _emergencyFI = "Hätäilmoitus";
+  static String _fixReportFI = "Korjausilmoitus";
 
   // Random ENG
   static String _noTitleEN = "No title";
@@ -43,7 +43,8 @@ class LocalizedWidgetStrings {
   static String _premisesEN = "Premises";
   static String _mandatoryEN = "Mandatory";
   static String _additionalEN = "Additional";
-
+  static String _emergencyEN = "Emergency";
+  static String _fixReportEN = "Report broken";
 
   // Marketplace ENG
   static String _priceEN = "Price";
@@ -57,7 +58,7 @@ class LocalizedWidgetStrings {
   static String _askingEN = "Asking";
   static String _carpoolEN = "Carpool";
 
-   static String premisesToLocalized() {
+  static String premisesToLocalized() {
     switch (CurrentLanguage.value) {
       case Language.FI:
         return _premisesFI;
@@ -274,6 +275,28 @@ class LocalizedWidgetStrings {
         return _additionalEN;
       default:
         return _additionalEN;
+    }
+  }
+
+  static String fixReportToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return _fixReportFI;
+      case Language.EN:
+        return _fixReportEN;
+      default:
+        return _fixReportEN;
+    }
+  }
+
+  static String emergencyToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return _emergencyFI;
+      case Language.EN:
+        return _emergencyEN;
+      default:
+        return _emergencyEN;
     }
   }
 }
