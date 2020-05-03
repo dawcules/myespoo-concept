@@ -62,7 +62,7 @@ class _CurrentPremiseCardState extends State<CurrentPremiseCard> {
       itemCount: 21,
       itemBuilder: (BuildContext context, int index) {
         return Container(
-          color: Colors.blue[50],
+          width: 750,
           child: FutureBuilder<List>(
             future: futurePremise,
             builder: (context, snapshot) {
@@ -76,49 +76,68 @@ class _CurrentPremiseCardState extends State<CurrentPremiseCard> {
                     onTap: () {
                       _launchURL(snapshot.data[index]['id']);
                     },
-                    child: Material(
-                      elevation: 5,
-                      child: Column(children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.all(10),
-                        ),
-                        Text(
-                          snapshot.data[index]['name'][language],
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        Text(
-                          snapshot.data[index]['type']['name'][language],
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(10),
-                        ),
-                        !kIsWeb
-                            ? CachedNetworkImage(
-                                imageUrl: snapshot.data[index]['images'][0]
-                                        ['url'] +
-                                    '?dim=350x210',
-                                fit: BoxFit.fill,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Image.asset('assets/images/smartespoo.png',
-                                        width: 120, height: 160),
-                              )
-                            : Image.asset('assets/images/smartespoo.png',
-                                width: 120, height: 160),
-                        Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: Text(
-                            snapshot.data[index]['description'][language],
-                            maxLines: 5,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Material(
+                        elevation: 8,
+                        borderRadius: BorderRadius.circular(10),
+                        child: Column(children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.all(10),
                           ),
-                        ),
-                        Text(LocalizedPremisesStrings.infoToLocalized()),
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 10),
-                        ),
-                      ]),
+                          Text(
+                            snapshot.data[index]['name'][language],
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+              textAlign: TextAlign.center,
+                          ),
+                          Text(
+                            snapshot.data[index]['type']['name'][language],
+                             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(10),
+                          ),
+                          !kIsWeb
+                              ? ClipRRect(
+                                borderRadius: BorderRadius.circular(6),
+                                                              child: CachedNetworkImage(
+                                    imageUrl: snapshot.data[index]['images'][0]
+                                            ['url'] +
+                                        '?dim=350x210',
+                                    fit: BoxFit.fill,
+                                    placeholder: (context, url) =>
+                                        CircularProgressIndicator(),
+                                    errorWidget: (context, url, error) =>
+                                        Image.asset(
+                                            'assets/images/smartespoo.png',
+                                            width: 120,
+                                            height: 160),
+                                  ),
+                              )
+                              : Image.asset('assets/images/smartespoo.png',
+                                  width: 120, height: 160),
+                          Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Text(
+                              snapshot.data[index]['description'][language],
+                              maxLines: 5,
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(LocalizedPremisesStrings.infoToLocalized(), style: TextStyle(fontSize: 16)),
+                            Icon(Icons.arrow_forward)
+                            ],
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 10),
+                          ),
+                        ]),
+                      ),
                     ),
                   );
                 }

@@ -7,6 +7,7 @@ import 'package:cityprog/widgets/Inputs/address_picker.dart';
 import 'package:cityprog/widgets/camera/app_image_picker.dart';
 import 'package:cityprog/widgets/carpool_marketplace/forms/custom_expansion_tile.dart';
 import 'package:cityprog/widgets/columns/title_details_column.dart';
+import 'package:cityprog/widgets/dialogs/citizenpoint_update.dart';
 import 'package:cityprog/widgets/posts/community_post_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:sliding_button/sliding_button.dart';
@@ -58,6 +59,7 @@ class _ReportFormState extends State<ReportForm> {
                 ),
                 Padding(padding: EdgeInsets.all(8)),
                 AppImagePicker(
+                  iconSize: 50,
                   onImagePicked: (File image) => _onImagePicked(image),
                   onImageRemoved: () => _onImageRemoved(),
                 ),
@@ -83,7 +85,7 @@ class _ReportFormState extends State<ReportForm> {
                           IconButton(
                             icon: Icon(Icons.check_box,
                                 color: AppColor.button.color()),
-                            iconSize: 50,
+                            iconSize: 40,
                             onPressed: () => Navigator.of(context).pop(),
                           ),
                         ],
@@ -92,8 +94,8 @@ class _ReportFormState extends State<ReportForm> {
                         key: _slideButtonKey,
                         buttonText: LocalizedReportStrings.sendToLocalized(),
                         buttonColor: AppColor.button.color(),
-                        radius: 50,
-                        buttonHeight: 80,
+                        radius: 5,
+                        buttonHeight: 50,
                         slideButtonIcon: Icons.mail_outline,
                         slideButtonIconColor: AppColor.button.color(),
                         onSlideSuccessCallback: () => _onSucces(context),
@@ -124,11 +126,16 @@ class _ReportFormState extends State<ReportForm> {
     if (_validator.validate()) {
       Future.delayed(
         Duration(seconds: 2),
-        () => {setState(() => _didSend = true), print(_address)},
+        () => {
+          setState(() => _didSend = true),
+          print(_address),
+          showDialog(context: context, child: CitizenPointUpdateDialog()),
+        },
       );
     } else {
       _slideButtonKey.currentState.reset();
-      Toast.show("Täytyä kentät", context, duration: Toast.LENGTH_LONG, gravity: Toast.CENTER);
+      Toast.show("Fill all fields", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.CENTER);
     }
   }
 }

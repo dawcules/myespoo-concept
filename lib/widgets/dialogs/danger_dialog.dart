@@ -1,9 +1,13 @@
 import 'package:cityprog/strings/danger_strings.dart';
 import 'package:cityprog/styles/color_palette.dart';
+import 'package:cityprog/widgets/buttons/universal_raised_button.dart';
 import 'package:cityprog/widgets/posts/community_post_modal.dart';
 import 'package:flutter/material.dart';
 
 class DangerDialog extends StatefulWidget {
+  final String title;
+  const DangerDialog({this.title});
+
   @override
   _DangerDialogState createState() => _DangerDialogState();
 }
@@ -23,7 +27,7 @@ class _DangerDialogState extends State<DangerDialog> {
       padding: const EdgeInsets.only(right: 20, left: 20),
       child: CommunityPostModal(
         _buildContent(context),
-        title: "Hätäpalvelu",
+        title: widget.title ?? "Hätäpalvelu",
       ),
     );
   }
@@ -38,6 +42,7 @@ class _DangerDialogState extends State<DangerDialog> {
       children: <Widget>[
         GestureDetector(
           child: Material(
+            borderRadius: BorderRadius.all(Radius.circular(5)),
             color: AppColor.button.color(),
             child: InkWell(
               child: Padding(
@@ -76,18 +81,14 @@ class _DangerDialogState extends State<DangerDialog> {
             )
           ],
         ),
+        Padding(padding: EdgeInsets.all(4)),
         Row(
           children: <Widget>[
             Expanded(
-              child: RaisedButton(
-                  color: Colors.black54,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                      DangerStrings.callClosetDroneToLocalized(),
-                      style: TextStyle(fontSize: 24, color: Colors.white),
-                    ),
-                  ),
+              child: UniversalRaisedButton(
+                  padding: 16,
+                  fontSize: 24,
+                  title: DangerStrings.callClosetDroneToLocalized(),
                   onPressed: null //() => print("DRONE KUTSUTTU!"),
                   ),
             )
