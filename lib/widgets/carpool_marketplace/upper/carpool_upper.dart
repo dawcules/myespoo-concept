@@ -36,13 +36,13 @@ class _CarpoolUpperState extends State<CarpoolUpper> {
               onPressedBrowse: widget.onPressedBrowse,
               isCarpoolPage: true,
             ),
-            widget.isBrowing != null && widget.isBrowing
-                ? TextDateWithCalendarPicker(
-                    onDatePicked: (DateTime date) => _onDatePicked(date),
-                  )
-                : Padding(
-                    padding: EdgeInsets.all(0),
-                  ),
+            // widget.isBrowing != null && widget.isBrowing
+            //     ? TextDateWithCalendarPicker(
+            //         onDatePicked: (DateTime date) => _onDatePicked(date),
+            //       )
+            //     : Padding(
+            //         padding: EdgeInsets.all(0),
+            //       ),
           ],
         ));
   }

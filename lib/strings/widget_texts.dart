@@ -25,6 +25,8 @@ class LocalizedWidgetStrings {
   static String _yourActivityFI = "Sinun toiminta";
   static String _closeFI = "Sulje";
   static String _premisesFI = "Toimitilat";
+  static String _mandatoryFI = "Pakolliset";
+  static String _additionalFI = "Lisää";
 
 
 
@@ -39,6 +41,8 @@ class LocalizedWidgetStrings {
   static String _yourActivityEN = "Your activity";
   static String _closeEN = "Close";
   static String _premisesEN = "Premises";
+  static String _mandatoryEN = "Mandatory";
+  static String _additionalEN = "Additional";
 
 
   // Marketplace ENG
@@ -248,6 +252,28 @@ class LocalizedWidgetStrings {
         return _closeEN;
       default:
         return _closeEN;
+    }
+  }
+
+  static String mandatoryToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return _mandatoryFI;
+      case Language.EN:
+        return _mandatoryEN;
+      default:
+        return _mandatoryEN;
+    }
+  }
+
+  static String additionalToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return _additionalFI;
+      case Language.EN:
+        return _additionalEN;
+      default:
+        return _additionalEN;
     }
   }
 }

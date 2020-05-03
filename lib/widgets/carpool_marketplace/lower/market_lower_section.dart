@@ -22,7 +22,7 @@ class _MarketLowerState extends State<MarketLower> {
   ListView _freePosts;
   ListView _allPosts;
 
-  int _dropdownValue; // TODO: Localize IT!
+  int _dropdownValue;
   List<String> dropdownItems = [
     LocalizedWidgetStrings.allCategoriesToLocalized(),
     LocalizedWidgetStrings.sellingToLocalized(),
