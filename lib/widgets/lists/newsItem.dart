@@ -3,20 +3,27 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:cityprog/strings/string_provider.dart' show Language;
 import 'package:cityprog/current_language.dart';
-//import 'package:cityprog/styles/color_palette.dart';
+import 'package:cityprog/styles/color_palette.dart';
 import 'package:xml2json/xml2json.dart';
 import 'dart:async';
 import 'dart:convert';
-//import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+  String label;
+  String read;
 
 Future<News> fetchNews(String contentId) async {
   final myTransformer = Xml2Json();
   String language;
+
   if (CurrentLanguage.value == Language.FI) {
+    label = 'Uutinen';
+    read = 'Lue juttu';
     language = '1';
   } else {
+    label = 'News';
+    read = 'Read the story';
     language = '2';
   }
 
@@ -106,12 +113,12 @@ class _CurrentNewsCardState extends State<CurrentNewsCard> {
   Widget build(BuildContext context) {
     return Container(
       width: 750,
-      height: 151,
+      height: 150,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [
+        /* boxShadow: [
           BoxShadow(color: Color.fromRGBO(84, 144, 240, 0.7), spreadRadius: 3),
-        ],
+        ], */
       ),
       child: FutureBuilder<News>(
         future: futureNews,
@@ -119,10 +126,11 @@ class _CurrentNewsCardState extends State<CurrentNewsCard> {
           if (snapshot.hasData) {
             return Material(
               borderRadius: BorderRadius.circular(10),
-              elevation: 5.0,
+              elevation: 8.0,
               child: InkWell(
                 onTap: () => _launchURL(widget.contentId),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -132,14 +140,9 @@ class _CurrentNewsCardState extends State<CurrentNewsCard> {
                         ),
                         Flexible(
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text('News',
-                                  style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w800)),
-                              Padding(
-                                padding: EdgeInsets.only(bottom: 4),
-                              ),
                               Text(
                                 snapshot.data.text.toString(),
                                 maxLines: 3,
@@ -152,11 +155,21 @@ class _CurrentNewsCardState extends State<CurrentNewsCard> {
                               Row(
                                 children: [
                                   Text(
-                                    'Read the story',
+                                    read,
                                     textAlign: TextAlign.center,
                                   ),
                                   Icon(Icons.arrow_forward)
                                 ],
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(4),
+                              ),
+                              Container(
+                                height: 25,
+                                width: 100,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(25), color: AppColor.secondary.color()),
+                                child: Text(label, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white), textAlign: TextAlign.center,),
                               ),
                             ],
                           ),
