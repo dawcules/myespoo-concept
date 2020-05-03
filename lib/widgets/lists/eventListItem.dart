@@ -29,6 +29,10 @@ class EventListTile extends StatelessWidget {
       width: 750,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
+        gradient: LinearGradient(
+              begin: Alignment.centerRight,
+              end: Alignment.centerLeft,
+              colors: [Colors.white70, Color.fromRGBO(92, 219, 122, 1)]),
         boxShadow: [
           BoxShadow(color: Color.fromRGBO(92, 219, 122, 0.8), spreadRadius: 4),
         ],

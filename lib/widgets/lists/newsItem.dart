@@ -108,9 +108,13 @@ class _CurrentNewsCardState extends State<CurrentNewsCard> {
       width: 750,
       height: 150,
       decoration: BoxDecoration(
+      gradient: LinearGradient(
+              begin: Alignment.centerRight,
+              end: Alignment.centerLeft,
+              colors: [Colors.white70, Color.fromRGBO(84, 144, 240, 1)]),
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
-          BoxShadow(color: Color.fromRGBO(84, 144, 240, 0.8), spreadRadius: 4),
+          BoxShadow(color: Color.fromRGBO(84, 144, 240, 0.9), spreadRadius: 4),
         ],
       ),
       child: FutureBuilder<News>(
