@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 
@@ -30,11 +31,33 @@ class Database {
 
   // Haetaan kaikki apupalveluilmoitukset
   Stream<QuerySnapshot> getHelps() {
-    return _db.collection('Events').snapshots();
+    return _db.collection('Services')
+        .document('Helper')
+        .collection('Service')
+        .document('Receiver')
+        .collection('HelpRequest')
+        .snapshots();
   }
 
-    Stream<QuerySnapshot> getHealth(){
-    return _db.collection('Terveys').where('reserved', isEqualTo: false).snapshots();
+   Future<void> helpSignUp(user)async {
+      await _db.collection("Services")
+      .document('Helper')
+      .collection('Service')
+      .document('Helper')
+      .collection('Helpers')
+      .add(
+       {
+       'user':user,
+      }
+  );
+  }
+  
+
+  Stream<QuerySnapshot> getHealth() {
+    return _db
+        .collection('Terveys')
+        .where('reserved', isEqualTo: false)
+        .snapshots();
   }
 
   // Palauttaa spesifin collectionin
@@ -57,7 +80,11 @@ class Database {
 
   Stream<QuerySnapshot> getHelpByCategory(String category) {
     return _db
-        .collection('Apupalvelu')
+        .collection('Services')
+        .document('Helper')
+        .collection('Service')
+        .document('Receiver')
+        .collection('HelpRequest')
         .where('type', isEqualTo: category)
         .snapshots();
   }
@@ -220,6 +247,25 @@ lähinnä vaan tarpeellinen esim, Jonkun tapahtuman/postauksen tykkäysten mää
         .catchError((onError) => {callback(null, true)});
   }
 
+    void newHelperPost({
+    @required Map<String, dynamic> post,
+    @required String document,
+    @required String collection,
+    @required Function callback,
+  }) async {
+    await _db
+        .collection('Services')
+        .document('Helper')
+        .collection('Service')
+        .document(document)
+        .collection(collection)
+        .add(post)
+        .then((onValue) => callback != null
+            ? callback(onValue, false)
+            : print("callback not defined."))
+        .catchError((onError) => {callback(null, true)});
+  }
+
   // All specified community posts. Document should be either: "Marketplace" or "Carpool"
   // -- collection should specify which trading method: Trading.toDatabaseCollectionId().
   Future<QuerySnapshot> getCommunityPosts({
@@ -241,12 +287,60 @@ lähinnä vaan tarpeellinen esim, Jonkun tapahtuman/postauksen tykkäysten mää
     });
   }
 
+<<<<<<< HEAD
   Future<void> reserveHealth(document,user)async {
       await _db.collection("Terveys").document(document).updateData(
        {'reserved':true,
        'user':user,
       }
   );
+=======
+  Future<void> reserveHealth(document, user) async {
+    await _db.collection("Terveys").document(document).updateData({
+      'reserved': true,
+      'user': user,
+    });
+  }
+
+  Future<QuerySnapshot> getCarpoolPostsByUid(
+      String uid, String collection) async {
+    return _db
+        .collection("Services")
+        .document("Community")
+        .collection('Service')
+        .document("Carpool")
+        .collection(collection)
+        .where("user", isEqualTo: uid)
+        .getDocuments();
+  }
+
+  Future<QuerySnapshot> getMarketPostsByUid(
+      String uid, String collection) async {
+    return _db
+        .collection("Services")
+        .document("Community")
+        .collection('Service')
+        .document("Marketplace")
+        .collection(collection)
+        .where("user", isEqualTo: uid)
+        .getDocuments();
+  }
+
+  // Return every Marketplace and Carpool post by user id
+  Future<Map<String, dynamic>> getAllPostsByUser(String uid) async {
+    QuerySnapshot carpoolNeeding = await getCarpoolPostsByUid(uid, "Needing");
+    QuerySnapshot carpoolOffering = await getCarpoolPostsByUid(uid, "Offering");
+    QuerySnapshot marketFree = await getMarketPostsByUid(uid, "Free");
+    QuerySnapshot marketBuying = await getMarketPostsByUid(uid, "Buying");
+    QuerySnapshot marketSelling = await getMarketPostsByUid(uid, "Selling");
+    Map<String, dynamic> allPosts = {
+      "carpoolPosts": carpoolNeeding.documents + carpoolOffering.documents,
+      "marketPosts": marketFree.documents +
+          marketBuying.documents +
+          marketSelling.documents,
+    };
+    return allPosts;
+>>>>>>> 7d24821da604a3aac059b9fd8d60bb70e1196e3a
   }
    Future<void> voteFor(document)async {
       await _db.collection("voting").document(document).updateData(

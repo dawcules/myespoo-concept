@@ -21,9 +21,6 @@ import './pages/health_reservation.dart';
 import './pages/premises_page.dart';
 
 
-
-
-
 // https://www.youtube.com/watch?v=nyvwx7o277U
 
 class Router {

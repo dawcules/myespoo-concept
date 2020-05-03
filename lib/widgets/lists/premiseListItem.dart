@@ -7,8 +7,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-// TODO: Localize
+import 'package:cityprog/strings/premises_strings.dart';
 
 Future<List> fetchPremise() async {
   List items;
@@ -69,55 +68,59 @@ class _CurrentPremiseCardState extends State<CurrentPremiseCard> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 if (index == 20) {
-                  return Padding(padding: EdgeInsets.all(30),);
+                  return Padding(
+                    padding: EdgeInsets.all(30),
+                  );
                 } else {
-                return InkWell(
-                  onTap: () {
-                    _launchURL(snapshot.data[index]['id']);
-                  },
-                  child: Material(
-                    elevation: 5,
-                    child: Column(children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.all(10),
-                      ),
-                      Text(
-                        snapshot.data[index]['name'][language],
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      Text(
-                        snapshot.data[index]['type']['name'][language],
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(10),
-                      ),
-                      !kIsWeb
-                          ? CachedNetworkImage(
-                              imageUrl: snapshot.data[index]['images'][0]
-                                      ['url'] +
-                                  '?dim=350x210',
-                              fit: BoxFit.fill,
-                              placeholder: (context, url) =>
-                                  CircularProgressIndicator(),
-                              errorWidget: (context, url, error) => Image.asset(
-                                  'assets/images/smartespoo.png',
-                                  width: 120,
-                                  height: 160),
-                            )
-                          : Image.asset('assets/images/smartespoo.png',
-                              width: 120, height: 160),
-                      Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Text(
-                          snapshot.data[index]['description'][language],
-                          maxLines: 5,
+                  return InkWell(
+                    onTap: () {
+                      _launchURL(snapshot.data[index]['id']);
+                    },
+                    child: Material(
+                      elevation: 5,
+                      child: Column(children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.all(10),
                         ),
-                      ),
-                      Text('Click for more'),
-                    ]),
-                  ),
-                );
+                        Text(
+                          snapshot.data[index]['name'][language],
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        Text(
+                          snapshot.data[index]['type']['name'][language],
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(10),
+                        ),
+                        !kIsWeb
+                            ? CachedNetworkImage(
+                                imageUrl: snapshot.data[index]['images'][0]
+                                        ['url'] +
+                                    '?dim=350x210',
+                                fit: BoxFit.fill,
+                                placeholder: (context, url) =>
+                                    CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset('assets/images/smartespoo.png',
+                                        width: 120, height: 160),
+                              )
+                            : Image.asset('assets/images/smartespoo.png',
+                                width: 120, height: 160),
+                        Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: Text(
+                            snapshot.data[index]['description'][language],
+                            maxLines: 5,
+                          ),
+                        ),
+                        Text(LocalizedPremisesStrings.infoToLocalized()),
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 10),
+                        ),
+                      ]),
+                    ),
+                  );
                 }
               } else if (snapshot.hasError) {
                 return Text("${snapshot.error}");

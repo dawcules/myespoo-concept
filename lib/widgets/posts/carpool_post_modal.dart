@@ -3,6 +3,7 @@ import 'package:cityprog/strings/community_strings.dart';
 import 'package:cityprog/strings/widget_texts.dart';
 import 'package:cityprog/widgets/columns/user_info_column.dart';
 import 'package:cityprog/widgets/containers/box_with_border.dart';
+import 'package:cityprog/widgets/database_model/auth.dart';
 import 'package:cityprog/widgets/database_model/database.dart';
 import 'package:cityprog/widgets/dialogs/citizenpoint_update.dart';
 import 'package:cityprog/widgets/posts/field_name_and_value.dart';
@@ -21,19 +22,18 @@ class CarpoolPostModal extends StatefulWidget {
 
 class _CarpoolPostModalState extends State<CarpoolPostModal> {
   int _citizenPoints;
+  bool isUsersPost;
   @override
   void initState() {
     super.initState();
-    Database().getUserCitizenpoints(user: widget.post.uid);
+    String uid = Auth().getUID();
+    isUsersPost = uid == widget.post.uid; 
+    _getPoints();
   }
 
-  void getCitizenPointsAsync() async {
-    Database().getUserCitizenpoints(user: widget.post.uid).then((value) => {
-          if (mounted)
-            setState(() {
-              _citizenPoints = value.data["citizenpoints"];
-            })
-        });
+  void _getPoints() {
+    Database().getUserCitizenpoints(user: widget.post.uid).then((value) =>
+        {setState(() => _citizenPoints = value.data["citizenpoints"])});
   }
 
   @override
@@ -63,7 +63,15 @@ class _CarpoolPostModalState extends State<CarpoolPostModal> {
         Padding(padding: EdgeInsets.all(4)),
         // _date(),
         // Padding(padding: EdgeInsets.all(16)),
-        _contactButton(context),
+        isUsersPost
+            ? Align(
+                alignment: Alignment.center,
+                child: FlatButton(
+                  child: Text(LocalizedWidgetStrings.closeToLocalized()),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              )
+            : _contactButton(context),
         Padding(padding: EdgeInsets.all(8)),
       ],
     );

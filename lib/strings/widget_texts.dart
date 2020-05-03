@@ -22,6 +22,11 @@ class LocalizedWidgetStrings {
   static String _citizenPointsFI = "Kansalaispisteet";
   static String _citizenPointsAwardedFI = "Kansalaispistettä myönnetty";
   static String _niceFI = "Hienoa";
+  static String _yourActivityFI = "Sinun toiminta";
+  static String _closeFI = "Sulje";
+  static String _premisesFI = "Toimitilat";
+
+
 
   // Random ENG
   static String _noTitleEN = "No title";
@@ -31,6 +36,10 @@ class LocalizedWidgetStrings {
   static String _citizenPointsEN = "Citizen points";
   static String _citizenPointsAwardedEN = "Citizen Points awarded";
   static String _niceEN = "Nice";
+  static String _yourActivityEN = "Your activity";
+  static String _closeEN = "Close";
+  static String _premisesEN = "Premises";
+
 
   // Marketplace ENG
   static String _priceEN = "Price";
@@ -43,6 +52,17 @@ class LocalizedWidgetStrings {
   static String _offeringEN = "Offering";
   static String _askingEN = "Asking";
   static String _carpoolEN = "Carpool";
+
+   static String premisesToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return _premisesFI;
+      case Language.EN:
+        return _premisesEN;
+      default:
+        return _premisesEN;
+    }
+  }
 
   static String priceToLocalized() {
     switch (CurrentLanguage.value) {
@@ -206,6 +226,28 @@ class LocalizedWidgetStrings {
         return _citizenPointsAwardedEN;
       default:
         return _citizenPointsAwardedEN;
+    }
+  }
+
+  static String yourActivityToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return _yourActivityFI;
+      case Language.EN:
+        return _yourActivityEN;
+      default:
+        return _yourActivityEN;
+    }
+  }
+
+  static String closeToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return _closeFI;
+      case Language.EN:
+        return _closeEN;
+      default:
+        return _closeEN;
     }
   }
 }

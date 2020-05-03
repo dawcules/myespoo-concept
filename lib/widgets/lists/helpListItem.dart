@@ -32,19 +32,10 @@ class HelpListTile extends StatelessWidget {
                 ],
               ),
             ),
-            Image.network(index['img'].toString()),
+            Image.asset('assets/images/helper.jpg', width: 160),
           ],
         ),
       ),
     );
   }
 }
-
-/* onTap: () {
-        Database().updateValue(
-            'likes',
-            1,
-            index
-                .reference); //Katso Database singleton, päivittää referenssin likeja
-        //Tähän voi pistää vaikka navigoinnin ja viedä index dokkarin mukana.
-      }, */

@@ -22,6 +22,11 @@ class LocalizedCommunityHelpStrings {
       'Ilmoittautumalla avuntarjoajaksi autat muita selviämään arjen askareissa ja edistät yleistä hyvinvointia';
   static const String askHelpBtnFI = 'Luo uusi pyyntö';
   static const String postedFI = 'Ilmoitus jätetty';
+  static const String submitTitleFI = 'Jätä avunpyyntö';
+  static const String requestDescFI =
+      'Anna avunpyynnöllesi otsikko ja kirjoita lyhyt kuvaus tarpeestasi, jotta avunantaja saa selkeän käsityksen mistä on kyse';
+        static const String sendFI = 'Lähetä';
+
 
   // ENG
   static const String titleEN = 'Smart Espoo   -   Help Services';
@@ -41,9 +46,55 @@ class LocalizedCommunityHelpStrings {
   static const String signDescEN =
       'Sign up as a helper to help others manage their everyday lives better and to uphold general wellbeing';
   static const String askHelpBtnEN = "Create a new request";
-    static const String postedEN = 'Ad posted on';
+  static const String postedEN = 'Ad posted on';
+  static const String submitTitleEN = 'Leave a help request';
+  static const String requestDescEN =
+      'Give your help request a title and write a short description of your need, so the helper can get a clear idea of what the request is about';
+        static const String sendEN = 'Send';
 
-    static String postedToLocalized() {
+      static String sendToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return sendFI;
+        break;
+      case Language.EN:
+        return sendEN;
+        break;
+      default:
+        return sendEN;
+        break;
+    }
+  }
+
+  static String requestDescToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return requestDescFI;
+        break;
+      case Language.EN:
+        return requestDescEN;
+        break;
+      default:
+        return requestDescEN;
+        break;
+    }
+  }
+
+  static String submitTitleToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return submitTitleFI;
+        break;
+      case Language.EN:
+        return submitTitleEN;
+        break;
+      default:
+        return submitTitleEN;
+        break;
+    }
+  }
+
+  static String postedToLocalized() {
     switch (CurrentLanguage.value) {
       case Language.FI:
         return postedFI;
@@ -56,7 +107,6 @@ class LocalizedCommunityHelpStrings {
         break;
     }
   }
-
 
   static String askHelpToLocalized() {
     switch (CurrentLanguage.value) {

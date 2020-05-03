@@ -21,7 +21,7 @@ class _CarpoolLowerState extends State<CarpoolLower> {
   ListView _askingPosts;
   ListView _allPosts;
 
-  int _dropdownValue; // TODO: Localize IT!
+  int _dropdownValue;
   List<String> dropdownItems = [
     LocalizedWidgetStrings.allCategoriesToLocalized(),
     LocalizedWidgetStrings.askingToLocalized(),
@@ -58,7 +58,7 @@ class _CarpoolLowerState extends State<CarpoolLower> {
                   _getCorrectItems(),
                   header: Padding(
                     padding:
-                        const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+                        const EdgeInsets.only(left: 24, right: 24, bottom: 24),
                     child: Align(
                       child: DropdownButtonFormField<int>(
                         hint: Text(dropdownItems[_dropdownValue]),

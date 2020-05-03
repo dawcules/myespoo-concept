@@ -29,6 +29,7 @@ class _SpeechNavigationOverlayState extends State<SpeechNavigationOverlay> {
 
   Widget getWidget() {
     if (!kIsWeb) {
+      bool keyboardIsOpened = MediaQuery.of(context).viewInsets.bottom != 0.0;
       return Container(
         child: Scaffold(
           extendBody: true,
@@ -80,10 +81,27 @@ class _SpeechNavigationOverlayState extends State<SpeechNavigationOverlay> {
                   padding: const EdgeInsets.all(8.0),
                   child: Align(
                     alignment: Alignment.bottomRight,
-                    child: FloatingActionButton(
-                        backgroundColor: AppColor.secondary.color(),
-                        child: Icon(Icons.menu),
-                        onPressed: () => _openDrawer(context)),
+                    child: keyboardIsOpened
+                        ? Padding(
+                            padding: EdgeInsets.all(0),
+                          )
+                        : Material(
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(420)),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border:
+                                    Border.all(width: 2, color: Colors.white),
+                                borderRadius: BorderRadius.circular(420),
+                              ),
+                              child: FloatingActionButton(
+                                elevation: 0,
+                                  backgroundColor: AppColor.secondary.color(),
+                                  child: Icon(Icons.menu),
+                                  onPressed: () => _openDrawer(context)),
+                            ),
+                          ),
                   ),
                 )
               ],

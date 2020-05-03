@@ -23,7 +23,7 @@ class IconRouteNameRow extends StatelessWidget {
         children: <Widget>[
           Align(
             alignment: Alignment.centerRight * 0.75,
-            heightFactor: 1.75,
+            heightFactor: 1.4,
             child: Card(
               
               shape: RoundedRectangleBorder(
@@ -45,8 +45,8 @@ class IconRouteNameRow extends StatelessWidget {
           Align(
             alignment: Alignment.centerRight,
             child: Container(
-              width: 70,
-              height: 70,
+              width: 50,
+              height: 50,
               child: FittedBox(
                 child: FloatingActionButton(
                   backgroundColor: AppColor.secondary.color(),
