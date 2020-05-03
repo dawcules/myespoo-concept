@@ -11,10 +11,6 @@ class HelpListTile extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        gradient: LinearGradient(
-              begin: Alignment.centerRight,
-              end: Alignment.centerLeft,
-              colors: [Colors.white70, Color.fromRGBO(242, 63, 87, 0.8)]),
         boxShadow: [
           BoxShadow(color: Color.fromRGBO(242, 63, 87, 0.7), spreadRadius: 3),
         ],
@@ -22,8 +18,6 @@ class HelpListTile extends StatelessWidget {
       height: 150,
       width: 750,
       child: Material(
-        shadowColor: Colors.transparent,
-        color: Colors.transparent,
         borderRadius: BorderRadius.circular(10),
         elevation: 5.0,
         child: Row(
@@ -38,7 +32,6 @@ class HelpListTile extends StatelessWidget {
                     Text(
                       index['title'].toString(),
                       style: TextStyle(
-                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 25),
                     ),

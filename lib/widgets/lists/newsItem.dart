@@ -106,12 +106,8 @@ class _CurrentNewsCardState extends State<CurrentNewsCard> {
   Widget build(BuildContext context) {
     return Container(
       width: 750,
-      height: 150,
+      height: 151,
       decoration: BoxDecoration(
-      gradient: LinearGradient(
-              begin: Alignment.centerRight,
-              end: Alignment.centerLeft,
-              colors: [Colors.white70, Color.fromRGBO(84, 144, 240, 0.8)]),
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(color: Color.fromRGBO(84, 144, 240, 0.7), spreadRadius: 3),
@@ -122,8 +118,6 @@ class _CurrentNewsCardState extends State<CurrentNewsCard> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Material(
-              shadowColor: Colors.transparent,
-              color: Colors.transparent,
               borderRadius: BorderRadius.circular(10),
               elevation: 5.0,
               child: InkWell(

@@ -83,7 +83,7 @@ class _CurrentWeatherCardState extends State<CurrentWeatherCard> {
                       LocalizedWeatherStrings.weatherTitleToLocalized(),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 24,
+                        fontSize: 22,
                       ),
                     ),
                     Text(

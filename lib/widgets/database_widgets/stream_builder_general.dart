@@ -115,11 +115,6 @@ class _ListViewBuilderState extends State<ListViewBuilder> {
   Widget build(BuildContext context) {
     _fetchIds();
     return Container(
-      decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [Colors.white, Color.fromRGBO(150, 203, 255, 1)])),
       child: ListView.builder(
               padding: EdgeInsets.only(top: 16, right: 16, left: 16, bottom: 60),
               itemCount: widget.eventDataLength +

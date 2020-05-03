@@ -26,13 +26,12 @@ class NotificationListTile extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
-          BoxShadow(color: Colors.yellow[200], spreadRadius: 4),
+          BoxShadow(color: Colors.yellow[200], spreadRadius: 3),
         ],
       ),
       child: Material(
+        borderRadius: BorderRadius.circular(10),
         elevation: 5.0,
-        shadowColor: Colors.transparent,
-        color: Colors.white,
         child: ListTile(
           leading: Icon(Icons.warning, color: Colors.yellow[600], size: 40),
           title: Text(index[cardContent]),
