@@ -115,52 +115,57 @@ class _ListViewBuilderState extends State<ListViewBuilder> {
   @override
   Widget build(BuildContext context) {
     _fetchIds();
-    return Ink(
-        color: AppColor.background.color(),
-        child: ListView.builder(
-            padding: EdgeInsets.only(top: 16, right: 16, left: 16, bottom: 60),
-            itemCount: widget.eventDataLength +
-                widget.helpDataLength + widget.notificationDataLength +
-                8, //+1 for weather card + 7 for news
-            itemBuilder: (BuildContext _context, index) {
-              return Column(
-                children: <Widget>[
-                  //Apply logic for individual data sources. Return individual list items.
-                  if (!kIsWeb)
-                    MessageHandler(),
-                  if (index == 0)
-                    Column(
-                      children: <Widget>[
-                        CurrentWeatherCard(),
-                        Divider(),
-                      ],
-                    ),
-                  if (index < 7)
-                    _buildNewsItem(context, index),
-                  if (index <= widget.helpDataLength - 1)
-                    Column(
-                      children: <Widget>[
-                        _buildHelpItem(context, widget.helpData[index]),
-                        Divider(),
-                      ],
-                    ),
-                  if (index <= widget.eventDataLength - 1)
-                    Column(
-                      children: <Widget>[
-                        _buildListItem(context, widget.eventData[index]),
-                        Divider(),
-                      ],
-                    ),
-                    if (index <= widget.notificationDataLength - 1)
-                    Column(
-                      children: <Widget>[
-                        NotificationListTile(widget.notificationData[index]),
-                        Divider(),
-                      ],
-                    )
-                ],
-              );
-            }));
+    return Container(
+      decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [Colors.white, Color.fromRGBO(150, 203, 255, 1)])),
+      child: ListView.builder(
+              padding: EdgeInsets.only(top: 16, right: 16, left: 16, bottom: 60),
+              itemCount: widget.eventDataLength +
+                  widget.helpDataLength + widget.notificationDataLength +
+                  8, //+1 for weather card + 7 for news
+              itemBuilder: (BuildContext _context, index) {
+                return Column(
+                  children: <Widget>[
+                    //Apply logic for individual data sources. Return individual list items.
+                    if (!kIsWeb)
+                      MessageHandler(),
+                    if (index == 0)
+                      Column(
+                        children: <Widget>[
+                          CurrentWeatherCard(),
+                          Padding(padding: EdgeInsets.all(11),),
+                        ],
+                      ),
+                    if (index < 7)
+                      _buildNewsItem(context, index),
+                    if (index <= widget.helpDataLength - 1)
+                      Column(
+                        children: <Widget>[
+                          _buildHelpItem(context, widget.helpData[index]),
+                          Padding(padding: EdgeInsets.all(11),),
+                        ],
+                      ),
+                    if (index <= widget.eventDataLength - 1)
+                      Column(
+                        children: <Widget>[
+                          _buildListItem(context, widget.eventData[index]),
+                          Padding(padding: EdgeInsets.all(11),),
+                        ],
+                      ),
+                      if (index <= widget.notificationDataLength - 1)
+                      Column(
+                        children: <Widget>[
+                          NotificationListTile(widget.notificationData[index]),
+                          Padding(padding: EdgeInsets.all(11),),
+                        ],
+                      )
+                  ],
+                );
+              }),
+    );
   }
 
   Widget _buildHelpItem(BuildContext context, index) {
@@ -180,7 +185,7 @@ class _ListViewBuilderState extends State<ListViewBuilder> {
                             children: <Widget>[
                               CurrentNewsCard(
                                   contentId: snapshot.data[index]),
-                                  Divider(),
+                          Padding(padding: EdgeInsets.all(11),),
                             ],
                           );
                         } else if (snapshot.hasError) {

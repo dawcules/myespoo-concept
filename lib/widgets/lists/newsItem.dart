@@ -30,7 +30,7 @@ Future<News> fetchNews(String contentId) async {
   }
 
   final response = await http.get(url);
-    // Get XML
+  // Get XML
   if (response.statusCode == 200) {
     // Convert to JSON
     myTransformer.parse(response.body);
@@ -64,7 +64,9 @@ class News {
       var urlString =
           entryList[2]['content']['m\$properties']['d\$Text']['\$t'];
       print(urlString);
-      if (urlString != null && urlString.length > 15 && urlString.toString().split('"').length > 1) {
+      if (urlString != null &&
+          urlString.length > 15 &&
+          urlString.toString().split('"').length > 1) {
         img = urlString.toString().split('"')[1];
       } else {
         img = 'no pic :(';
@@ -103,35 +105,59 @@ class _CurrentNewsCardState extends State<CurrentNewsCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blue[50],
+      width: 750,
+      height: 150,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(color: Color.fromRGBO(84, 144, 240, 0.8), spreadRadius: 4),
+        ],
+      ),
       child: FutureBuilder<News>(
         future: futureNews,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Material(
+              shadowColor: Colors.transparent,
+              color: Colors.white24,
+              borderRadius: BorderRadius.circular(10),
               elevation: 5.0,
-                          child: InkWell(
+              child: InkWell(
                 onTap: () => _launchURL(widget.contentId),
                 child: Column(
                   children: <Widget>[
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.only(left: 8),
+                        ),
                         Flexible(
                           child: Column(
                             children: <Widget>[
+                              Text('News',
+                                  style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.w800)),
                               Padding(
-                                padding: const EdgeInsets.all(2.0),
-                                child: Text(
-                                  snapshot.data.text.toString(),
-                                  style: TextStyle(fontSize: 20),
-                                ),
+                                padding: EdgeInsets.only(bottom: 4),
+                              ),
+                              Text(
+                                snapshot.data.text.toString(),
+                                maxLines: 3,
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.w600),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(4),
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  Icon(Icons.import_contacts),
-                                  Icon(Icons.arrow_forward),
+                                children: [
+                                  Text(
+                                    'Read the story',
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Icon(Icons.arrow_forward)
                                 ],
                               ),
                             ],
@@ -139,20 +165,27 @@ class _CurrentNewsCardState extends State<CurrentNewsCard> {
                         ),
                         Padding(padding: EdgeInsets.all(1.5)),
                         if (!kIsWeb)
-                          CachedNetworkImage(
-                            imageUrl: snapshot.data.imgUrl,
-                            width: 180,
-                            fit: BoxFit.fill,
-                            placeholder: (context, url) =>
-                                CircularProgressIndicator(),
-                            errorWidget: (context, url, error) => Image.asset(
-                                'assets/images/smartespoo.png',
-                                width: 120,
-                                height: 160),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(6),
+                            child: CachedNetworkImage(
+                              imageUrl: snapshot.data.imgUrl,
+                              width: 170,
+                              height: 150,
+                              fit: BoxFit.fitHeight,
+                              placeholder: (context, url) =>
+                                  CircularProgressIndicator(),
+                              errorWidget: (context, url, error) => Container(
+                                color: Colors.white,
+                                child: Image.asset(
+                                    'assets/images/smartespoo.png',
+                                    width: 170,
+                                    height: 150,),
+                              ),
+                            ),
                           ),
                         if (kIsWeb)
                           Image.asset('assets/images/smartespoo.png',
-                              width: 120, height: 160),
+                              width: 170, height: 150),
                       ],
                     ),
                   ],
