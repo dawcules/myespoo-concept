@@ -24,20 +24,25 @@ class IconRouteNameRow extends StatelessWidget {
           Align(
             alignment: Alignment.centerRight * 0.75,
             heightFactor: 1.4,
-            child: Card(
-              
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(420))),
-              color: AppColor.background.color(),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 4, bottom: 4, left: 16, right: 120),
-                child: Text(
-                  routeName,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: AppColor.secondary.color(),
-                      fontSize: 20),
+            child: Container(
+              width: 175,
+              height: 60,
+              child: Card(
+                elevation: 8,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                color: AppColor.background.color(),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 14, bottom: 4, left: 16, right:  25),
+                  child: Text(
+                    routeName,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: AppColor.secondary.color(),
+                        fontSize: 20),
+                        textAlign: TextAlign.center,
+                  ),
                 ),
               ),
             ),
@@ -45,8 +50,8 @@ class IconRouteNameRow extends StatelessWidget {
           Align(
             alignment: Alignment.centerRight,
             child: Container(
-              width: 50,
-              height: 50,
+              width: 62,
+              height: 80,
               child: FittedBox(
                 child: FloatingActionButton(
                   backgroundColor: AppColor.secondary.color(),
@@ -57,6 +62,7 @@ class IconRouteNameRow extends StatelessWidget {
               ),
             ),
           ),
+  
         ],
       ),
       onTap: () => _navigate(context),

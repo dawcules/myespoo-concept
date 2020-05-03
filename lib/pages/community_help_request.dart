@@ -49,9 +49,7 @@ class _CommunityHelpRequestState extends State<CommunityHelpRequest> {
         collection: 'HelpRequest',
         callback: (value, error) => {
               if (!error)
-                {
-                  Navigator.of(context).pushReplacementNamed("/communityHelp")
-                }
+                {Navigator.of(context).pushReplacementNamed("/communityHelp")}
             });
   }
 
@@ -64,107 +62,110 @@ class _CommunityHelpRequestState extends State<CommunityHelpRequest> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-        key: key,
-        body: Center(
-          child: Container(
-            height: 1000,
-            width: 750,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.all(10.0),
-                      child: Text(
-                        LocalizedCommunityHelpStrings.submitTitleToLocalized(),
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 26),
+    return  Scaffold(
+          key: key,
+          body: Center(
+            child: Container(
+              height: 1000,
+              width: 750,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Material(
+                      borderRadius: BorderRadius.circular(10),
+                      elevation: 8,
+                                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.all(10.0),
+                            child: Text(
+                              LocalizedCommunityHelpStrings.submitTitleToLocalized(),
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
+                            ),
+                          ),
+                          Padding(padding: EdgeInsets.all(20.0)),
+                          IconFormInput(
+                            hint: LocalizedCommunityHelpStrings.reqTitleToLocalized(),
+                            validation: _titleDetailsValidator != null
+                                ? _titleDetailsValidator.validateTitle
+                                : true,
+                            autoValidate: true,
+                            validationText: _titleDetailsValidator != null
+                                ? ValidationStrings.titleErrorTextToLocalized()
+                                : " ",
+                            icon: Icon(Icons.title),
+                            onChanged: (value) => null,
+                          ),
+                          IconFormInput(
+                            autoValidate: true,
+                            maxLines: 10,
+                            hint: LocalizedCommunityHelpStrings.reqDescToLocalized(),
+                            validation: _titleDetailsValidator != null
+                                ? _titleDetailsValidator.validateDetails
+                                : true,
+                            validationText: _titleDetailsValidator != null
+                                ? ValidationStrings.descriptionErrorTextToLocalized()
+                                : " ",
+                            onChanged: (value) => null,
+                            icon: Icon(Icons.description),
+                          ),
+                          DropdownButton<String>(
+                            value: dropdownValue,
+                            icon: Icon(Icons.arrow_downward),
+                            iconSize: 24,
+                            elevation: 16,
+                            style: TextStyle(
+                                fontSize: 20, color: AppColor.secondary.color()),
+                            underline: Container(
+                              height: 2,
+                              color: AppColor.secondary.color(),
+                            ),
+                            onChanged: (String newValue) {
+                              setState(() {
+                                print('VALUE' + newValue);
+                                dropdownValue = newValue;
+                              });
+                            },
+                            items: LocalizedCommunityHelpStrings.listToLocalized()
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                          ),
+                          Container(
+                            margin: EdgeInsets.all(20.0),
+                            child: Text(
+                                LocalizedCommunityHelpStrings.requestDescToLocalized(),
+                                style: TextStyle(fontSize: 20)),
+                          ),
+                          SubmitFormButton(
+                            onPress: _validate,
+                            onValidatedSuccess: () => {
+                              if (dropdownValue !=
+                                  LocalizedCommunityHelpStrings.listToLocalized()[0])
+                                {_sendData(dropdownValue)}
+                              else
+                                {
+                                  key.currentState.showSnackBar(SnackBar(
+                                    content: Text(
+                                        LocalizedCommunityHelpStrings.snackToLocalized()),
+                                  ))
+                                }
+                            },
+                          ),
+                        ],
                       ),
                     ),
-                    Padding(padding: EdgeInsets.all(20.0)),
-                    IconFormInput(
-                      hint: LocalizedCommunityHelpStrings.titleToLocalized(),
-                      validation: _titleDetailsValidator != null
-                          ? _titleDetailsValidator.validateTitle
-                          : true,
-                      autoValidate: true,
-                      validationText: _titleDetailsValidator != null
-                          ? ValidationStrings.titleErrorTextToLocalized()
-                          : " ",
-                      icon: Icon(Icons.title),
-                      onChanged: (value) => null,
-                    ),
-                    IconFormInput(
-                      autoValidate: true,
-                      maxLines: 10,
-                      hint: LocalizedCommunityHelpStrings.descToLocalized(),
-                      validation: _titleDetailsValidator != null
-                          ? _titleDetailsValidator.validateDetails
-                          : true,
-                      validationText: _titleDetailsValidator != null
-                          ? ValidationStrings.descriptionErrorTextToLocalized()
-                          : " ",
-                      onChanged: (value) => null,
-                      icon: Icon(Icons.description),
-                    ),
-                    DropdownButton<String>(
-                      value: dropdownValue,
-                      icon: Icon(Icons.arrow_downward),
-                      iconSize: 24,
-                      elevation: 16,
-                      style: TextStyle(
-                          fontSize: 20, color: AppColor.secondary.color()),
-                      underline: Container(
-                        height: 2,
-                        color: AppColor.secondary.color(),
-                      ),
-                      onChanged: (String newValue) {
-                        setState(() {
-                          print('VALUE' + newValue);
-                          dropdownValue = newValue;
-                        });
-                      },
-                      items: LocalizedCommunityHelpStrings.listToLocalized()
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                    Container(
-                      margin: EdgeInsets.all(20.0),
-                      child: Text(
-                          LocalizedCommunityHelpStrings
-                              .requestDescToLocalized(),
-                          style: TextStyle(fontSize: 20)),
-                    ),
-                    SubmitFormButton(
-                      onPress: _validate,
-                      onValidatedSuccess: () => {
-                        if (dropdownValue !=
-                            LocalizedCommunityHelpStrings.listToLocalized()[0])
-                          {_sendData(dropdownValue)}
-                        else
-                          {
-                            key.currentState.showSnackBar(SnackBar(
-                              content: Text(LocalizedCommunityHelpStrings
-                                  .snackToLocalized()),
-                            ))
-                          }
-                      },
-                    ),
-                  ],
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      ),
     );
   }
 }

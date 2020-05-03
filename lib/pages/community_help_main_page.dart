@@ -17,86 +17,98 @@ class _CommunityHelpMainState extends State<CommunityHelpMain> {
   @override
   Widget build(BuildContext context) {
     final key = new GlobalKey<ScaffoldState>();
-    return 
-        Scaffold(
-        key: key,
-        body: Center(child: Container(
+    return Scaffold(
+      key: key,
+      body: Center(
+        child: Container(
           height: 1000,
           width: 750,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.all(10.0),
-                      child: Text(
-                        LocalizedCommunityHelpStrings.mainTitleToLocalized(),
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 26),
-                      ),
-                    ),
-                    Padding(padding: EdgeInsets.all(20.0)),
-                    Container(
-                      margin: EdgeInsets.all(20.0),
-                      child: Text(
-                          LocalizedCommunityHelpStrings.descToLocalized(),
-                          style: TextStyle(fontSize: 20)),
-                    ),
-                    DropdownSelect(
-                        LocalizedCommunityHelpStrings.listToLocalized(),
-                        key,
-                        '/communityHelpCat'),
-                    Padding(padding: EdgeInsets.all(20.0)),
-                    RaisedButton(
-                      color: AppColor.button.color(),
-                      onPressed: () {
-                        //Navigator.of(context).pushNamed('/communityHelpSign');
-                        Navigator.push(
-                            context, ZoomRoute(page: CommunityHelpRequest()));
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 18,
-                          vertical: 16,
-                        ),
-                        child: Text(
-                          LocalizedCommunityHelpStrings.askHelpToLocalized(),
-                          style: TextStyle(
-                            color: AppColor.buttonText.color(),
-                            fontSize: 20,
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Material(
+                  borderRadius: BorderRadius.circular(10),
+                  elevation: 8,
+                  child: Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.all(10.0),
+                          child: Text(
+                            LocalizedCommunityHelpStrings
+                                .mainTitleToLocalized(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 26),
                           ),
                         ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(20),
-                    ),
-                     RaisedButton(
-                      color: AppColor.button.color(),
-                      onPressed: () {
-                        //Navigator.of(context).pushNamed('/communityHelpSign');
-                        Navigator.push(
-                            context, ZoomRoute(page: CommunityHelpPage()));
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 18,
-                          vertical: 16,
+                        Padding(padding: EdgeInsets.all(20.0)),
+                        Container(
+                          margin: EdgeInsets.all(20.0),
+                          child: Text(
+                              LocalizedCommunityHelpStrings.descToLocalized(),
+                              style: TextStyle(fontSize: 20)),
                         ),
-                        child: Text(
-                          LocalizedCommunityHelpStrings
-                              .volunteerBtnToLocalized(),
-                          style: TextStyle(
-                            color: AppColor.buttonText.color(),
-                            fontSize: 20,
+                        DropdownSelect(
+                            LocalizedCommunityHelpStrings.listToLocalized(),
+                            key,
+                            '/communityHelpCat'),
+                        Padding(padding: EdgeInsets.all(20.0)),
+                        RaisedButton(
+                          color: AppColor.button.color(),
+                          onPressed: () {
+                            //Navigator.of(context).pushNamed('/communityHelpSign');
+                            Navigator.push(context,
+                                ZoomRoute(page: CommunityHelpRequest()));
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 18,
+                              vertical: 16,
+                            ),
+                            child: Text(
+                              LocalizedCommunityHelpStrings
+                                  .askHelpToLocalized(),
+                              style: TextStyle(
+                                color: AppColor.buttonText.color(),
+                                fontSize: 20,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                        Padding(
+                          padding: EdgeInsets.all(20),
+                        ),
+                        RaisedButton(
+                          color: AppColor.button.color(),
+                          onPressed: () {
+                            //Navigator.of(context).pushNamed('/communityHelpSign');
+                            Navigator.push(
+                                context, ZoomRoute(page: CommunityHelpPage()));
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 18,
+                              vertical: 16,
+                            ),
+                            child: Text(
+                              LocalizedCommunityHelpStrings
+                                  .volunteerBtnToLocalized(),
+                              style: TextStyle(
+                                color: AppColor.buttonText.color(),
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 25),
+                        )
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ],
