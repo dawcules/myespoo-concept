@@ -1,4 +1,6 @@
+import 'package:cityprog/strings/widget_texts.dart';
 import 'package:cityprog/styles/color_palette.dart';
+import 'package:cityprog/widgets/dialogs/danger_dialog.dart';
 import 'package:flutter/material.dart';
 
 class IconRouteNameRow extends StatelessWidget {
@@ -7,12 +9,14 @@ class IconRouteNameRow extends StatelessWidget {
   final String route;
   final Icon icon;
   final String args;
+  final bool isEmergency;
 
   const IconRouteNameRow({
     @required this.heroTag,
     @required this.icon,
     @required this.routeName,
     @required this.route,
+    this.isEmergency = false,
     this.args,
   });
 
@@ -34,14 +38,14 @@ class IconRouteNameRow extends StatelessWidget {
                 color: AppColor.background.color(),
                 child: Padding(
                   padding: const EdgeInsets.only(
-                      top: 14, bottom: 4, left: 16, right:  25),
+                      top: 14, bottom: 4, left: 16, right: 25),
                   child: Text(
                     routeName,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: AppColor.secondary.color(),
                         fontSize: 20),
-                        textAlign: TextAlign.center,
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
@@ -57,15 +61,18 @@ class IconRouteNameRow extends StatelessWidget {
                   backgroundColor: AppColor.secondary.color(),
                   child: icon,
                   heroTag: heroTag,
-                  onPressed: () => _navigate(context),
+                  onPressed: () => isEmergency
+                      ? showDialog(context: context, child: DangerDialog(title: LocalizedWidgetStrings.emergencyToLocalized(),))
+                      : _navigate(context),
                 ),
               ),
             ),
           ),
-  
         ],
       ),
-      onTap: () => _navigate(context),
+      onTap: () => isEmergency
+          ? showDialog(context: context, child: DangerDialog())
+          : _navigate(context),
     );
   }
 

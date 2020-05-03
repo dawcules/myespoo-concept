@@ -9,23 +9,36 @@ import '../../styles/color_palette.dart';
 
 class TextDateWithCalendarPicker extends StatefulWidget {
   final Function onDatePicked;
+  final DateTime initialDate;
   final MainAxisAlignment alignment;
   final bool textIsInstructions;
-  TextDateWithCalendarPicker(
-      {this.onDatePicked, this.alignment, this.textIsInstructions});
+
+  TextDateWithCalendarPicker({
+    this.onDatePicked,
+    this.alignment,
+    this.textIsInstructions,
+    this.initialDate,
+    Key key,
+  }) : super(key: key);
 
   @override
-  _TextDateWithCalendarPickerState createState() =>
-      _TextDateWithCalendarPickerState();
+  TextDateWithCalendarPickerState createState() =>
+      TextDateWithCalendarPickerState();
 }
 
-class _TextDateWithCalendarPickerState
+class TextDateWithCalendarPickerState
     extends State<TextDateWithCalendarPicker> {
   DateTime _firstDate = DateTime.now().subtract(Duration(days: 1));
-  DateTime _selectedDate = DateTime.now();
+  DateTime selectedDate;
   DateTime _lastDate = DateTime(2021);
 
-  _TextDateWithCalendarPickerState();
+  @override
+  void initState() {
+    super.initState();
+    selectedDate = widget.initialDate ?? DateTime.now();
+  }
+
+  TextDateWithCalendarPickerState();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,17 +51,19 @@ class _TextDateWithCalendarPickerState
     return Row(
       mainAxisAlignment: widget.alignment ?? MainAxisAlignment.center,
       children: <Widget>[
-        widget.textIsInstructions == null ||
-                widget.textIsInstructions == false
+        widget.textIsInstructions == null || widget.textIsInstructions == false
             ? Text(
-                LocalizedCommunityStrings.dateTimeToLocaleString(_selectedDate),
+                LocalizedCommunityStrings.dateTimeToLocaleString(selectedDate),
                 style: TextStyle(
                   fontSize: 20,
                   color: AppColor.secondary.color(),
                   fontWeight: FontWeight.bold,
                 ),
               )
-            : Text(ValidationStrings.chooseDateToLocalized(), style: TextStyle(color: Colors.red),),
+            : Text(
+                ValidationStrings.chooseDateToLocalized(),
+                style: TextStyle(color: Colors.red),
+              ),
         IconButton(
           iconSize: 40,
           icon: Icon(
@@ -65,15 +80,16 @@ class _TextDateWithCalendarPickerState
     showDatePicker(
       context: context,
       firstDate: _firstDate,
-      initialDate: _selectedDate,
+      initialDate: selectedDate,
       lastDate: _lastDate,
     ).then(
       (onValue) => {
         if (onValue != null)
           {
-            setState(() => _selectedDate = onValue),
-            if (widget.onDatePicked != null){
-              widget.onDatePicked(_selectedDate),
+            setState(() => selectedDate = onValue),
+            if (widget.onDatePicked != null)
+              {
+                widget.onDatePicked(selectedDate),
               }
           }
       },

@@ -1,5 +1,7 @@
 import 'package:cityprog/strings/widget_texts.dart';
 import 'package:cityprog/styles/color_palette.dart';
+import 'package:cityprog/widgets/buttons/universal_raised_button.dart';
+import 'package:cityprog/widgets/posts/report_form.dart';
 import 'package:flutter/material.dart';
 
 class CommunityPage extends StatelessWidget {
@@ -16,24 +18,36 @@ class CommunityPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              _communityNavigationButton(LocalizedWidgetStrings.carpoolToLocalized(), "/carpool", context),
-              Padding(
-                padding: EdgeInsets.all(8),
-              ),
-              _communityNavigationButton(LocalizedWidgetStrings.marketplaceToLocalized(), "/market", context),
+              _communityNavigationButton(
+                  LocalizedWidgetStrings.carpoolToLocalized(),
+                  "/carpool",
+                  context),
               Padding(
                 padding: EdgeInsets.all(8),
               ),
               _communityNavigationButton(
-                  LocalizedWidgetStrings.helpServicesToLocalized(), "/communityHelp", context),
-                  Padding(
-                padding: EdgeInsets.all(8)),
-                  _communityNavigationButton(
-                  LocalizedWidgetStrings.premisesToLocalized(), "/premises", context), Padding(
-                padding: EdgeInsets.all(8)),
-                 _communityNavigationButton(
-                  "Voting", "/voting", context), Padding(
-                padding: EdgeInsets.all(8)),
+                  LocalizedWidgetStrings.marketplaceToLocalized(),
+                  "/market",
+                  context),
+              Padding(
+                padding: EdgeInsets.all(8),
+              ),
+              _communityNavigationButton(
+                  LocalizedWidgetStrings.helpServicesToLocalized(),
+                  "/communityHelp",
+                  context),
+              Padding(padding: EdgeInsets.all(8)),
+              _communityNavigationButton(
+                  LocalizedWidgetStrings.premisesToLocalized(),
+                  "/premises",
+                  context),
+              Padding(padding: EdgeInsets.all(8)),
+              UniversalRaisedButton(
+                title: LocalizedWidgetStrings.fixReportToLocalized(),
+                fontSize: 24,
+                padding: 8,
+                onPressed: () => showDialog(context: context, child: ReportForm()),
+              ),
             ],
           ),
         )),
@@ -51,7 +65,7 @@ class CommunityPage extends StatelessWidget {
         child: Text(
           title,
           style: TextStyle(
-            fontSize: 30,
+            fontSize: 24,
             color: AppColor.buttonText.color(),
           ),
           textAlign: TextAlign.center,

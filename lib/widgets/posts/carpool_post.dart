@@ -55,19 +55,6 @@ class CarpoolPostWidget extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.bold),
                           )),
-                      // Align(
-                      //   alignment: Alignment.centerRight,
-                      //   child: FlatButton(
-                      //     child: Text(
-                      //       LocalizedCommunityStrings.moreToLocalized(),
-                      //       style: TextStyle(
-                      //         color: AppColor.secondary.color(),
-                      //         fontSize: 16,
-                      //       ),
-                      //     ),
-                      //     onPressed: () => _moreButtonPressed(),
-                      //   ),
-                      // )
                       Padding(padding: EdgeInsets.all(8),)
                     ],
                   ),

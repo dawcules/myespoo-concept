@@ -1,5 +1,6 @@
 import 'package:cityprog/model/carpool.dart';
 import 'package:cityprog/model/trade_methods.dart';
+import 'package:cityprog/strings/widget_texts.dart';
 import 'package:cityprog/validation/origin_destination_validator.dart';
 import 'package:cityprog/widgets/buttons/submit_form_button.dart';
 import 'package:cityprog/widgets/carpool_marketplace/forms/custom_expansion_tile.dart';
@@ -24,15 +25,16 @@ class CarpoolForm extends StatefulWidget {
 class _CarpoolFormState extends State<CarpoolForm> {
   bool _dateWasPicked = false;
   bool _timeWasPicked = false;
-  //bool _dateNeedsToReDraw = false;
+  bool dateNeedsToReDraw = false;
   DateTime _selectedDate;
   TimeOfDay _selectedTime;
   String _destination;
   String _origin;
   String _title;
   String _body;
-  // TODO: dateNeedsToReDraw implementation, Pakolliset, Lisätietoja etc. joo lisää vaan
   OriginDestinationValidator validator;
+  GlobalKey<TextDateWithCalendarPickerState> calendarKey =
+      GlobalKey<TextDateWithCalendarPickerState>();
 
   @override
   void initState() {
@@ -48,7 +50,7 @@ class _CarpoolFormState extends State<CarpoolForm> {
           CustomExpansionTile(
             leading: Icon(Icons.notification_important),
             initiallyExpanded: true,
-            title: Text("Pakolliset"),
+            title: Text(LocalizedWidgetStrings.mandatoryToLocalized()),
             children: <Widget>[
               OriginDestinationColumn(
                 onDestinationPicked: (String address) =>
@@ -56,9 +58,11 @@ class _CarpoolFormState extends State<CarpoolForm> {
                 onOriginPicked: (String address) => _onOriginPicked(address),
               ),
               TextDateWithCalendarPicker(
+                key: calendarKey,
                 onDatePicked: (DateTime date) => _onDatePicked(date),
                 alignment: MainAxisAlignment.end,
                 textIsInstructions: !_dateWasPicked,
+                initialDate: _selectedDate ?? DateTime.now(),
               ),
               TimePicker(
                 onTimePicked: (TimeOfDay time) => _onTimePicked(time),
@@ -72,7 +76,7 @@ class _CarpoolFormState extends State<CarpoolForm> {
           CustomExpansionTile(
             onExpansionChanged: (value) => print(value),
             leading: Icon(Icons.more),
-            title: Text("Lisätietoja"),
+            title: Text(LocalizedWidgetStrings.additionalToLocalized()),
             children: <Widget>[
               TitleDetailsColumn(
                 autoValidate: false,
@@ -87,6 +91,16 @@ class _CarpoolFormState extends State<CarpoolForm> {
           )
         ],
       ),
+    );
+  }
+
+  Widget reDrawDate() {
+    //setState(() => dateNeedsToReDraw = false);
+    return TextDateWithCalendarPicker(
+      onDatePicked: (DateTime date) => _onDatePicked(date),
+      alignment: MainAxisAlignment.end,
+      textIsInstructions: !_dateWasPicked,
+      initialDate: _selectedDate,
     );
   }
 
@@ -115,12 +129,27 @@ class _CarpoolFormState extends State<CarpoolForm> {
     print(
         "Selected date hour:${_selectedDate.hour}, Selected date minute:${_selectedDate.minute}");
     if (_selectedDate != null && _selectedTime != null) {
+      DateTime now = DateTime.now();
       setState(() {
+        // Increment selected day if it's the same day and selected time is in the past
+        print(_selectedDate.day == now.day);
+        print(_selectedDate.month == now.month);
+        if (_selectedDate.day == now.day && _selectedDate.month == now.month) {
+          if ((_selectedTime.hour == now.hour &&
+                  _selectedTime.minute < now.minute) ||
+              _selectedTime.hour < now.hour) {
+            _selectedDate = DateTime(
+                _selectedDate.year, _selectedDate.month, _selectedDate.day + 1);
+            dateNeedsToReDraw = true;
+            calendarKey.currentState.setState(() {
+              calendarKey.currentState.selectedDate = _selectedDate;
+            });
+          }
+        }
         DateTime date = DateTime(_selectedDate.year, _selectedDate.month,
             _selectedDate.day, _selectedTime.hour, _selectedTime.minute);
         _selectedDate = date;
-        print(
-            "Selected date hour after comine:${_selectedDate.hour}, Selected date minute after combine:${_selectedDate.minute}");
+        print(_selectedDate);
       });
     }
   }
