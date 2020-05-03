@@ -11,9 +11,9 @@ class HelpListTile extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [
+       /*  boxShadow: [
           BoxShadow(color: Color.fromRGBO(242, 63, 87, 0.7), spreadRadius: 3),
-        ],
+        ], */
       ),
       height: 150,
       width: 750,

@@ -65,7 +65,7 @@ class _CurrentWeatherCardState extends State<CurrentWeatherCard> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
-          BoxShadow(color: Colors.black12, spreadRadius: 4),
+          BoxShadow(color: Colors.blue[100], spreadRadius: 4),
         ],
       ),
       child: FutureBuilder<Weather>(

@@ -109,9 +109,9 @@ class _CurrentNewsCardState extends State<CurrentNewsCard> {
       height: 151,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [
+        /* boxShadow: [
           BoxShadow(color: Color.fromRGBO(84, 144, 240, 0.7), spreadRadius: 3),
-        ],
+        ], */
       ),
       child: FutureBuilder<News>(
         future: futureNews,
