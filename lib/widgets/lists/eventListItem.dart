@@ -44,7 +44,7 @@ class EventListTile extends StatelessWidget {
           child: Column(children: <Widget>[
             Text(
               index[cardTitle],
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
               textAlign: TextAlign.center,
             ),
             Text(

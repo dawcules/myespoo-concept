@@ -80,7 +80,7 @@ class _SpeechNavigationOverlayState extends State<SpeechNavigationOverlay> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Align(
-                    alignment: Alignment.bottomRight,
+                    alignment: Alignment.bottomLeft,
                     child: keyboardIsOpened
                         ? Padding(
                             padding: EdgeInsets.all(0),

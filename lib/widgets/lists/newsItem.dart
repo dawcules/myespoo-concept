@@ -156,7 +156,8 @@ class _CurrentNewsCardState extends State<CurrentNewsCard> {
                                 children: [
                                   Text(
                                     read,
-                                    textAlign: TextAlign.center,
+                                    textAlign: TextAlign.center, style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w400)
                                   ),
                                   Icon(Icons.arrow_forward)
                                 ],

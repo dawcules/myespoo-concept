@@ -27,6 +27,8 @@ class LocalizedCommunityHelpStrings {
       'Anna avunpyynnöllesi otsikko ja kirjoita lyhyt kuvaus tarpeestasi, jotta avunantaja saa selkeän käsityksen mistä on kyse';
   static const String sendFI = 'Lähetä';
   static const String labelFI = 'Avunpyyntö';
+  static const String reqDescFI = 'Avuntarpeen kuvaus';
+  static const String reqTitleFI = 'Otsikko';
 
   // ENG
   static const String titleEN = 'Smart Espoo   -   Help Services';
@@ -52,8 +54,38 @@ class LocalizedCommunityHelpStrings {
       'Give your help request a title and write a short description of your need, so the helper can get a clear idea of what the request is about';
   static const String sendEN = 'Send';
   static const String labelEN = 'Help request';
+  static const String reqDescEN = 'Help request description';
+  static const String reqTitleEN = 'Title';
 
-    static String labelToLocalized() {
+      static String reqDescToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return reqDescFI;
+        break;
+      case Language.EN:
+        return reqDescEN;
+        break;
+      default:
+        return reqDescEN;
+        break;
+    }
+  }
+
+    static String reqTitleToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return reqTitleFI;
+        break;
+      case Language.EN:
+        return reqTitleEN;
+        break;
+      default:
+        return reqTitleEN;
+        break;
+    }
+  }
+
+  static String labelToLocalized() {
     switch (CurrentLanguage.value) {
       case Language.FI:
         return labelFI;
