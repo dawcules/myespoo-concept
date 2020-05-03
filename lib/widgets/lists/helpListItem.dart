@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cityprog/styles/color_palette.dart';
 import 'package:cityprog/strings/community_help_strings.dart';
 
 class HelpListTile extends StatelessWidget {

@@ -1,5 +1,4 @@
 import 'package:cityprog/handlers/message_handler.dart';
-import 'package:cityprog/styles/color_palette.dart';
 import 'package:cityprog/widgets/lists/newsItem.dart';
 import 'package:flutter/material.dart';
 import '../database_model/database.dart';
