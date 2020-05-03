@@ -14,16 +14,16 @@ class HelpListTile extends StatelessWidget {
         gradient: LinearGradient(
               begin: Alignment.centerRight,
               end: Alignment.centerLeft,
-              colors: [Colors.white70, Color.fromRGBO(242, 63, 87, 1)]),
+              colors: [Colors.white70, Color.fromRGBO(242, 63, 87, 0.8)]),
         boxShadow: [
-          BoxShadow(color: Color.fromRGBO(242, 63, 87, 0.8), spreadRadius: 4),
+          BoxShadow(color: Color.fromRGBO(242, 63, 87, 0.7), spreadRadius: 3),
         ],
       ),
       height: 150,
       width: 750,
       child: Material(
         shadowColor: Colors.transparent,
-        color: Colors.white24,
+        color: Colors.transparent,
         borderRadius: BorderRadius.circular(10),
         elevation: 5.0,
         child: Row(

@@ -111,10 +111,10 @@ class _CurrentNewsCardState extends State<CurrentNewsCard> {
       gradient: LinearGradient(
               begin: Alignment.centerRight,
               end: Alignment.centerLeft,
-              colors: [Colors.white70, Color.fromRGBO(84, 144, 240, 1)]),
+              colors: [Colors.white70, Color.fromRGBO(84, 144, 240, 0.8)]),
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
-          BoxShadow(color: Color.fromRGBO(84, 144, 240, 0.9), spreadRadius: 4),
+          BoxShadow(color: Color.fromRGBO(84, 144, 240, 0.7), spreadRadius: 3),
         ],
       ),
       child: FutureBuilder<News>(
@@ -123,7 +123,7 @@ class _CurrentNewsCardState extends State<CurrentNewsCard> {
           if (snapshot.hasData) {
             return Material(
               shadowColor: Colors.transparent,
-              color: Colors.white24,
+              color: Colors.transparent,
               borderRadius: BorderRadius.circular(10),
               elevation: 5.0,
               child: InkWell(

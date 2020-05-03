@@ -32,16 +32,16 @@ class EventListTile extends StatelessWidget {
         gradient: LinearGradient(
               begin: Alignment.centerRight,
               end: Alignment.centerLeft,
-              colors: [Colors.white70, Color.fromRGBO(92, 219, 122, 1)]),
+              colors: [Colors.white70, Color.fromRGBO(92, 219, 122, 0.8)]),
         boxShadow: [
-          BoxShadow(color: Color.fromRGBO(92, 219, 122, 0.8), spreadRadius: 4),
+          BoxShadow(color: Color.fromRGBO(92, 219, 122, 0.7), spreadRadius: 3),
         ],
       ),
       child: Material(
         elevation: 5,
         borderRadius: BorderRadius.circular(10),
         shadowColor: Colors.transparent,
-        color: Colors.white38,
+        color: Colors.transparent,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(children: <Widget>[
