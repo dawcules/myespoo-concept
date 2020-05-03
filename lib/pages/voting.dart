@@ -12,16 +12,11 @@ class VotingPage extends StatefulWidget {
 
 class _VotingState extends State<VotingPage> {
 
-  void voteFor(index){
-    setState(() {
-       Database().voteFor(index);
-    });
-   
+  void voteFor(index,number){
+    Database().voteFor(index,number); 
   }
-  void voteAgainst(index){
-    setState(() {
-       Database().voteAgainst(index);
-    });
+  void voteAgainst(index,number){
+    Database().voteAgainst(index,number);  
   }
 
   @override

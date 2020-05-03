@@ -31,6 +31,9 @@ class CommunityPage extends StatelessWidget {
                   _communityNavigationButton(
                   LocalizedWidgetStrings.premisesToLocalized(), "/premises", context), Padding(
                 padding: EdgeInsets.all(8)),
+                 _communityNavigationButton(
+                  LocalizedWidgetStrings.premisesToLocalized(), "/voting", context), Padding(
+                padding: EdgeInsets.all(8)),
             ],
           ),
         )),

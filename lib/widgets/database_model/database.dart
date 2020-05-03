@@ -333,17 +333,17 @@ lähinnä vaan tarpeellinen esim, Jonkun tapahtuman/postauksen tykkäysten mää
     };
     return allPosts;
   }
-   Future<void> voteFor(document)async {
+   Future<void> voteFor(document,number)async {
       await _db.collection("voting").document(document).updateData(
        {
-       'for': FieldValue.increment(1),
+       'for': FieldValue.increment(number),
       }
   );
   }
-  Future<void> voteAgainst(document)async {
+  Future<void> voteAgainst(document,number)async {
       await _db.collection("voting").document(document).updateData(
        {
-         'against': FieldValue.increment(1),
+         'against': FieldValue.increment(number),
       }
   );
   }

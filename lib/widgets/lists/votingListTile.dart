@@ -25,8 +25,8 @@ class VotingListTile extends StatelessWidget {
                   Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                        UniversalRaisedButton(title: "FOR", onPressed: voteFor(index.reference)),
-                        UniversalRaisedButton(title: "AGAINST", onPressed: voteAgainst(index.reference),),
+                        UniversalRaisedButton(title: "FOR", onPressed: voteFor(index.documentID,1),),
+                        UniversalRaisedButton(title: "AGAINST", onPressed: voteAgainst(index.documentID,1),),
                         ],),
                 ],
               ),         
