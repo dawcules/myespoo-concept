@@ -28,19 +28,22 @@ class _CarpoolPageState extends State<CarpoolPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: SafeArea(
+    return Center(
+      child: Container(
         child: Scaffold(
-          body: Center(
-              child: Container(
-            height: 1000,
-            width: 750,
-            child: state == UpperButtonsState.BROWSING
-                ? Column(children: _content())
-                : ListView(
-                    children: _content(),
-                  ),
-          )),
+          body: SafeArea(
+            child: Center(
+                child: Container(
+              height: 1000,
+              width: 750,
+              child: state == UpperButtonsState.BROWSING
+                  ? Column(children: _content())
+                  : ListView(
+                      padding: EdgeInsets.only(bottom: 60),
+                      children: _content(),
+                    ),
+            )),
+          ),
         ),
       ),
     );
