@@ -31,9 +31,9 @@ class NotificationListTile extends StatelessWidget {
       ),
       child: Material(
         borderRadius: BorderRadius.circular(10),
-        elevation: 5.0,
+        elevation: 8.0,
         child: ListTile(
-          leading: Icon(Icons.warning, color: Colors.yellow[600], size: 40),
+          leading: Icon(Icons.warning, color: Colors.yellow[800], size: 45),
           title: Text(index[cardContent]),
           subtitle: Text(cardDate1[0] +
               ' ' +
