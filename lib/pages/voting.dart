@@ -28,9 +28,9 @@ class _VotingState extends State<VotingPage> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final heigth = MediaQuery.of(context).size.height;
+    //final heigth = MediaQuery.of(context).size.height;
     return  Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: AppColor.secondary.color(),
       //resizeToAvoidBottomInset: true,
       body: Center(
         child: Container(
@@ -42,9 +42,9 @@ class _VotingState extends State<VotingPage> {
             height: 100,
             width: width,
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: AppColor.secondary.color(),
             ),
-            child: Text("Public Voting", style: TextStyle(fontFamily: "RadicalLight", fontSize: 30, color: AppColor.whiteText.color()),),),
+            child: SizedBox(),),
           Container(
             height: 50,
             width: width,
@@ -52,7 +52,7 @@ class _VotingState extends State<VotingPage> {
               color: Colors.white,
               borderRadius: BorderRadius.only(topLeft: Radius.circular(75.0)),
             ),
-            child: SizedBox()),
+            child: Center(child: Text("Public Voting", style: TextStyle(fontFamily: "RadicalLight", fontSize: 30, color: AppColor.secondary.color()),),)),
             Expanded(child:StreamBuilderVoting(myQuery: Database().getCollection("voting"), voteFor: _voteFor, voteAgainst: _voteAgainst, hasVoted:hasVoted),),
           ], 
           ),
