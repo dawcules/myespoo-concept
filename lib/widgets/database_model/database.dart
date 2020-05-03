@@ -287,14 +287,6 @@ lähinnä vaan tarpeellinen esim, Jonkun tapahtuman/postauksen tykkäysten mää
     });
   }
 
-<<<<<<< HEAD
-  Future<void> reserveHealth(document,user)async {
-      await _db.collection("Terveys").document(document).updateData(
-       {'reserved':true,
-       'user':user,
-      }
-  );
-=======
   Future<void> reserveHealth(document, user) async {
     await _db.collection("Terveys").document(document).updateData({
       'reserved': true,
@@ -340,7 +332,6 @@ lähinnä vaan tarpeellinen esim, Jonkun tapahtuman/postauksen tykkäysten mää
           marketSelling.documents,
     };
     return allPosts;
->>>>>>> 7d24821da604a3aac059b9fd8d60bb70e1196e3a
   }
    Future<void> voteFor(document)async {
       await _db.collection("voting").document(document).updateData(
