@@ -3,11 +3,11 @@ import 'package:cityprog/strings/string_provider.dart' show Language;
 
 class LocalizedWeatherStrings {
   // FIN
-  static const String weatherTitleFI = 'Sää Espoossa nyt';
+  static const String weatherTitleFI = 'Tämänhetkinen sää';
   static const String degreesFI = 'astetta';
 
   // ENG
-  static const String weatherTitleEN = 'Current weather in Espoo';
+  static const String weatherTitleEN = 'Current weather';
     static const String degreesEN = 'degrees';
 
       static String degreesToLocalized() {

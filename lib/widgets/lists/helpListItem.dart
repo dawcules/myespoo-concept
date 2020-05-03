@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cityprog/styles/color_palette.dart';
 import 'package:cityprog/strings/community_help_strings.dart';
 
 class HelpListTile extends StatelessWidget {
@@ -7,32 +6,53 @@ class HelpListTile extends StatelessWidget {
 
   HelpListTile(this.index);
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.red[50],
-      height: 130,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(color: Color.fromRGBO(242, 63, 87, 0.7), spreadRadius: 3),
+        ],
+      ),
+      height: 150,
+      width: 750,
       child: Material(
+        borderRadius: BorderRadius.circular(10),
         elevation: 5.0,
-              child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Flexible(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Text(
-                    index['title'].toString(),
-                    style: TextStyle(color: AppColor.secondary.color(), fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                  Flexible(child: Text(index['description'].toString(), style: TextStyle(fontSize: 16))),
-                  Text( LocalizedCommunityHelpStrings.postedToLocalized() +': ' +
-                      index['date'].toDate().toString().split(' ')[0]),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Text(
+                      index['title'].toString(),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25),
+                    ),
+                    Flexible(
+                        child: Text(index['description'].toString(),
+                            style: TextStyle(fontSize: 18))),
+                    Text(LocalizedCommunityHelpStrings.postedToLocalized() +
+                        ': ' +
+                        index['date'].toDate().toString().split(' ')[0]),
+                  ],
+                ),
               ),
             ),
-            Image.asset('assets/images/helper.jpg', width: 160),
+            ClipRRect(
+                borderRadius: BorderRadius.circular(6),
+                child: Image.asset(
+                  'assets/images/helper.jpg',
+                  width: 170,
+                  height: 150,
+                  fit: BoxFit.fitHeight,
+                )),
           ],
         ),
       ),

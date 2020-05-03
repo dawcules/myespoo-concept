@@ -14,15 +14,14 @@ Future<Weather> fetchWeather() async {
   } else {
     language = 'en';
   }
-  final response =
-    await http.get(
+  final response = await http.get(
       'https://api.openweathermap.org/data/2.5/weather?q=Espoo&lang=$language&units=metric&appid=47b4f964d6c11c890337f2f5abe51d31');
 
-    if (response.statusCode == 200) {
-      return Weather.fromJson(json.decode(response.body));
-    } else {
-      throw Exception('Failed to load current weather');
-    }
+  if (response.statusCode == 200) {
+    return Weather.fromJson(json.decode(response.body));
+  } else {
+    throw Exception('Failed to load current weather');
+  }
 }
 
 class Weather {
@@ -58,32 +57,54 @@ class _CurrentWeatherCardState extends State<CurrentWeatherCard> {
     super.initState();
     futureWeather = fetchWeather();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 750,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(color: Colors.black12, spreadRadius: 4),
+        ],
+      ),
       child: FutureBuilder<Weather>(
-            future: futureWeather,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Row(
+        future: futureWeather,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Row(
+              children: <Widget>[
+                Image.network(
+                    'https://openweathermap.org/img/wn/${snapshot.data.icon}@2x.png'),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    Image.network('https://openweathermap.org/img/wn/${snapshot.data.icon}@2x.png'),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Text(LocalizedWeatherStrings.weatherTitleToLocalized(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
-                        Text(snapshot.data.weather[0].toUpperCase() + snapshot.data.weather.substring(1) + ', ' + snapshot.data.temp.toInt().toString() + ' ' + LocalizedWeatherStrings.degreesToLocalized(), style: TextStyle(fontSize: 16),),
-                      ],
+                    Text(
+                      LocalizedWeatherStrings.weatherTitleToLocalized(),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22,
+                      ),
+                    ),
+                    Text(
+                      snapshot.data.weather[0].toUpperCase() +
+                          snapshot.data.weather.substring(1) +
+                          ', ' +
+                          snapshot.data.temp.toInt().toString() +
+                          '°C',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
                     ),
                   ],
-                );
-              } else if (snapshot.hasError) {
-                return Text("${snapshot.error}");
-              }
-              return CircularProgressIndicator();
-            },
-          ),
-        );
+                ),
+              ],
+            );
+          } else if (snapshot.hasError) {
+            return Text("${snapshot.error}");
+          }
+          return CircularProgressIndicator();
+        },
+      ),
+    );
   }
 }
