@@ -219,7 +219,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                             onPressed: () => _selectDate(context),
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
                             color: AppColor.button.color(),
-                            child: Text(ProfileStrings.bornToLocalized(), style: TextStyle(color: AppColor.whiteText.color(),),),//TODO STRING KÄÄNNÖS
+                            child: Text(ProfileStrings.bornToLocalized(), style: TextStyle(color: AppColor.whiteText.color(),),),
                                 ),
                           ],
                       ),                 
