@@ -109,18 +109,21 @@ class NavigationPage extends StatelessWidget {
           routeName: NavigationStrings.homeToLocalized(),
           args: "Should I be removed or kept..?",
         ),
+        Padding(padding: EdgeInsets.all(4)),
         IconRouteNameRow(
           heroTag: "nav_community",
           icon: Icon(Icons.people),
           route: "/community",
           routeName: NavigationStrings.communityToLocalized(),
         ),
+        Padding(padding: EdgeInsets.all(4)),
         IconRouteNameRow(
           heroTag: "nav_health",
           icon: Icon(Icons.local_hospital),
           route: "/health",
           routeName: NavigationStrings.healthToLocalized(),
         ),
+        Padding(padding: EdgeInsets.all(4)),
         IconRouteNameRow(
           heroTag: "nav_personal",
           icon: Icon(Icons.person),
@@ -133,6 +136,7 @@ class NavigationPage extends StatelessWidget {
         //   route: "/voting",
         //   routeName: NavigationStrings.personalToLocalized(),
         // ),
+        Padding(padding: EdgeInsets.all(4)),
         IconRouteNameRow(
           heroTag: "nav_emergency",
           icon: Icon(Icons.phone),
