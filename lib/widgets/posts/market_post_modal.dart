@@ -8,6 +8,7 @@ import 'package:cityprog/widgets/database_model/auth.dart';
 import 'package:cityprog/widgets/database_model/database.dart';
 import 'package:cityprog/widgets/dialogs/citizenpoint_update.dart';
 import 'package:cityprog/widgets/posts/field_name_and_value.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class MarketPostModal extends StatefulWidget {
@@ -82,7 +83,8 @@ class _MarketPostModalState extends State<MarketPostModal> {
     return widget.post.price != null
         ? FieldNameAndValue(
             fieldName: LocalizedWidgetStrings.priceToLocalized(),
-            valueChild: LocalizedPrice(widget.post.price),
+            valueChild: kIsWeb ? null : LocalizedPrice(widget.post.price),
+            value: widget.post.price.toString(),
           )
         : Padding(
             padding: EdgeInsets.all(0),

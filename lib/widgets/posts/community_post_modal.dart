@@ -1,4 +1,5 @@
 import 'package:cityprog/strings/widget_texts.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // An empty dialog with an "x" button to close it with.
@@ -12,38 +13,41 @@ class CommunityPostModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Material(
-        borderRadius: BorderRadius.circular(10),
-        child: SingleChildScrollView(
-            child: Column(
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 16, left: 16),
-                    child: Text(
-                      title ?? LocalizedWidgetStrings.noTitleToLocalized(),
-                      maxLines: 4,
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+      child: Container(
+        width:  kIsWeb ? 600 : MediaQuery.of(context).size.width,
+        child: Material(
+          borderRadius: BorderRadius.circular(10),
+          child: SingleChildScrollView(
+              child: Column(
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 16, left: 16),
+                      child: Text(
+                        title ?? LocalizedWidgetStrings.noTitleToLocalized(),
+                        maxLines: 4,
+                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
-                ),
-                IconButton(
-                  iconSize: 32,
-                  icon: Icon(Icons.cancel),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-              ],
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
-              child: childModalContent,
-            ),
-          ],
-        )),
+                  IconButton(
+                    iconSize: 32,
+                    icon: Icon(Icons.cancel),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                ],
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 8),
+                child: childModalContent,
+              ),
+            ],
+          )),
+        ),
       ),
     );
   }
