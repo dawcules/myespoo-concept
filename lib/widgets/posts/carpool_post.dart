@@ -12,56 +12,57 @@ class CarpoolPostWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Material(
-        child: InkWell(
-          splashColor: AppColor.secondary.color(),
-          onTap: () => _moreButtonPressed(),
-          child: Card(
-            elevation: 2,
-            child: Wrap(
-              children: <Widget>[
-                TradeMethodRow(
-                  postData.tradeMethod,
-                  fontSize: 16,
-                  paddingAmount: 8,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      _originDestinationRow(
-                        LocalizedCommunityStrings.fromToLocalized(),
-                        postData.origin,
-                        context,
-                      ),
-                      _originDestinationRow(
-                        LocalizedCommunityStrings.destinationToLocalized(),
-                        postData.destination,
-                        context,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(8),
-                      ),
-                      Align(
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            LocalizedCommunityStrings.dateTimeToLocaleString(
-                              postData.postDate,
-                              needsHrs: true,
-                            ),
-                            style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold),
-                          )),
-                      Padding(padding: EdgeInsets.all(8),)
-                    ],
-                  ),
-                ),
-              ],
+    return Material(
+      elevation: 8,
+      borderRadius: BorderRadius.circular(10),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(10),
+        splashColor: AppColor.secondary.color(),
+        onTap: () => _moreButtonPressed(),
+        child: Wrap(
+          children: <Widget>[
+            TradeMethodRow(
+              postData.tradeMethod,
+              fontSize: 16,
+              paddingAmount: 8,
+              borderRadius: BorderRadius.circular(10),
             ),
-          ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  _originDestinationRow(
+                    LocalizedCommunityStrings.fromToLocalized(),
+                    postData.origin,
+                    context,
+                  ),
+                  _originDestinationRow(
+                    LocalizedCommunityStrings.destinationToLocalized(),
+                    postData.destination,
+                    context,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8),
+                  ),
+                  Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        LocalizedCommunityStrings.dateTimeToLocaleString(
+                          postData.postDate,
+                          needsHrs: true,
+                        ),
+                        style: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.bold),
+                      )),
+                  Padding(
+                    padding: EdgeInsets.all(8),
+                  )
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

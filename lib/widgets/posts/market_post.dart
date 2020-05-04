@@ -25,68 +25,62 @@ class _MarketPostWidgetState extends State<MarketPostWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Material(
-        child: InkWell(
-          splashColor: AppColor.secondary.color(),
-          onTap: () => widget._moreButtonPressed(),
-          child: Card(
-            elevation: 2,
-            child: Wrap(
+    return Material(
+      borderRadius: BorderRadius.circular(10),
+      elevation: 8,
+      child: InkWell(
+        splashColor: AppColor.secondary.color(),
+        onTap: () => widget._moreButtonPressed(),
+        child: Wrap(
+          children: <Widget>[
+            TradeMethodRow(
+              widget.postData.tradeMethod,
+              fontSize: 16,
+              paddingAmount: 8,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            Column(
               children: <Widget>[
-                TradeMethodRow(
-                  widget.postData.tradeMethod,
-                  fontSize: 16,
-                  paddingAmount: 8,
+                Padding(
+                  padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: _autoSizeTextRow(widget.postData.title, context,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 24)),
+                  ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: _autoSizeTextRow(
-                              widget.postData.title, context,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 24)),
-                        ),
+                  padding: EdgeInsets.only(left: 16, right: 8),
+                ),
+                widget.postData.imageUri != null
+                    ? Padding(
+                        padding: const EdgeInsets.only(top: 8, bottom: 8),
+                        child: !kIsWeb
+                            ? CachedNetworkImage(
+                                width: double.infinity,
+                                fit: BoxFit.fitWidth,
+                                imageUrl: widget.postData.imageUri,
+                                placeholder: (context, url) =>
+                                    CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                              )
+                            : Image.network(
+                                widget.postData.imageUri,
+                                fit: BoxFit.fitWidth,
+                                width: double.infinity,
+                              ),
+                      )
+                    : Padding(
+                        padding: EdgeInsets.all(0),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 16, right: 8),
-                      ),
-                      widget.postData.imageUri != null
-                          ? Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: !kIsWeb
-                                  ? CachedNetworkImage(
-                                      width: double.infinity,
-                                      fit: BoxFit.fitWidth,
-                                      imageUrl: widget.postData.imageUri,
-                                      placeholder: (context, url) =>
-                                          CircularProgressIndicator(),
-                                      errorWidget: (context, url, error) =>
-                                          Icon(Icons.error),
-                                    )
-                                  : Image.network(
-                                      widget.postData.imageUri,
-                                      fit: BoxFit.fitWidth,
-                                      width: double.infinity,
-                                    ),
-                            )
-                          : Padding(
-                              padding: EdgeInsets.all(0),
-                            ),
-                      Padding(
-                        padding: EdgeInsets.all(4),
-                      ),
-                    ],
-                  ),
+                Padding(
+                  padding: EdgeInsets.all(4),
                 ),
               ],
             ),
-          ),
+          ],
         ),
       ),
     );

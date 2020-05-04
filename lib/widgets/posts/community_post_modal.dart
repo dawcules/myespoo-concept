@@ -13,6 +13,7 @@ class CommunityPostModal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Material(
+        borderRadius: BorderRadius.circular(10),
         child: SingleChildScrollView(
             child: Column(
           children: <Widget>[

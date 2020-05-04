@@ -1,4 +1,5 @@
 
+import 'package:cityprog/strings/voting_strings.dart';
 import 'package:cityprog/widgets/buttons/vote_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -69,9 +70,9 @@ class VotingListTile extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [ 
-                        VoteButton(text: "FOR", onPress: voteFor,index: index, icon: Icon(FontAwesome.thumbs_up, color: Colors.greenAccent,)),
-                        VoteButton(text: "AGAINST", onPress: voteAgainst, index: index, icon:  Icon(FontAwesome.thumbs_down, color: Colors.redAccent,),),
-                        ],) : Text("You have already voted on this topic", style: TextStyle(fontSize: 20, fontFamily: "RadicalLight",),),
+                        VoteButton(text: VotingStrings.forToLocalized(), onPress: voteFor,index: index, icon: Icon(FontAwesome.thumbs_up, color: Colors.greenAccent,)),
+                        VoteButton(text: VotingStrings.againstToLocalized(), onPress: voteAgainst, index: index, icon:  Icon(FontAwesome.thumbs_down, color: Colors.redAccent,),),
+                        ],) : Text(VotingStrings.alreadyVotedToLocalized(), style: TextStyle(fontSize: 20, fontFamily: "RadicalLight",),),
         ]
         ),      
     ),
