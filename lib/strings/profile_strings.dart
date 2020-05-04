@@ -34,6 +34,7 @@ class ProfileStrings {
   static const String addressValidationFI = "Vääränlainen osoite";
   static const String postalCodeFI = "Postinumero";
   static const String postalCodeValidationFI = "Vääränlainen postinumero";
+  static const String bornFI = "Syntynyt";
   
   //FIN Page3
   static const String p3headerFI = "Terveys";
@@ -106,6 +107,7 @@ class ProfileStrings {
   static const String addressValidationEN = "Wrong type of address";
   static const String postalCodeEN = "Postal Code";
   static const String postalCodeValidationEN = "Wrong type of postal code";
+  static const String bornEN = "Born";
   
   //EN Page3
   static const String p3headerEN = "Healthcare";
@@ -487,6 +489,19 @@ static String postalCodeValidationToLocalized() {
     }
 }
 
+static String bornToLocalized() {  
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return bornFI;
+        break;
+      case Language.EN:
+        return bornEN;
+        break;
+      default:
+        return bornEN;
+        break;
+    }
+}
 //Page 3
 static String p3headerToLocalized() {  
     switch (CurrentLanguage.value) {

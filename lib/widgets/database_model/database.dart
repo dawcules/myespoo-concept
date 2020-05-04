@@ -387,5 +387,8 @@ lähinnä vaan tarpeellinen esim, Jonkun tapahtuman/postauksen tykkäysten mää
   });
    return false;
 }
+Stream<QuerySnapshot> getPublicEvents() {
+    return _db.collection("PublicEvents").document("Events").collection("Events").snapshots();
+}
 
 }

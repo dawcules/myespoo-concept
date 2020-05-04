@@ -42,6 +42,11 @@ class CommunityPage extends StatelessWidget {
                   "/premises",
                   context),
               Padding(padding: EdgeInsets.all(8)),
+              _communityNavigationButton(
+                 LocalizedWidgetStrings.voteToLocalized(),
+                  "/voting",
+                  context),
+              Padding(padding: EdgeInsets.all(8)),
               UniversalRaisedButton(
                 title: LocalizedWidgetStrings.fixReportToLocalized(),
                 fontSize: 24,
