@@ -11,19 +11,19 @@ import 'package:cityprog/strings/premises_strings.dart';
 import 'package:connectivity/connectivity.dart';
 
   var connectOK = false;
-  var listCount;
+  var listCount = 21;
 
 
 
 Future<List> fetchPremise() async {
   List items;
 
-    var connectivityResult = await (Connectivity().checkConnectivity());
 
 
     if (kIsWeb) {
     connectOK = true;
   } else {
+        var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
       connectOK = true;
     }
