@@ -1,3 +1,4 @@
+import 'package:cityprog/strings/voting_strings.dart';
 import 'package:cityprog/styles/color_palette.dart';
 import 'package:cityprog/widgets/database_model/database.dart';
 import 'package:cityprog/widgets/database_widgets/stream_builder_voting.dart';
@@ -52,7 +53,7 @@ class _VotingState extends State<VotingPage> {
               color: Colors.white,
               borderRadius: BorderRadius.only(topLeft: Radius.circular(75.0)),
             ),
-            child: Center(child: Text("Public Voting", style: TextStyle(fontFamily: "RadicalLight", fontSize: 30, color: AppColor.secondary.color()),),)),
+            child: Center(child: Text(VotingStrings.headerToLocalized(), style: TextStyle(fontFamily: "RadicalLight", fontSize: 30, color: AppColor.secondary.color()),),)),
             Expanded(child:StreamBuilderVoting(myQuery: Database().getCollection("voting"), voteFor: _voteFor, voteAgainst: _voteAgainst, hasVoted:hasVoted),),
           ], 
           ),
