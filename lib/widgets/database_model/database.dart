@@ -396,5 +396,8 @@ Stream<QuerySnapshot> getPublicEvents() {
 Stream<QuerySnapshot> getVotes(String collection) {
     return _db.collection("voting").where("alreadyVoted", arrayContains: Auth().getUID()).snapshots();
   }
+Stream<QuerySnapshot> getWhatVoted(String collection) {
+    return _db.collection("voting").where("votedFor", arrayContains: Auth().getUID()).snapshots();
+  }
 
 }

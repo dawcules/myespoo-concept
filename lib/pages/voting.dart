@@ -3,6 +3,7 @@
 import 'package:cityprog/strings/voting_strings.dart';
 import 'package:cityprog/styles/color_palette.dart';
 import 'package:cityprog/widgets/Backgrounds/background_widget.dart';
+import 'package:cityprog/widgets/database_model/auth.dart';
 import 'package:cityprog/widgets/database_model/database.dart';
 import 'package:cityprog/widgets/database_widgets/stream_builder_voting.dart';
 import 'package:flutter/foundation.dart';
@@ -29,9 +30,8 @@ class _VotingState extends State<VotingPage> {
      final hasVoted = Database().checkForVoted(index);
      return hasVoted;
   }
-  void _update(){
-    setState(() {     
-    });
+  bool _update(index){
+    return index['alreadyVoted'].contains(Auth().getUID());
   }
 
   @override
