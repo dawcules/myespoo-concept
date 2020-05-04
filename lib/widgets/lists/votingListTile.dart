@@ -10,7 +10,9 @@ class VotingListTile extends StatelessWidget {
   final Function voteFor;
   final Function voteAgainst;
   final Function update;
-  VotingListTile({this.index, this.voteFor, this.voteAgainst, this.hasAlreadyVoted, this.update});
+  final bool hideVoteRow;
+  final Widget voteRowReplacement;
+  VotingListTile({this.index, this.voteFor, this.voteAgainst, this.hasAlreadyVoted, this.update, this.hideVoteRow = false, this.voteRowReplacement});
 
   @override
   Widget build(BuildContext context) {
@@ -67,13 +69,13 @@ class VotingListTile extends StatelessWidget {
                
           ],
         ),
-        !update(index) ? Row(
+        !hideVoteRow ? !update(index) ? Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [ 
                         VoteButton(text: VotingStrings.forToLocalized(), onPress: voteFor,index: index, icon: Icon(FontAwesome.thumbs_up, color: Colors.greenAccent,)),
                         VoteButton(text: VotingStrings.againstToLocalized(), onPress: voteAgainst, index: index, icon:  Icon(FontAwesome.thumbs_down, color: Colors.redAccent,),),
-                        ],) : Text(VotingStrings.alreadyVotedToLocalized(), style: TextStyle(fontSize: 20, fontFamily: "RadicalLight",),),
+                        ],) : Text(VotingStrings.alreadyVotedToLocalized(), style: TextStyle(fontSize: 20, fontFamily: "RadicalLight",),) : voteRowReplacement,
         ]
         ),      
     ),
