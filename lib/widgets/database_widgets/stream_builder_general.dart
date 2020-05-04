@@ -10,8 +10,10 @@ import 'package:cityprog/widgets/lists/eventListItem.dart';
 import 'package:cityprog/widgets/lists/helpListItem.dart';
 import 'package:cityprog/widgets/lists/notificationItem.dart';
 import 'dart:convert';
-
+import 'package:connectivity/connectivity.dart';
 import 'package:cityprog/widgets/weather/current_weather_item.dart';
+
+var connectOK = false;
 
 class StreamBuilderGeneral extends StatelessWidget {
   /*  final String myQuery;
@@ -72,8 +74,16 @@ class ListViewBuilder extends StatefulWidget {
 class _ListViewBuilderState extends State<ListViewBuilder> {
   Future<dynamic> _future;
 
-    _fetchIds() async {
+  _fetchIds() async {
     print('TULEVAISUUS TRIGGERÖITY');
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (kIsWeb) {
+    connectOK = true;
+  } else {
+    if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+      connectOK = true;
+    }
+  }
     String language;
     if (CurrentLanguage.value == Language.FI) {
       language = '1';
@@ -90,6 +100,8 @@ class _ListViewBuilderState extends State<ListViewBuilder> {
     }
 
     List<String> contentList20 = [];
+    if (connectOK) {
+      connectOK = false;
     var response = await http.get(url);
     if (response.statusCode == 200) {
       Map<String, dynamic> json = jsonDecode(response.body);
@@ -104,6 +116,7 @@ class _ListViewBuilderState extends State<ListViewBuilder> {
       throw Exception('Failed to load resources');
     }
   }
+  }
 
   @override
   void initState() {
@@ -116,49 +129,56 @@ class _ListViewBuilderState extends State<ListViewBuilder> {
     _fetchIds();
     return Container(
       child: ListView.builder(
-              padding: EdgeInsets.only(top: 16, right: 16, left: 16, bottom: 60),
-              itemCount: widget.eventDataLength +
-                  widget.helpDataLength + widget.notificationDataLength +
-                  8, //+1 for weather card + 7 for news
-              itemBuilder: (BuildContext _context, index) {
-                return Column(
-                  children: <Widget>[
-                    //Apply logic for individual data sources. Return individual list items.
-                    if (!kIsWeb)
-                      MessageHandler(),
-                    if (index == 0)
-                      Column(
-                        children: <Widget>[
-                          CurrentWeatherCard(),
-                          Padding(padding: EdgeInsets.all(11),),
-                        ],
+          padding: EdgeInsets.only(top: 16, right: 16, left: 16, bottom: 60),
+          itemCount: widget.eventDataLength +
+              widget.helpDataLength +
+              widget.notificationDataLength +
+              8, //+1 for weather card + 7 for news
+          itemBuilder: (BuildContext _context, index) {
+            return Column(
+              children: <Widget>[
+                //Apply logic for individual data sources. Return individual list items.
+                if (!kIsWeb) MessageHandler(),
+                if (index == 0)
+                  Column(
+                    children: <Widget>[
+                      CurrentWeatherCard(),
+                      Padding(
+                        padding: EdgeInsets.all(11),
                       ),
-                    if (index < 7)
-                      _buildNewsItem(context, index),
-                    if (index <= widget.helpDataLength - 1)
-                      Column(
-                        children: <Widget>[
-                          _buildHelpItem(context, widget.helpData[index]),
-                          Padding(padding: EdgeInsets.all(11),),
-                        ],
+                    ],
+                  ),
+                if (index < 7) _buildNewsItem(context, index),
+                if (index <= widget.helpDataLength - 1)
+                  Column(
+                    children: <Widget>[
+                      _buildHelpItem(context, widget.helpData[index]),
+                      Padding(
+                        padding: EdgeInsets.all(11),
                       ),
-                    if (index <= widget.eventDataLength - 1)
-                      Column(
-                        children: <Widget>[
-                          _buildListItem(context, widget.eventData[index]),
-                          Padding(padding: EdgeInsets.all(11),),
-                        ],
+                    ],
+                  ),
+                if (index <= widget.eventDataLength - 1)
+                  Column(
+                    children: <Widget>[
+                      _buildListItem(context, widget.eventData[index]),
+                      Padding(
+                        padding: EdgeInsets.all(11),
                       ),
-                      if (index <= widget.notificationDataLength - 1)
-                      Column(
-                        children: <Widget>[
-                          NotificationListTile(widget.notificationData[index]),
-                          Padding(padding: EdgeInsets.all(11),),
-                        ],
-                      )
-                  ],
-                );
-              }),
+                    ],
+                  ),
+                if (index <= widget.notificationDataLength - 1)
+                  Column(
+                    children: <Widget>[
+                      NotificationListTile(widget.notificationData[index]),
+                      Padding(
+                        padding: EdgeInsets.all(11),
+                      ),
+                    ],
+                  )
+              ],
+            );
+          }),
     );
   }
 
@@ -172,22 +192,22 @@ class _ListViewBuilderState extends State<ListViewBuilder> {
 
   Widget _buildNewsItem(BuildContext context, index) {
     return FutureBuilder(
-                      future: _future,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return Column(
-                            children: <Widget>[
-                              CurrentNewsCard(
-                                  contentId: snapshot.data[index]),
-                          Padding(padding: EdgeInsets.all(11),),
-                            ],
-                          );
-                        } else if (snapshot.hasError) {
-                          return Text("${snapshot.error}");
-                        }
-                        return CircularProgressIndicator();
-                      },
-                    );
-
+      future: _future,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Column(
+            children: <Widget>[
+              CurrentNewsCard(contentId: snapshot.data[index]),
+              Padding(
+                padding: EdgeInsets.all(11),
+              ),
+            ],
+          );
+        } else if (snapshot.hasError) {
+          return Text("${snapshot.error}");
+        }
+        return CircularProgressIndicator();
+      },
+    );
   }
 }

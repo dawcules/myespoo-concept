@@ -4,8 +4,14 @@ import 'package:http/http.dart' as http;
 import 'package:cityprog/strings/weather_strings.dart';
 import 'package:cityprog/strings/string_provider.dart' show Language;
 //import 'package:cityprog/styles/color_palette.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'dart:async';
 import 'dart:convert';
+import 'package:connectivity/connectivity.dart';
+
+  var connectOK = false;
+
+
 
 Future<Weather> fetchWeather() async {
   String language;
@@ -14,6 +20,17 @@ Future<Weather> fetchWeather() async {
   } else {
     language = 'en';
   }
+  var connectivityResult = await (Connectivity().checkConnectivity());
+
+    if (kIsWeb) {
+    connectOK = true;
+  } else {
+    if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+      connectOK = true;
+    }
+  }
+
+  if (connectOK) {
   final response = await http.get(
       'https://api.openweathermap.org/data/2.5/weather?q=Espoo&lang=$language&units=metric&appid=47b4f964d6c11c890337f2f5abe51d31');
 
@@ -22,6 +39,10 @@ Future<Weather> fetchWeather() async {
   } else {
     throw Exception('Failed to load current weather');
   }
+}
+      connectOK = false;
+
+    return Weather(temp: 0.0, weather: '', icon: '' );
 }
 
 class Weather {
@@ -74,6 +95,7 @@ class _CurrentWeatherCardState extends State<CurrentWeatherCard> {
           if (snapshot.hasData) {
             return Row(
               children: <Widget>[
+                if (connectOK)
                 Image.network(
                     'https://openweathermap.org/img/wn/${snapshot.data.icon}@2x.png'),
                 Column(
@@ -86,6 +108,7 @@ class _CurrentWeatherCardState extends State<CurrentWeatherCard> {
                         fontSize: 22,
                       ),
                     ),
+                    if (snapshot.data.weather.length > 0)
                     Text(
                       snapshot.data.weather[0].toUpperCase() +
                           snapshot.data.weather.substring(1) +

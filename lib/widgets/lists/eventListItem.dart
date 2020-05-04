@@ -1,6 +1,11 @@
 import 'package:cityprog/current_language.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:cityprog/strings/string_provider.dart' show Language;
+import 'package:connectivity/connectivity.dart';
+var connectOK = false;
+
+
 
 class EventListTile extends StatelessWidget {
   final dynamic index;
@@ -9,6 +14,8 @@ class EventListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+          connectOK = false;
+
     String cardTitle;
     String cardDesc;
     String cardLocation;
@@ -27,7 +34,19 @@ class EventListTile extends StatelessWidget {
       cardLocation = 'locationEN';
       label = 'Event';
     }
+      getConnectivityResult() async {
 
+    if (kIsWeb) {
+    connectOK = true;
+  } else {
+          var connectivityResult = getConnectivityResult();
+    if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+      connectOK = true;
+    }
+  }
+      }
+
+  getConnectivityResult();
     return Container(
       width: 750,
       decoration: BoxDecoration(
@@ -55,6 +74,7 @@ class EventListTile extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(4),
             ),
+            if (connectOK)
             ClipRRect(
               borderRadius: BorderRadius.circular(6),
               child: Image.network(
