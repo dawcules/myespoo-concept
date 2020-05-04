@@ -11,11 +11,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:connectivity/connectivity.dart';
 
+// Turn aquired Espoo News API JSON data to Card Widgets.
 
-  String label;
-  String read;
-  var connectOK = false;
-
+String label;
+String read;
+var connectOK = false;
 
 Future<News> fetchNews(String contentId) async {
   final myTransformer = Xml2Json();
@@ -40,33 +40,31 @@ Future<News> fetchNews(String contentId) async {
         'https://www.espoo.fi/api/opennc/v1/ContentLanguages($language)/Contents($contentId)/ExtendedProperties';
   }
 
-
   if (kIsWeb) {
     connectOK = true;
   } else {
-      var connectivityResult = await (Connectivity().checkConnectivity());
+    var connectivityResult = await (Connectivity().checkConnectivity());
 
-    if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
       connectOK = true;
     }
   }
 
   if (connectOK) {
-
-  final response = await http.get(url);
-  // Get XML
-  if (response.statusCode == 200) {
-    // Convert to JSON
-    myTransformer.parse(response.body);
-    var resJson = myTransformer.toGData();
-    // Proceed to map Json contents to a widget
-    return News.fromJson(json.decode(resJson));
-  } else {
-    throw Exception('Failed to load resources');
+    final response = await http.get(url);
+    // Get XML
+    if (response.statusCode == 200) {
+      // Convert to JSON
+      myTransformer.parse(response.body);
+      var resJson = myTransformer.toGData();
+      // Proceed to map Json contents to a widget
+      return News.fromJson(json.decode(resJson));
+    } else {
+      throw Exception('Failed to load resources');
+    }
   }
-}
-    return News(text: '', imgUrl: '' );
-
+  return News(text: '', imgUrl: '');
 }
 
 _launchURL(contentId) async {
@@ -91,7 +89,7 @@ class News {
     if (entryList != null && entryList.length >= 2) {
       var urlString =
           entryList[2]['content']['m\$properties']['d\$Text']['\$t'];
-          content = entryList[0]['content']['m\$properties']['d\$Text']['\$t'];
+      content = entryList[0]['content']['m\$properties']['d\$Text']['\$t'];
       print(urlString);
       if (urlString != null &&
           urlString.length > 15 &&
@@ -131,8 +129,6 @@ class _CurrentNewsCardState extends State<CurrentNewsCard> {
     futureNews = fetchNews(widget.contentId);
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -140,9 +136,6 @@ class _CurrentNewsCardState extends State<CurrentNewsCard> {
       height: 150,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        /* boxShadow: [
-          BoxShadow(color: Color.fromRGBO(84, 144, 240, 0.7), spreadRadius: 3),
-        ], */
       ),
       child: FutureBuilder<News>(
         future: futureNews,
@@ -178,11 +171,11 @@ class _CurrentNewsCardState extends State<CurrentNewsCard> {
                               ),
                               Row(
                                 children: [
-                                  Text(
-                                    read,
-                                    textAlign: TextAlign.center, style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w400)
-                                  ),
+                                  Text(read,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400)),
                                   Icon(Icons.arrow_forward)
                                 ],
                               ),
@@ -193,8 +186,16 @@ class _CurrentNewsCardState extends State<CurrentNewsCard> {
                                 height: 25,
                                 width: 100,
                                 alignment: Alignment.center,
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(25), color: AppColor.secondary.color()),
-                                child: Text(label, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white), textAlign: TextAlign.center,),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(25),
+                                    color: AppColor.secondary.color()),
+                                child: Text(
+                                  label,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                             ],
                           ),
@@ -213,9 +214,10 @@ class _CurrentNewsCardState extends State<CurrentNewsCard> {
                               errorWidget: (context, url, error) => Container(
                                 color: Colors.white,
                                 child: Image.asset(
-                                    'assets/images/smartespoo.png',
-                                    width: 170,
-                                    height: 150,),
+                                  'assets/images/smartespoo.png',
+                                  width: 170,
+                                  height: 150,
+                                ),
                               ),
                             ),
                           ),
