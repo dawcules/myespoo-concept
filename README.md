@@ -1,16 +1,10 @@
 # cityprog
 
-A new Flutter project.
+## My Espoo - concept app
 
-## Getting Started
+This project is a concept demo application for 'Smart City' project.
 
-This project is a starting point for a Flutter application.
+The app has been programmed in Dart and it uses Flutter SDK + Firebase. It can be run on Android, iOS and Web.
 
-A few resources to get you started if this is your first Flutter project:
+Android APK can be found releases and the web release on Github Pages site: https://dawcules.github.io/cityprog/#/
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

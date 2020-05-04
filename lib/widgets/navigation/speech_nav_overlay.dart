@@ -43,22 +43,6 @@ class _SpeechNavigationOverlayState extends State<SpeechNavigationOverlay> {
             onSpeechActivate: () => _onSpeechActivate(),
             onSpeehDeActivate: () => _onSpeechDeActivate(),
           ),
-          // bottomNavigationBar: BottomAppBar(
-          //   color: AppColor.secondary.color(),
-          //   notchMargin: 4,
-          //   shape: CircularNotchedRectangle(),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.end,
-          //     children: <Widget>[
-          //       IconButton(
-          //         icon: Icon(Icons.menu),
-          //         color: AppColor.whiteText.color(),
-          //         iconSize: 50,
-          //         onPressed: () => _openDrawer(context),
-          //       )
-          //     ],
-          //   ),
-          // ),
           drawer: NavigationDrawer(),
           body: Scaffold(
             body: Stack(
@@ -96,7 +80,7 @@ class _SpeechNavigationOverlayState extends State<SpeechNavigationOverlay> {
                                 borderRadius: BorderRadius.circular(420),
                               ),
                               child: FloatingActionButton(
-                                elevation: 0,
+                                  elevation: 0,
                                   backgroundColor: AppColor.secondary.color(),
                                   child: Icon(Icons.menu),
                                   onPressed: () => _openDrawer(context)),
@@ -118,22 +102,19 @@ class _SpeechNavigationOverlayState extends State<SpeechNavigationOverlay> {
             children: <Widget>[
               widget.child,
               Align(
-                alignment: Alignment.bottomCenter * 0.9,
-                child: Container(
-                  decoration: BoxDecoration(color: AppColor.primary.color()),
-                  child: IconButton(
-                    icon: Icon(Icons.menu),
-                    color: AppColor.whiteText.color(),
-                    iconSize: 50,
-                    onPressed: () => _openDrawer(context),
+                alignment: Alignment.bottomLeft,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 12.0, bottom: 12.0),
+                  child: Container(
+                    width: 80,
+                    height: 80,
+                    child: FittedBox(
+                      child: FloatingActionButton(
+                          child: Icon(Icons.list),
+                          onPressed: () => _openDrawer(context)),
+                    ),
                   ),
                 ),
-              ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: FloatingActionButton(
-                    child: Icon(Icons.list),
-                    onPressed: () => _openDrawer(context)),
               )
             ],
           ),
