@@ -9,9 +9,13 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:connectivity/connectivity.dart';
+
 
   String label;
   String read;
+  var connectOK = false;
+
 
 Future<News> fetchNews(String contentId) async {
   final myTransformer = Xml2Json();
@@ -36,6 +40,18 @@ Future<News> fetchNews(String contentId) async {
         'https://www.espoo.fi/api/opennc/v1/ContentLanguages($language)/Contents($contentId)/ExtendedProperties';
   }
 
+  var connectivityResult = await (Connectivity().checkConnectivity());
+
+  if (kIsWeb) {
+    connectOK = true;
+  } else {
+    if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+      connectOK = true;
+    }
+  }
+
+  if (connectOK) {
+
   final response = await http.get(url);
   // Get XML
   if (response.statusCode == 200) {
@@ -47,6 +63,9 @@ Future<News> fetchNews(String contentId) async {
   } else {
     throw Exception('Failed to load resources');
   }
+}
+    return News(text: '', imgUrl: '' );
+
 }
 
 _launchURL(contentId) async {
@@ -110,6 +129,8 @@ class _CurrentNewsCardState extends State<CurrentNewsCard> {
     super.initState();
     futureNews = fetchNews(widget.contentId);
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +199,7 @@ class _CurrentNewsCardState extends State<CurrentNewsCard> {
                           ),
                         ),
                         Padding(padding: EdgeInsets.all(1.5)),
-                        if (!kIsWeb)
+                        if (!kIsWeb && connectOK)
                           ClipRRect(
                             borderRadius: BorderRadius.circular(6),
                             child: CachedNetworkImage(

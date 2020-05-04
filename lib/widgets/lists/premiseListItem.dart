@@ -8,18 +8,44 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cityprog/strings/premises_strings.dart';
+import 'package:connectivity/connectivity.dart';
+
+  var connectOK = false;
+  var listCount;
+
+
 
 Future<List> fetchPremise() async {
   List items;
+
+    var connectivityResult = await (Connectivity().checkConnectivity());
+
+
+    if (kIsWeb) {
+    connectOK = true;
+  } else {
+    if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+      connectOK = true;
+    }
+  }
+
+  if (connectOK) {
+          connectOK = false;
+
 
   final response = await http
       .get('https://api.hel.fi/respa/v1/resource/?municipality=espoo');
   if (response.statusCode == 200) {
     items = json.decode(response.body)['results'];
+    listCount = 21;
     return items;
   } else {
     throw Exception('Failed to load premises');
   }
+} else {
+  listCount = 0;
+}
+return [];
 }
 
 _launchURL(contentId) async {
@@ -59,14 +85,14 @@ class _CurrentPremiseCardState extends State<CurrentPremiseCard> {
     }
     return ListView.separated(
       padding: const EdgeInsets.all(8),
-      itemCount: 21,
+      itemCount: listCount,
       itemBuilder: (BuildContext context, int index) {
         return Container(
           width: 750,
           child: FutureBuilder<List>(
             future: futurePremise,
             builder: (context, snapshot) {
-              if (snapshot.hasData) {
+              if (snapshot.hasData && listCount > 0) {
                 if (index == 20) {
                   return Padding(
                     padding: EdgeInsets.all(30),
