@@ -66,10 +66,12 @@ class News {
 
   factory News.fromJson(Map<String, dynamic> json) {
     String img;
+    String content;
     var entryList = json['feed']['entry'];
     if (entryList != null && entryList.length >= 2) {
       var urlString =
           entryList[2]['content']['m\$properties']['d\$Text']['\$t'];
+          content = entryList[0]['content']['m\$properties']['d\$Text']['\$t'];
       print(urlString);
       if (urlString != null &&
           urlString.length > 15 &&
@@ -80,11 +82,11 @@ class News {
       }
     } else {
       img = 'no pic :(';
+      content = '';
     }
 
     return News(
-      text: json['feed']['entry'][0]['content']['m\$properties']['d\$Text']
-          ['\$t'],
+      text: content,
       imgUrl: img.toString(),
     );
   }
