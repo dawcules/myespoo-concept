@@ -65,7 +65,7 @@ class _DangerDialogState extends State<DangerDialog> {
                   ],
                 ),
               ),
-            onTap: () => print("tapt dat"),
+            onTap: () => Navigator.pop(context),
             ),
           ),
         ),

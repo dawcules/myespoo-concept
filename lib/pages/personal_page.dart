@@ -29,27 +29,45 @@ class _PersonalPageState extends State<PersonalPage> {
     List<DocumentSnapshot> marketPosts;
     List<DocumentSnapshot> carpoolPosts;
     String uid = Auth().getUID();
-    Database().getAllPostsByUser(uid).then((value) => {
-          setState(() => fetchingPosts = false),
-          marketPosts = value["marketPosts"],
-          carpoolPosts = value["carpoolPosts"],
-          marketPosts.forEach((element) {
-            MarketPostData mpd = MarketPostData.fromMap(element.data);
-            setState(() => posts.add(
-                Padding(
-                  padding: const EdgeInsets.only(top: 20, right: 16, left: 16),
-                  child: MarketPostWidget(mpd, () => _onMorePressedMarketplace(mpd)),
-                )));
-          }),
-          carpoolPosts.forEach((element) {
-            CarpoolPostData cpd = CarpoolPostData.fromMap(element.data);
-            setState(() => posts
-                .add(Padding(
-                  padding: const EdgeInsets.only(top: 20, right: 16, left: 16),
-                  child: CarpoolPostWidget(cpd, () => _onMorePressedCarpool(cpd)),
-                )));
-          }),
-        });
+    Database().getAllPostsByUser(uid).then(
+          (value) => {
+            setState(() => fetchingPosts = false),
+            marketPosts = value["marketPosts"],
+            carpoolPosts = value["carpoolPosts"],
+            marketPosts.forEach((element) {
+              MarketPostData mpd = MarketPostData.fromMap(element.data);
+              setState(
+                () => posts.add(
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(top: 20, right: 16, left: 16),
+                    child: MarketPostWidget(
+                      mpd,
+                      () => _onMorePressedMarketplace(mpd),
+                    ),
+                  ),
+                ),
+              );
+            }),
+            carpoolPosts.forEach(
+              (element) {
+                CarpoolPostData cpd = CarpoolPostData.fromMap(element.data);
+                setState(
+                  () => posts.add(
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 20, right: 16, left: 16),
+                      child: CarpoolPostWidget(
+                        cpd,
+                        () => _onMorePressedCarpool(cpd),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          },
+        );
   }
 
   @override
