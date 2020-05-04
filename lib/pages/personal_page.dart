@@ -29,10 +29,8 @@ class _PersonalPageState extends State<PersonalPage> {
     List<DocumentSnapshot> marketPosts;
     List<DocumentSnapshot> carpoolPosts;
     String uid = Auth().getUID();
-    print("Fetching all posts by user: $uid");
     Database().getAllPostsByUser(uid).then((value) => {
           setState(() => fetchingPosts = false),
-          print("Fetched all posts by user: $uid"),
           marketPosts = value["marketPosts"],
           carpoolPosts = value["carpoolPosts"],
           marketPosts.forEach((element) {
@@ -81,23 +79,23 @@ class _PersonalPageState extends State<PersonalPage> {
                   Padding(padding: EdgeInsets.all(8)),
                   Row(
                     children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: UserInfoColumn(
-                          name: _user.displayName,
-                          citizenPoints: _citizenPoints,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: UserInfoColumn(
+                            name: _user.displayName,
+                            citizenPoints: _citizenPoints,
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 16),
-                  ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.only(right: 16, left: 16),
                         child: Text(
                           LocalizedWidgetStrings.yourActivityToLocalized(),
                           style: TextStyle(
