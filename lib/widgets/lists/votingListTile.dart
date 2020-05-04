@@ -67,7 +67,7 @@ class VotingListTile extends StatelessWidget {
                
           ],
         ),
-        !hasAlreadyVoted(index) ? Row(
+        !update(index) ? Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [ 
@@ -77,7 +77,7 @@ class VotingListTile extends StatelessWidget {
         ]
         ),      
     ),
-    );
+    );// : SizedBox();
   }
 }
 
