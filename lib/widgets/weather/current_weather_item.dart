@@ -20,11 +20,12 @@ Future<Weather> fetchWeather() async {
   } else {
     language = 'en';
   }
-  var connectivityResult = await (Connectivity().checkConnectivity());
 
     if (kIsWeb) {
     connectOK = true;
   } else {
+      var connectivityResult = await (Connectivity().checkConnectivity());
+
     if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
       connectOK = true;
     }
