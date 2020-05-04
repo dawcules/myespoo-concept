@@ -8,11 +8,12 @@ import 'package:flutter/material.dart';
 class StreamBuilderVoting extends StatelessWidget {
   //Tähän siis sisään collection mikä näytetään
   final myQuery;
-  final voteFor;
-  final voteAgainst;
-  final hasVoted;
+  final Function voteFor;
+  final Function voteAgainst;
+  final Function hasVoted;
+  final Function update;
 
-  StreamBuilderVoting({this.myQuery, this.voteFor, this.voteAgainst,this.hasVoted});
+  StreamBuilderVoting({this.myQuery, this.voteFor, this.voteAgainst,this.hasVoted, this.update});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class StreamBuilderVoting extends StatelessWidget {
           stream: myQuery,
           builder: (context, snapshot) {
             if (!snapshot.hasData) return SliverToBoxAdapter(child: Text('Loading..'),);
-            return VotingSliverListViewBuilder(snapshot.data.documents, voteFor, voteAgainst, hasVoted);
+            return VotingSliverListViewBuilder(snapshot.data.documents, voteFor, voteAgainst, hasVoted, update);
           });
   }
 }
@@ -31,21 +32,27 @@ class VotingSliverListViewBuilder extends StatelessWidget {
   final Function voteFor;
   final Function voteAgainst;
   final Function hasVoted;
+  final Function update;
 
-  VotingSliverListViewBuilder(this.queryData,this.voteFor,this.voteAgainst, this.hasVoted);
+  VotingSliverListViewBuilder(this.queryData,this.voteFor,this.voteAgainst, this.hasVoted, this.update);
 
   @override
   Widget build(BuildContext context) {
     return SliverList(
                   delegate: SliverChildBuilderDelegate((context, index) {
-                    return _buildListItem(context, queryData[index],voteFor,voteAgainst,hasVoted);
+                    return Padding(padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  child:Column(
+                  children: <Widget>[
+                   _buildListItem(context, queryData[index],voteFor,voteAgainst,hasVoted, update),
+                  Divider(),
+                  ],),);
                   },
                   childCount: queryData.length,
                   ),
               );
   }
 
-  Widget _buildListItem(BuildContext context, index, voteFor, voteAgainst,hasVoted) {
-    return VotingListTile(index: index, voteFor: voteFor, voteAgainst: voteAgainst,hasAlreadyVoted: hasVoted,);
+  Widget _buildListItem(BuildContext context, index, voteFor, voteAgainst,hasVoted, update) {
+    return VotingListTile(index: index, voteFor: voteFor, voteAgainst: voteAgainst,hasAlreadyVoted: hasVoted, update: update);
   }
 }

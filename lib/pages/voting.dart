@@ -29,6 +29,10 @@ class _VotingState extends State<VotingPage> {
      final hasVoted = Database().checkForVoted(index);
      return hasVoted;
   }
+  void _update(){
+    setState(() {     
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,19 +44,18 @@ class _VotingState extends State<VotingPage> {
         slivers: <Widget>[
         SliverAppBar(
           //pinned: true,
-          floating: false,
+          floating: true,
           expandedHeight: heigth / 4,
           backgroundColor: Colors.white,
           flexibleSpace: FlexibleSpaceBar(
             title: Text(VotingStrings.headerToLocalized(), style: TextStyle(color: AppColor.secondary.color()),),
             background: Stack(children: <Widget>[
-                Text('Slivermenu', style: TextStyle(color: AppColor.whiteText.color()),),
                 //kIsWeb ? SizedBox(height: 200,width: 200) : BackgroundWidget(heigth: heigth/3, width: width+30, imageUrl: "assets/images/backgroundtesting.png",),
                 kIsWeb ? BackgroundWidget(top: 200, heigth: 100, width: 150, imageUrl: "assets/images/smartespoo.png",) : BackgroundWidget(top: 50 , heigth: heigth/7, width: width/2.8, imageUrl: "assets/images/smartespoo.png",)
             ],),
           ),
         ),
-        StreamBuilderVoting(myQuery: Database().getCollection("voting"), voteFor: _voteFor, voteAgainst: _voteAgainst, hasVoted: _hasVoted),
+        StreamBuilderVoting(myQuery: Database().getCollection("voting"), voteFor: _voteFor, voteAgainst: _voteAgainst, hasVoted: _hasVoted, update: _update),
   ],
     ),
     );

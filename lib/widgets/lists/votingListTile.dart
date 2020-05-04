@@ -9,7 +9,8 @@ class VotingListTile extends StatelessWidget {
   final dynamic index;
   final Function voteFor;
   final Function voteAgainst;
-  VotingListTile({this.index, this.voteFor, this.voteAgainst, this.hasAlreadyVoted});
+  final Function update;
+  VotingListTile({this.index, this.voteFor, this.voteAgainst, this.hasAlreadyVoted, this.update});
 
   @override
   Widget build(BuildContext context) {

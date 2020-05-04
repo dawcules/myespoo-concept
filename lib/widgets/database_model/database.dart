@@ -346,6 +346,7 @@ lähinnä vaan tarpeellinen esim, Jonkun tapahtuman/postauksen tykkäysten mää
         {
           'for': FieldValue.increment(number),
           'alreadyVoted': FieldValue.arrayUnion([Auth().getUID()]),
+          'votedFor': FieldValue.arrayUnion([{Auth().getUID() : 0}]),
         }
       
       );
@@ -361,9 +362,11 @@ lähinnä vaan tarpeellinen esim, Jonkun tapahtuman/postauksen tykkäysten mää
         if(doc['alreadyVoted'].contains(Auth().getUID())){
           print("already voted");
         }else{
+  
         await _db.collection("voting").document(document.documentID).updateData(
         {
           'against': FieldValue.increment(number),
+          'votedFor': FieldValue.arrayUnion([{Auth().getUID() : 1}]),
           'alreadyVoted': FieldValue.arrayUnion([Auth().getUID()]),
         }
       
@@ -374,21 +377,24 @@ lähinnä vaan tarpeellinen esim, Jonkun tapahtuman/postauksen tykkäysten mää
   );
   }
   bool checkForVoted(document) {
-      _db.collection("voting").document(document.documentID).get().then((DocumentSnapshot mySnapshot) async{
+      _db.collection("voting").document(document.documentID).get().then((DocumentSnapshot mySnapshot) {
       final doc = mySnapshot.data;
-      if(doc != null){
-        if(doc['alreadyVoted'].contains(Auth().getUID())){
+      if(doc['alreadyVoted'].contains(Auth().getUID())){
+          print("RETURNING TRUE FOR VOTES");
          return true;
          }else{
+            print("RETURNING FALSE FOR VOTES");
            return false;
          }
-    }
+    }); 
+    print("RETURNING FALSE FOR VOTES");
     return false;
-  });
-   return false;
 }
 Stream<QuerySnapshot> getPublicEvents() {
     return _db.collection("PublicEvents").document("Events").collection("Events").snapshots();
 }
+Stream<QuerySnapshot> getVotes(String collection) {
+    return _db.collection("voting").where("alreadyVoted", arrayContains: Auth().getUID()).snapshots();
+  }
 
 }
