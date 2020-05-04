@@ -31,11 +31,12 @@ class StreamBuilderHealth extends StatelessWidget {
                 List<String> dateFormat = cardDate[0].split('-');
                 List<String> cardTime = cardDate[1].split(':');
                   return Material(
-                    elevation: 5,
+                    elevation: 8,
+                    borderRadius: BorderRadius.circular(10),
                     child: Center(
                         child: Column(
                           children: <Widget>[
-                            Padding(padding: EdgeInsets.only(top: 8.0)),
+                            Padding(padding: EdgeInsets.all(8.0)),
                             Text(
                               content[index]['typeFI'],
                               style: TextStyle(fontSize: 20),
