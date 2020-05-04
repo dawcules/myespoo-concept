@@ -1,11 +1,7 @@
-//import 'package:cityprog/strings/voting_strings.dart';
-//import 'package:cityprog/styles/color_palette.dart';
 import 'package:cityprog/strings/voting_strings.dart';
 import 'package:cityprog/styles/color_palette.dart';
-import 'package:cityprog/widgets/Backgrounds/background_widget.dart';
 import 'package:cityprog/widgets/database_model/database.dart';
 import 'package:cityprog/widgets/database_widgets/stream_builder_voting.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 
@@ -17,44 +13,52 @@ class VotingPage extends StatefulWidget {
 
 class _VotingState extends State<VotingPage> {
 
+  bool hasVoted;
   void _voteFor(index,number){
     Database().voteFor(index,number); 
-    
+    _hasVoted(index);  
   }
   void _voteAgainst(index,number){
     Database().voteAgainst(index,number);
-    
+    _hasVoted(index);  
   }
-  bool _hasVoted(index){
-     final hasVoted = Database().checkForVoted(index);
-     return hasVoted;
+  void _hasVoted(index){
+     hasVoted = Database().checkForVoted(index);
   }
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final heigth = MediaQuery.of(context).size.height;
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body:CustomScrollView(
-        slivers: <Widget>[
-        SliverAppBar(
-          //pinned: true,
-          floating: false,
-          expandedHeight: heigth / 4,
-          backgroundColor: Colors.white,
-          flexibleSpace: FlexibleSpaceBar(
-            title: Text(VotingStrings.headerToLocalized(), style: TextStyle(color: AppColor.secondary.color()),),
-            background: Stack(children: <Widget>[
-                Text('Slivermenu', style: TextStyle(color: AppColor.whiteText.color()),),
-                //kIsWeb ? SizedBox(height: 200,width: 200) : BackgroundWidget(heigth: heigth/3, width: width+30, imageUrl: "assets/images/backgroundtesting.png",),
-                kIsWeb ? BackgroundWidget(top: 200, heigth: 100, width: 150, imageUrl: "assets/images/smartespoo.png",) : BackgroundWidget(top: 50 , heigth: heigth/7, width: width/2.8, imageUrl: "assets/images/smartespoo.png",)
-            ],),
+    //final heigth = MediaQuery.of(context).size.height;
+    return  Scaffold(
+      backgroundColor: AppColor.secondary.color(),
+      //resizeToAvoidBottomInset: true,
+      body: Center(
+        child: Container(
+          height: 1000,
+          width: 750,
+        child: Column(
+        children: <Widget>[
+           Container(
+            height: 100,
+            width: width,
+            decoration: BoxDecoration(
+              color: AppColor.secondary.color(),
+            ),
+            child: SizedBox(),),
+          Container(
+            height: 50,
+            width: width,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(75.0)),
+            ),
+            child: Center(child: Text(VotingStrings.headerToLocalized(), style: TextStyle(fontFamily: "RadicalLight", fontSize: 30, color: AppColor.secondary.color()),),)),
+            Expanded(child:StreamBuilderVoting(myQuery: Database().getCollection("voting"), voteFor: _voteFor, voteAgainst: _voteAgainst, hasVoted:hasVoted),),
+          ], 
           ),
+          ),   
         ),
-        StreamBuilderVoting(myQuery: Database().getCollection("voting"), voteFor: _voteFor, voteAgainst: _voteAgainst, hasVoted: _hasVoted),
-  ],
-    ),
-    );
+     );
   }
 }

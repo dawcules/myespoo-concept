@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 class VotingListTile extends StatelessWidget {
-  final Function hasAlreadyVoted; // Database().checkForVoted(index)
+  final bool hasAlreadyVoted; // Database().checkForVoted(index)
   final dynamic index;
   final Function voteFor;
   final Function voteAgainst;
@@ -66,7 +66,7 @@ class VotingListTile extends StatelessWidget {
                
           ],
         ),
-        !hasAlreadyVoted(index) ? Row(
+        hasAlreadyVoted == false ? Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [ 
