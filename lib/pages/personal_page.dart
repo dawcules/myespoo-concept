@@ -84,23 +84,36 @@ class _PersonalPageState extends State<PersonalPage> {
   }
 
   Widget createVoteString(int vote, Map<String, dynamic> voteData) {
-    Widget voteWidget;
+    String voteWidgetString;
     switch (vote) {
       case 0:
-        voteWidget = Text("You voted yes");
+        voteWidgetString = LocalizedWidgetStrings.votedYesToLocalized();
         break;
       case 1:
-        voteWidget = Text("You voted no");
+        voteWidgetString = LocalizedWidgetStrings.votedNoToLozalized();
         break;
       default:
-        voteWidget = Text("You voted no");
+        voteWidgetString = LocalizedWidgetStrings.votedNoToLozalized();
         break;
     }
-    return Column(
-      children: <Widget>[
-        voteWidget,
-        //VotingListTile(hasAlreadyVoted: true, )
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(top: 20, right: 16, left: 16),
+      child: VotingListTile(
+        index: voteData,
+        hasAlreadyVoted: null,
+        update: () => null,
+        voteAgainst: () => null,
+        voteFor: () => null,
+        hideVoteRow: true,
+        voteRowReplacement: Text(
+          voteWidgetString,
+          style: TextStyle(
+            fontSize: 20,
+            fontFamily: "RadicalLight",
+            color: vote == 0 ? Colors.green : Colors.red
+          ),
+        ),
+      ),
     );
   }
 

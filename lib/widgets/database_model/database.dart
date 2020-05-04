@@ -406,9 +406,6 @@ lähinnä vaan tarpeellinen esim, Jonkun tapahtuman/postauksen tykkäysten mää
     print("RETURNING FALSE FOR VOTES");
     return false;
   }
-Stream<QuerySnapshot> getWhatVoted(String collection) {
-    return _db.collection("voting").where("votedFor", arrayContains: Auth().getUID()).snapshots();
-  }
 
   Stream<QuerySnapshot> getPublicEvents() {
     return _db
@@ -421,7 +418,6 @@ Stream<QuerySnapshot> getWhatVoted(String collection) {
   Future<QuerySnapshot> getVotes() {
     return _db
         .collection("voting")
-        .where("alreadyVoted", arrayContains: Auth().getUID())
-        .getDocuments();
+        .where("alreadyVoted", arrayContains: Auth().getUID()).getDocuments();
   }
 }
