@@ -29,7 +29,7 @@ class IconRouteNameRow extends StatelessWidget {
             alignment: Alignment.centerRight * 0.75,
             heightFactor: 1.4,
             child: Container(
-              width: 175,
+              width: 190,
               height: 50,
               child: Card(
                 elevation: 8,
