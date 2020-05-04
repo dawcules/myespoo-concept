@@ -13,7 +13,6 @@ class NavigationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //double multiplier = logoSizeMultiplier != null ? logoSizeMultiplier : 1;
     final width = MediaQuery.of(context).size.width;
     final heigth = MediaQuery.of(context).size.height;
     return Container(
@@ -32,13 +31,6 @@ class NavigationPage extends StatelessWidget {
                  height: heigth / 6,
                  child: Stack(
                    children: <Widget>[
-                     /*kIsWeb
-                         ? SizedBox(height: 200, width: 200)
-                         : BackgroundWidget(
-                             heigth: heigth / 4,
-                             width: width + 30,
-                             imageUrl: "assets/images/backgroundtesting.png",
-                           ),*/
                      kIsWeb
                          ? BackgroundWidget(
                              top: 300,
@@ -54,7 +46,6 @@ class NavigationPage extends StatelessWidget {
                    ],
                  ),
                ),
-              //Padding(padding: EdgeInsets.all(16),),
               Padding(
                 padding: const EdgeInsets.only(left: 8, right: 8),
                 child: generateNavigationButtons(context),
