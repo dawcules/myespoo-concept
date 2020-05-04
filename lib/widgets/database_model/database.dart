@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 
@@ -33,7 +32,8 @@ class Database {
 
   // Haetaan kaikki apupalveluilmoitukset
   Stream<QuerySnapshot> getHelps() {
-    return _db.collection('Services')
+    return _db
+        .collection('Services')
         .document('Helper')
         .collection('Service')
         .document('Receiver')
@@ -41,19 +41,17 @@ class Database {
         .snapshots();
   }
 
-   Future<void> helpSignUp(user)async {
-      await _db.collection("Services")
-      .document('Helper')
-      .collection('Service')
-      .document('Helper')
-      .collection('Helpers')
-      .add(
-       {
-       'user':user,
-      }
-  );
+  Future<void> helpSignUp(user) async {
+    await _db
+        .collection("Services")
+        .document('Helper')
+        .collection('Service')
+        .document('Helper')
+        .collection('Helpers')
+        .add({
+      'user': user,
+    });
   }
-  
 
   Stream<QuerySnapshot> getHealth() {
     return _db
@@ -249,7 +247,7 @@ lähinnä vaan tarpeellinen esim, Jonkun tapahtuman/postauksen tykkäysten mää
         .catchError((onError) => {callback(null, true)});
   }
 
-    void newHelperPost({
+  void newHelperPost({
     @required Map<String, dynamic> post,
     @required String document,
     @required String collection,
@@ -327,77 +325,99 @@ lähinnä vaan tarpeellinen esim, Jonkun tapahtuman/postauksen tykkäysten mää
     QuerySnapshot marketFree = await getMarketPostsByUid(uid, "Free");
     QuerySnapshot marketBuying = await getMarketPostsByUid(uid, "Buying");
     QuerySnapshot marketSelling = await getMarketPostsByUid(uid, "Selling");
+    QuerySnapshot votes = await getVotes();
     Map<String, dynamic> allPosts = {
       "carpoolPosts": carpoolNeeding.documents + carpoolOffering.documents,
       "marketPosts": marketFree.documents +
           marketBuying.documents +
           marketSelling.documents,
+      "votes": votes.documents,
     };
     return allPosts;
   }
-   Future<void> voteFor(document,number)async {
-      await _db.collection("voting").document(document.documentID).get().then((DocumentSnapshot mySnapshot) async{
+
+  Future<void> voteFor(document, number) async {
+    await _db
+        .collection("voting")
+        .document(document.documentID)
+        .get()
+        .then((DocumentSnapshot mySnapshot) async {
       final doc = mySnapshot.data;
-      if(doc != null){
-        if(doc['alreadyVoted'].contains(Auth().getUID())){
+      if (doc != null) {
+        if (doc['alreadyVoted'].contains(Auth().getUID())) {
           print("already voted");
-        }else{
-        await _db.collection("voting").document(document.documentID).updateData(
-        {
-          'for': FieldValue.increment(number),
-          'alreadyVoted': FieldValue.arrayUnion([Auth().getUID()]),
-          'votedFor': FieldValue.arrayUnion([{Auth().getUID() : 0}]),
+        } else {
+          await _db
+              .collection("voting")
+              .document(document.documentID)
+              .updateData({
+            'for': FieldValue.increment(number),
+            'alreadyVoted': FieldValue.arrayUnion([Auth().getUID()]),
+            'votedFor': FieldValue.arrayUnion([
+              {Auth().getUID(): 0}
+            ]),
+          });
         }
-      
-      );
       }
-      }
-      }
-  );
-  }
-  Future<void> voteAgainst(document,number)async {
-      await _db.collection("voting").document(document.documentID).get().then((DocumentSnapshot mySnapshot) async{
-      final doc = mySnapshot.data;
-      if(doc != null){
-        if(doc['alreadyVoted'].contains(Auth().getUID())){
-          print("already voted");
-        }else{
-  
-        await _db.collection("voting").document(document.documentID).updateData(
-        {
-          'against': FieldValue.increment(number),
-          'votedFor': FieldValue.arrayUnion([{Auth().getUID() : 1}]),
-          'alreadyVoted': FieldValue.arrayUnion([Auth().getUID()]),
-        }
-      
-      );
-      }
-      }
-      }
-  );
-  }
-  bool checkForVoted(document) {
-      _db.collection("voting").document(document.documentID).get().then((DocumentSnapshot mySnapshot) {
-      final doc = mySnapshot.data;
-      if(doc['alreadyVoted'].contains(Auth().getUID())){
-          print("RETURNING TRUE FOR VOTES");
-         return true;
-         }else{
-            print("RETURNING FALSE FOR VOTES");
-           return false;
-         }
-    }); 
-    print("RETURNING FALSE FOR VOTES");
-    return false;
-}
-Stream<QuerySnapshot> getPublicEvents() {
-    return _db.collection("PublicEvents").document("Events").collection("Events").snapshots();
-}
-Stream<QuerySnapshot> getVotes(String collection) {
-    return _db.collection("voting").where("alreadyVoted", arrayContains: Auth().getUID()).snapshots();
-  }
-Stream<QuerySnapshot> getWhatVoted(String collection) {
-    return _db.collection("voting").where("votedFor", arrayContains: Auth().getUID()).snapshots();
+    });
   }
 
+  Future<void> voteAgainst(document, number) async {
+    await _db
+        .collection("voting")
+        .document(document.documentID)
+        .get()
+        .then((DocumentSnapshot mySnapshot) async {
+      final doc = mySnapshot.data;
+      if (doc != null) {
+        if (doc['alreadyVoted'].contains(Auth().getUID())) {
+          print("already voted");
+        } else {
+          await _db
+              .collection("voting")
+              .document(document.documentID)
+              .updateData({
+            'against': FieldValue.increment(number),
+            'votedFor': FieldValue.arrayUnion([
+              {Auth().getUID(): 1}
+            ]),
+            'alreadyVoted': FieldValue.arrayUnion([Auth().getUID()]),
+          });
+        }
+      }
+    });
+  }
+
+  bool checkForVoted(document) {
+    _db
+        .collection("voting")
+        .document(document.documentID)
+        .get()
+        .then((DocumentSnapshot mySnapshot) {
+      final doc = mySnapshot.data;
+      if (doc['alreadyVoted'].contains(Auth().getUID())) {
+        print("RETURNING TRUE FOR VOTES");
+        return true;
+      } else {
+        print("RETURNING FALSE FOR VOTES");
+        return false;
+      }
+    });
+    print("RETURNING FALSE FOR VOTES");
+    return false;
+  }
+
+  Stream<QuerySnapshot> getPublicEvents() {
+    return _db
+        .collection("PublicEvents")
+        .document("Events")
+        .collection("Events")
+        .snapshots();
+  }
+
+  Future<QuerySnapshot> getVotes() {
+    return _db
+        .collection("voting")
+        .where("alreadyVoted", arrayContains: Auth().getUID()).getDocuments();
+  }
 }

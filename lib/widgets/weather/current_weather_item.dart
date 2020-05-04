@@ -9,9 +9,9 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:connectivity/connectivity.dart';
 
-  var connectOK = false;
+// Fetch and display current local weather. Used by general feed stream builder
 
-
+var connectOK = false;
 
 Future<Weather> fetchWeather() async {
   String language;
@@ -21,29 +21,30 @@ Future<Weather> fetchWeather() async {
     language = 'en';
   }
 
-    if (kIsWeb) {
+  if (kIsWeb) {
     connectOK = true;
   } else {
-      var connectivityResult = await (Connectivity().checkConnectivity());
+    var connectivityResult = await (Connectivity().checkConnectivity());
 
-    if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
       connectOK = true;
     }
   }
 
   if (connectOK) {
-  final response = await http.get(
-      'https://api.openweathermap.org/data/2.5/weather?q=Espoo&lang=$language&units=metric&appid=47b4f964d6c11c890337f2f5abe51d31');
+    final response = await http.get(
+        'https://api.openweathermap.org/data/2.5/weather?q=Espoo&lang=$language&units=metric&appid=47b4f964d6c11c890337f2f5abe51d31');
 
-  if (response.statusCode == 200) {
-    return Weather.fromJson(json.decode(response.body));
-  } else {
-    throw Exception('Failed to load current weather');
+    if (response.statusCode == 200) {
+      return Weather.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load current weather');
+    }
   }
-}
-      connectOK = false;
+  connectOK = false;
 
-    return Weather(temp: 0.0, weather: '', icon: '' );
+  return Weather(temp: 0.0, weather: '', icon: '');
 }
 
 class Weather {
@@ -97,8 +98,8 @@ class _CurrentWeatherCardState extends State<CurrentWeatherCard> {
             return Row(
               children: <Widget>[
                 if (connectOK)
-                Image.network(
-                    'https://openweathermap.org/img/wn/${snapshot.data.icon}@2x.png'),
+                  Image.network(
+                      'https://openweathermap.org/img/wn/${snapshot.data.icon}@2x.png'),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
@@ -110,15 +111,15 @@ class _CurrentWeatherCardState extends State<CurrentWeatherCard> {
                       ),
                     ),
                     if (snapshot.data.weather.length > 0)
-                    Text(
-                      snapshot.data.weather[0].toUpperCase() +
-                          snapshot.data.weather.substring(1) +
-                          ', ' +
-                          snapshot.data.temp.toInt().toString() +
-                          '°C',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
-                    ),
+                      Text(
+                        snapshot.data.weather[0].toUpperCase() +
+                            snapshot.data.weather.substring(1) +
+                            ', ' +
+                            snapshot.data.temp.toInt().toString() +
+                            '°C',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w400),
+                      ),
                   ],
                 ),
               ],

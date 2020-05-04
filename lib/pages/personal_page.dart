@@ -5,6 +5,7 @@ import 'package:cityprog/styles/color_palette.dart';
 import 'package:cityprog/widgets/columns/user_info_column.dart';
 import 'package:cityprog/widgets/database_model/auth.dart';
 import 'package:cityprog/widgets/database_model/database.dart';
+import 'package:cityprog/widgets/lists/votingListTile.dart';
 import 'package:cityprog/widgets/posts/carpool_post.dart';
 import 'package:cityprog/widgets/posts/carpool_post_modal.dart';
 import 'package:cityprog/widgets/posts/community_post_modal.dart';
@@ -28,12 +29,14 @@ class _PersonalPageState extends State<PersonalPage> {
   void _getUserPosts() async {
     List<DocumentSnapshot> marketPosts;
     List<DocumentSnapshot> carpoolPosts;
+    List<DocumentSnapshot> votes;
     String uid = Auth().getUID();
     Database().getAllPostsByUser(uid).then(
           (value) => {
             setState(() => fetchingPosts = false),
             marketPosts = value["marketPosts"],
             carpoolPosts = value["carpoolPosts"],
+            votes = value["votes"],
             marketPosts.forEach((element) {
               MarketPostData mpd = MarketPostData.fromMap(element.data);
               setState(
@@ -66,8 +69,52 @@ class _PersonalPageState extends State<PersonalPage> {
                 );
               },
             ),
+            votes.forEach((element) {
+              print(element.data["votedFor"]);
+              element.data["votedFor"].forEach((it) => {
+                    if (it[Auth().getUID()] != null)
+                      {
+                        setState(() => posts.add(createVoteString(
+                            it[Auth().getUID()], element.data)))
+                      }
+                  });
+            })
           },
         );
+  }
+
+  Widget createVoteString(int vote, Map<String, dynamic> voteData) {
+    String voteWidgetString;
+    switch (vote) {
+      case 0:
+        voteWidgetString = LocalizedWidgetStrings.votedYesToLocalized();
+        break;
+      case 1:
+        voteWidgetString = LocalizedWidgetStrings.votedNoToLozalized();
+        break;
+      default:
+        voteWidgetString = LocalizedWidgetStrings.votedNoToLozalized();
+        break;
+    }
+    return Padding(
+      padding: const EdgeInsets.only(top: 20, right: 16, left: 16),
+      child: VotingListTile(
+        index: voteData,
+        hasAlreadyVoted: null,
+        update: () => null,
+        voteAgainst: () => null,
+        voteFor: () => null,
+        hideVoteRow: true,
+        voteRowReplacement: Text(
+          voteWidgetString,
+          style: TextStyle(
+            fontSize: 20,
+            fontFamily: "RadicalLight",
+            color: vote == 0 ? Colors.green : Colors.red
+          ),
+        ),
+      ),
+    );
   }
 
   @override

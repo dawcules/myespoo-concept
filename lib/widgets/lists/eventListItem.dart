@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:cityprog/strings/string_provider.dart' show Language;
 import 'package:connectivity/connectivity.dart';
+
 var connectOK = false;
-
-
 
 class EventListTile extends StatefulWidget {
   final dynamic index;
@@ -17,12 +16,11 @@ class EventListTile extends StatefulWidget {
 }
 
 class _EventListTileState extends State<EventListTile> {
-
-   @override
-    void initState() { 
-      connectOK = false;
-      super.initState();
-    }
+  @override
+  void initState() {
+    connectOK = false;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +30,6 @@ class _EventListTileState extends State<EventListTile> {
     String label;
     List<String> cardDate = widget.index['date'].toDate().toString().split(' ');
     List<String> cardTime = cardDate[1].split(':');
-    //String cardDate = index['date'].toDate().toString().split(' ') as String;
     if (CurrentLanguage.value == Language.FI) {
       cardTitle = 'nameFI';
       cardDesc = 'descFI';
@@ -44,26 +41,23 @@ class _EventListTileState extends State<EventListTile> {
       cardLocation = 'locationEN';
       label = 'Event';
     }
-      getConnectivityResult() async {
-
-    if (kIsWeb) {
-    connectOK = true;
-  } else {
+    getConnectivityResult() async {
+      if (kIsWeb) {
+        connectOK = true;
+      } else {
         var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
-      connectOK = true;
-    }
-  }
+        if (connectivityResult == ConnectivityResult.mobile ||
+            connectivityResult == ConnectivityResult.wifi) {
+          connectOK = true;
+        }
       }
+    }
 
-  getConnectivityResult();
+    getConnectivityResult();
     return Container(
       width: 750,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        /* boxShadow: [
-          BoxShadow(color: Color.fromRGBO(92, 219, 122, 0.7), spreadRadius: 3),
-        ], */
       ),
       child: Material(
         elevation: 8,
@@ -85,14 +79,14 @@ class _EventListTileState extends State<EventListTile> {
               padding: EdgeInsets.all(4),
             ),
             if (connectOK)
-            ClipRRect(
-              borderRadius: BorderRadius.circular(6),
-              child: Image.network(
-                'https://i.picsum.photos/id/${widget.index['img']}/650/350.jpg',
-                height: 200,
-                fit: BoxFit.fitHeight,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(6),
+                child: Image.network(
+                  'https://i.picsum.photos/id/${widget.index['img']}/650/350.jpg',
+                  height: 200,
+                  fit: BoxFit.fitHeight,
+                ),
               ),
-            ),
             Padding(
               padding: EdgeInsets.all(4),
             ),

@@ -6,6 +6,8 @@ import 'package:cityprog/widgets/routes/zoom_route.dart';
 import 'package:cityprog/pages/community_help_request.dart';
 import 'package:cityprog/pages/community_help_sign_page.dart';
 
+// Main page for community help request features
+
 class CommunityHelpMain extends StatefulWidget {
   @override
   _CommunityHelpMainState createState() => _CommunityHelpMainState();
@@ -59,7 +61,6 @@ class _CommunityHelpMainState extends State<CommunityHelpMain> {
                         RaisedButton(
                           color: AppColor.button.color(),
                           onPressed: () {
-                            //Navigator.of(context).pushNamed('/communityHelpSign');
                             Navigator.push(context,
                                 ZoomRoute(page: CommunityHelpRequest()));
                           },
@@ -84,7 +85,6 @@ class _CommunityHelpMainState extends State<CommunityHelpMain> {
                         RaisedButton(
                           color: AppColor.button.color(),
                           onPressed: () {
-                            //Navigator.of(context).pushNamed('/communityHelpSign');
                             Navigator.push(
                                 context, ZoomRoute(page: CommunityHelpPage()));
                           },

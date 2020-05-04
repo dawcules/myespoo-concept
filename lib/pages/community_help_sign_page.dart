@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:cityprog/strings/community_help_strings.dart';
 import 'package:cityprog/widgets/database_model/auth.dart';
 
+// Sign Up as a volunteer -page
+
 class CommunityHelpPage extends StatefulWidget {
   @override
   _CommunityHelpPageState createState() => _CommunityHelpPageState();

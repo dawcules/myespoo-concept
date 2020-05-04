@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
-//import 'package:cityprog/widgets/lists/clickable_listview.dart';
-//import 'package:cityprog/strings/community_help_strings.dart';
 import 'package:cityprog/widgets/database_widgets/stream_builder_general.dart';
 
-class GeneralFeed extends StatefulWidget {
-  //final String _category;
+// Base widget for general feed (home page / home feed). Calls a StreamBuilder widget, which starts and build from all data sources.
 
-  //GeneralFeed(this._category);
+class GeneralFeed extends StatefulWidget {
 
   @override
   _GeneralFeedState createState() => _GeneralFeedState();
 }
 
 class _GeneralFeedState extends State<GeneralFeed> {
-  //String dropdownValue = 'Valitse kategoria';
   @override
   Widget build(BuildContext context) {
     final key = new GlobalKey<ScaffoldState>();

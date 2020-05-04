@@ -305,18 +305,52 @@ class LocalizedWidgetStrings {
         return _emergencyEN;
     }
   }
+
   //voting
-  static String voteToLocalized() {  
+  static String voteToLocalized() {
     switch (CurrentLanguage.value) {
       case Language.FI:
         return voteFI;
         break;
       case Language.EN:
-        return voteEN ;
+        return voteEN;
         break;
       default:
-        return voteEN ;
+        return voteEN;
         break;
     }
-}
+  }
+
+  static const String _votedYesFI = "You voted yes";
+  static const String _votedNoFI = "You voted no";
+  static const String _votedYesEN = "You voted yes";
+  static const String _votedNoEN = "You voted no";
+
+  static String votedYesToLocalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return _votedYesFI;
+        break;
+      case Language.EN:
+        return _votedYesEN;
+        break;
+      default:
+        return _votedYesEN;
+        break;
+    }
+  }
+
+  static String votedNoToLozalized() {
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return _votedNoFI;
+        break;
+      case Language.EN:
+        return _votedNoEN;
+        break;
+      default:
+        return _votedNoEN;
+        break;
+    }
+  }
 }
