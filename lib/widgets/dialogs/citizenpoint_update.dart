@@ -21,7 +21,7 @@ class CitizenPointUpdateDialog extends StatelessWidget {
     updateCitizenPoints();
     return AlertDialog(
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(5.0))),
+          borderRadius: BorderRadius.all(Radius.circular(10))),
       contentPadding: EdgeInsets.all(8),
       title: title ??
           RichText(

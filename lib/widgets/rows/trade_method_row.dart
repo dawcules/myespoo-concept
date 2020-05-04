@@ -6,14 +6,21 @@ class TradeMethodRow extends StatelessWidget {
   final Trading _method;
   final double fontSize;
   final double paddingAmount;
+  final BorderRadius borderRadius;
   final MainAxisAlignment mainAxisAlign;
-  const TradeMethodRow(this._method,
-      {this.fontSize, this.mainAxisAlign, this.paddingAmount});
+
+  const TradeMethodRow(
+    this._method, {
+    this.fontSize,
+    this.mainAxisAlign,
+    this.paddingAmount,
+    this.borderRadius,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      decoration: BoxDecoration(borderRadius: borderRadius ?? null),
       child: Row(
         mainAxisAlignment: mainAxisAlign ?? MainAxisAlignment.start,
         children: <Widget>[

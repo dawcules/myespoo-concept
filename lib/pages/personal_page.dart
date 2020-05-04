@@ -38,12 +38,18 @@ class _PersonalPageState extends State<PersonalPage> {
           marketPosts.forEach((element) {
             MarketPostData mpd = MarketPostData.fromMap(element.data);
             setState(() => posts.add(
-                MarketPostWidget(mpd, () => _onMorePressedMarketplace(mpd))));
+                Padding(
+                  padding: const EdgeInsets.only(top: 20, right: 16, left: 16),
+                  child: MarketPostWidget(mpd, () => _onMorePressedMarketplace(mpd)),
+                )));
           }),
           carpoolPosts.forEach((element) {
             CarpoolPostData cpd = CarpoolPostData.fromMap(element.data);
             setState(() => posts
-                .add(CarpoolPostWidget(cpd, () => _onMorePressedCarpool(cpd))));
+                .add(Padding(
+                  padding: const EdgeInsets.only(top: 20, right: 16, left: 16),
+                  child: CarpoolPostWidget(cpd, () => _onMorePressedCarpool(cpd)),
+                )));
           }),
         });
   }
