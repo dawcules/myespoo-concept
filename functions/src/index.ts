@@ -140,13 +140,13 @@ export const lookingForCarpoolInArea = functions.firestore
       const payload: admin.messaging.MessagingPayload = {
         notification: {
           title: "Kimppakyyti tarjolla!",
-          body: `Käyttäjä ${offering.user} , tarjoaa kimppakyytiä alueille ${offering.areas[0]} ja ${offering.areas[1]} aikaan: ${offering.timeOfDay}`,
+          body: `Käyttäjä ${offering.postedBy} , tarjoaa kimppakyytiä alueille ${offering.areas[0]} ja ${offering.areas[1]} aikaan: ${offering.timeOfDay}`,
           icon: 'your-icon-url',
           click_action: 'FLUTTER_NOTIFICATION_CLICK'
         },
         data: {
           title: "Kimppakyyti tarjolla!",
-          body: `Käyttäjä ${offering.user} , tarjoaa kimppakyytiä alueille ${offering.areas[0]} ja ${offering.areas[1]} aikaan: ${offering.timeOfDay}`,
+          body: `Käyttäjä ${offering.postedBy} , tarjoaa kimppakyytiä alueille ${offering.areas[0]} ja ${offering.areas[1]} aikaan: ${offering.timeOfDay}`,
           icon: 'your-icon-url',
           click_action: 'FLUTTER_NOTIFICATION_CLICK'
         }

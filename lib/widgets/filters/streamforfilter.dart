@@ -1,5 +1,4 @@
 
-import 'package:cityprog/widgets/database_model/database.dart';
 import 'package:flutter/material.dart';
 
 import 'chip_filter_stream.dart';
@@ -9,7 +8,7 @@ class StreamForFilter extends StatelessWidget {
 
   final Function onSelected;
   final selected;
-  final String myQuery;
+  final myQuery;
 
   StreamForFilter({this.onSelected, this.selected, this.myQuery});
 
@@ -17,7 +16,7 @@ class StreamForFilter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child:StreamBuilder(
-          stream: Database().getCollection(myQuery),
+          stream: myQuery,
           builder: (context, snapshot) {
             if (!snapshot.hasData) return const Text('Loading..');
             return StreamChipFilter(myQueryData: snapshot.data.documents, onSelected: onSelected, selected: selected,);

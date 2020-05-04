@@ -219,7 +219,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                             onPressed: () => _selectDate(context),
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
                             color: AppColor.button.color(),
-                            child: Text('SYNTYNYT', style: TextStyle(color: AppColor.whiteText.color(),),),
+                            child: Text(ProfileStrings.bornToLocalized(), style: TextStyle(color: AppColor.whiteText.color(),),),//TODO STRING KÄÄNNÖS
                                 ),
                           ],
                       ),                 
@@ -246,12 +246,12 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                         category: "healthcare",
                         icon: Icon(Icons.add_alert),
                         onChanged: switchStateTracker,),
-                        SizedBox(height: 20,),
-                        profileCreate.healthcareSelected != true ? SizedBox(height: 20,) : ChipFilter(onSelected: selectPicker, data: profileCreate.healthcare, selected: profileCreate.selectedHealthcare,),
+                        SizedBox(height: 20,), 
+                        profileCreate.healthcareSelected != true ? SizedBox(height: 20,) : StreamForFilter(onSelected: selectPicker, selected: profileCreate.selectedHealthcare,  myQuery: Database().getCollection("Illness"),),
                         SizedBox(height: 20,),
                         otherCondition("Other", profileCreate.selectedHealthcare) && profileCreate.healthcareSelected == true ? IconMultiInput(hint: ProfileStrings.otherMedToLocalized(), validationText: "Please insert something", icon: Icon(Icons.local_hospital),controller: ProfileCreate().otherConditionController,)  : SizedBox(height: 20,),
                       ],),),
-                info: CenteredText(text: "More information", color:  AppColor.primary.color()),
+                info: CenteredText(text: ProfileStrings.moreInfoToLocalized(), color:  AppColor.primary.color()),
               ),
                 makePage(
                 page: 4,
@@ -308,7 +308,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                         children: [
                         BodyText(text: ProfileStrings.areaToLocalized(), fontsize: 15, color: AppColor.darkText.color()),
                         SizedBox(height: 20,), 
-                        StreamForFilter(onSelected: selectPicker, selected: profileCreate.selectedCommunityAreas, myQuery: "Areas",)]
+                        StreamForFilter(onSelected: selectPicker, selected: profileCreate.selectedCommunityAreas, myQuery: Database().getCollection("Areas"),)]
                         ): SizedBox(height: 20,),
                       ],),),
                 info: CenteredText(text: ProfileStrings.moreInfoToLocalized(), color:  AppColor.primary.color()),
@@ -331,8 +331,8 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                         category: "help",
                         icon: Icon(Icons.healing),
                         onChanged: switchStateTracker,),
-                        SizedBox(height: 20,),
-                        profileCreate.helpSelected != true ? SizedBox(height: 20,) : ChipFilter(onSelected: selectPicker, data: profileCreate.help, selected: profileCreate.selectedHelp,),
+                        SizedBox(height: 20,),//StreamForFilter(onSelected: selectPicker, selected: profileCreate.selectedCommunityAreas, myQuery: "Areas",)
+                        profileCreate.helpSelected != true ? SizedBox(height: 20,) : StreamForFilter(onSelected: selectPicker, selected: profileCreate.selectedHelp, myQuery: Database().getCollection("HelpCategories"), ),
                         SizedBox(height: 20,),
                         profileCreate.helpSelected == true && profileCreate.selectedHelp.length > 0 ?
                         Column(
@@ -340,7 +340,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                         mainAxisAlignment: MainAxisAlignment.spaceAround,  
                         children: [BodyText(text: ProfileStrings.areaToLocalized(), fontsize: 15, color: AppColor.darkText.color()),
                         SizedBox(height: 20,), 
-                        StreamForFilter(onSelected: selectPicker, selected: profileCreate.selectedHelpAreas, myQuery: "Areas",)]
+                        StreamForFilter(onSelected: selectPicker, selected: profileCreate.selectedHelpAreas, myQuery: Database().getCollection("Areas"),)]
                         ): SizedBox(height: 20,),
                       ],),),
                 info: CenteredText(text: ProfileStrings.moreInfoToLocalized(), color:  AppColor.primary.color()),
@@ -364,7 +364,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                         icon: Icon(Icons.event),
                         onChanged: switchStateTracker,),
                         SizedBox(height: 20,),
-                        profileCreate.eventSelected != true ? SizedBox(height: 20,) : ChipFilter(onSelected: selectPicker, data: profileCreate.events, selected: profileCreate.selectedEvents,),
+                        profileCreate.eventSelected != true ? SizedBox(height: 20,) : StreamForFilter(onSelected: selectPicker, selected: profileCreate.selectedEvents, myQuery: Database().getPublicEvents(),),
                         SizedBox(height: 20,),
                         profileCreate.eventSelected == true && profileCreate.selectedEvents.length > 0 ?
                         Column(
@@ -372,7 +372,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                         mainAxisAlignment: MainAxisAlignment.spaceAround,  
                         children: [BodyText(text: "Areas", fontsize: 15, color: AppColor.darkText.color()),
                         SizedBox(height: 20,), 
-                        StreamForFilter(onSelected: selectPicker, selected: profileCreate.selectedEventAreas, myQuery: "Areas",)]
+                        StreamForFilter(onSelected: selectPicker, selected: profileCreate.selectedEventAreas, myQuery: Database().getCollection("Areas"),)]
                         ): SizedBox(height: 20,),
                       ],),),
                 info: CenteredText(text: ProfileStrings.moreInfoToLocalized(), color:  AppColor.primary.color()),
