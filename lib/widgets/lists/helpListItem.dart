@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cityprog/strings/community_help_strings.dart';
 
+// Create a stylized card from firebase data
+
 class HelpListTile extends StatelessWidget {
   final dynamic index;
 
@@ -11,9 +13,6 @@ class HelpListTile extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-       /*  boxShadow: [
-          BoxShadow(color: Color.fromRGBO(242, 63, 87, 0.7), spreadRadius: 3),
-        ], */
       ),
       height: 150,
       width: 750,
