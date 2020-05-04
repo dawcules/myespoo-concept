@@ -7,20 +7,30 @@ var connectOK = false;
 
 
 
-class EventListTile extends StatelessWidget {
+class EventListTile extends StatefulWidget {
   final dynamic index;
 
   EventListTile(this.index);
 
   @override
-  Widget build(BuildContext context) {
-          connectOK = false;
+  _EventListTileState createState() => _EventListTileState();
+}
 
+class _EventListTileState extends State<EventListTile> {
+
+   @override
+    void initState() { 
+      connectOK = false;
+      super.initState();
+    }
+
+  @override
+  Widget build(BuildContext context) {
     String cardTitle;
     String cardDesc;
     String cardLocation;
     String label;
-    List<String> cardDate = index['date'].toDate().toString().split(' ');
+    List<String> cardDate = widget.index['date'].toDate().toString().split(' ');
     List<String> cardTime = cardDate[1].split(':');
     //String cardDate = index['date'].toDate().toString().split(' ') as String;
     if (CurrentLanguage.value == Language.FI) {
@@ -39,7 +49,7 @@ class EventListTile extends StatelessWidget {
     if (kIsWeb) {
     connectOK = true;
   } else {
-          var connectivityResult = getConnectivityResult();
+        var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
       connectOK = true;
     }
@@ -62,12 +72,12 @@ class EventListTile extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(children: <Widget>[
             Text(
-              index[cardTitle],
+              widget.index[cardTitle],
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
               textAlign: TextAlign.center,
             ),
             Text(
-              index[cardDesc],
+              widget.index[cardDesc],
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
               textAlign: TextAlign.center,
             ),
@@ -78,7 +88,7 @@ class EventListTile extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(6),
               child: Image.network(
-                'https://i.picsum.photos/id/${index['img']}/650/350.jpg',
+                'https://i.picsum.photos/id/${widget.index['img']}/650/350.jpg',
                 height: 200,
                 fit: BoxFit.fitHeight,
               ),
@@ -86,7 +96,7 @@ class EventListTile extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(4),
             ),
-            Text(index[cardLocation] + ", " + index['area'],
+            Text(widget.index[cardLocation] + ", " + widget.index['area'],
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
             Text(cardDate[0] + ' ' + cardTime[0] + ':' + cardTime[1],
                 style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16)),

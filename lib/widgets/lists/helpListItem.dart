@@ -38,7 +38,7 @@ class HelpListTile extends StatelessWidget {
                     ),
                     Flexible(
                         child: Text(index['description'].toString(),
-                            style: TextStyle(fontSize: 18))),
+                            style: TextStyle(fontSize: 18), maxLines: 2,)),
                     Container(
                                 height: 25,
                                 width: 100,
