@@ -14,6 +14,9 @@ class LocalizedWidgetStrings {
   static String _askingFI = "Pyydetään";
   static String _carpoolFI = "Kimppakyydit";
 
+  //VOTE FI
+  static const String voteFI = "Äänestä";
+
   // Random FIN
   static String _noTitleFi = "Ei otsikkoa";
   static String _allCategoriesFI = "Kaikki kategoriat";
@@ -57,6 +60,9 @@ class LocalizedWidgetStrings {
   static String _offeringEN = "Offering";
   static String _askingEN = "Asking";
   static String _carpoolEN = "Carpool";
+
+  //Vote EN
+  static const String voteEN = "Vote";
 
   static String premisesToLocalized() {
     switch (CurrentLanguage.value) {
@@ -299,4 +305,18 @@ class LocalizedWidgetStrings {
         return _emergencyEN;
     }
   }
+  //voting
+  static String voteToLocalized() {  
+    switch (CurrentLanguage.value) {
+      case Language.FI:
+        return voteFI;
+        break;
+      case Language.EN:
+        return voteEN ;
+        break;
+      default:
+        return voteEN ;
+        break;
+    }
+}
 }

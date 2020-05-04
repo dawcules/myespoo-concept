@@ -1,8 +1,8 @@
+import 'package:cityprog/styles/color_palette.dart';
 import 'package:cityprog/widgets/database_model/database.dart';
 import 'package:cityprog/widgets/database_widgets/stream_builder_voting.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../widgets/Backgrounds/background_widget.dart';
+
 
 
 class VotingPage extends StatefulWidget {
@@ -11,12 +11,26 @@ class VotingPage extends StatefulWidget {
 }
 
 class _VotingState extends State<VotingPage> {
+
+  bool hasVoted;
+  void _voteFor(index,number){
+    Database().voteFor(index,number); 
+    _hasVoted(index);  
+  }
+  void _voteAgainst(index,number){
+    Database().voteAgainst(index,number);
+    _hasVoted(index);  
+  }
+  void _hasVoted(index){
+     hasVoted = Database().checkForVoted(index);
+  }
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final heigth = MediaQuery.of(context).size.height;
+    //final heigth = MediaQuery.of(context).size.height;
     return  Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColor.secondary.color(),
       //resizeToAvoidBottomInset: true,
       body: Center(
         child: Container(
@@ -24,17 +38,23 @@ class _VotingState extends State<VotingPage> {
           width: 750,
         child: Column(
         children: <Widget>[
-          Container(
-            height: heigth/5,
-            child: Stack(
-              children: <Widget>[
-                kIsWeb ? SizedBox(height: 200, width: 200,) : BackgroundWidget(heigth: heigth/4.5, width: width+30, imageUrl: "assets/images/backgroundtesting.png",),
-                kIsWeb ? BackgroundWidget(top: 40, heigth: 100, width: 150, imageUrl: "assets/images/smartespoo.png",) : BackgroundWidget(top:-10,heigth: heigth/5, width: width/2, imageUrl: "assets/images/backgroundmyespoo.png",)
-              ],
+           Container(
+            height: 100,
+            width: width,
+            decoration: BoxDecoration(
+              color: AppColor.secondary.color(),
             ),
-          ),
-           Expanded(child: StreamBuilderVoting(myQuery: Database().getCollection("voting"),)),
-          ] 
+            child: SizedBox(),),
+          Container(
+            height: 50,
+            width: width,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(75.0)),
+            ),
+            child: Center(child: Text("Public Voting", style: TextStyle(fontFamily: "RadicalLight", fontSize: 30, color: AppColor.secondary.color()),),)),
+            Expanded(child:StreamBuilderVoting(myQuery: Database().getCollection("voting"), voteFor: _voteFor, voteAgainst: _voteAgainst, hasVoted:hasVoted),),
+          ], 
           ),
           ),   
         ),
