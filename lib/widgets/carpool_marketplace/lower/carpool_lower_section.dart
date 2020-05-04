@@ -145,7 +145,7 @@ class _CarpoolLowerState extends State<CarpoolLower> {
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int position) {
         return Padding(
-          padding: EdgeInsets.all(8),
+          padding: EdgeInsets.only(top: 20, right: 16, left: 16),
           child: _getRow(position, context, posts),
         );
       },
