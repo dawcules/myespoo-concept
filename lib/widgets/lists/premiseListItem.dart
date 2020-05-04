@@ -10,42 +10,39 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:cityprog/strings/premises_strings.dart';
 import 'package:connectivity/connectivity.dart';
 
-  var connectOK = false;
-  var listCount = 21;
+// Fetch and display items from Espoo premises API
 
-
+var connectOK = false;
+var listCount = 21;
 
 Future<List> fetchPremise() async {
   List items;
 
-
-
-    if (kIsWeb) {
+  if (kIsWeb) {
     connectOK = true;
   } else {
-        var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
       connectOK = true;
     }
   }
 
   if (connectOK) {
-          connectOK = false;
-
-
-  final response = await http
-      .get('https://api.hel.fi/respa/v1/resource/?municipality=espoo');
-  if (response.statusCode == 200) {
-    items = json.decode(response.body)['results'];
-    listCount = 21;
-    return items;
+    connectOK = false;
+    final response = await http
+        .get('https://api.hel.fi/respa/v1/resource/?municipality=espoo');
+    if (response.statusCode == 200) {
+      items = json.decode(response.body)['results'];
+      listCount = 21;
+      return items;
+    } else {
+      throw Exception('Failed to load premises');
+    }
   } else {
-    throw Exception('Failed to load premises');
+    listCount = 0;
   }
-} else {
-  listCount = 0;
-}
-return [];
+  return [];
 }
 
 _launchURL(contentId) async {
@@ -115,20 +112,22 @@ class _CurrentPremiseCardState extends State<CurrentPremiseCard> {
                           ),
                           Text(
                             snapshot.data[index]['name'][language],
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
-              textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 22),
+                            textAlign: TextAlign.center,
                           ),
                           Text(
                             snapshot.data[index]['type']['name'][language],
-                             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w400),
                           ),
                           Padding(
                             padding: EdgeInsets.all(10),
                           ),
                           !kIsWeb
                               ? ClipRRect(
-                                borderRadius: BorderRadius.circular(6),
-                                                              child: CachedNetworkImage(
+                                  borderRadius: BorderRadius.circular(6),
+                                  child: CachedNetworkImage(
                                     imageUrl: snapshot.data[index]['images'][0]
                                             ['url'] +
                                         '?dim=350x210',
@@ -141,7 +140,7 @@ class _CurrentPremiseCardState extends State<CurrentPremiseCard> {
                                             width: 120,
                                             height: 160),
                                   ),
-                              )
+                                )
                               : Image.asset('assets/images/smartespoo.png',
                                   width: 120, height: 160),
                           Padding(
@@ -155,8 +154,9 @@ class _CurrentPremiseCardState extends State<CurrentPremiseCard> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(LocalizedPremisesStrings.infoToLocalized(), style: TextStyle(fontSize: 16)),
-                            Icon(Icons.arrow_forward)
+                              Text(LocalizedPremisesStrings.infoToLocalized(),
+                                  style: TextStyle(fontSize: 16)),
+                              Icon(Icons.arrow_forward)
                             ],
                           ),
                           Padding(

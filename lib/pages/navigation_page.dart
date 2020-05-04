@@ -121,12 +121,6 @@ class NavigationPage extends StatelessWidget {
           route: "/personal",
           routeName: NavigationStrings.personalToLocalized(),
         ),
-        //   IconRouteNameRow(
-        //   heroTag: "nav_voting",
-        //   icon: Icon(Icons.flag),
-        //   route: "/voting",
-        //   routeName: NavigationStrings.personalToLocalized(),
-        // ),
         Padding(padding: EdgeInsets.all(4)),
         IconRouteNameRow(
           heroTag: "nav_emergency",
@@ -135,12 +129,6 @@ class NavigationPage extends StatelessWidget {
           isEmergency: true,
           routeName: LocalizedWidgetStrings.emergencyToLocalized(),
         ),
-        /*       IconRouteNameRow(
-          heroTag: "nav_introduction",
-          icon: Icon(Icons.help),
-          route: "/introduction",
-          routeName: NavigationStrings.introductionToLocalized(),
-        ), */
       ],
     );
   }

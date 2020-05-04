@@ -13,19 +13,15 @@ import 'dart:convert';
 import 'package:connectivity/connectivity.dart';
 import 'package:cityprog/widgets/weather/current_weather_item.dart';
 
+// Fetch all data, create UI elements and display them on the main screen. See also general_feed.dart.
+
 var connectOK = false;
 
 class StreamBuilderGeneral extends StatelessWidget {
-  /*  final String myQuery;
-  final String category;
-  StreamBuilderGeneral({this.myQuery, this.category}); */
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        //Nest StreamBuilders for each collection. Then pass the snapshots individually to ListViewBuilder
-        // Must be replaced with profile specific calls
         child: StreamBuilder(
             stream: Database().getHelps(),
             builder: (context, snapshot1) {
@@ -75,16 +71,15 @@ class _ListViewBuilderState extends State<ListViewBuilder> {
   Future<dynamic> _future;
 
   _fetchIds() async {
-    print('TULEVAISUUS TRIGGERÖITY');
     if (kIsWeb) {
-    connectOK = true;
-  } else {
-        var connectivityResult = await (Connectivity().checkConnectivity());
-
-    if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
       connectOK = true;
+    } else {
+      var connectivityResult = await (Connectivity().checkConnectivity());
+      if (connectivityResult == ConnectivityResult.mobile ||
+          connectivityResult == ConnectivityResult.wifi) {
+        connectOK = true;
+      }
     }
-  }
     String language;
     if (CurrentLanguage.value == Language.FI) {
       language = '1';
@@ -103,20 +98,20 @@ class _ListViewBuilderState extends State<ListViewBuilder> {
     List<String> contentList20 = [];
     if (connectOK) {
       connectOK = false;
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      Map<String, dynamic> json = jsonDecode(response.body);
-      var i = 0;
-      while (i < 20) {
-        contentList20.add(json['value'][i]['ContentId'].toString());
-        i++;
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        Map<String, dynamic> json = jsonDecode(response.body);
+        var i = 0;
+        while (i < 20) {
+          contentList20.add(json['value'][i]['ContentId'].toString());
+          i++;
+        }
+        //print(contentList20);
+        return contentList20;
+      } else {
+        throw Exception('Failed to load resources');
       }
-      //print(contentList20);
-      return contentList20;
-    } else {
-      throw Exception('Failed to load resources');
     }
-  }
   }
 
   @override
@@ -138,7 +133,6 @@ class _ListViewBuilderState extends State<ListViewBuilder> {
           itemBuilder: (BuildContext _context, index) {
             return Column(
               children: <Widget>[
-                //Apply logic for individual data sources. Return individual list items.
                 if (!kIsWeb) MessageHandler(),
                 if (index == 0)
                   Column(
